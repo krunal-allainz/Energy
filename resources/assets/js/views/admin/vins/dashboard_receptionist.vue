@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-xl-12 col-12">
                 	 <!-- First Basic Table strats here-->
-                    <patientListview :action="action"></patientListview>
+                    
                 </div>
                     <!-- <timeline></timeline> -->
                 
@@ -38,11 +38,10 @@
 			}
 		},
           components: {
-            
         },
 		 mounted(){
             let vm =this;
-           if(vm.$store.state.Users.userDetails.user_type != 6){
+           if(vm.$store.state.Users.userDetails.user_type != '6'){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
           }
 		 	

@@ -54,6 +54,9 @@ import DashboardReceptionist from './views/admin/vins/dashboard_receptionist.vue
 //Hydro 
 import NominationForm from './views/admin/hydro/nomination_form.vue'
 
+//Hydro selleer Dashboard
+import dashboardSeller from './views/admin/hydro/dashboard_seller.vue'
+
 
 Vue.use(VueRouter)
 
@@ -92,6 +95,12 @@ const routes = [
                 component: DashboardReceptionist,
                 meta: { requiresAuth: true },
                 name: 'receptionist_dashboard'
+            },
+             {
+                path: '/seller-dashboard',
+                component: dashboardSeller,
+                meta: { requiresAuth: true },
+                name: 'seller-dashboard'
             },
             {
                 path: '/nomination-form',
