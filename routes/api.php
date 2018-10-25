@@ -18,8 +18,6 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login','AuthController@authenticate');
     Route::get('logout','AuthController@logout');
     Route::get('check','AuthController@check');
-
-
 });
 
 
@@ -53,6 +51,8 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
     // TODO: Move Method from web to api for Mobile App
         $api->post('user/getUserDetails', '\euro_hms\Api\Controllers\UserController@getUserDetails');
         $api->post('user/create', '\euro_hms\Api\Controllers\UserController@createUser')->name('create.users'); 
+
+         $api->post('user/getDetails', '\euro_hms\Api\Controllers\UserController@getUserDetailsByID')->name('user.getUserDetails');
 
         /*getting user details by status and type*/
         $api->post('user/getUserDetailByUserType', '\euro_hms\Api\Controllers\UserController@getUserDetailsByType');
