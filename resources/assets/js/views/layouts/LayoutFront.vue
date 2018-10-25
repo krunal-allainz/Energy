@@ -6,8 +6,8 @@
               <nav class="navbar navbar-expand-lg navbar-light">
 
                 <router-link :to="dashboardLink()" class="brand-main">
-                      <img src="/assets/img/logo.png" id="logo-desk" alt="Hydrocarbon Accounting" class="hidden-sm-down">
-                      <img src="/assets/img/logo.png" id="logo-mobile" alt="Hydrocarbon Accounting" class="hidden-md-up">
+                      <img src="/assets/img/h_energylogo.png" id="logo-desk" alt="Hydrocarbon Accounting" class="hidden-sm-down">
+                      <img src="/assets/img/h_energylogo.png" id="logo-mobile" alt="Hydrocarbon Accounting" class="hidden-md-up">
                   </router-link>
                     <H1 class="text-white bg-dark text-center mt-50">  Hydrocarbon Accounting</H1>
                   <!-- Sidebar toggle button -->
