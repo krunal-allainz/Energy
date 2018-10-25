@@ -2,15 +2,15 @@
 
 namespace euro_hms\Api\Controllers;
 
-use euro_hms\Models\Notification;
+use euro_hms\Models\ScheduleRequest;
+use euro_hms\Api\Repositories\ScheduleRepository;
 use Illuminate\Http\Request;
-use euro_hms\Api\Repositories\NotificationRepository;
 
-class NotificationController extends Controller
+class ScheduleController extends Controller
 {
 
     public function __construct(){
-        $this->notificationOBJ = new NotificationRepository();
+        $this->scheduleOBJ = new ScheduleRepository();
     }
     /**
      * Display a listing of the resource.
@@ -48,17 +48,10 @@ class NotificationController extends Controller
      *
      * 
      */
-    public function show()
+    public function show(Request $request)
     {
         //
-        $result =  $this->notificationOBJ->getTimelineData();
-
-        if($result) {
-            return ['code' => '200','data'=>$result, 'message' => 'Timeline generate successfully'];
-        } else {
-             //return ['code' => '300','patientData'=>'', 'message' => 'Record not found'];
-            return ['code' => '300','data'=>'', 'message' => 'Something went wrong'];
-        }
+      
 
     }
 
@@ -71,6 +64,8 @@ class NotificationController extends Controller
     public function edit(notification $notification)
     {
         //
+
+
     }
 
     /**
@@ -94,5 +89,23 @@ class NotificationController extends Controller
     public function destroy(notification $notification)
     {
         //
+    }
+
+
+    /**
+    *
+    **/
+    public function updateSupplierQty(){
+        
+          $result = $this->scheduleOBJ->updateSupplierQty();
+
+          if($result)
+        {
+            return ['code' => 200 ,'data'=>$result,'message'=>'update Supplier Quntity successfully.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
     }
 }

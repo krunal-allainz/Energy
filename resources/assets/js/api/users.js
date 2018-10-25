@@ -41,7 +41,6 @@ export default {
     return api.post('user/edit',{'userData' : userData , 'userId' :userId})
   },
   
-  
   //Hydro
   saveNomination(nominationData) {
     return api.post('nomination/create',{'nominationData':nominationData})
@@ -49,4 +48,7 @@ export default {
   getTimelineData(doctoreId){
       return api.post('dashboard/gettimelinedata');
   },
+  updateSuppliedQuantity(){
+      return api.post('schedule/updatesuppliedqty');
+  }
 }

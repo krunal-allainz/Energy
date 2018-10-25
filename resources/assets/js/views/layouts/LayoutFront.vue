@@ -74,8 +74,8 @@ export default {
         },
         methods:{
           dashboardLink(){
-            if(this.userType == '1'){
-              return '/';
+            if(this.userType == '7'){
+              return '/seller-dashboard';
             } 
             else if(this.userType == '6') {
               return '/buyer-dashboard';

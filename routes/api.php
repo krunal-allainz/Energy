@@ -77,6 +77,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
         $api->post('dashboard/gettimelinedata', '\euro_hms\Api\Controllers\NotificationController@show');
 
+        $api->post('schedule/updatesuppliedqty', '\euro_hms\Api\Controllers\ScheduleController@updateSupplierQty');
+       
+
 }); 
 
 

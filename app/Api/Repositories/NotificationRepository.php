@@ -1,7 +1,8 @@
-<?php namespace euro_hms\Api\Repositories;
+<?php 
+namespace euro_hms\Api\Repositories;
 
 use euro_hms\Models\User;
-use euro_hms\Models\Role;
+use euro_hms\Models\Notification;
 use DB;
 use Hash;
 

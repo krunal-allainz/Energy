@@ -1,15 +1,15 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
-use euro_hms\Models\NominationRequest;
+use Energy\Models\NominationRequest;
 use Illuminate\Http\Request;
 
 class NotminationController extends Controller
 {
 
     public function __construct(){
-        $this->notificationOBJ = new NotificationRepository();
+      //  $this->notificationOBJ = new NotificationRepository();
     }
     /**
      * Display a listing of the resource.
