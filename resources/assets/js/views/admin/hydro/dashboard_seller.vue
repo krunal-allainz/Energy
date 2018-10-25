@@ -238,6 +238,7 @@
                         </div>
                     </div>
                 </div>
+                <timeline> </timeline>
                 <div class="col-xl-4  col-12">
                     <div class="row">
                         <div class="col-xl-12 col-sm-6 col-lg-6">
@@ -875,3 +876,8 @@
 
 	</section>
 </template>
+<script >
+	
+	import timeline from './timeline.vue';
+
+</script>

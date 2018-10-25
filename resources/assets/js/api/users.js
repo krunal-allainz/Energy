@@ -46,4 +46,7 @@ export default {
   saveNomination(nominationData) {
     return api.post('nomination/create',{'nominationData':nominationData})
   },
+  getTimelineData(doctoreId){
+      return api.post('dashboard/gettimelinedata');
+  },
 }
