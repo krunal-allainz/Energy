@@ -23,7 +23,7 @@
                         <vmenu-item link="/nomination-form" icon="ti-layout">
                             &nbsp;Nomination request form
                         </vmenu-item>
-                        <vmenu-item link="/nomination-form" icon="ti-layout">
+                        <vmenu-item link="/nomination-list" icon="ti-layout">
                             &nbsp;Nomination list
                         </vmenu-item>
                          
