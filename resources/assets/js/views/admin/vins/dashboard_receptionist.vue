@@ -15,8 +15,7 @@
 </template>
 <script >
 	import User from '../../../api/users.js';
-    import patientListview from './patientList.vue';
-    import timeline from './timeline.vue';
+    
 	export default{
 		data(){
 			return {
@@ -39,16 +38,14 @@
 			}
 		},
           components: {
-            patientListview,
-            timeline
+            
         },
 		 mounted(){
             let vm =this;
-           if(vm.$store.state.Users.userDetails.user_type != '6'){
+           if(vm.$store.state.Users.userDetails.user_type != 6){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
           }
-		 	this.getPatientCounters();
-		 	this.getOPDCounters();
+		 	
 		 },
 		  methods:{
 				makePagination: function(data){
@@ -61,34 +58,7 @@
 	                this.pagination = pagination;
 	                //this.$set('pagination', pagination)
 	            },
-		  		getPatientCounters(){
-                    
-                    var vm =this;
-		  			User.getNumberOfPatient(vm.type,vm.doctor_id).then(
-		  				 (response) => {
-		  				 	this.counterData.dailyPatient = response.data.data.today;
-		  				 	this.counterData.monthlyPatient = response.data.data.month;
-		  				 },
-		  				  (error) => {	
-		  				  }
-
-		  				);
-
-		  		},
-		  		getOPDCounters(){
-                     var vm =this;
-		  			User.getOPDCounters(vm.doctor_id).then(
-		  				(response) => {
-		  					this.counterData.dailyOPD = response.data.data.today;
-		  				 	this.counterData.monthlyOPD = response.data.data.month;
-		  				 
-		  				},
-		  				(error) => {
-
-		  				}
-		  			);
-
-		  		}
+		  		
 		  },
 	}
 </script>
