@@ -1,0 +1,628 @@
+.site-header .container {
+    width: 95%;
+    max-width: 100%;
+}
+.dashboard {
+    margin-top:8%;
+    min-height:600px;
+}
+
+.btn {
+    white-space: normal;
+}
+.loader {
+    position: fixed;
+    z-index: 99999;
+    background: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.clock_result .col-md-2{
+    padding-left:0 !important;
+
+}
+.well {
+
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+.well-lg {
+  padding:24px;
+  border-radius:6px
+}
+.well-sm {
+   padding:9px;
+   border-radius:3px
+}
+ 
+//Well Blockquote
+.well blockquote{
+   border-color:#ddd;
+   border-color:rgba(0,0,0,.15)
+}
+
+.loader .circular {
+    -webkit-animation: rotate 2s linear infinite;
+    animation: rotate 2s linear infinite;
+    height: 50px;
+    width: 50px;
+}
+
+table.table-bordered ,th , td, tbody, thead, tr{
+
+  border: 1px solid #ddd !important;
+}
+
+.loader .path {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    -webkit-animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+    animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+    stroke-linecap: round;
+    stroke: #2196F3;
+}
+
+@-webkit-keyframes rotate {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35;
+    }
+    100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124;
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35;
+    }
+    100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124;
+    }
+}
+
+.modal-backdrop.show {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.icon-size-1-2 {
+    font-size: 1.2em;
+}
+
+.button.is-loading {
+    color: transparent !important;
+    pointer-events: none;
+    position: relative;
+}
+
+.button.is-loading:after {
+    -webkit-animation: spinAround 500ms infinite linear;
+    animation: spinAround 500ms infinite linear;
+    border: 2px solid #dbdbdb;
+    border-radius: 290486px;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    content: "";
+    display: block;
+    height: 1em;
+    position: relative;
+    width: 1em;
+    position: absolute;
+    left: calc(50% - (1em / 2));
+    top: calc(50% - (1em / 2));
+    position: absolute !important;
+}
+
+.site-header {
+    height:70px;
+}
+
+@-webkit-keyframes spinAround {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes spinAround {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+.delete-modal.modal-dialog {
+     max-width: 800px;
+}
+
+.brand-main img {
+    margin-top: 10px;
+}
+
+.mt-50 {
+    margin-top:-35px;
+}
+
+body > #app .header {
+    position: fixed !important;
+}
+
+.login {
+    padding-top: 6.5%;
+    padding-bottom: 2%;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: radial-gradient(ellipse at center, #5A93AF 0%, #004E74 100%);
+    overflow-y: auto;
+}
+.login-form {
+    background-color: rgba(255, 255, 255, .9);
+    border-radius: 4px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.top-buffer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mt-20 {
+    margin-top:30px;
+}
+.logout-text, logout-text:visited, logout-text:focus{
+    padding-right: 15px;
+    color: white !important;
+    width: 200px;
+    margin-top: -25px;
+    padding-bottom: 5px;
+    position: relative;
+    float: right;
+}
+.can-img {
+    display: inline-block;
+    border: 1px solid #eee;
+    
+}
+span.select2.select2-container.select2-container--default {
+    width: 100% !important;
+    display:block;
+}
+span.select2.select2-container.select2-container--default.select2-container--focus {
+    width:100% !important;
+    display:block;    
+}
+
+.fa-fw {
+    width: 1.28571429em !important;
+    text-align: center;
+}
+[class^="ti-"], [class*=" ti-"]{
+    font-family: 'themify';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: #a79292 !important;
+    border: none;
+}
+.mx-datepicker-popup{  
+    z-index : 1050 !important; 
+}  
+#receiptModal .modal-content{  
+    width : 850px; 
+}  
+#printModal .modal-content{  
+    min-width : 850px; 
+    min-height : 950px;
+    
+} 
+  #printModal .modal-content .modal-body{
+        font-size : 16px;
+        
+    }
+#printContent .address{    
+    font-size : medium;    
+}  
+#printContent table{   
+    width : 90%;   
+   
+}  
+#printContent table, th, td, tbody, thead, tr{ 
+    border : 0 !important; 
+    padding : 3px 0px !important;  
+}  
+   
+#printContent table.table-bordered, th, td, tbody, thead, tr{  
+    border : 0 !important; 
+     padding : 3px  0px !important;    
+}  
+#printContent table tr.borderTopBottom{    
+    border: 1px solid #ddd !important;border-left: 0px !important;border-right: 0px !important;    
+}  
+#printContent table tr.borderTop{  
+    border-top: 1px solid #ddd !important; 
+}  
+@media print { 
+    .modal-body {
+        position: relative;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        padding: 15px;
+    }
+    h2, .h2 {
+        font-size: 2rem;
+    }
+    .text-capitalize {
+        text-transform: capitalize !important;
+    }
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+    .text-center {
+        text-align: center !important;
+    }
+    .modal-header {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid #eceeef;
+    }
+    #receiptModal .modal-content{  
+        width : 850px; 
+    }  
+    #printModal .modal-content{  
+        min-width : 850px; 
+        min-height : 950px;
+        
+    } 
+    #printModal .modal-content .modal-body{
+        font-size : 16px;
+        line-height : 30px;
+    }
+    #printContent .address{    
+        font-size : medium;    
+    }  
+    #printContent table{   
+        width : 90%;   
+       
+    }  
+    #printContent table, th, td, tbody, thead, tr{ 
+        border : 0 !important; 
+        padding : 3px 0px !important;  
+    }  
+       
+    #printContent table.table-bordered, th, td, tbody, thead, tr{  
+        border : 0 !important; 
+         padding : 3px  0px !important;    
+    }  
+    #printContent table tr.borderTopBottom{    
+        border: 1px solid #ddd !important;border-left: 0px !important;border-right: 0px !important;    
+    }  
+    #printContent table tr.borderTop{  
+        border-top: 1px solid #ddd !important; 
+    }  
+    .printReceiptPage table, th, td, tbody, thead, tr{ 
+        border : 0 !important; 
+        padding : 3px 0px !important;  
+    }  
+   
+     table.table-bordered, th, td, tbody, thead, tr{   
+        border : 0 !important; 
+         padding : 3px  0px !important;    
+    }  
+     table tr.borderTopBottom{ 
+    border: 1px solid #ddd !important;border-left: 0px !important;border-right: 0px !important;    
+    }  
+    table tr.borderTop{    
+        border-top: 1px solid #ddd !important; 
+    }  
+    .letter-head img{
+    width:30%;
+    }
+    
+}
+span.select2-container.select2-container2-container--default.select2-container--open {
+    z-index: 9999;
+
+}
+.cov-vue-date {
+    width:100%;
+}
+
+.pain_img {
+    width:75%;
+    height:auto;
+    
+}
+
+.pain_select {
+    display: inline-block;
+    padding: 6px;
+    line-height: 22px;
+    font-size: 16px;
+    border: 2px solid red;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px;
+    border-radius: 2px;
+    color: rgb(95, 95, 95);
+    width:100%;
+    
+}
+.letter-head img{
+    width:30%;
+}
+.input-group-text {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0.45rem 0.75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+.input-group > .form-control, .input-group > .custom-select, .input-group > .custom-file {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 0;
+}
+// card css
+.wtHider,.htCore,.handsontable table.htCore,.ht_clone_top.handsontable,.handsontable .wtSpreader,.handsontable .wtHider{
+    min-width:100% !important;
+}@media(min-width:320px) and (max-width:425px) {
+    #hot-preview {
+        overflow-x: scroll;
+    }
+
+    .htMobileEditorContainer {
+        height: 76pt !important;
+    }
+
+    .htMobileEditorContainer .positionControls > div {
+        margin-top: 45px;
+        height: auto;
+    }
+
+    .htMobileEditorContainer .inputs {
+        width: 80%;
+    }
+
+    .htMobileEditorContainer .inputs textarea, .htMobileEditorContainer .positionControls {
+        width: 100%;
+    }
+}
+@media(max-width:320px)  {
+    .htMobileEditorContainer .positionControls{
+        left: -17px;
+    }
+    .htMobileEditorContainer .positionControls > div{
+        margin-left: 28px;
+        width: 7% !important;
+    }
+}
+.wtHider{
+    height: auto;
+}
+#table1 + input {
+    box-shadow     : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #428bca;
+    outline        : #428bca auto 5px;
+    outline-offset : 0;
+    border         : none;
+}
+#table1 td:focus {
+    box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #428bca;
+    outline    : #428bca auto 5px;
+}
+.fixed-table-toolbar .btn-group > .btn-group:last-child > .btn {
+    border-radius : 0;
+}
+.open > .dropdown-menu {
+    animation : none;
+}
+.table-responsive input {
+    position : relative !important;
+}
+#printModal .modal-dialog,#receiptModal .modal-dialog{
+    margin : 30px auto 30px 250px !important;
+}
+.ml-10 {
+    margin-left:10px;
+}
+input.number-with-validation:invalid {
+  color: red;
+}
+.report-painassesment{
+    float:left;
+    width:10% !important;
+    padding:0px !important;
+}
+.report-painassesment-selected{
+    float:left;
+    width:10% !important;
+    padding:0px !important;
+    line-height : 22px;
+    border :2px solid red;
+    box-shadow :rgba(0, 0, 0, 0.2) 0px 1px 3px 0px;
+    border-radius : 2px;
+    color:#5f5f5f;
+    display :inline-block;
+}
+.select2-container--open {
+    z-index:10000;
+}
+#patientDetailModal .modal-content{
+    min-width:700px;
+    max-width : 800px;
+    width : 900px;
+    height : auto;   
+}
+.report_header{margin-top:150px;}
+.report_start{
+    line-height: 17px;
+}
+.report_table_patient
+{
+    font-size: 13px;
+    line-height: 17px;
+}
+.report_space
+{
+    margin-bottom:15px;
+}
+.report_image{
+    height: 100px;
+    width: 300px;
+}
+.report_title
+{
+    font-weight:bold;
+    font-size : 15px;
+    text-align:left;
+}
+.report_details
+{
+    font-size : 14px;
+    text-align: justify;
+    line-height: 15px;
+    
+}
+.report_table th
+{
+    font-size : 13px;
+    font-style: bold;
+    text-align: left;
+}
+.report_table
+{
+    line-height: 10px;
+}
+.report_table td
+{
+    text-align: left;
+    font-size : 13px;
+}
+
+#patientDetailFormDataCaps input{
+    text-transform : uppercase;
+}
+#patientDetailFormDataCaps #consulting_dr .selection .select2-container--default .select2-selection--single .select2-selection__rendered{
+    text-transform : uppercase;
+}
+.text-uppercase{
+    text-transform : uppercase;
+}
+.w-100 {
+    width:100%;
+    height:200px;   
+}
+#printData label {
+    margin-bottom: 0px;
+}
+
+.prescription_details
+{
+    border: 1px solid #ced4da;
+    text-align:left;
+    padding: 0.45rem 0.75rem;
+    color: #495057;
+    background-color:#e9ecef;
+    border-radius: 0.25rem;
+}
+.point
+{
+    cursor:pointer;
+}
+.can-img {
+    width:100%;
+}
+.report_style[data-v-562b2494] {
+    background-color: #1e90ff;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    left: 0;
+}
+.profile-text{
+    padding-right:15px;
+    color:white !important;
+    width:135px;
+    margin-top:-25px;
+    padding-bottom:5px;
+    position:relative;
+    float:right;
+}

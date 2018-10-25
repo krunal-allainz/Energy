@@ -1,0 +1,102 @@
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.card .card-header .card-title {
+    font-size: 16px;
+    float: left;
+    margin-bottom: 0 !important;
+}
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card {
+    margin-bottom: 13px;
+    margin-top: 13px;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    line-height: 21px;
+    padding: 0 4px;
+}
+
+.card-box {
+    padding: 16px 16px 10px 16px;
+    border: 1px solid rgba(54, 64, 74, 0.19);
+    border-radius: 3px;
+    -moz-border-radius: 5px;
+    background-clip: padding-box;
+    margin-bottom: 12px;
+    background-color: #ffffff;
+}
+.widget-bg-color-icon .bg-icon {
+    height: 80px;
+    width: 80px;
+    text-align: center;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    background-clip: padding-box;
+}
+.widget-bg-color-icon .bg-icon i {
+    font-size: 40px;
+    line-height: 80px;
+}
+
+.float-left {
+    float: left !important;
+}
+.ti-eye:before {
+    content: "\e63d";
+}
+.ti-shopping-cart:before {
+    content: "\e60d";
+}
+.ti-thumb-up:before {
+    content: "\e670";
+}
+.ti-user:before {
+    content: "\e602";
+}
+.text-warning {
+    color: #f0ad4e !important;
+}
+[class^="ti-"], [class*=" ti-"] {
+    font-family: 'themify';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}

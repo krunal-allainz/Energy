@@ -1,0 +1,75 @@
+// Laraspace.scss - Bootstraps all the sass files into one
+
+@import 'variables';
+
+// Plugins
+@import '../plugins/bootstrap/scss/bootstrap';
+@import '../plugins/fontawesome/font-awesome';
+@import '../plugins/flag-icon-css-master/sass/flag-icon';
+@import '../plugins/customfonts/style';
+@import '../plugins/toastr/toastr.scss';
+@import '../plugins/bootstrap-datepicker/bootstrap-datepicker.scss';
+@import '../plugins/timepicker/timepicker.scss';
+@import "../plugins/select2/select2.scss";
+@import "../plugins/select2/select2-bootstrap.scss";
+@import "../plugins/bootstrap-magnify-master/css/bootstrap-magnify.css";
+@import "../plugins/clockpicker/clockpicker.scss";
+
+// Option Skin.
+@import 'skins/skin-tyrell';
+@import 'skins/skin-arryn';
+@import 'skins/skin-targaryen';
+@import 'skins/skin-lannister';
+@import 'skins/skin-stark';
+
+// Color
+@import 'components/colors';
+
+// Content Styles
+@import 'base';
+
+// Layouts
+@import 'layouts/layout';
+@import "layouts/layout-icon-sidebar";
+@import "layouts/layout-horizontal";
+
+//Partials
+@import 'partials/header';
+@import 'partials/sidebar';
+@import 'partials/footer';
+
+// Components
+@import 'components/forms';
+@import 'components/modal';
+@import "components/transitions";
+
+//Pages
+@import 'pages/dashboard';
+@import 'pages/login';
+@import 'pages/user-profile';
+@import 'pages/404';
+
+// Custom css
+@import 'pages/home';
+@import 'pages/tab';
+@import 'pages/modal';
+@import 'pages/user-management';
+
+//Front
+@import "front";
+
+//template
+@import "template";
+
+//timeline css 
+@import "dashboard_timeline";
+
+@import "demo";
+
+
+//Clear theme
+
+@import "clear_sass/dark/custom";
+// @import "clear_sass/dark/_header";
+// @import "clear_sass/dark/_left_menu";
+// // @import "clear_sass/dark/_right_side_bar";
