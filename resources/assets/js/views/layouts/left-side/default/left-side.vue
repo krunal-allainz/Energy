@@ -7,17 +7,6 @@
                 <div class="nav_profile">
                     <!-- <profile></profile> -->
                 </div>
-                <div v-if="userRole == 1">
-                <vmenu>
-                    
-                    <vmenu-item link="/opd_form" icon="ti-layout">
-                        &nbsp; OPD Form
-                    </vmenu-item>
-                    <vmenu-item link="/patient_list" icon="ti-layout">
-                        &nbsp; Patient List
-                    </vmenu-item>
-                </vmenu>
-                </div>
                 <div v-if="userRole == 6">
                    <vmenu>
                         <vmenu-item link="/nomination-form" icon="ti-layout">
@@ -26,18 +15,7 @@
                         <vmenu-item link="/nomination-list" icon="ti-layout">
                             &nbsp;Nomination list
                         </vmenu-item>
-                         
                     </vmenu> 
-                </div>
-                <div v-if="userRole == 7">
-                    <vmenu>
-                        <vmenu-item link="/patients_detail_form" icon="ti-layout">
-                            &nbsp; Patient detail form
-                        </vmenu-item> 
-                        <vmenu-item link="/receipt" icon="ti-layout">
-                            &nbsp; Receipt
-                        </vmenu-item>
-                    </vmenu>
                 </div>
             <vmenu>
                 <!--     <vsub-menu title="Emergeny Patient" icon="ti-layout">
