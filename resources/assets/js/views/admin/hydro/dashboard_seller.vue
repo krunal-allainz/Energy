@@ -95,7 +95,7 @@
                                 <div class="card-header panel-tabs">
                                     <ul class="nav nav-tabs nav-float" role="tablist">
                                         <li class=" text-center nav-item">
-                                            <a href="#home" class="nav-link active" role="tab" data-toggle="tab">Live Feeds</a>
+                                            <a href="#allocation" class="nav-link active" role="tab" data-toggle="tab">Live Feeds</a>
                                         </li>
                                         <li class="text-center nav-item">
                                             <a href="#profile" role="tab" data-toggle="tab" class="nav-link"><span class="d-none d-sm-block">Annual</span>
@@ -105,12 +105,10 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="tab-content">
-                                        <div class="tab-pane  active" id="home">
-                                            <div class="form-group">
-                                                <input type="checkbox" id="toggle_real" name="my-checkbox"
-                                                       data-size="small" checked>
+                                        <div class="tab-pane  active" id="allocation">
+                                            <div style="width: 50%;">
+                                                <canvas id="myChart" width="100px" height="100px"></canvas>
                                             </div>
-                                            <div id="live-chart" class="livechart-tab1 m-t-10"></div>
                                         </div>
                                         <div class="tab-pane fade" id="profile">
                                             <div class="chart-container">
@@ -875,3 +873,78 @@
 
 	</section>
 </template>
+
+<script >
+    import User from '../../../api/users.js';
+    import moment from 'moment';
+    import Chart from 'chart.js';
+
+export default {
+    name: "dashboardSeller",
+    data() {
+        return {
+            formstate: {},
+           
+        }
+    },
+    methods: {
+
+
+    },
+    mounted: function() {
+
+        var randomScalingFactor = function() {
+            return Math.round(Math.random() * 100);
+        };                    
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var config = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                    ],
+                    backgroundColor: [
+                        '#ff0000',
+                        '#00ff40',
+                        '#0040ff',
+                        '#ff6600',
+                        '#ffff00',
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    'Red',
+                    'Orqange',
+                    'Blue',
+                    'Green',
+                    'Yellow'
+                ]
+            },
+            options: {
+                responsive: true
+            }
+        };
+        window.myPie = new Chart(ctx, config);
+        setInterval(function(){
+            config.data.datasets.forEach(function(dataset) {
+                dataset.data = dataset.data.map(function() {
+                    return randomScalingFactor();
+                });
+            });
+
+            window.myPie.update();
+        },1000)
+
+
+    },
+       
+    destroyed: function() {
+
+    }
+}
+</script>

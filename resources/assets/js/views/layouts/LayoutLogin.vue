@@ -76,6 +76,8 @@ export default {
                 // this.$validator.validateAll();
                 if (!this.errors.any()) {(
                     Auth.login(this.loginData).then((response) => {
+                        console.log(response,'response');
+                        // return false;
                         if(response == 'success'){
                             Auth.check().then((res) => {
                                 var userId = Ls.get('userId');
@@ -83,12 +85,12 @@ export default {
                             })
                             setTimeout(function(){
                                 jQuery('.js-loader').addClass('d-none');
-                                
-                                if(vm.$store.state.Users.userDetails.user_type == 1){
-                                        vm.$router.push({'name':'dashboard'});
+                                console.log(vm.$store.state.Users.userDetails.user_type);
+                                if(vm.$store.state.Users.userDetails.user_type == '7'){
+                                        vm.$router.push({'name':'seller-dashboard'});
                                         
                                 }else if(vm.$store.state.Users.userDetails.user_type ==  6) {
-                                        vm.$router.push({'name':'receptionist_dashboard'});
+                                        vm.$router.push({'name':'seller-dashboard'});
 
                                 }
 
