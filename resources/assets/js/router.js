@@ -149,8 +149,11 @@ import DashboardReceptionist from './views/admin/vins/dashboard_receptionist.vue
 import DashboardNurse from './views/admin/vins/dashbord_nurse.vue'
 
 //Hydro 
-import NominationForm from './views/admin/hydro/nomination_form.vue'
+import NominationForm from './views/admin/hydro/nomination_add.vue'
+import NominationList from './views/admin/hydro/nomination_list.vue'
 
+//invoice
+import Invoice from './views/admin/hydro/invoice.vue'
 
 Vue.use(VueRouter)
 
@@ -191,10 +194,22 @@ const routes = [
                 name: 'receptionist_dashboard'
             },
             {
-                path: '/nomination-form',
+                path: '/nomination_add',
                 component: NominationForm,
                 meta: { requiresAuth: true },
-                name: 'nomination-form'
+                name: 'nomination_add'
+            },
+            {
+                path: '/nomination_list',
+                component: NominationList,
+                meta: { requiresAuth: true },
+                name: 'nomination_list'
+            },
+            {
+                path: '/invoice',
+                component: Invoice,
+                meta: { requiresAuth: true },
+                name: 'invoice'
             },
             {
                 path: 'admindashboard',

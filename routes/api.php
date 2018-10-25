@@ -409,6 +409,23 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
           //for spinelist
         $api->post('spine/getSpineList', '\euro_hms\Api\Controllers\SpineController@getSpineList');
 
+        //for nomination
+        
+        $api->post('nomination/getNominationList', '\euro_hms\Api\Controllers\NominationController@getNominationList');
+
+         //for nomination add
+        $api->post('nomination/create', '\euro_hms\Api\Controllers\NominationController@createNomination');
+
+        //for nomination details by id
+        $api->post('nomination/getNominationDetailsById', '\euro_hms\Api\Controllers\NominationController@getNominationDetailsById');
+
+         //for nomination edit
+        $api->post('nomination/edit', '\euro_hms\Api\Controllers\NominationController@editNomination');
+
+         //for nomination delete
+        $api->post('nomination/delete', '\euro_hms\Api\Controllers\NominationController@deleteNomination');
+
+
 }); 
 
 

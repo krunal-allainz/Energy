@@ -44,9 +44,9 @@
         },
 		 mounted(){
             let vm =this;
-           if(vm.$store.state.Users.userDetails.user_type != '6'){
+           /*if(vm.$store.state.Users.userDetails.user_type != '6' || vm.$store.state.Users.userDetails.user_type != '7'){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
-          }
+          }*/
 		 	this.getPatientCounters();
 		 	this.getOPDCounters();
 		 },

@@ -18,18 +18,21 @@
                     </vmenu-item>
                 </vmenu>
                 </div>
-                <div v-if="userRole == 6">
+                <div v-if="userRole == 6 || userRole == 7">
                    <vmenu>
-                        <vmenu-item link="/nomination-form" icon="ti-layout">
-                            &nbsp;Nomination request form
-                        </vmenu-item>
-                        <vmenu-item link="/nomination-form" icon="ti-layout">
+                       <!--  <vmenu-item link="/nomination-form" icon="ti-layout">
+                           &nbsp;Nomination request form
+                       </vmenu-item> -->
+                        <vmenu-item link="/nomination_list" icon="ti-layout">
                             &nbsp;Nomination list
+                        </vmenu-item>
+                         <vmenu-item link="/invoice" icon="ti-layout">
+                            &nbsp;Invoice
                         </vmenu-item>
                          
                     </vmenu> 
                 </div>
-                <div v-if="userRole == 7">
+                <div v-if="userRole == 0">
                     <vmenu>
                         <vmenu-item link="/patients_detail_form" icon="ti-layout">
                             &nbsp; Patient detail form

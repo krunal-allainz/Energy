@@ -13,6 +13,9 @@ import Bodyparts from './modules/bodyparts'
 import Qualifiers from './modules/qualifiers'
 import SpecialRequest from './modules/specialRequest'
 
+//for nomination
+import Nomination from './modules/nomination'
+
 import createPersistedState from 'vuex-persistedstate'
 // import VuexPersist from 'vuex-persist';
 
@@ -51,6 +54,7 @@ export default new Vuex.Store({
     Bodyparts,
     Qualifiers,
     SpecialRequest,
+    Nomination,
     // Pitch,
     // Users
   },

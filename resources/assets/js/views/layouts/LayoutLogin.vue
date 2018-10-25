@@ -91,6 +91,10 @@ export default {
                                         vm.$router.push({'name':'receptionist_dashboard'});
 
                                 }
+                                else if(vm.$store.state.Users.userDetails.user_type ==  7) {
+                                        vm.$router.push({'name':'receptionist_dashboard'});
+
+                                }
 
                             },2000)    
                         }else {
