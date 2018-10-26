@@ -1,10 +1,10 @@
 <?php
 
-namespace Energy\Api\Controllers;
+namespace euro_hms\Api\Controllers;
 
 
 use Illuminate\Routing\Controller;
-use Energy\Models\NominationRequest;
+use euro_hms\Models\NominationRequest;
 use Illuminate\Http\Request;
 use euro_hms\Models\User;
 use euro_hms\Models\Nomination;
@@ -99,9 +99,13 @@ class NominationController extends Controller
     public function editNomination(Request $request)
     {
         $edit_Nomination=$this->nomObj->edit($request);
-        if($edit_Nomination)
+        if($edit_Nomination['code']==200)
         {
             return ['code' => 200 ,'data'=>$edit_Nomination,'message'=>'Nomination successfully edited.'];
+        }
+        else if($edit_Nomination['code']==301)
+        {
+            return ['code' => 301 ,'data'=>$edit_Nomination,'message'=>'Nomination successfully edited.'];
         }
         else
         {

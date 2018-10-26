@@ -5,11 +5,15 @@ use DB;
 use euro_hms\Models\Nomination;
 use Excel;
 use File;
+use euro_hms\Api\Repositories\AgreementRepository;
 
 
 
  class NominationRepository 
  {
+     public function __construct(){
+        $this->agmtObj = new AgreementRepository();
+    }
    
  	/**
  	 * [getNominationList description]
@@ -89,17 +93,43 @@ use File;
         //}
         //else
         //{
-            $nom= Nomination::findOrFail($id);
-            $nom->date=$form_data['date']['time'];
-            $nom->quantity_required=$form_data['quantity'];
-            $nom->approved_quantity=$form_data['approved_quantity'];
-            $nom->status=1;
-            $nom->request=$form_data['request'];
-            $nom->save();
-            $nom_id=array('nomination_id'=>$nom->id,'code'=>200);
+            $get_buyer=$this->getNominationDetailsById($id);
+            $check_quantity=$this->check_quantity($form_data['approved_quantity'],$get_buyer->buyer_id);
+            if($check_quantity=='yes')
+            {
+                $nom_id=array('nomination_id'=>'','code'=>301);
+            }
+            else
+            {
+                $nom= Nomination::findOrFail($id);
+                $nom->date=$form_data['date']['time'];
+                $nom->quantity_required=$form_data['quantity'];
+                $nom->approved_quantity=$form_data['approved_quantity'];
+                $nom->status=1;
+                $nom->request=$form_data['request'];
+                $nom->save();
+                $nom_id=array('nomination_id'=>$nom->id,'code'=>200);
+
+            }
+           
         //}
        
         return  $nom_id;
+    }
+
+    public function check_quantity($approved_quantity,$buyer_id)
+    {
+        $allowed_quantity=$this->agmtObj->getAllowedQuantityByBuyerId($buyer_id);
+        $total_quantity=($allowed_quantity*120)/100;
+        if($approved_quantity>$total_quantity)
+        {
+            return 'yes';
+        }
+        else
+        {
+            return 'no';
+        }
+        return 'no';
     }
 
     /**
