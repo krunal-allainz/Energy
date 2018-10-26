@@ -41,7 +41,6 @@ export default {
     return api.post('user/edit',{'userData' : userData , 'userId' :userId})
   },
   
-  
   //Hydro
   
   getNominationList(page_url,userType,noofRecord,userId){
@@ -59,10 +58,19 @@ export default {
   deleteNomination(id) {
       return api.post('nomination/delete',{'id':id})
   },
+
   getInvoiceList1(userId){
      return api.post('invoice/getInvoiceList1',{'userId':userId});
   },
   getInvoiceList2(userId){
      return api.post('invoice/getInvoiceList2',{'userId':userId});
   },
+
+  getTimelineData(doctoreId){
+      return api.post('dashboard/gettimelinedata');
+  },
+  updateSuppliedQuantity(){
+      return api.post('schedule/updatesuppliedqty');
+  }
+
 }
