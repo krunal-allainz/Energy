@@ -1,16 +1,14 @@
 <?php
 
-namespace Energy\Api\Controllers;
+namespace euro_hms\Api\Controllers;
 
 
 use Illuminate\Routing\Controller;
-use Energy\Models\NominationRequest;
+use euro_hms\Models\NominationRequest;
 use Illuminate\Http\Request;
 use euro_hms\Models\User;
 use euro_hms\Models\Nomination;
 use euro_hms\Api\Repositories\NominationRepository;
-
-
 use DB;
 use Carbon\Carbon;
 
@@ -99,9 +97,13 @@ class NominationController extends Controller
     public function editNomination(Request $request)
     {
         $edit_Nomination=$this->nomObj->edit($request);
-        if($edit_Nomination)
+        if($edit_Nomination['code']==200)
         {
             return ['code' => 200 ,'data'=>$edit_Nomination,'message'=>'Nomination successfully edited.'];
+        }
+        else if($edit_Nomination['code']==301)
+        {
+            return ['code' => 301 ,'data'=>$edit_Nomination,'message'=>'Nomination successfully edited.'];
         }
         else
         {
@@ -121,6 +123,25 @@ class NominationController extends Controller
         if($delete_nomination)
         {
             return ['code' => 200 ,'data'=>$delete_nomination,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+    /**
+     * [getNominationDetailsByDate description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+     public function getNominationDetailsByDate(Request $request)
+    {
+        $date = $request->date;
+        $get_details=$this->nomObj->getNominationDetailsByDate($date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
         }
         else
         {

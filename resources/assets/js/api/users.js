@@ -62,10 +62,23 @@ export default {
   deleteNomination(id) {
       return api.post('nomination/delete',{'id':id})
   },
+  getTimelineData(userType,userId){
+      return api.post('dashboard/gettimelinedata',{'userType' :userType,'userId' : userId});
+  },
+  getInvoiceList1(userId){
+     return api.post('invoice/getInvoiceList1',{'userId':userId});
+  },
+  getInvoiceList2(userId){
+     return api.post('invoice/getInvoiceList2',{'userId':userId});
+  },
   getTimelineData(doctoreId){
       return api.post('dashboard/gettimelinedata');
   },
   updateSuppliedQuantity(){
       return api.post('schedule/updatesuppliedqty');
-  }
+  },
+  getNominationDetailsByDate(date){
+     return api.post('nomination/getNominationDetailsByDate',{'date':date});
+  },
+
 }

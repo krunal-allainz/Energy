@@ -1,20 +1,5 @@
 <template>
 	<section class="content">
-
-		<section class="content-header">
-            <h1>Dashboard</h1> 
-            <ol class="breadcrumb">
-                <li role="presentation" class="breadcrumb-item active">
-                    <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
-                </li>
-            </ol>
-        </section>
-                <div class="row">
-            <div class="col-md-12 text-right">
-                <button class="btn btn-primary" @click="supplied_quantity()">Supplied Quantity</button>
-            </div>
-        </div>
-        <br/>
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
@@ -24,7 +9,7 @@
                         </div>
                         <div class="text-right">
                            <h3 class="text-dark"><b>3752</b></h3>
-                            <p>Total Request</p>
+                            <p>Daily Visits</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -105,45 +90,147 @@
              <div class="row">
                 <div class="col-xl-8 col-12">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="card main-chart">
                                 <div class="card-header panel-tabs">
-                                    
-                                            <a > Buyer allocation</a>
-                                    
+                                    <ul class="nav nav-tabs nav-float" role="tablist">
+                                        <li class=" text-center nav-item">
+                                            <a href="#allocation" class="nav-link active" role="tab" data-toggle="tab">Live Feeds</a>
+                                        </li>
+                                        <li class="text-center nav-item">
+                                            <a href="#profile" role="tab" data-toggle="tab" class="nav-link"><span class="d-none d-sm-block">Annual</span>
+                                                Revenue</a>
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div class="card-body">
                                     <div class="tab-content">
                                         <div class="tab-pane  active" id="allocation">
-                                            <div style="width: 100%;">
+                                            <div style="width: 50%;">
                                                 <canvas id="myChart" width="100px" height="100px"></canvas>
                                             </div>
                                         </div>
-                                       
+                                        <div class="tab-pane fade" id="profile">
+                                            <div class="chart-container">
+                                                <span class="">
+                                                    <i class="ti-reload redraw-cart float-right set-animate"></i>
+                                                </span>
+                                                <canvas id="dashboard-chart1" width="800" height="300"></canvas>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="card main-chart">
-                                <div class="card-header panel-tabs">
-                                    <!-- <ul class="nav nav-tabs nav-float" role="tablist"> -->
-                                        
-                                        <!-- <li class="text-center nav-item"> -->
-                                            <a><span class="d-none d-sm-block">Current Supply</span>
-                                                </a>
-                                        <!-- </li> -->
-                                    <!-- </ul> -->
+                        <div class="col-sm-5">
+                            <div class="card">
+                                <div>
+                                <div class="swiper-container swiper_news">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide slide-1 gradient-color">
+                                            <div class="slider-content">
+                                                <div class="news-head">
+                                                    <h3>The Need For Inc. in Energy</h3>
+                                                    <span class="float-right">Yesterday</span>
+                                                    <hr>
+                                                </div>
+                                                <div class="news-cont">
+                                                    <h4>The strategy of adjusting and optimizing energy, using systems
+                                                        and
+                                                        procedures so as to reduce energy requirements per unit of
+                                                        output
+                                                        while holding ...</h4>
+                                                    <p class="text-right read-more"><a class="read-more"
+                                                                                       href="javascript:void(0)">Read
+                                                        more <i class="ti-angle-double-right"></i></a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide slide-2 gradient-color">
+                                            <div class="slider-content">
+                                                <div class="news-head">
+                                                    <h3>What to expect in the final race..</h3>
+                                                    <span class="float-right">5min ago</span>
+                                                    <hr>
+                                                </div>
+                                                <div class="news-cont">
+                                                    <h4>The strategy of adjusting and optimizing energy, using systems
+                                                        and
+                                                        procedures so as to reduce energy per unit of output
+                                                        while holding ...</h4>
+                                                    <p class="text-right read-more"><a class="read-more"
+                                                                                       href="javascript:void(0)">Read
+                                                        more <i class="ti-angle-double-right"></i></a></p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide slide-3 gradient-color">
+                                            <div class="slider-content">
+                                                <div class="news-head">
+                                                    <h3>First ever Largest open Air Purifier</h3>
+                                                    <span class="float-right">On 28th Oct</span>
+                                                    <hr>
+                                                </div>
+                                                <div class="news-cont">
+                                                    <h4>The strategy of adjusting and optimizing energy, using systems
+                                                        and
+                                                        procedures so as to reduce energy requirements per unit of
+                                                        output
+                                                        while holding ...</h4>
+                                                    <p class="text-right read-more"><a class="read-more"
+                                                                                       href="javascript:void(0)">Read
+                                                        more <i class="ti-angle-double-right"></i></a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="card real-timechart">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            <h3 class="">Real-Time Visits</h3>
+                                            <div class="real-value"><p><span></span>k</p></div>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <h3 class="">Returning Visitors</h3>
+                                            <div class="return-value"><p><span></span>k</p></div>
+                                        </div>
+                                    </div>
+                                    <div id="realtime-views" class="real-chart"></div>
+                                    <hr>
+                                    <div class="row ratings">
+                                        <div class="col-4 text-center">
+                                            <h4>81%</h4>
+                                            <p>Satisfied</p>
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <h4>8%</h4>
+                                            <p>Unsatisfied</p>
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <h4>11%</h4>
+                                            <p>NA</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card nvd3-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Project Status</h3>
                                 </div>
                                 <div class="card-body">
-                                    <!-- <div class="tab-content"> -->
-                                        
-                                        <div class="tab-pane fade" id="supply">
-                                             <div style="width: 50%;">
-                                                 <canvas id="cSupply" width="100px" height="100px"></canvas>
-                                             </div>
-                                        </div>
-                                    <!-- </div> -->
+                                    <div class="nvd3-chart line-chart text-center" data-x-grid="false">
+                                        <svg></svg>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -665,71 +752,29 @@ export default {
     data() {
         return {
             formstate: {},
-                'userData' : {
+             'userData' : {
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
                 }
+           
         }
     },
     methods: {
-       getBuyerDetails(){
-            let curDate = moment().format('YYYY-MM-DD');
-            let nData = {'date':curDate};
-            User.getNominationListByDate('nomination/getNominationListByDate',nData).then(
-                 (response) => {
-                    console.log('response',response);
-                    return false;
-                    let consult_data  = response.data.data;
-                    $.each(consult_data, function(key, value) {
-                        let name =  value.first_name ;
-                        let id  = value.id ;
-                        consult_list.push({text:name, id:id});
-                    });
-                    vm.nominationData.seller_option=consult_list;
-                },
-                (error) => {
-                },
-            );
-        },
-        supplied_quantity()
-        {
-            let vm=this;
-            User.updateSuppliedQuantity().then(
-              (response)=> {
-               
-                if(response.data.code == 200){
-                   toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
-                } else if (response.data.code == 300) {
-                    toastr.error('Something Went wrong.', 'Supplied Quantity', {timeOut: 5000});
-                }
-                else
-                {
-                    toastr.error('Something Went wrong.', 'Supplied Quantity', {timeOut: 5000});
-                }
-                
-              },
-              (error)=>{
-              }
 
-            )
-        },
 
     },
     components: {
             timeline
     },
     mounted: function() {
-        this.getBuyerDetails();
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
         };                    
-        var ctx1 = document.getElementById("myChart").getContext('2d');
-        var ctx2 = document.getElementById("cSupply").getContext('2d');
-        var config1 = {
-            type: 'bar',
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var config = {
+            type: 'pie',
             data: {
-                datasets: [
-                {
+                datasets: [{
                     data: [
                         randomScalingFactor(),
                         randomScalingFactor(),
@@ -745,47 +790,12 @@ export default {
                         '#ffff00',
                     ],
                     label: 'Dataset 1'
-                },
-                {
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        '#0040ff',
-                        '#ff6600',
-                        '#ffff00',
-                    ],
-                    label: 'Dataset 2'
-                },
-                {
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        '#0040ff',
-                        '#ff6600',
-                        '#ffff00',
-                    ],
-                    label: 'Dataset 3'
-                },
-                ],
+                }],
                 labels: [
                     'Red',
-                    'Green',
+                    'Orqange',
                     'Blue',
-                    'Orange',
+                    'Green',
                     'Yellow'
                 ]
             },
@@ -793,51 +803,16 @@ export default {
                 responsive: true
             }
         };
-       
-        var config2 = {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [0,100],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    'Supplied',
-                    'Remaining',
-                ]
-            },
-            options: {
-                responsive: true
-            }
-        };
-        window.myPie1 = new Chart(ctx1, config1);
-        window.myPie2 = new Chart(ctx2, config2);
+        window.myPie = new Chart(ctx, config);
         setInterval(function(){
-            config1.data.datasets.forEach(function(dataset) {
+            config.data.datasets.forEach(function(dataset) {
                 dataset.data = dataset.data.map(function() {
                     return randomScalingFactor();
                 });
             });
-            //  config2.data.datasets.forEach(function(dataset) {
-            //     dataset.data = dataset.data.map(function() {
-            //         return randomScalingFactor();
-            //     });   
-            // });
-            console.log(config2.data.datasets[0].data[0]);
-            if(config2.data.datasets[0].data[0] <100){
 
-             config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +1;
-             config2.data.datasets[0].data[1] = 100 -config2.data.datasets[0].data[0]; 
-            }
-            window.myPie1.update();
-            window.myPie2.update();
-        },2000)
-
+            window.myPie.update();
+        },1000)
 
 
     },

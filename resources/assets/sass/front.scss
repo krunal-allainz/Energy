@@ -636,3 +636,72 @@ input.number-with-validation:invalid {
 .bg-white {
     background-color:white !important;
 }
+
+//invoice
+.invoice_page .invoice_bg {
+    margin  : 15px 0 30px;
+    padding : 20px;
+}
+.invoice_page .table {
+    border       : 1px solid #ccc;
+    table-layout : fixed;
+}
+.invoice_page .table tbody > tr {
+    height : 50px;
+}
+.invoice_page .table-responsive {
+    width : 100%;
+}
+.invoice_page td,
+th {
+    width     : 40px;
+    word-wrap : break-word;
+}
+.invoice_page .terms_conditions {
+    list-style : initial;
+}
+.invoice_page .table-condensed > thead > tr > th {
+    padding : 15px 8px !important;
+    width   : 80px;
+    color:#fff !important;
+}
+.invoice_page .table-condensed > thead > tr > th strong{
+    font-weight: bold !important;
+}
+.invoice_page .table-condensed > thead > tr > th:first-child {
+    width : 180px;
+}
+.invoice_page .table-responsive > .table > tbody > tr > td,
+.invoice_page .table-responsive > .table > tfoot > tr > td {
+    padding     : 15px 8px !important;
+    white-space : normal;
+}
+.invoice_page .table th, .table td {
+    vertical-align: top;
+    border-top: 1px solid #dee2e6 !important;
+}
+.invoice_page #add_row i, .row_delete i {
+    cursor : pointer;
+}
+@media print {
+    .invoice_page .btn-section,
+    .left-side,
+    .no-print,
+    .content-header,
+    .header,
+    #customtable tr > td:last-child, #customtable tr > th:last-child {
+        display : none;
+    }
+    .invoice_page .table-responsive {
+        display : inline-table;
+        width   : 100%;
+    }
+    .invoice_page #invoice-stmt {
+        width : 100%;
+    }
+    .invoice_page .right-side {
+        margin-left : 0;
+    }
+}
+
+//card

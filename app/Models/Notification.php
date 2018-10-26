@@ -19,6 +19,7 @@ class Notification extends Model
       'data_user_id',
       'data_date',
       'data_text',
+      'added_by',
       'status'
     ];
 
