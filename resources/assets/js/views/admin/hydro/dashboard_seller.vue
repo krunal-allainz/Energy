@@ -47,7 +47,7 @@
             <div class="flip">
                 <div class="widget-bg-color-icon card-box front">
             	    <div class="bg-icon float-left">
-                        <i class="ti-thumb-up text-danger"></i>
+                       <i class="fas fa-file-invoice"></i>
                     </div>
                 	<div class="text-right">
                 		<h3 class="text-dark"><b>1532</b></h3>
