@@ -80,6 +80,9 @@ export default {
             else if(this.userType == '6') {
               return '/buyer-dashboard';
             }
+             else if(this.userType == '7') {
+              return '/buyer-dashboard';
+            }
           },
           logout(msg=''){
             let vm =this;
