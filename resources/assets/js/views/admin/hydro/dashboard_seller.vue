@@ -673,9 +673,9 @@ export default {
     },
     methods: {
        getBuyerDetails(){
-            let curDate = moment().format('YYYY-MM-DD');
+            let curDate = moment().format('DD-MM-YYYY');
             let nData = {'date':curDate};
-            User.getNominationListByDate('nomination/getNominationListByDate',nData).then(
+            User.getNominationDetailsByDate(curDate).then(
                  (response) => {
                     console.log('response',response);
                     return false;
