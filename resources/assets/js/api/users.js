@@ -71,6 +71,7 @@ export default {
   },
   updateSuppliedQuantity(){
       return api.post('schedule/updatesuppliedqty');
-  }
+  },
+  
 
 }
