@@ -62,6 +62,8 @@ import Invoice from './views/admin/hydro/invoice.vue'
 //Hydro selleer Dashboard
 import dashboardSeller from './views/admin/hydro/dashboard_seller.vue'
 
+//Hydro buer Dashboard
+import dashboardBuyer from './views/admin/hydro/dashboard_buyer.vue'
 
 
 Vue.use(VueRouter)
@@ -127,6 +129,12 @@ const routes = [
                 component: dashboardSeller,
                 meta: { requiresAuth: true },
                 name: 'seller-dashboard'
+            },
+            {
+                path: '/buyer-dashboard',
+                component: dashboardBuyer,
+                meta: { requiresAuth: true },
+                name: 'buyer-dashboard'
             },
             {
                 path: '/nomination-form',

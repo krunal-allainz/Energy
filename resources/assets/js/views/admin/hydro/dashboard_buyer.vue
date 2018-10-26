@@ -752,10 +752,11 @@ export default {
     data() {
         return {
             formstate: {},
-                'userData' : {
+             'userData' : {
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
                 }
+           
         }
     },
     methods: {
