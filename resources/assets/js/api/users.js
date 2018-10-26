@@ -58,7 +58,9 @@ export default {
   deleteNomination(id) {
       return api.post('nomination/delete',{'id':id})
   },
-
+  getTimelineData(userType,userId){
+      return api.post('dashboard/gettimelinedata',{'userType' :userType,'userId' : userId});
+  },
   getInvoiceList1(userId){
      return api.post('invoice/getInvoiceList1',{'userId':userId});
   },

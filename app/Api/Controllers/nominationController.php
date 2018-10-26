@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 use euro_hms\Models\User;
 use euro_hms\Models\Nomination;
 use euro_hms\Api\Repositories\NominationRepository;
-
-
 use DB;
 use Carbon\Carbon;
 

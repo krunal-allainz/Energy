@@ -3,9 +3,12 @@ namespace euro_hms\Api\Repositories;
 use Carbon\Carbon;
 use DB;
 use euro_hms\Models\Nomination;
+use euro_hms\Api\Repositories\NotificationRepository;
 use Excel;
 use File;
 use euro_hms\Api\Repositories\AgreementRepository;
+use Auth;
+
 
 
 
@@ -63,6 +66,19 @@ use euro_hms\Api\Repositories\AgreementRepository;
             $nom->request='Pending';
             $nom->save();
             $nom_id=array('nomination_id'=>$nom->id,'code'=>200);
+            
+            $dataUserId = $form_data['buyer_id'];
+            $addedBy  = Auth::user()->id;
+            $dataId = $nom->id;
+            $qty    = $form_data['quantity'];
+            $type   = 'add_notification';
+            $dataText = 'New notification for '.$qty.'added';
+            $title  = 'Nomination Request Added';
+            $dataTable = 'nomination_request';
+            $this->notificationObj = new NotificationRepository();
+            $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy);
+
+
         //}
         return $nom_id;
     }
@@ -93,6 +109,7 @@ use euro_hms\Api\Repositories\AgreementRepository;
         //}
         //else
         //{
+
             $get_buyer=$this->getNominationDetailsById($id);
             $check_quantity=$this->check_quantity($form_data['approved_quantity'],$get_buyer->buyer_id);
             if($check_quantity=='yes')
@@ -109,9 +126,32 @@ use euro_hms\Api\Repositories\AgreementRepository;
                 $nom->request=$form_data['request'];
                 $nom->save();
                 $nom_id=array('nomination_id'=>$nom->id,'code'=>200);
+                $dataUserId = $get_buyer->buyer_id;
+                $dataId = $nom->id;
+                $qty    = $form_data['quantity'];
+                $type   = 'update_notification';
+                $dataText = 'Update notification for '.$qty;
+                $title  = 'Nomination Request Updated';
+                $addedBy  = Auth::user()->id;
+                $userType = Auth::user()->user_type;
+                $dataTable = 'nomination_request';
+                $this->notificationObj = new NotificationRepository();
+                $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy);
+
+                if($userType == 7){
+                    $dataUserId1 = $nom->buyer_id;
+                    $approveQty = $form_data['approved_quantity'];
+                    $reuestType = $form_data['request'];
+                    $acualQty = $form_data['quantity'];
+                $dataText1 = 'Change request quntity of '.$acualQty.' chnaged to '.$reuestType.''.$approveQty;
+                 
+                      $title1  = 'Request Qty'.$reuestType;
+                      $type1   = 'update_request_qty_status';
+
+                    $this->notificationObj->insert($dataId,$type1,$dataUserId1,$dataText1,$title1,$dataTable,$addedBy);
+                }
 
             }
-           
         //}
        
         return  $nom_id;
