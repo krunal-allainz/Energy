@@ -3,6 +3,8 @@ import router from './router.js'
 import Layout from './helpers/layout'
 import store from './store'
 import newsTicker from './newsTicker.js'
+import jqueryFlotSpline from './sparkline/jquery.flot.spline.js'
+import nvd3 from './nvd3/d3.v3.min.js'
 /**
  * First we will load all of this project's JavaScript dependencies which
  * include Vue and Vue Resource. This gives a great starting point for

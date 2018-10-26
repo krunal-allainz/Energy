@@ -1,8 +1,10 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
+
 
 use Illuminate\Routing\Controller;
+use Energy\Models\NominationRequest;
 use Illuminate\Http\Request;
 use euro_hms\Models\User;
 use euro_hms\Models\Nomination;
@@ -16,6 +18,17 @@ class NominationController extends Controller
 {
     public function __construct(){
         $this->nomObj = new NominationRepository();
+
+      //  $this->notificationOBJ = new NotificationRepository();
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
     }
 
     /**

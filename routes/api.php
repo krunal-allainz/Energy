@@ -76,7 +76,6 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         $api->post('user/edit','\euro_hms\Api\Controllers\UserController@editUserById');
 
 
-
         //for nomination
         
         $api->post('nomination/getNominationList', '\euro_hms\Api\Controllers\NominationController@getNominationList');
@@ -92,6 +91,10 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
          //for nomination delete
         $api->post('nomination/delete', '\euro_hms\Api\Controllers\NominationController@deleteNomination');
+
+        $api->post('dashboard/gettimelinedata', '\euro_hms\Api\Controllers\NotificationController@show');
+
+        $api->post('schedule/updatesuppliedqty', '\euro_hms\Api\Controllers\ScheduleController@updateSupplierQty');
 
 
 }); 
