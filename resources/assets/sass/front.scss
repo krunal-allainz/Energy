@@ -193,6 +193,10 @@ table.table-bordered ,th , td, tbody, thead, tr{
 
 body > #app .header {
     position: fixed !important;
+    box-shadow: 1px 1px 1px #888888;
+    z-index: 9999;
+    display: block;
+    background-color: white;
 }
 
 .login {
@@ -224,7 +228,7 @@ body > #app .header {
 }
 .logout-text, logout-text:visited, logout-text:focus{
     padding-right: 15px;
-    color: white !important;
+    color: #004696 !important;
     width: 200px;
     margin-top: -25px;
     padding-bottom: 5px;
@@ -626,6 +630,12 @@ input.number-with-validation:invalid {
     position:relative;
     float:right;
 }
+.text-blue {
+    color: #004696;
+}
+.bg-white {
+    background-color:white !important;
+}
 
 //invoice
 .invoice_page .invoice_bg {
@@ -695,4 +705,3 @@ th {
 }
 
 //card
-
