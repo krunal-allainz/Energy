@@ -6,7 +6,7 @@
 
                     <h2 class="text-center logo_h2">
                     
-                        <img src="/assets/img/logoblue.png" id="logo-desk" alt="Hydrocarbon Accounting" class="hidden-sm-down" >
+                        <img src="/assets/img/h_energylogo.png" id="logo-desk" alt="Hydrocarbon Accounting" class="hidden-sm-down" >
                     </h2>
                     <div class="card-body">
                         <div class="row">

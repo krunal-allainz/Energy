@@ -46,6 +46,10 @@ export default {
   getNominationList(page_url,userType,noofRecord,userId){
      return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId});
   },
+  getNominationListByDate(page_url,data){
+     return api.post(page_url,{'nominationData':data});
+  },
+  
  createNomination(nominationData) {
       return api.post('nomination/create',{'nominationData':nominationData})
   },

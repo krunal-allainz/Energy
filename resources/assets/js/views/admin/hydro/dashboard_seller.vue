@@ -1,6 +1,14 @@
 <template>
 	<section class="content">
-		<div class="row">
+		<section class="content-header">
+            <h1>Dashboard</h1> 
+            <ol class="breadcrumb">
+                <li role="presentation" class="breadcrumb-item active">
+                    <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
+                </li>
+            </ol>
+        </section>
+        <div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
                     <div class="widget-bg-color-icon card-box front">
@@ -9,7 +17,7 @@
                         </div>
                         <div class="text-right">
                            <h3 class="text-dark"><b>3752</b></h3>
-                            <p>Daily Visits</p>
+                            <p>Total Request</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -788,10 +796,13 @@ export default {
         }
     },
     methods: {
-
         getBuyerDetails(){
-            User.generateUserDetailsByType(7,'Active').then(
+            let curDate = moment().format('YYYY-MM-DD');
+            let nData = {'date':curDate};
+            User.getNominationListByDate('nomination/getNominationListByDate',nData).then(
                  (response) => {
+                    console.log('response',response);
+                    return false;
                     let consult_data  = response.data.data;
                     $.each(consult_data, function(key, value) {
                         let name =  value.first_name ;
@@ -809,6 +820,7 @@ export default {
             timeline
     },
     mounted: function() {
+        this.getBuyerDetails();
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
         };                    
