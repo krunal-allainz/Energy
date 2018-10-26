@@ -245,4 +245,14 @@ class UserRepository {
 
     }
 
+    /**
+     * [getUserNameInfoById description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+     public function getUserNameInfoById($id) {
+        $record=User::where('id', $id)->first();
+        return ucwords($record->first_name);
+    }
+
 }
