@@ -59,4 +59,10 @@ export default {
   deleteNomination(id) {
       return api.post('nomination/delete',{'id':id})
   },
+  getInvoiceList1(userId){
+     return api.post('invoice/getInvoiceList1',{'userId':userId});
+  },
+  getInvoiceList2(userId){
+     return api.post('invoice/getInvoiceList2',{'userId':userId});
+  },
 }
