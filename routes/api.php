@@ -75,6 +75,11 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
         $api->post('user/edit','\euro_hms\Api\Controllers\UserController@editUserById');
 
+        $api->post('dashboard/gettimelinedata', '\euro_hms\Api\Controllers\NotificationController@show');
+
+        $api->post('schedule/updatesuppliedqty', '\euro_hms\Api\Controllers\ScheduleController@updateSupplierQty');
+       
+
 }); 
 
 

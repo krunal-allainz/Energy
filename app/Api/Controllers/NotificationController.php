@@ -1,15 +1,16 @@
 <?php
 
-namespace Energy\Api\Controllers;
+namespace euro_hms\Api\Controllers;
 
-use Energy\Models\NominationRequest;
+use euro_hms\Models\Notification;
 use Illuminate\Http\Request;
+use euro_hms\Api\Repositories\NotificationRepository;
 
-class NotminationController extends Controller
+class NotificationController extends Controller
 {
 
     public function __construct(){
-      //  $this->notificationOBJ = new NotificationRepository();
+        $this->notificationOBJ = new NotificationRepository();
     }
     /**
      * Display a listing of the resource.
@@ -47,17 +48,16 @@ class NotminationController extends Controller
      *
      * 
      */
-    public function show(Request $request)
+    public function show()
     {
         //
-        $id = $request->id;
-        $result =  $this->notificationOBJ->getTimelineData($id);
+        $result =  $this->notificationOBJ->getTimelineData();
 
         if($result) {
-             return ['code' => '200','data'=>$result, 'message' => 'Timeline generate successfully'];
+            return ['code' => '200','data'=>$result, 'message' => 'Timeline generate successfully'];
         } else {
              //return ['code' => '300','patientData'=>'', 'message' => 'Record not found'];
-             return ['code' => '300','data'=>'', 'message' => 'Something went wrong'];
+            return ['code' => '300','data'=>'', 'message' => 'Something went wrong'];
         }
 
     }
