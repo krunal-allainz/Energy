@@ -67,12 +67,14 @@ export default {
   getInvoiceList2(userId){
      return api.post('invoice/getInvoiceList2',{'userId':userId});
   },
-
   getTimelineData(doctoreId){
       return api.post('dashboard/gettimelinedata');
   },
   updateSuppliedQuantity(){
       return api.post('schedule/updatesuppliedqty');
-  }
+  },
+  getNominationDetailsByDate(date){
+     return api.post('nomination/getNominationDetailsByDate',{'date':date});
+  },
 
 }

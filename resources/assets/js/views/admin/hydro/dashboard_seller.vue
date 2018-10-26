@@ -1,5 +1,11 @@
 <template>
 	<section class="content">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-primary" @click="supplied_quantity()">Supplied Quantity</button>
+            </div>
+        </div>
+        <br/>
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
@@ -759,7 +765,28 @@ export default {
         }
     },
     methods: {
+        supplied_quantity()
+        {
+            let vm=this;
+            User.updateSuppliedQuantity().then(
+              (response)=> {
+               
+                if(response.data.code == 200){
+                   toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
+                } else if (response.data.code == 300) {
+                    toastr.error('Something Went wrong.', 'Supplied Quantity', {timeOut: 5000});
+                }
+                else
+                {
+                    toastr.error('Something Went wrong.', 'Supplied Quantity', {timeOut: 5000});
+                }
+                
+              },
+              (error)=>{
+              }
 
+            )
+        },
 
     },
     components: {

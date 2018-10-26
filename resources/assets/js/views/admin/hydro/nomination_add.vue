@@ -252,7 +252,12 @@
                                 vm.$router.push('nomination_list');
                                 //this.initialState();
                                 
-                            } else if (response.data.code == 300) {
+                            } 
+                            else if (response.data.code == 301) {
+                                toastr.error('MDCQ is higher.', 'Add Nomination', {timeOut: 5000});
+                                //this.initialState(); 
+                            }
+                            else if (response.data.code == 300) {
                                 toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
