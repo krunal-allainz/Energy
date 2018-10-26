@@ -68,9 +68,7 @@ export default {
      return api.post('invoice/getInvoiceList2',{'userId':userId});
   },
 
-  getTimelineData(doctoreId){
-      return api.post('dashboard/gettimelinedata');
-  },
+
   updateSuppliedQuantity(){
       return api.post('schedule/updatesuppliedqty');
   }
