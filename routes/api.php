@@ -92,11 +92,17 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
          //for nomination delete
         $api->post('nomination/delete', '\euro_hms\Api\Controllers\NominationController@deleteNomination');
 
+
+        //get invoice list 1
+        $api->post('invoice/getInvoiceList1', '\euro_hms\Api\Controllers\InvoiceController@getInvoiceList1');
+
         $api->post('dashboard/gettimelinedata', '\euro_hms\Api\Controllers\NotificationController@show');
 
         $api->post('schedule/updatesuppliedqty', '\euro_hms\Api\Controllers\ScheduleController@updateSupplierQty');
 
 
+         //get invoice list 2
+        $api->post('invoice/getInvoiceList2', '\euro_hms\Api\Controllers\InvoiceController@getInvoiceList2');
 }); 
 
 
