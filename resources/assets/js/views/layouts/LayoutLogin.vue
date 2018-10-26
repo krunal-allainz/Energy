@@ -94,7 +94,7 @@ export default {
 
                                 }
                                 else if(vm.$store.state.Users.userDetails.user_type ==  7) {
-                                        vm.$router.push({'name':'receptionist_dashboard'});
+                                        vm.$router.push({'name':'buyer-dashboard'});
 
                                 }
 

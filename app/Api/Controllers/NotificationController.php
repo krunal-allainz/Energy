@@ -52,7 +52,8 @@ class NotificationController extends Controller
     {
         //
         $usertype = $request->userType;
-        $result =  $this->notificationOBJ->getTimelineData($usertype);
+        $userId = $request->userId;
+        $result =  $this->notificationOBJ->getTimelineData($usertype,$userId);
 
         if($result) {
             return ['code' => '200','data'=>$result, 'message' => 'Timeline generate successfully'];
