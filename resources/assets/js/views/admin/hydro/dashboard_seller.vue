@@ -1,17 +1,12 @@
 <template>
 	<section class="content">
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button class="btn btn-primary" @click="supplied_quantity()">Supplied Quantity</button>
-            </div>
-        </div>
-        <br/>
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                            <i class="ti-eye text-warning"></i>
+                         <!--    <i class="ti-eye text-warning"></i> -->
+                             <button class="btn btn-primary" @click="supplied_quantity()">Supplied Quantity</button>
                         </div>
                         <div class="text-right">
                            <h3 class="text-dark"><b>3752</b></h3>
@@ -32,7 +27,8 @@
                 <div class="flip">
             	    <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                            <i class="ti-shopping-cart text-success"></i>
+                            <!-- <i class="ti-shopping-cart text-success"></i> -->
+                             <button class="btn btn-primary" @click="availibility()">Add Avialability</button>
                         </div>
                         <div class="text-right">
                             <h3><b id="widget_count3">3251</b></h3>
@@ -765,6 +761,28 @@ export default {
         }
     },
     methods: {
+        availibility()
+        {
+            let vm=this;
+            User.createAvailability().then(
+              (response)=> {
+               
+                if(response.data.code == 200){
+                   toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
+                } else if (response.data.code == 300) {
+                    toastr.error('Something Went wrong.', 'Supplied Quantity', {timeOut: 5000});
+                }
+                else
+                {
+                    toastr.error('Something Went wrong.', 'Supplied Quantity', {timeOut: 5000});
+                }
+                
+              },
+              (error)=>{
+              }
+
+            )
+        },
         supplied_quantity()
         {
             let vm=this;
