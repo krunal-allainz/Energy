@@ -3,13 +3,13 @@
     <div class="template-container">
         <header class="header">
 
-              <nav class="navbar navbar-expand-lg navbar-light">
+              <nav class="navbar navbar-expand-lg navbar-light bg-white">
 
                 <router-link :to="dashboardLink()" class="brand-main">
                       <img src="/assets/img/h_energylogo.png" id="logo-desk" alt="Hydrocarbon Accounting" class="hidden-sm-down">
                       <img src="/assets/img/h_energylogo.png" id="logo-mobile" alt="Hydrocarbon Accounting" class="hidden-md-up">
                   </router-link>
-                    <H1 class="text-white bg-dark text-center mt-50">  Hydrocarbon Accounting</H1>
+                    <H1 class="text-blue bg-dark text-center mt-50">  Hydrocarbon Accounting</H1>
                   <!-- Sidebar toggle button -->
               </nav>
                 <a href="#" class="logout-text text-right" @click.prevent="logout()"><i class="fa fa-sign-out"></i>Logout</a>
@@ -25,9 +25,9 @@
 
         <div class="dashboard">
           <div class="wrapper">
-            <aside class="left-aside" >
+            <!-- <aside class="left-aside" >
               <left_side></left_side>
-            </aside>
+            </aside> -->
             <aside class="right-aside">
               <transition name="fade" mode="out-in">
                   <router-view></router-view>
