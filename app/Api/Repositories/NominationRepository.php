@@ -235,6 +235,15 @@ use Auth;
         return $list;
 
     }
+
+    /**
+    *
+    *
+    **/
+
+    public function getNominationRequestList(){
+        return Nomination::whereIn('request',['Pending','Approved'])->groupBy('buyer_id')->get();
+    }
     
  }
 ?>
