@@ -45,8 +45,8 @@ export default {
   saveNomination(nominationData) {
     return api.post('nomination/create',{'nominationData':nominationData})
   },
-  getTimelineData(doctoreId){
-      return api.post('dashboard/gettimelinedata');
+  getTimelineData(userType){
+      return api.post('dashboard/gettimelinedata',{'userType' :userType});
   },
   updateSuppliedQuantity(){
       return api.post('schedule/updatesuppliedqty');

@@ -42,6 +42,7 @@
     import moment from 'moment';
     export default{
         data(){
+            props:['UserType'],
             return {
                 'timelineData' : '',
             }
@@ -70,7 +71,7 @@
            methods: {
                 getTimelineData(){
                     let vm = this;
-                    User.getTimelineData().then(
+                    User.getTimelineData(vm.UserType).then(
                              (response)=>{
                                     if(response.data.code == 200){
                                       vm.timelineData = response.data.data;

@@ -12,8 +12,16 @@ class NotificationRepository {
 
 	}
 
-	public function getTimelineData(){
-		$result = Notification::select('title as title','type as type','data_table as dataTable','data_id as dataId','data_user_id as dataUserId','data_date as Datadate','data_text as text','status as status')->groupBy('type')->orderBy('created_at','desc')->get();
+	public function getTimelineData($usertype){
+		if($usertype == 6){
+				$typeList = [];
+		}
+		if($usertype == 7){
+
+			$typeList = [];
+		}
+		
+			$result = Notification::select('title as title','type as type','data_table as dataTable','data_id as dataId','data_user_id as dataUserId','data_date as Datadate','data_text as text','status as status')->whereIn('type',$typeList)->groupBy('type')->orderBy('created_at','desc')->get();
 
     	return $result;
 	}

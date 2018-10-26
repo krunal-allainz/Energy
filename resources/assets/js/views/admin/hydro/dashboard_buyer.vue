@@ -236,7 +236,7 @@
                         </div>
                     </div>
                 </div>
-                <timeline :UserType=userType> </timeline>
+                <timeline> </timeline>
                 <div class="col-xl-4  col-12">
                     <div class="row">
                         <div class="col-xl-12 col-lg-6 col-sm-6">
@@ -752,7 +752,7 @@ export default {
     data() {
         return {
             formstate: {},
-            'userType' : 7,
+            'userType' : 6,
            
         }
     },
