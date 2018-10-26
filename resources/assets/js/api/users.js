@@ -41,9 +41,27 @@ export default {
     return api.post('user/edit',{'userData' : userData , 'userId' :userId})
   },
   
-  
   //Hydro
-  saveNomination(nominationData) {
-    return api.post('nomination/create',{'nominationData':nominationData})
+  
+  getNominationList(page_url,userType,noofRecord,userId){
+     return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId});
   },
+ createNomination(nominationData) {
+      return api.post('nomination/create',{'nominationData':nominationData})
+  },
+  getNominationDetailsById(id) {
+      return api.post('nomination/getNominationDetailsById',{'id':id})
+  },
+  editNomination(nominationData) {
+      return api.post('nomination/edit',{'nominationData':nominationData})
+  },
+  deleteNomination(id) {
+      return api.post('nomination/delete',{'id':id})
+  },
+  getTimelineData(doctoreId){
+      return api.post('dashboard/gettimelinedata');
+  },
+  updateSuppliedQuantity(){
+      return api.post('schedule/updatesuppliedqty');
+  }
 }

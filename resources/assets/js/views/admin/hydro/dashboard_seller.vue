@@ -134,6 +134,7 @@
                         </div>
                     </div>
                 </div>
+                <timeline> </timeline>
                 <div class="col-xl-4  col-12">
                     <div class="row">
                         <div class="col-xl-12 col-sm-6 col-lg-6">
@@ -771,11 +772,12 @@
 
 	</section>
 </template>
-
+	
 <script >
     import User from '../../../api/users.js';
     import moment from 'moment';
     import Chart from 'chart.js';
+    import timeline from './timeline.vue';
 
 export default {
     name: "dashboardSeller",
@@ -803,8 +805,10 @@ export default {
             );
         }
     },
+    components: {
+            timeline
+    },
     mounted: function() {
-
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
         };                    
@@ -931,4 +935,5 @@ export default {
 
     }
 }
+
 </script>

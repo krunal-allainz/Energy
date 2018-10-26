@@ -1,15 +1,25 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
-use euro_hms\Models\NominationRequest;
+
+use Illuminate\Routing\Controller;
+use Energy\Models\NominationRequest;
 use Illuminate\Http\Request;
+use euro_hms\Models\User;
+use euro_hms\Models\Nomination;
+use euro_hms\Api\Repositories\NominationRepository;
 
-class NotminationController extends Controller
+
+use DB;
+use Carbon\Carbon;
+
+class NominationController extends Controller
 {
-
     public function __construct(){
-        $this->notificationOBJ = new NotificationRepository();
+        $this->nomObj = new NominationRepository();
+
+      //  $this->notificationOBJ = new NotificationRepository();
     }
     /**
      * Display a listing of the resource.
@@ -22,77 +32,100 @@ class NotminationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * [getNominationList description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
      */
-    public function create()
+    public function getNominationList(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * 
-     */
-    public function show(Request $request)
-    {
-        //
-        $id = $request->id;
-        $result =  $this->notificationOBJ->getTimelineData($id);
-
-        if($result) {
-             return ['code' => '200','data'=>$result, 'message' => 'Timeline generate successfully'];
-        } else {
-             //return ['code' => '300','patientData'=>'', 'message' => 'Record not found'];
-             return ['code' => '300','data'=>'', 'message' => 'Something went wrong'];
+        $userType = $request->userType;
+        $userId = $request->userId ;
+        $noOfPage = $request->noofRecord;
+        
+        $nomination_list=$this->nomObj->getNominationList($userType,$noOfPage,$userId);
+        if($nomination_list)
+        {
+            return ['code' => 200 ,'data'=>$nomination_list,'message'=>'Getting case type successfully.'];
         }
-
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+       
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \euro_hms\notification  $notification
-     * @return \Illuminate\Http\Response
+     * [createNomination description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
      */
-    public function edit(notification $notification)
+    public function createNomination(Request $request)
     {
-        //
+        $add_Nomination=$this->nomObj->create($request);
+        if($add_Nomination)
+        {
+            return ['code' => 200 ,'data'=>$add_Nomination,'message'=>'Nomination successfully added.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \euro_hms\notification  $notification
-     * @return \Illuminate\Http\Response
+     * [getNominationDetailsById description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
      */
-    public function update(Request $request, notification $notification)
+    public function getNominationDetailsById(Request $request)
     {
-        //
+        $id = $request->id;
+        $nomination_details=$this->nomObj->getNominationDetailsById($id);
+        if($nomination_details)
+        {
+            return ['code' => 200 ,'data'=>$nomination_details,'message'=>'Nomination successfully added.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \euro_hms\notification  $notification
-     * @return \Illuminate\Http\Response
+     * [editNomination description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
      */
-    public function destroy(notification $notification)
+    public function editNomination(Request $request)
     {
-        //
+        $edit_Nomination=$this->nomObj->edit($request);
+        if($edit_Nomination)
+        {
+            return ['code' => 200 ,'data'=>$edit_Nomination,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
     }
+
+    /**
+     * [deleteNomination description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function deleteNomination(Request $request)
+    {
+        $id = $request->id;
+        $delete_nomination=$this->nomObj->delete($id);
+        if($delete_nomination)
+        {
+            return ['code' => 200 ,'data'=>$delete_nomination,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+    
 }

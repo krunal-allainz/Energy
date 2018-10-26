@@ -39,7 +39,7 @@
 		      		<label class="control-label float-right" >Date: </label>
 				</div>
 				<div class="col-md-6">
-		      		<input type="text" class="form-control" id="quantity"  v-model="nominationData.date" name="quantity" readonly="readonly">
+		      		<input type="text" class="form-control" id="date"  v-model="nominationData.date" name="date" readonly="readonly">
 				</div>
 				
             </div>
@@ -55,12 +55,7 @@
 </template>
 
 <script>
-/*if(localStorage.getItem("user_add"))
-    {
-        toastr.success('User has been added successfully', 'Add User', {timeOut: 5000});
-        localStorage.removeItem("user_add");
-        //localStorage.clear();
-    }*/
+
 	import User from '../../../api/users.js';
   	import moment from 'moment';
 
@@ -82,33 +77,30 @@
         mounted() {
             var vm = this;
             let user_type = [] ;
-            //setTimeout(function(){
-                $('.ls-select2').select2({
-                    placeholder: "Select"
-                });
-
-                var consult_list=[];
-			    User.generateUserDetailsByType(7,'Active').then(
-			    	 (response) => {
-	           	 		let consult_data  = response.data.data;
-	           	 		$.each(consult_data, function(key, value) {
-	               	 		let name =  value.first_name ;
-	               	 		let id  = value.id ;
-	               	 		consult_list.push({text:name, id:id});
-	           	 		});
-	           	 		vm.nominationData.seller_option=consult_list;
-	           	 	},
-	           	 	(error) => {
-	        	 	},
-				);
- 
-                  
-            //},200);
-
+            $('.ls-select2').select2({
+                placeholder: "Select"
+            });
+            vm.getSupplierList();
         },
         methods: {
-
-             initialState() {
+            getSupplierList()
+            {
+                var consult_list=[];
+                User.generateUserDetailsByType(7,'Active').then(
+                     (response) => {
+                        let consult_data  = response.data.data;
+                        $.each(consult_data, function(key, value) {
+                            let name =  value.first_name ;
+                            let id  = value.id ;
+                            consult_list.push({text:name, id:id});
+                        });
+                        vm.nominationData.seller_option=consult_list;
+                    },
+                    (error) => {
+                    },
+                );
+            },
+            initialState() {
                 this.$data.data.date = '',
                 this.$data.data.quantity =  '',
                 this.$data.data.seller_id ='',
