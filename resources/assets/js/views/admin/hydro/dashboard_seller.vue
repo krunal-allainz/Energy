@@ -41,13 +41,7 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="widget-bg-color-icon card-box back">
-                        <div class="text-center">
-                    	    <span id="loadspark-chart"></span>
-                        		<hr><p>Check summary</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
@@ -62,13 +56,7 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="widget-bg-color-icon card-box back">
-                        <div class="text-center">
-                        <span class="linechart" id="salesspark-chart"></span>
-                    		<hr><p>Check summary</p>
-                        </div>
-                    <div class="clearfix"></div>
-                </div>
+                    
             </div>
         </div>
         <div class="col-sm-6 col-md-6 col-xl-3">
@@ -83,13 +71,7 @@
                 	</div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="widget-bg-color-icon card-box back">
-                    <div class="text-center">
-                	    <span id="visitsspark-chart"></span>
-                        <hr><p>Check summary</p>
-					</div>
-                    <div class="clearfix"></div>
-                    </div>
+                
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
@@ -104,14 +86,7 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="widget-bg-color-icon card-box back">
-                        <div class="text-center">
-                            <span id="subscribers-chart"></span>
-                            <hr>
-                            <p>Check summary</p>
-                        </div>
-                       	<div class="clearfix"></div>
-                        </div>
+                    
                     </div>
                 </div>
             </div>
