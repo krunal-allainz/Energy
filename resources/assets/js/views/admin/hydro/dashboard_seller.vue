@@ -27,7 +27,13 @@
             </div>
         </div>
         <br/>
-
+        <div class="row">
+            <div class="col-md-12 text-right">
+               <button class="btn btn-primary" @click="availibility()">Add Avialability</button>
+            </div>
+        </div>
+        <br/>
+    
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
@@ -173,6 +179,31 @@ export default {
         }
     },
     methods: {
+         availibility()
+        {
+            let vm=this;
+            User.createAvailability().then(
+              (response)=> {
+               
+                if(response.data.code == 200){
+                   toastr.success('Availability  added successfully.', 'Availability', {timeOut: 5000});
+                } 
+                else if (response.data.code == 301) {
+                    toastr.error('Availability added already.', 'Availability', {timeOut: 5000});
+                }
+                else if (response.data.code == 300) {
+                    toastr.error('Something Went wrong.', 'Availability', {timeOut: 5000});
+                }
+                else
+                {
+                    toastr.error('Something Went wrong.', 'Availability', {timeOut: 5000});
+                }
+                
+              },
+              (error)=>{
+              }
+             )
+        },
        getAvailability()
        {
             let vm=this;

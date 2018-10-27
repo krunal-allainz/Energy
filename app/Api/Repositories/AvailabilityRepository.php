@@ -19,14 +19,33 @@ use Auth;
     public function create()
     {
 
-        $avail= new Availability;
         $date=Carbon::now()->addDays(1)->format('Y-m-d');
-        $avail->date=$date;
-        $avail->quantity=1000;
-        $avail->save();
-        $avail_id=array('availbility_id'=>$avail->id,'code'=>200);
-
+        $count=$this->getAvailabilityData($date);
+        if($count>0)
+        {
+            $avail_id=array('availbility_id'=>'','code'=>301);
+        }
+        else
+        {
+            $avail= new Availability;
+            $avail->date=$date;
+            $avail->quantity=1000;
+            $avail->save();
+            $avail_id=array('availbility_id'=>$avail->id,'code'=>200);
+        }
         return $avail_id;
+       
+    }
+
+    /**
+     * [getAvailabilityData description]
+     * @param  [type] $date [description]
+     * @return [type]       [description]
+     */
+    public function getAvailabilityData($date)
+    {
+        $availability=Availability::whereDate('date',$date)->get();
+        return count($availability);
     }
 
     /**
@@ -37,7 +56,15 @@ use Auth;
     public function getAvailability($date)
     {
         $availability=Availability::whereDate('date',$date)->first();
-        return $availability->quantity;
+        if($availability)
+        {
+             return $availability->quantity;
+        }
+        else
+        {
+             return 0;
+        }
+       
     }
 
 
