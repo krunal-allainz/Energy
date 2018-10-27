@@ -18,8 +18,7 @@
                   <li>
                    <!-- <router-link to="/login">Login</router-link> -->
                     </li>
-                }
-                }
+               
                 </ul>
 
         </header>
