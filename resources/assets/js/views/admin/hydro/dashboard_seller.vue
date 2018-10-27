@@ -157,417 +157,11 @@
                 </div>
                 <timeline :userData=userData> </timeline>
                 <div class="col-xl-4  col-12">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-6 col-sm-6">
-                            <div class="card personal-chat">
-                                <div class="card-header">
-                                    <div class="card-title"><img class="chat-image rounded-circle float-left" height="36"
-                                                                  width="36"
-                                                                  src="img/authors/avatar5.jpg" alt="avatar-image">
-                                        <div class="header-elements">Wilton zeph
-                                            <br>
-                                            <small class="status"><b>Online</b></small>
 
-                                            <div class="float-right options">
-                                                <div class="btn-group">
-                                                <span class="toggle-dropdown" data-toggle="dropdown"
-                                                      aria-expanded="false" aria-haspopup="true" role="menu">
-                                                    <i class="ti-clip attachment"></i>
-                                                </span>
-                                                    <ul class="dropdown-menu dropdown-menu-right position_dropdown">
-                                                        <li class="dropdown-item"><a href="#"><i class="ti-file text-primary"></i>Document</a>
-                                                        </li>
-                                                        <li class="dropdown-item"><a href="#"><i
-                                                                class="ti-gallery text-primary"></i>Gallery</a>
-                                                        </li>
-                                                        <li class="dropdown-item"><a href="#"><i class="ti-location-arrow text-primary"></i>Location</a>
-                                                        </li>
-                                                        <li class="dropdown-item"><a href="#"><i class="ti-camera text-primary"></i>Camera</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="btn-group">
-                                                <span class="toggle-dropdown" data-toggle="dropdown"
-                                                      aria-expanded="false" aria-haspopup="true" role="menu">
-                                                    <i class="ti-more-alt more"></i>
-                                                </span>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#">Profile</a>
-                                                        </li>
-                                                        <li><a href="#">Media</a>
-                                                        </li>
-                                                        <li><a href="#">Mute</a>
-                                                        </li>
-                                                        <li><a href="#">More</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
-            <!--rightside bar -->
-            <div id="right">
-                <div id="right-slim">
-                    <div class="rightsidebar-right">
-                        <div class="rightsidebar-right-content">
-                            <div class="panel-tabs">
-                                <ul class="nav nav-tabs nav-float" role="tablist">
-                                    <li class="nav-item text-center">
-                                        <a href="#r_tab1" role="tab" data-toggle="tab" class="nav-link active "><i
-                                                class="fa fa-fw ti-comments"></i></a>
-                                    </li>
-                                    <li class="text-center nav-item">
-                                        <a href="#r_tab2" role="tab" data-toggle="tab" class="nav-link"><i class="fa fa-fw ti-bell"></i></a>
-                                    </li>
-                                    <li class="text-center nav-item">
-                                        <a href="#r_tab3" role="tab" data-toggle="tab" class="nav-link"><i
-                                                class="fa fa-fw ti-settings"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="r_tab1">
-                                    <div id="slim_t1">
-                                        <h5 class="rightsidebar-right-heading text-uppercase text-xs">
-                                            <i class="menu-icon  fa fa-fw ti-user"></i>
-                                            Contacts
-                                        </h5>
-                                        <ul class="list-unstyled margin-none">
-                                            <li class="rightsidebar-contact-wrapper">
-                                                <a class="rightsidebar-contact" href="#">
-                                                    <img src="img/authors/avatar6.jpg"
-                                                         class="rounded-circle float-right" alt="avatar-image">
-                                                    <i class="fa fa-circle text-xs text-primary"></i>
-                                                    Annette
-                                                </a>
-                                            </li>
-                                            <li class="rightsidebar-contact-wrapper">
-                                                <a class="rightsidebar-contact" href="#">
-                                                    <img src="img/authors/avatar.jpg"
-                                                         class="rounded-circle float-right" alt="avatar-image">
-                                                    <i class="fa fa-circle text-xs text-primary"></i>
-                                                    Jordan
-                                                </a>
-                                            </li>
-                                            <li class="rightsidebar-contact-wrapper">
-                                                <a class="rightsidebar-contact" href="#">
-                                                    <img src="img/authors/avatar2.jpg"
-                                                         class="rounded-circle float-right" alt="avatar-image">
-                                                    <i class="fa fa-circle text-xs text-primary"></i>
-                                                    Stewart
-                                                </a>
-                                            </li>
-                                            <li class="rightsidebar-contact-wrapper">
-                                                <a class="rightsidebar-contact" href="#">
-                                                    <img src="img/authors/avatar3.jpg"
-                                                         class="rounded-circle float-right" alt="avatar-image">
-                                                    <i class="fa fa-circle text-xs text-warning"></i>
-                                                    Alfred
-                                                </a>
-                                            </li>
-                                            <li class="rightsidebar-contact-wrapper">
-                                                <a class="rightsidebar-contact" href="#">
-                                                    <img src="img/authors/avatar4.jpg"
-                                                         class="rounded-circle float-right" alt="avatar-image">
-                                                    <i class="fa fa-circle text-xs text-danger"></i>
-                                                    Eileen
-                                                </a>
-                                            </li>
-                                            <li class="rightsidebar-contact-wrapper">
-                                                <a class="rightsidebar-contact" href="#">
-                                                    <img src="img/authors/avatar5.jpg"
-                                                         class="rounded-circle float-right" alt="avatar-image">
-                                                    <i class="fa fa-circle text-xs text-muted"></i>
-                                                    Robert
-                                                </a>
-                                            </li>
-                                            <li class="rightsidebar-contact-wrapper">
-                                                <a class="rightsidebar-contact" href="#">
-                                                    <img src="img/authors/avatar7.jpg"
-                                                         class="rounded-circle float-right" alt="avatar-image">
-                                                    <i class="fa fa-circle text-xs text-muted"></i>
-                                                    Cassandra
-                                                </a>
-                                            </li>
-                                        </ul>
 
-                                        <h5 class="rightsidebar-right-heading text-uppercase text-xs">
-                                            <i class="fa fa-fw ti-export"></i>
-                                            Recent Updates
-                                        </h5>
-                                        <div>
-                                            <ul class="list-unstyled">
-                                                <li class="rightsidebar-notification">
-                                                    <a href="#">
-                                                        <i class="fa ti-comments-smiley fa-fw text-primary"></i>
-                                                        New Comment
-                                                    </a>
-                                                </li>
-                                                <li class="rightsidebar-notification">
-                                                    <a href="#">
-                                                        <i class="fa ti-twitter-alt fa-fw text-success"></i>
-                                                        3 New Followers
-                                                    </a>
-                                                </li>
-                                                <li class="rightsidebar-notification">
-                                                    <a href="#">
-                                                        <i class="fa ti-email fa-fw text-info"></i>
-                                                        Message Sent
-                                                    </a>
-                                                </li>
-                                                <li class="rightsidebar-notification">
-                                                    <a href="#">
-                                                        <i class="fa ti-write fa-fw text-warning"></i>
-                                                        New Task
-                                                    </a>
-                                                </li>
-                                                <li class="rightsidebar-notification">
-                                                    <a href="#">
-                                                        <i class="fa ti-export fa-fw text-danger"></i>
-                                                        Server Rebooted
-                                                    </a>
-                                                </li>
-                                                <li class="rightsidebar-notification">
-                                                    <a href="#">
-                                                        <i class="fa ti-info-alt fa-fw text-primary"></i>
-                                                        Server Not Responding
-                                                    </a>
-                                                </li>
-                                                <li class="rightsidebar-notification">
-                                                    <a href="#">
-                                                        <i class="fa ti-shopping-cart fa-fw text-success"></i>
-                                                        New Order Placed
-                                                    </a>
-                                                </li>
-                                                <li class="rightsidebar-notification">
-                                                    <a href="#">
-                                                        <i class="fa ti-money fa-fw text-info"></i>
-                                                        Payment Received
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="r_tab2">
-                                    <div id="slim_t2">
-                                        <h5 class="rightsidebar-right-heading text-uppercase text-xs">
-                                            <i class="fa fa-fw ti-bell"></i>
-                                            Notifications
-                                        </h5>
-                                        <ul class="list-unstyled m-t-15 notifications">
-                                            <li>
-                                                <a href="" class="message icon-not striped-col">
-                                                    <img class="message-image rounded-circle"
-                                                         src="img/authors/avatar3.jpg" alt="avatar-image">
-
-                                                    <div class="message-body">
-                                                        <strong>John Doe</strong>
-                                                        <br>
-                                                        5 members joined today
-                                                        <br>
-                                                        <small class="noti-date">Just now</small>
-                                                    </div>
-
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="message icon-not">
-                                                    <img class="message-image rounded-circle"
-                                                         src="img/authors/avatar.jpg" alt="avatar-image">
-                                                    <div class="message-body">
-                                                        <strong>Tony</strong>
-                                                        <br>
-                                                        likes a photo of you
-                                                        <br>
-                                                        <small class="noti-date">5 min</small>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="message icon-not striped-col">
-                                                    <img class="message-image rounded-circle"
-                                                         src="img/authors/avatar6.jpg" alt="avatar-image">
-
-                                                    <div class="message-body">
-                                                        <strong>John</strong>
-                                                        <br>
-                                                        Dont forgot to call...
-                                                        <br>
-                                                        <small class="noti-date">11 min</small>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="message icon-not">
-                                                    <img class="message-image rounded-circle"
-                                                         src="img/authors/avatar1.jpg" alt="avatar-image">
-                                                    <div class="message-body">
-                                                        <strong>Jenny Kerry</strong>
-                                                        <br>
-                                                        Done with it...
-                                                        <br>
-                                                        <small class="noti-date">1 Hour</small>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" class="message icon-not striped-col">
-                                                    <img class="message-image rounded-circle"
-                                                         src="img/authors/avatar7.jpg" alt="avatar-image">
-
-                                                    <div class="message-body">
-                                                        <strong>Ernest Kerry</strong>
-                                                        <br>
-                                                        2 members joined today
-                                                        <br>
-                                                        <small class="noti-date">3 Days</small>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="text-right noti-footer"><a href="#">View All Notifications <i
-                                                    class="ti-arrow-right"></i></a></li>
-                                        </ul>
-                                        <h5 class="rightsidebar-right-heading text-uppercase text-xs">
-                                            <i class="fa fa-fw ti-check-box"></i>
-                                            Tasks
-                                        </h5>
-                                        <ul class="list-unstyled m-t-15">
-                                            <li>
-                                                <div>
-                                                    <p>
-                                                        <span>Button Design</span>
-                                                        <small class="float-right text-muted">40%</small>
-                                                    </p>
-                                                    <div class="progress progress-xs  active">
-                                                        <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width: 40%">
-                                                            <span class="sr-only">40% Complete (success)</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <p>
-                                                        <span>Theme Creation</span>
-                                                        <small class="float-right text-muted">20%</small>
-                                                    </p>
-                                                    <div class="progress progress-xs  active">
-                                                        <div class="progress-bar bg-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width: 20%">
-                                                            <span class="sr-only">20% Complete</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <p>
-                                                        <span>XYZ Task To Do</span>
-                                                        <small class="float-right text-muted">60%</small>
-                                                    </p>
-                                                    <div class="progress progress-xs  active">
-                                                        <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width: 60%">
-                                                            <span class="sr-only">60% Complete (warning)</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div>
-                                                    <p>
-                                                        <span>Transitions Creation</span>
-                                                        <small class="float-right text-muted">80%</small>
-                                                    </p>
-                                                    <div class="progress progress-xs active">
-                                                        <div class="progress-bar bg-danger progress-bar-striped" role="progressbar"
-                                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width: 80%">
-                                                            <span class="sr-only">80% Complete (danger)</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="text-right"><a href="#">View All Tasks <i
-                                                    class="ti-arrow-right"></i></a>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="r_tab3">
-                                    <div id="slim_t3">
-
-                                        <h5 class="rightsidebar-right-heading text-uppercase gen-sett-m-t text-xs">
-                                            <i class="fa fa-fw ti-settings"></i>
-                                            General
-                                        </h5>
-                                        <ul class="list-unstyled settings-list m-t-10">
-                                            <li>
-                                                <label for="status">Available</label>
-                                                <span class="float-right">
-                                            <input type="checkbox" id="status" name="my-checkbox" checked>
-                                        </span>
-                                            </li>
-                                            <li>
-                                                <label for="email-auth">Login with Email</label>
-                                                <span class="float-right">
-                                            <input type="checkbox" id="email-auth" name="my-checkbox">
-                                        </span>
-                                            </li>
-                                            <li>
-                                                <label for="update">Auto Update</label>
-                                                <span class="float-right">
-                                            <input type="checkbox" id="update" name="my-checkbox">
-                                        </span>
-                                            </li>
-
-                                        </ul>
-                                        <h5 class="rightsidebar-right-heading text-uppercase text-xs">
-                                            <i class="fa fa-fw ti-volume"></i>
-                                            Sound & Notification
-                                        </h5>
-                                        <ul class="list-unstyled settings-list m-t-10">
-                                            <li>
-                                                <label for="chat-sound">Chat Sound</label>
-                                                <span class="float-right">
-                                            <input type="checkbox" id="chat-sound" name="my-checkbox" checked>
-                                        </span>
-                                            </li>
-                                            <li>
-                                                <label for="noti-sound">Notification Sound</label>
-                                                <span class="float-right">
-                                            <input type="checkbox" id="noti-sound" name="my-checkbox">
-                                        </span>
-                                            </li>
-                                            <li>
-                                                <label for="remain">Remainder </label>
-                                                <span class="float-right">
-                                            <input type="checkbox" id="remain" name="my-checkbox" checked>
-                                        </span>
-
-                                            </li>
-                                            <li>
-                                                <label for="vol">Volume</label>
-                                                <input type="range" id="vol" min="0" max="100" value="15">
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- /#right -->
             <div class="background-overlay"></div>
 
@@ -579,6 +173,7 @@
     import moment from 'moment';
     import Chart from 'chart.js';
     import timeline from './timeline.vue';
+    import _ from 'lodash';
 
 export default {
     name: "dashboardSeller",
@@ -588,24 +183,33 @@ export default {
                 'userData' : {
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
-                }
+                },
+                'nominationData':[]
         }
     },
     methods: {
        getBuyerDetails(){
             let curDate = moment().format('DD-MM-YYYY');
             let nData = {'date':curDate};
+            let vm =this;
             User.getNominationDetailsByDate(curDate).then(
                  (response) => {
                     console.log('response',response);
-                    return false;
-                    let consult_data  = response.data.data;
-                    $.each(consult_data, function(key, value) {
-                        let name =  value.first_name ;
-                        let id  = value.id ;
-                        consult_list.push({text:name, id:id});
+                    // return false;
+                    let nominationData  = [];
+                    $.each(response.data.data, function(key, value) {
+                        let data =  {
+                            'buyer_id':value.buyer_id,
+                            'buyer_name':value.first_name,
+                            'quantity_required':value.quantity_required,
+                            'approved_quantity':value.approved_quantity,
+                            'supplied_quantity':value.supplied_quantity,
+                            'date':value.date
+                        }
+                        nominationData.push(data);
+                        
                     });
-                    vm.nominationData.seller_option=consult_list;
+                    vm.nominationData = nominationData;
                 },
                 (error) => {
                 },
@@ -663,83 +267,17 @@ export default {
     },
     mounted: function() {
         this.getBuyerDetails();
+        let vm = this;
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
         };                    
         var ctx1 = document.getElementById("myChart").getContext('2d');
         var ctx2 = document.getElementById("cSupply").getContext('2d');
-        var config1 = {
-            type: 'bar',
-            data: {
-                datasets: [
-                {
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        '#0040ff',
-                        '#ff6600',
-                        '#ffff00',
-                    ],
-                    label: 'Dataset 1'
-                },
-                {
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        '#0040ff',
-                        '#ff6600',
-                        '#ffff00',
-                    ],
-                    label: 'Dataset 2'
-                },
-                {
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        '#0040ff',
-                        '#ff6600',
-                        '#ffff00',
-                    ],
-                    label: 'Dataset 3'
-                },
-                ],
-                labels: [
-                    'Red',
-                    'Green',
-                    'Blue',
-                    'Orange',
-                    'Yellow'
-                ]
-            },
-            options: {
-                responsive: true
-            }
-        };
-       
-        var config2 = {
-            type: 'pie',
-            data: {
+     
+
+        var color = Chart.helpers.color;
+
+var config1Data = {
                 datasets: [{
                     data: [0,100],
                     backgroundColor: [
@@ -750,38 +288,107 @@ export default {
                     label: 'Dataset 1'
                 }],
                 labels: [
-                    'Supplied',
-                    'Remaining',
+                    'Requested',
+                    'Approved',
+                ]
+            };
+        var config1 = {
+            type: 'bar',
+            data: config1Data,
+            options: {
+                responsive: true,
+                legend: {
+                        position: 'top',
+                    },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        };
+
+        var config2 = {
+            type: 'pie',
+            data: {
+                datasets: [
+                {
+                    data: [0,100],
+                    backgroundColor: [
+                        '#ff0000',
+                        '#00ff40',
+                        
+                    ],
+                    label: 'Dataset 1'
+                }
+                ],
+                labels: [
+                    'Requested',
+                    'Approved',
                 ]
             },
             options: {
                 responsive: true
             }
         };
-        window.myPie1 = new Chart(ctx1, config1);
+        // window.myPie1 = new Chart(ctx1, config1);
         window.myPie2 = new Chart(ctx2, config2);
         setInterval(function(){
-            config1.data.datasets.forEach(function(dataset) {
-                dataset.data = dataset.data.map(function() {
-                    return randomScalingFactor();
-                });
-            });
+
+            // config1.data.datasets.forEach(function(dataset) {
+            //     dataset.data = dataset.data.map(function() {
+            //         return randomScalingFactor();
+            //     });
+            // });
+            
             //  config2.data.datasets.forEach(function(dataset) {
             //     dataset.data = dataset.data.map(function() {
             //         return randomScalingFactor();
             //     });   
             // });
-            console.log(config2.data.datasets[0].data[0]);
             if(config2.data.datasets[0].data[0] <100){
 
              config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +1;
              config2.data.datasets[0].data[1] = 100 -config2.data.datasets[0].data[0]; 
             }
-            window.myPie1.update();
+            // window.myPie1.update();
             window.myPie2.update();
         },2000)
+        var newDataset = {};
+        setTimeout(function(){
+            config1Data.datasets.pop();
+            _.forEach(vm.nominationData,function(value,key){
+                console.log(value,'value');
+                // config1.data.datasets[key].data[0] = value.quantity_required;
+                // config1.data.datasets[key].data[1] = value.approved_quantity;
+                // config1.data.datasets[key].label = value.buyer_name;
+                // config1.data[key] = value.buyer_name;
+                 var letters = '0123456789ABCDEF';
+                  var color = '#';
+                  for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                  }
+                var newDataset = {
+                    label: value.buyer_name,
+                    backgroundColor: color,
+                    borderWidth: 1,
+                    data: [
+                        value.quantity_required,
+                        value.approved_quantity
+                    ]
+                };
+                config1Data.datasets.push(newDataset);
 
+                // check_list_data.push(value.reportListId);
+            });
+            console.log(config1Data,'config1Data');
+             // window.myPie1.update();
+             window.myPie1 = new Chart(ctx1, config1);
+            // config1.datasets.push(newDataset);
 
+        },2000)
 
     },
        
