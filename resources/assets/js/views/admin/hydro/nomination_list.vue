@@ -61,9 +61,9 @@
                             <td data-v-744e717e="" class="text-uppercase">
                                 {{ nominationData.request}}
                             </td>
-                      				<td data-v-744e717e="" class="" v-if="today_date==nominationData.date || tomorrow_date==nominationData.date">
-                      					<a> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Nomination Delete"></i></a>
-                                <a  @click="setNominationId(nominationData.nId)" title="Nomination Edit"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                      				<td data-v-744e717e="" class="">
+                      					<a v-if="today_date==nominationData.date || tomorrow_date==nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Nomination Delete"></i></a>
+                                <a  v-if="today_date==nominationData.date || tomorrow_date==nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Edit"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -125,7 +125,7 @@
 		 	/* if(vm.$store.state.Users.userDetails.user_type != '6' || vm.$store.state.Users.userDetails.user_type != '7'){
           vm.$root.$emit('logout','You are not authorise to access this page'); 
         }*/
-		
+		 
        vm.getNominationList('/nomination/getNominationList');
       
 		 },

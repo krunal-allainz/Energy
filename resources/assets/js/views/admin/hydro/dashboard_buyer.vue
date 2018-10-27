@@ -1,11 +1,26 @@
 <template>
 	<section class="content">
+        <section class="content-header">
+            <h1>Dashboard</h1> 
+            <ol class="breadcrumb">
+                <li role="presentation" class="breadcrumb-item active">
+                    <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
+                </li>
+            </ol>
+        </section>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
+            </div>
+        </div>
+        <br/>
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                            <i class="ti-eye text-warning"></i>
+                            <i class="fa fa-eye text-warning"></i>
+                          
                         </div>
                         <div class="text-right">
                            <h3 class="text-dark"><b>3752</b></h3>
@@ -26,7 +41,7 @@
                 <div class="flip">
             	    <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                            <i class="ti-shopping-cart text-success"></i>
+                           <!--  <i class="ti-shopping-cart text-success"></i> -->
                         </div>
                         <div class="text-right">
                             <h3><b id="widget_count3">3251</b></h3>
@@ -507,7 +522,6 @@ export default {
         }
     },
     methods: {
-
 
     },
     components: {
