@@ -153,5 +153,78 @@ class NominationController extends Controller
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
     }
+
+    /**
+     * [getTotalApprovedQuantity description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function getTotalApprovedQuantity(Request $request)
+    {
+        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $get_details=$this->nomObj->getTotalApprovedQuantity($date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+    /**
+     * [getTotalSuppliedQuantity description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function getTotalSuppliedQuantity(Request $request)
+    {
+        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $get_details=$this->nomObj->getTotalSuppliedQuantity($date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+    /**
+     * [getTotalRequestedQuantity description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function getTotalRequestedQuantity(Request $request)
+    {
+        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $userId = $request->userId;
+        $get_details=$this->nomObj->getTotalRequestedQuantity($userId,$date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+     public function getTotalApprovedQuantityByBuyer(Request $request)
+    {
+        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $userId = $request->userId;
+        $get_details=$this->nomObj->getTotalApprovedQuantityByBuyer($userId,$date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
     
 }

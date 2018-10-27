@@ -290,6 +290,39 @@ use Auth;
         return Nomination::whereIn('request',['Pending','Approved'])->groupBy('buyer_id')->get();
     }
 
+    /**
+     * [getTotalApprovedQuantity description]
+     * @param  [type] $date [description]
+     * @return [type]       [description]
+     */
+    public function getTotalApprovedQuantity($date)
+    {
+        $approved=Nomination::whereDate('date',$date)->select([DB::raw('SUM(approved_quantity) as total_approved_quantity')])->first();
+        return $approved->total_approved_quantity;
+    }
+
+    /**
+     * [getTotalSuppliedQuantity description]
+     * @param  [type] $date [description]
+     * @return [type]       [description]
+     */
+     public function getTotalSuppliedQuantity($date)
+    {
+        $supplied=Nomination::whereDate('date',$date)->select([DB::raw('SUM(supplied_quantity) as total_supplied_quantity')])->first();
+        return $supplied->total_supplied_quantity;
+    }
+
+    public function getTotalRequestedQuantity($userId,$date)
+    {
+        $requested=Nomination::whereDate('date',$date)->where('buyer_id',$userId)->select([DB::raw('SUM(quantity_required) as total_quantity_required')])->first();
+        return $requested->total_quantity_required;
+    }
+
+    public function getTotalApprovedQuantityByBuyer($userId,$date)
+    {
+        $requested=Nomination::whereDate('date',$date)->where('buyer_id',$userId)->select([DB::raw('SUM(approved_quantity) as total_approved_quantity')])->first();
+        return $requested->total_approved_quantity;
+    }
     
  }
 ?>
