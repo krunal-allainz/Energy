@@ -118,6 +118,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
          
         $api->post('user/getbuyerlist', '\euro_hms\Api\Controllers\UserController@getBuyerList');
 
+<<<<<<< HEAD
+        $api->post('user/getbuyerrequestlist', '\euro_hms\Api\Controllers\NominationController@getBuyerRequestList');
+=======
         //for total approved
         $api->post('nomination/getTotalApprovedQuantity', '\euro_hms\Api\Controllers\NominationController@getTotalApprovedQuantity');
 
@@ -131,6 +134,7 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
          $api->post('nomination/getTotalApprovedQuantityByBuyer', '\euro_hms\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
 
 
+>>>>>>> 8ca120f783c590c8a763ba2e6961b9369d2609f1
 
 }); 
 

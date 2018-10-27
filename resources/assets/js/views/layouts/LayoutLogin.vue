@@ -91,13 +91,11 @@ export default {
                                 }else if(vm.$store.state.Users.userDetails.user_type ==  '6') {
 
                                         vm.$router.push({'name':'buyer-dashboard'});
-
                                 }
                                 else
                                 {
                                     vm.$router.push({'name':'buyer-dashboard'});
                                 }
-
 
                             },2000)    
                         }else {

@@ -154,6 +154,15 @@ class NominationController extends Controller
         }
     }
 
+
+    public function getBuyerRequestList(){
+
+        // write code for get buyer list
+        return true;
+     }
+
+
+
     /**
      * [getTotalApprovedQuantity description]
      * @param  Request $request [description]

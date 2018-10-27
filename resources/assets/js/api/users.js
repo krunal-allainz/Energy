@@ -83,6 +83,9 @@ export default {
   createAvailability(){
      return api.post('availability/createAvailability');
   },
+  getBuyerRequestList(buyerId,requestType,typeInclude){
+    return api.post('user/getbuyerlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
+  },
   getBuyerList(){
     return api.post('user/getbuyerlist');
   },
@@ -100,5 +103,5 @@ export default {
   },
   getTotalApprovedQuantityByBuyer(userId){
      return api.post('nomination/getTotalApprovedQuantityByBuyer',{'userId':userId});
-  },
+  }
 }
