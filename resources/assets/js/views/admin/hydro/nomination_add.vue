@@ -90,6 +90,7 @@
                     'mdcq':'',
                     'currentYear': new Date().getFullYear(),
                     'user_id':this.$store.state.Users.userDetails.id,
+                    'buyer_id':'',
                     'user_type':this.$store.state.Users.userDetails.user_type,
                     'nominationData' : {
                         'buyer_id':this.$store.state.Users.userDetails.id,
@@ -134,31 +135,38 @@
         },
         mounted() {
             var vm = this;
-             vm.getAllowedQuantityByBuyerId(vm.user_id);
+            
             $('.ls-select2').select2({
                 placeholder: "Select"
             });
-           
-            //if(vm.nominationData.pageName=='EDIT')
-            //{
-                 setTimeout(function(){
-                  $('#request').select2({
-                    placeholder: "Select",
-                    tags:false 
-                  });
-                  $('#request').on('select2:select', function(e) {
-                    console.log($(this).val());
-                        vm.nominationData.request = $(this).val();
-                    }); 
-                },100)
-            //}
-           
+            
+            
+             setTimeout(function(){
+              $('#request').select2({
+                placeholder: "Select",
+                tags:false 
+              });
+              $('#request').on('select2:select', function(e) {
+                
+                    vm.nominationData.request = $(this).val();
+                }); 
+            },100)
+
             vm.initData();
+            if(vm.nominationData.pageName!='EDIT')
+            {
+                vm.getAllowedQuantityByBuyerId();
+            }
+            
+           
+           
         },
         methods: {
-            getAllowedQuantityByBuyerId(userId)
+            getAllowedQuantityByBuyerId()
             {
                 let vm=this;
+                 let userId=vm.user_id;
+                 
                  User.getAllowedQuantityByBuyerId(userId).then(
                   (response)=> {
                     let mdcq=response.data.data;
@@ -199,6 +207,8 @@
                         vm.nominationData.approved_quantity =presp_data.approved_quantity;
                         vm.nominationData.date.time =presp_data.date;
                         vm.nominationData.request =presp_data.request;
+                        vm.user_id =presp_data.buyer_id;
+                        vm.getAllowedQuantityByBuyerId();
                         setTimeout(function(){
                             $('#supplier').val(presp_data.seller_id).trigger('change');
                         },200);
