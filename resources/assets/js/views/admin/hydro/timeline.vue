@@ -4,7 +4,7 @@
                         <div class="col-xl-12 col-sm-6 col-lg-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Timeline</h3>
+                                    <h3 class="card-title">Notification</h3>
                                 </div>
                                 <div class="card-body">
                                     <div>

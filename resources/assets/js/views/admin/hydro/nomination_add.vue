@@ -248,22 +248,26 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success('Nomination edited successfully', 'Add Nomination', {timeOut: 5000});
+                                toastr.success('Nomination edited successfully', 'Edit Nomination', {timeOut: 5000});
                                 vm.$router.push('nomination_list');
                                 //this.initialState();
                                 
                             } 
                             else if (response.data.code == 301) {
-                                toastr.error('MDCQ is higher.', 'Add Nomination', {timeOut: 5000});
+                                toastr.error('MDCQ is higher.', 'Edit Nomination', {timeOut: 5000});
+                                //this.initialState(); 
+                            }
+                            else if (response.data.code == 302) {
+                                toastr.error('Approved quantity limit exceed.', 'Edit Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                                toastr.error('Something Went wrong.', 'Edit Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                                toastr.error('Something Went wrong.', 'Edit Nomination', {timeOut: 5000});
                             }
                             
                           },

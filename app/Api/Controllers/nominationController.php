@@ -103,7 +103,11 @@ class NominationController extends Controller
         }
         else if($edit_Nomination['code']==301)
         {
-            return ['code' => 301 ,'data'=>$edit_Nomination,'message'=>'Nomination successfully edited.'];
+            return ['code' => 301 ,'data'=>$edit_Nomination,'message'=>'Quantity is higher.'];
+        }
+        else if($edit_Nomination['code']==302)
+        {
+            return ['code' => 302 ,'data'=>$edit_Nomination,'message'=>'Approved quantity limit exceed.'];
         }
         else
         {

@@ -10,24 +10,22 @@
                 </li>
             </ol>
         </section>
-<<<<<<< HEAD
-                <div class="row">
-            <div class="col-md-12 text-right">
-                <button class="btn btn-primary" @click="supplied_quantity()">Supplied Quantity</button>
-            </div>
-        </div>
-        <br/>
+              
           <div class="row">
             <div class="col-md-12 text-right">
                 <button class="btn btn-primary" @click="GenerateInvoice()">Generate Invoice</button>
             </div>
         </div>
         <br/>
-=======
+          <div class="row">
+            <div class="col-md-12 text-right">
+                <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
+            </div>
+        </div>
+        <br/>
             
       
 
->>>>>>> 41b5c589c8ef9402bbd58e9e4b6fc130235e325a
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">

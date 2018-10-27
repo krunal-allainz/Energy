@@ -45,8 +45,8 @@
               vm.$root.$emit('logout','You are not authorise to access this page'); 
 
           }*/
-		 	this.getPatientCounters();
-		 	this.getOPDCounters();
+		 	/*this.getPatientCounters();
+		 	this.getOPDCounters();*/
 		 },
 		  methods:{
 				makePagination: function(data){
