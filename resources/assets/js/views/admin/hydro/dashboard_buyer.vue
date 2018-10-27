@@ -1,13 +1,22 @@
 <template>
-	<section class="content">
-        <section class="content-header">
-            <h1>Dashboard</h1> 
-            <ol class="breadcrumb">
-                <li role="presentation" class="breadcrumb-item active">
-                    <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
-                </li>
-            </ol>
+<section>
+    <section class="content-header mb-3">
+            <div class="row">
+                <div class="col-md-4 col-sm-5">
+                    <h1>Dashboard</h1> 
+                </div>
+                <div class="col-md-8 col-sm-7">
+                     <ol class="breadcrumb">
+                        <li role="presentation" class="breadcrumb-item active">
+                            <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+           
         </section>
+	<section class="content">
+        
         <div class="row">
             <div class="col-md-12 text-right">
                 <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
@@ -474,7 +483,7 @@
             </div>
             <!-- /#right -->
             <div class="background-overlay"></div>
-
+</section>
 	</section>
 </template>
 	

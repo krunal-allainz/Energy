@@ -193,7 +193,7 @@ table.table-bordered ,th , td, tbody, thead, tr{
 
 body > #app .header {
     position: fixed !important;
-    box-shadow: 1px 1px 1px #888888;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
     z-index: 9999;
     display: block;
     background-color: white;
@@ -705,3 +705,126 @@ th {
 }
 
 //card
+
+//Sahista
+.header{
+    padding-left: 15px;
+    padding-right: 15px;
+    nav{
+        h1{
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+    }
+}
+.content-header{
+    background-color: #004696;
+    padding: 0 15px;
+    h1{
+        color: #fff;
+        margin-top: 5px;
+        margin-bottom: 0px;
+    }
+}
+.dashboard{
+    // margin-top: 5%;
+    margin-top: 3.9%;
+}
+.breadcrumb{
+    background-color: transparent;
+    padding: 0.99rem 1rem;
+    margin-bottom: 0px;
+    display: inline-block;
+    .breadcrumb-item.active{
+        color: $white;
+    }
+}
+.right-aside{
+    padding: 0px !important;
+}
+.logout-text, logout-text:visited, logout-text:focus{
+    padding-right: 0px;
+    font-size: 16px;
+    margin-top: -15px;
+}
+.main-chart.card{
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px !important;
+    margin-top: 13px;
+    .card-header{
+        padding: 0.8rem 2.25rem 0.85rem 1.25rem !important;
+        h4{
+            margin-bottom: 0px;
+        }
+        a{
+            color: #fff;
+        }
+    }
+    .card-body{
+        min-height: 553px;
+    }
+}
+.timeline{
+    &::before{
+        display: none;
+    }
+    li{
+        .timeline-card{
+            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+    }
+}
+
+.card{
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px !important;
+    margin-top: 17px !important;
+    min-height: 710px; 
+    .card-header{
+        padding: 0.8rem 2.25rem 0.85rem 1.25rem !important;
+        font-size: 14px;
+        background-color: #004696;
+        color: $white;
+        h4{
+            margin-bottom: 0px;
+            color: $white;
+        }
+    }
+}
+
+.table{
+    border: solid 1px #ddd;
+    thead{
+        tr{
+            th{
+                padding: 10px !important;
+                background-color: #004696;
+                color: #fff;
+                border: solid 1px #efefef !important;
+            }
+        }
+    }
+    tbody{
+        tr{
+            td{
+                padding: 10px !important;
+                border: solid 1px #efefef !important;
+                i{
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+.btn{
+    font-size: 14px !important;
+    padding: 0.5rem 1.5rem !important;
+}
+.btn.forgot-link{
+    padding-right: 0px !important;
+}
+.flip{
+    .card-box{
+        min-height: 132px;
+    }
+}

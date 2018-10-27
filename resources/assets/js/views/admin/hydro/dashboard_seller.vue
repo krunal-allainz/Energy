@@ -1,153 +1,166 @@
 <template>
-	<section class="content">
-
-		<section class="content-header">
-            <h1>Dashboard</h1> 
-            <ol class="breadcrumb">
-                <li role="presentation" class="breadcrumb-item active">
-                    <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
-                </li>
-            </ol>
+    <section>
+        <section class="content-header mb-3">
+            <div class="row">
+                <div class="col-md-4 col-sm-5">
+                    <h1>Dashboard</h1> 
+                </div>
+                <div class="col-md-8 col-sm-7 text-left text-sm-right">
+                    <ol class="breadcrumb">
+                        <li role="presentation" class="breadcrumb-item active">
+                            <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
         </section>
-          <div class="row">
-            <div class="col-md-12 text-right">
-                <button class="btn btn-primary" @click="GenerateInvoice()">Generate Invoice</button>
+        <section class="content">
+            <!-- <div class="row">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-primary mr-2" @click="GenerateInvoice()">Generate Invoice</button>
+                    <a href="/nomination_list"> <button class="btn btn-warning mr-2">Nomination Request</button></a>
+                    <button class="btn btn-success mr-2" @click="supplied_quantity()">Supplied Quantity</button>
+                </div>
+            </div> -->
+            <!-- <div class="row">
+                <div class="col-md-12 text-right">
+                    <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
+                </div>
             </div>
-        </div>
-        <br/>
-          <div class="row">
-            <div class="col-md-12 text-right">
-                <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-success" @click="supplied_quantity()">Supplied Quantity</button>
+                </div>
+            </div> -->
+            <br/>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-xl-3">
+                    <div class="flip">
+                        <a href="/nomination_list">
+                        <div class="widget-bg-color-icon card-box front">
+                            <div class="bg-icon float-left">
+                                <i class="fa fa-cube text-blue"></i>
+                            </div>
+                            <div class="text-right">
+                                <h2>Nomination</h2>
+                            <h3 class="text-dark"><b>{{total_availability}}</b></h3>
+                                <p>Nomination Request</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-xl-3">
+                    <div class="flip">
+                        <a href="#">
+                        <div class="widget-bg-color-icon card-box front">
+                            <div class="bg-icon float-left">
+                                <i class="fa fa-check text-info"></i>
+                            </div>
+                            <div class="text-right">
+                                <h2>Quantity</h2>
+                                <h3><b id="widget_count3">{{total_approved}}</b></h3>
+                                <p>Approved Quantity</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        </a>
+                </div>
             </div>
-        </div>
-        <br/>
-         <div class="row">
-            <div class="col-md-12 text-right">
-                <button class="btn btn-success" @click="supplied_quantity()">Supplied Quantity</button>
-            </div>
-        </div>
-        <br/>
-
-		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
-             	<div class="flip">
+                <div class="flip">
+                    <a href="#" @click="GenerateInvoice()">
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                            <i class="fa fa-cube text-warning"></i>
+                        <i class="fa fa-credit-card text-blue"></i>
                         </div>
                         <div class="text-right">
-                           <h3 class="text-dark"><b>{{total_availability}}</b></h3>
-                            <p>Availability</p>
+                            <h3 class="text-dark"><b><a href="/generate_invoice">Invoice</a></b></h3>
+                            <!-- <p>Hits</p> -->
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="flip">
-            	    <div class="widget-bg-color-icon card-box front">
-                        <div class="bg-icon float-left">
-                            <i class="fa fa-check text-success"></i>
-                        </div>
-                        <div class="text-right">
-                            <h3><b id="widget_count3">{{total_approved}}</b></h3>
-                            <p>Approved Quantity</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-6 col-xl-3">
-            <div class="flip">
-                <div class="widget-bg-color-icon card-box front">
-            	    <div class="bg-icon float-left">
-                       <i class="fa fa-credit-card text-warning"></i>
-                    </div>
-                	<div class="text-right">
-                		<h3 class="text-dark"><b><a href="/generate_invoice">Invoice</a></b></h3>
-                		<!-- <p>Hits</p> -->
-                	</div>
-                    <div class="clearfix"></div>
-                </div>
-                
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="flip">
-            	    <div class="widget-bg-color-icon card-box front">
-                    	<div class="bg-icon float-left">
-                           <i class="fa fa-cart-plus text-info"></i>
-                        </div>
-                        <div class="text-right">
-                            <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
-                            <p>Supplied Quantity</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    
+                    </a>
                     </div>
                 </div>
-            </div>
-             <div class="row">
-                <div class="col-xl-8 col-12">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="card main-chart">
-                                <div class="card-header panel-tabs">
-                                    
-                                            <a > Buyer allocation</a>
-                                    
-                                </div>
-                                <div class="card-body">
-                                    <div class="tab-content">
-                                        <div class="tab-pane  active" id="allocation">
-                                            <div style="width: 100%;">
-                                                <canvas id="myChart" width="100px" height="100px"></canvas>
+                <div class="col-sm-6 col-md-6 col-xl-3">
+                    <div class="flip">
+                        <a href="#" @click="supplied_quantity()">
+                        <div class="widget-bg-color-icon card-box front">
+                            <div class="bg-icon float-left">
+                            <i class="fa fa-cart-plus text-info"></i>
+                            </div>
+                            <div class="text-right">
+                                <h2>Quantity</h2>
+                                <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
+                                <p>Supplied Quantity</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-8 col-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card main-chart">
+                                    <div class="card-header panel-tabs">
+                                        
+                                                <a > Buyer allocation</a>
+                                        
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane  active" id="allocation">
+                                                <div style="width: 100%;">
+                                                    <canvas id="myChart" width="100px" height="100px"></canvas>
+                                                </div>
                                             </div>
+                                        
                                         </div>
-                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card main-chart">
+                                    <div class="card-header panel-tabs">
+                                        <!-- <ul class="nav nav-tabs nav-float" role="tablist"> -->
+                                            
+                                            <!-- <li class="text-center nav-item"> -->
+                                                <a><span class="d-none d-sm-block">Current Supply</span>
+                                                    </a>
+                                            <!-- </li> -->
+                                        <!-- </ul> -->
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- <div class="tab-content"> -->
+                                            
+                                            <div class="tab-pane fade" id="supply">
+                                                <div style="width: 50%;">
+                                                    <canvas id="cSupply" width="100px" height="100px"></canvas>
+                                                </div>
+                                            </div>
+                                        <!-- </div> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="card main-chart">
-                                <div class="card-header panel-tabs">
-                                    <!-- <ul class="nav nav-tabs nav-float" role="tablist"> -->
-                                        
-                                        <!-- <li class="text-center nav-item"> -->
-                                            <a><span class="d-none d-sm-block">Current Supply</span>
-                                                </a>
-                                        <!-- </li> -->
-                                    <!-- </ul> -->
-                                </div>
-                                <div class="card-body">
-                                    <!-- <div class="tab-content"> -->
-                                        
-                                        <div class="tab-pane fade" id="supply">
-                                             <div style="width: 50%;">
-                                                 <canvas id="cSupply" width="100px" height="100px"></canvas>
-                                             </div>
-                                        </div>
-                                    <!-- </div> -->
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                    <timeline :userData=userData> </timeline>
+                    <div class="col-xl-4  col-12">
+
+                    
                     </div>
                 </div>
-                <timeline :userData=userData> </timeline>
-                <div class="col-xl-4  col-12">
 
-                   
-                </div>
-            </div>
+                <!-- /#right -->
+                <div class="background-overlay"></div>
 
-            <!-- /#right -->
-            <div class="background-overlay"></div>
-
-	</section>
+        </section>
+    </section>
 </template>
 	
 <script >
@@ -366,8 +379,8 @@ export default {
                 {
                     data: [0,100],
                     backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
+                        '#82be00',
+                        '#004696',
                         
                     ],
                     label: 'Dataset 1'
