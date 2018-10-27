@@ -92,8 +92,8 @@
                                             <div style="width: 50%;">
                                                <!--  <canvas id="myChart" width="100px" height="100px"></canvas> -->
                                                 <canvas id="myplotArea" width="100px" height="100px"></canvas>
-                                                <button @click="getPrevoiusDay()">Previous</button>
-                                                <button  @click="getNextDay()">Next</button>
+                                                <button class="btn btn-success" @click="getPrevoiusDay()">Previous</button>
+                                                <button   class="btn btn-success" @click="getNextDay()">Next</button>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="profile">
