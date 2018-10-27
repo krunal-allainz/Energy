@@ -10,6 +10,7 @@
             </ol>
         </section>
           <div class="row">
+
             <div class="col-md-12 text-right">
                 <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
             </div>

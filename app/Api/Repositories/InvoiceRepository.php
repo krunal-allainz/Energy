@@ -72,7 +72,7 @@ use File;
         $result_array['total_all']=$total-$result_array['rate'];
         return $result_array;
     }
-
+    
     public function generateInvoice(){
 
         $nominationList = $this->nominationRepoObj->getNominationRequestList();

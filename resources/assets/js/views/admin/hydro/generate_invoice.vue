@@ -65,7 +65,7 @@
            		 let selectedBuyerId = $(this).val();
               	vm.invoiceData.buyer_id=selectedBuyerId;
              	let requestType = vm.noIncludeType;
-             	let typeInclude = 'no;'
+             	let typeInclude = 'no';
               	vm.getBuyerRequestList(selectedBuyerId,requestType,typeInclude);
           }); 
             vm.getBuyeList();

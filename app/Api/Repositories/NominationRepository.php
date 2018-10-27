@@ -323,6 +323,18 @@ use Auth;
         $requested=Nomination::whereDate('date',$date)->where('buyer_id',$userId)->select([DB::raw('SUM(approved_quantity) as total_approved_quantity')])->first();
         return $requested->total_approved_quantity;
     }
+
+
+    public function getNominationDetailsByDateById($date,$buyerId){
+
+
+         $new_date=Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
+
+        $list= Nomination::join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_request.buyer_id');
+            })->whereDate('date',$new_date)->where('buyer_id',$buyerId)->first();
+        return $list;
+    }
     
  }
 ?>
