@@ -65,6 +65,8 @@ import dashboardSeller from './views/admin/hydro/dashboard_seller.vue'
 //Hydro buer Dashboard
 import dashboardBuyer from './views/admin/hydro/dashboard_buyer.vue'
 
+import generateInvoice from './views/admin/hydro/generate_invoice.vue'
+
 
 Vue.use(VueRouter)
 
@@ -116,6 +118,12 @@ const routes = [
                 component: NominationList,
                 meta: { requiresAuth: true },
                 name: 'nomination_list'
+            },
+            {
+                path: '/generate_invoice',
+                component: generateInvoice,
+                meta: { requiresAuth: true },
+                name: 'generate_invoice'
             },
             {
                 path: '/invoice',

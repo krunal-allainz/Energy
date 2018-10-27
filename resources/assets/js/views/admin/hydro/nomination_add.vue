@@ -13,59 +13,21 @@
                         <div class="card-body">
                                 <div class="row form-group"  >
                                     <div class="col-md-3">
-                                        <label for="quantity " class="control-label float-right txt_media1">Quantity :</label>
+                                        <label for="buyer" class="control-label float-right txt_media1">Select Buyer :</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="quantity"  v-validate="'required'" v-model="nominationData.quantity" name="quantity">
-                                        <i v-show="errors.has('quantity')" class="fa fa-warning"></i>
-                                        <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
+                                        <input type="text" class="form-control" id="buyer"  v-validate="'required'" v-model="invoiceData.buyerId" name="quantity">
+                                        <i v-show="errors.has('buyer')" class="fa fa-warning"></i>
+                                        <span class="help is-danger" v-show="errors.has('buyer')">Please select buyer.</span>
                                     </div>
                                 </div>
-                                 <div class="row form-group"  v-if="nominationData.pageName=='EDIT' && user_type==7">
-                                    <div class="col-md-3">
-                                        <label for="approved_quantity " class="control-label float-right txt_media1">Approved Quantity :</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" id="approved_quantity"  v-validate="'required'" v-model="nominationData.approved_quantity" name="approved_quantity">
-                                        <i v-show="errors.has('approved_quantity')" class="fa fa-warning"></i>
-                                        <span class="help is-danger" v-show="errors.has('approved_quantity')">Please enter valid approved quantity.</span>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-3">
-                                        <label class="control-label float-right" >Date: </label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <date-picker  :date.sync="nominationData.date" :option="option" id = "date" class="" type="date" name="date" :limit="limit" v-model="nominationData.date.time" v-validate="'required'"></date-picker> 
-                                        <i v-show="errors.has('date')" class="fa fa-warning"></i>
-                                        <span class="help is-danger" v-show="errors.has('date')">
-                                            Please enter valid date.
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row form-group" v-if="nominationData.pageName=='EDIT' && user_type==7">
-                                    <div class="col-md-3">
-                                        <label class="control-label float-right" >Status: </label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select class="form-control ls-select2"  id="request" name="request">
-                                            <option value="">Select</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Approved">Approve</option>
-                                        </select>
-                                        
-                                    </div>
-                                </div>
-
+                                 
                                 <div class="row form-group">
                                     <div class="col-md-3">
                                     </div>
                                     <div class="col-md-9">
-                                        <span v-if="nominationData.pageName=='EDIT'">
-                                            <button class="btn btn-success" type="button" @click="editValidateBeforeSubmit()">Edit</button>
-                                        </span>
                                         <span v-else>
-                                             <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
+                                             <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Generate Invoice</button>
                                         </span>
                                     </div>
                                 </div>
@@ -85,17 +47,16 @@
         data() {
             return {
                     'currentYear': new Date().getFullYear(),
-                    'user_type':this.$store.state.Users.userDetails.user_type,
-                    'nominationData' : {
-                        'buyer_id':this.$store.state.Users.userDetails.id,
+                    'userData' :{
+                        'user_type':this.$store.state.Users.userDetails.user_type,
+                        'user_id' : this.$store.state.Users.userDetails.id,
+                    },
+                    'invoiceData' : {
+                        'buyer_id':'',
                     	'date': {
                             time:moment().add(1,'days').format('DD-MM-YYYY')
                         },
-                        'quantity': '',
-                        'approved_quantity':'',
-                        'nominationId':'',
                         'pageName':'',
-                        'request':'',
                     },
                     'option': {
                         type: 'day',
@@ -114,14 +75,12 @@
                             'color': '#5F5F5F',
                             'width':'100%',
                         },
-
                     },
                     limit: [
                     {
                         type: 'fromto',
                         to: new Date()
                     }],
-                   
                 }
         },
         components: {
@@ -157,14 +116,12 @@
                 
                 if(nomination_page=='EDIT')
                 {
-
                     vm.nominationData.pageName=nomination_page;
                     let pID=vm.$store.state.Nomination.nominationId;
                     if(pID!=0 || pID!=null)
                     {
                         vm.nominationData.nominationId=pID;
                         vm.setNominationData(pID);
-
                     }
                 }
             },
@@ -206,6 +163,14 @@
                 this.$data.nominationData.request ='',
                 this.$data.nominationData.approved_quantity =''
                 
+            },
+            getBuyerList(){
+
+                let vm=this;
+                User.getBuyerList().then({
+                    
+                });
+
             },
             validateBeforeSubmit() {
                let vm=this;

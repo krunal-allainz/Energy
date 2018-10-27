@@ -79,9 +79,11 @@ export default {
   },
   generateInvoice(){
     return api.post('invoice/generateinvoice');
-  }
+  },
   createAvailability(){
      return api.post('availability/createAvailability');
   },
-
+  getBuyerList(){
+    return api.post('user/getbuyerlist');
+  }
 }
