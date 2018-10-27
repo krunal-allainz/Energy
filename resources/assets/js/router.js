@@ -51,6 +51,7 @@ import UserList from './views/admin/vins/UserList.vue'
 //Hydro 
 import NominationForm from './views/admin/hydro/nomination_add.vue'
 import NominationList from './views/admin/hydro/nomination_list.vue'
+import AllBuyerList from './views/admin/hydro/all_buyers_list.vue'
 
 
 //invoice
@@ -168,6 +169,12 @@ const routes = [
                 component: userDetailEdit,
                 meta: { requiresAuth: true },
                 name: 'user/edit'
+            },
+            {
+                path: '/all_buyers_list',
+                component: AllBuyerList,
+                meta: { requiresAuth: true },
+                name: 'all_buyers_list'
             },
             ]
     },

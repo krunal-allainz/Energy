@@ -13,7 +13,7 @@ class UserTypes extends Model
       'id',
       'name',
       'status',
-     ]
+      ];
 
 
       public function userTypesDetail()

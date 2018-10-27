@@ -11,12 +11,12 @@
         </section>
           <div class="row">
             <div class="col-md-12 text-right">
-                <button class="btn btn-primary" @click="GenerateInvoice()">Generate Invoice</button>
+                <button class="btn btn-primary" @click="GenerateInvoice()">Generate Invoice</button>               
             </div>
         </div>
         <br/>
           <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-md-12 text-right"> 
                 <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
             </div>
         </div>
@@ -66,7 +66,8 @@
                        <i class="fa fa-credit-card text-warning"></i>
                     </div>
                 	<div class="text-right">
-                		<h3 class="text-dark"><b><a href="/generate_invoice">Invoice</a></b></h3>
+                		<h3 class="text-dark"><b><a href="/all_buyers_list">Invoice</a></b></h3>
+                        <!-- <h3 class="text-dark"><b><a href="/generate_invoice">Invoice</a></b></h3> -->
                 		<!-- <p>Hits</p> -->
                 	</div>
                     <div class="clearfix"></div>
