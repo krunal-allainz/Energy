@@ -8,6 +8,7 @@ use Excel;
 use File;
 use euro_hms\Api\Repositories\AgreementRepository;
 use euro_hms\Api\Repositories\AvailabilityRepository;
+use euro_hms\Api\Repositories\UserRepository;
 use Auth;
 
 
@@ -18,6 +19,8 @@ use Auth;
      public function __construct(){
         $this->agmtObj = new AgreementRepository();
         $this->avalabObj = new AvailabilityRepository();
+        $this->userObj = new UserRepository();
+
     }
    
  	/**
@@ -68,14 +71,14 @@ use Auth;
             $nom->request='Pending';
             $nom->save();
             $nom_id=array('nomination_id'=>$nom->id,'code'=>200);
-            
             $dataUserId = $form_data['buyer_id'];
+            $userName = $this->userObj->getUserNameById( $dataUserId);
             $addedBy  = Auth::user()->id;
             $dataId = $nom->id;
             $qty    = $form_data['quantity'];
             $type   = 'add_notification';
-            $dataText = 'New notification for '.$qty.'added';
-            $title  = 'Nomination Request Added';
+            $dataText = $userName.' new nomination for '.$qty.'added';
+            $title  = 'Nomination request added';
             $dataTable = 'nomination_request';
             $this->notificationObj = new NotificationRepository();
             $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy);
@@ -143,11 +146,12 @@ use Auth;
                 $nom->save();
                 $nom_id=array('nomination_id'=>$nom->id,'code'=>200);
                 $dataUserId = $get_buyer->buyer_id;
+                $userName = $this->userObj->getUserNameById( $dataUserId);
                 $dataId = $nom->id;
                 $qty    = $form_data['quantity'];
                 $type   = 'update_notification';
-                $dataText = 'Update notification for '.$qty;
-                $title  = 'Nomination Request Updated';
+                $dataText =  $userName.' update notification for '.$qty;
+                $title  = 'Nomination request updated';
                 $addedBy  = Auth::user()->id;
                 $userType = Auth::user()->user_type;
                 $dataTable = 'nomination_request';
@@ -159,9 +163,9 @@ use Auth;
                     $approveQty = $form_data['approved_quantity'];
                     $reuestType = $form_data['request'];
                     $acualQty = $form_data['quantity'];
-                $dataText1 = 'Change request quntity of '.$acualQty.' chnaged to '.$reuestType.''.$approveQty;
+                $dataText1 = $userName.' quantity of '.$acualQty.' chnaged to '.$reuestType.''.$approveQty;
                  
-                      $title1  = 'Request Qty'.$reuestType;
+                      $title1  = 'Request quantity'.$reuestType;
                       $type1   = 'update_request_qty_status';
 
                     $this->notificationObj->insert($dataId,$type1,$dataUserId1,$dataText1,$title1,$dataTable,$addedBy);

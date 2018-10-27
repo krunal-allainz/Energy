@@ -1,7 +1,6 @@
 <template>
 	<section class="content">
 
-
 		<section class="content-header">
             <h1>Dashboard</h1> 
             <ol class="breadcrumb">
@@ -10,8 +9,8 @@
                 </li>
             </ol>
         </section>
-              
           <div class="row">
+
             <div class="col-md-12 text-right">
                 <button class="btn btn-primary" @click="GenerateInvoice()">Generate Invoice</button>
             </div>
@@ -23,16 +22,13 @@
             </div>
         </div>
         <br/>
-            
-      
 
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                         <!--    <i class="ti-eye text-warning"></i> -->
-                             <button class="btn btn-primary" @click="supplied_quantity()">Supplied Quantity</button>
+                            <i class="ti-eye text-warning"></i>
                         </div>
                         <div class="text-right">
                            <h3 class="text-dark"><b>3752</b></h3>
@@ -53,8 +49,7 @@
                 <div class="flip">
             	    <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                            <!-- <i class="ti-shopping-cart text-success"></i> -->
-                             <button class="btn btn-primary" @click="availibility()">Add Avialability</button>
+                            <i class="ti-shopping-cart text-success"></i>
                         </div>
                         <div class="text-right">
                             <h3><b id="widget_count3">3251</b></h3>
@@ -78,8 +73,8 @@
                        <i class="fas fa-file-invoice"></i>
                     </div>
                 	<div class="text-right">
-                		<h3 class="text-dark"><b>1532</b></h3>
-                		<p>Hits</p>
+                		<h3 class="text-dark"><b><a href="/generate_invoice">Invoice</a></b></h3>
+                		<!-- <p>Hits</p> -->
                 	</div>
                     <div class="clearfix"></div>
                 </div>
@@ -213,92 +208,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-body">
-                                    <!--</div>-->
-                                    <div class="chat-conversation">
-                                        <ul class="conversation-list">
-                                            <li class="clearfix odd conversers1">
-
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap m-t-10">
-                                                        <p class="text-left">
-                                                            Hello Wilton, are the review papers ready?
-                                                            <i class="text-right">8:31 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix  m-t-10 conversers2">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p>
-                                                            Not yet, it will take a bit of time for you to get them.
-                                                            <br><i class="text-right">8:31 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix odd m-t-10 conversers1">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p class="text-left">
-                                                            Treat this on urgent Basis.
-                                                            <i class="text-right">8:33 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix  m-t-10 conversers2">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p>
-                                                            I will make it as early as possible.
-                                                            <br><i class="text-right">8:34 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix odd m-t-10 conversers1">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p class="text-left">
-                                                            Okay.
-                                                            <i class="text-right">8:35 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix m-t-10 conversers2">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p>
-                                                            If there is anything else..
-                                                            <br><i class="text-right">8:35 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <form id="main_input_box">
-                                            <div class="row">
-                                                <div class="col-12 m-b-15">
-                                                    <div class="input-group text-field">
-                                                        <input type="search"
-                                                               class="form-control chat-input custom_textbox"
-                                                               id="custom_textbox" placeholder="Type a message"
-                                                               required>
-                                                        <span class="input-group-btn">
-                                                    <button class="btn btn-success send-btn"
-                                                            type="submit"><i
-                                                            class="menu-icon ti-location-arrow text-white"></i></button>
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>
@@ -685,29 +594,6 @@ export default {
         }
     },
     methods: {
-
-        availibility()
-        {
-            let vm=this;
-            User.createAvailability().then(
-              (response)=> {
-               
-                if(response.data.code == 200){
-                   toastr.success('Availability  added successfully.', 'Availability', {timeOut: 5000});
-                } else if (response.data.code == 300) {
-                    toastr.error('Something Went wrong.', 'Availability', {timeOut: 5000});
-                }
-                else
-                {
-                    toastr.error('Something Went wrong.', 'Availability', {timeOut: 5000});
-                }
-                
-              },
-              (error)=>{
-              }
-
-            )
-        },
        getBuyerDetails(){
             let curDate = moment().format('DD-MM-YYYY');
             let nData = {'date':curDate};
@@ -726,7 +612,6 @@ export default {
                 (error) => {
                 },
             );
-
         },
         supplied_quantity()
         {
@@ -762,7 +647,7 @@ export default {
                 } else if (response.data.code == 300) {
                     toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
                 }
-                else
+                elses
                 {
                     toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
                 }

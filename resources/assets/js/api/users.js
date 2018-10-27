@@ -83,5 +83,7 @@ export default {
   createAvailability(){
      return api.post('availability/createAvailability');
   },
-
+  getBuyerList(){
+    return api.post('user/getbuyerlist');
+  }
 }
