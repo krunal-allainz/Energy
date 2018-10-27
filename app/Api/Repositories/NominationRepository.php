@@ -228,7 +228,9 @@ use Auth;
      */
     public function getNominationDetailsByDate($date)
     {
+
         $new_date=Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
+
         $list= Nomination::join('users', function ($join) {
                 $join->on('users.id', '=', 'nomination_request.buyer_id');
             })->whereDate('date',$new_date)->get();

@@ -80,5 +80,8 @@ export default {
   generateInvoice(){
     return api.post('invoice/generateinvoice');
   }
+  createAvailability(){
+     return api.post('availability/createAvailability');
+  },
 
 }
