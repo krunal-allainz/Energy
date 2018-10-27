@@ -112,8 +112,25 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
          //for adding availibility
          $api->post('availability/createAvailability', '\euro_hms\Api\Controllers\AvialabilityController@createAvailability');
+
+         //for getting availability
+          $api->post('availability/getAvailability', '\euro_hms\Api\Controllers\AvialabilityController@getAvailability');
          
         $api->post('user/getbuyerlist', '\euro_hms\Api\Controllers\UserController@getBuyerList');
+
+        //for total approved
+        $api->post('nomination/getTotalApprovedQuantity', '\euro_hms\Api\Controllers\NominationController@getTotalApprovedQuantity');
+
+        //for total supplied
+         $api->post('nomination/getTotalSuppliedQuantity', '\euro_hms\Api\Controllers\NominationController@getTotalSuppliedQuantity');
+
+          //for total request quantity of buyer
+         $api->post('nomination/getTotalRequestedQuantity', '\euro_hms\Api\Controllers\NominationController@getTotalRequestedQuantity');
+
+          //for total approved quantity of buyer
+         $api->post('nomination/getTotalApprovedQuantityByBuyer', '\euro_hms\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
+
+
 
 }); 
 
