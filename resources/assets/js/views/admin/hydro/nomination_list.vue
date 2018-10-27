@@ -123,6 +123,7 @@
         },
 		  mounted(){
 		 	let vm = this;
+      vm.getNominationCountForBuyer();
 		 	/* if(vm.$store.state.Users.userDetails.user_type != '6' || vm.$store.state.Users.userDetails.user_type != '7'){
           vm.$root.$emit('logout','You are not authorise to access this page'); 
         }*/
@@ -134,6 +135,17 @@
       
     },
 		 methods:{
+      getNominationCountForBuyer()
+      {
+          let vm=this;
+          User.getNominationCountForBuyer(vm.user_id).then(
+            (response)=> {
+             vm.add_nomination_count=response.data.data;
+            },
+            (error)=>{
+            }
+         )
+      },
       verifyImportFile: function(event)
       {
           let files=this.$refs.file.files[0];

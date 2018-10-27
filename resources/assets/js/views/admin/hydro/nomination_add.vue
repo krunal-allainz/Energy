@@ -3,8 +3,11 @@
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-6">
-				<h2>Nomination Add </h2>
+				    <h2>Nomination Add </h2>
 				</div>
+                <div class="col-md-6 text-right">
+                    <strong>MDCQ:</strong> <strong>{{mdcq}}</strong>
+                </div>
 			</div>
 		</div>
 		<form method="post"> 
@@ -84,7 +87,9 @@
     export default {
         data() {
             return {
+                    'mdcq':'',
                     'currentYear': new Date().getFullYear(),
+                    'user_id':this.$store.state.Users.userDetails.id,
                     'user_type':this.$store.state.Users.userDetails.user_type,
                     'nominationData' : {
                         'buyer_id':this.$store.state.Users.userDetails.id,
@@ -129,7 +134,7 @@
         },
         mounted() {
             var vm = this;
-           
+             vm.getAllowedQuantityByBuyerId(vm.user_id);
             $('.ls-select2').select2({
                 placeholder: "Select"
             });
@@ -147,9 +152,23 @@
                     }); 
                 },100)
             //}
-             vm.initData();
+           
+            vm.initData();
         },
         methods: {
+            getAllowedQuantityByBuyerId(userId)
+            {
+                let vm=this;
+                 User.getAllowedQuantityByBuyerId(userId).then(
+                  (response)=> {
+                    let mdcq=response.data.data;
+                    vm.mdcq=mdcq;    
+                  },
+                  (error)=>{
+                  }
+
+                )
+            },
             initData()
             {
                 let vm=this;
