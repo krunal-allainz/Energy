@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use DB;
 use euro_hms\Models\Invoice;
 use euro_hms\Api\Repositories\UserRepository;
+use euro_hms\Api\Repositories\NominationRepository;
 use Excel;
 use File;
 
@@ -13,6 +14,7 @@ use File;
  {
     public function __construct(){
         $this->userObj = new UserRepository();
+        $this->nominationRepoObj = new NominationRepository();
     }
 
  	/**
@@ -69,6 +71,15 @@ use File;
         $result_array['rate'] =5;
         $result_array['total_all']=$total-$result_array['rate'];
         return $result_array;
+    }
+
+    public function generateInvoice(){
+
+        $nominationList = $this->nominationRepoObj->getNominationRequestList();
+        dd($nominationList);
+        foreach($nominationList as $nomination){
+            
+        }
     }
 
     

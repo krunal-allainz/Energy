@@ -10,9 +10,24 @@
                 </li>
             </ol>
         </section>
+<<<<<<< HEAD
+                <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-primary" @click="supplied_quantity()">Supplied Quantity</button>
+            </div>
+        </div>
+        <br/>
+          <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-primary" @click="GenerateInvoice()">Generate Invoice</button>
+            </div>
+        </div>
+        <br/>
+=======
             
       
 
+>>>>>>> 41b5c589c8ef9402bbd58e9e4b6fc130235e325a
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
@@ -62,7 +77,7 @@
             <div class="flip">
                 <div class="widget-bg-color-icon card-box front">
             	    <div class="bg-icon float-left">
-                        <i class="ti-thumb-up text-danger"></i>
+                       <i class="fas fa-file-invoice"></i>
                     </div>
                 	<div class="text-right">
                 		<h3 class="text-dark"><b>1532</b></h3>
@@ -737,6 +752,29 @@ export default {
 
             )
         },
+        GenerateInvoice(){
+
+             let vm=this;
+             User.generateInvoice().then(
+
+                 (response)=> {
+               
+                if(response.data.code == 200){
+                   toastr.success('Generate Invoice Successfully.', 'Generate Invoice', {timeOut: 5000});
+                } else if (response.data.code == 300) {
+                    toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                }
+                else
+                {
+                    toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                }
+                
+              },
+              (error)=>{
+              }
+
+             );
+        }
 
     },
     components: {

@@ -59,6 +59,19 @@ class InvoiceController extends Controller
        
     }
 
+    public function generateInvoice(){
+
+        $invoice=$this->invObj->generateInvoice();
+        if($invoice)
+        {
+            return ['code' => 200 ,'data'=>$invoice,'message'=>'Invoce generate successfully'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
    
     
 }
