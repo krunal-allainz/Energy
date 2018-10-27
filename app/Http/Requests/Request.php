@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Http\Requests;
+namespace Energy\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

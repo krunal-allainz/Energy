@@ -1,10 +1,10 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use euro_hms\Services\VenueTempService as VenueService;
-use euro_hms\Repositories\VenueRepository;
+use Energy\Services\VenueTempService as VenueService;
+use Energy\Repositories\VenueRepository;
 
 class VenueServiceProvider extends ServiceProvider
 {
@@ -24,7 +24,7 @@ class VenueServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('euro_hms\Contracts\VenueContract', function ($app) {
+        $this->app->bind('Energy\Contracts\VenueContract', function ($app) {
             return new VenueService(new VenueRepository());
         });
     }
@@ -36,6 +36,6 @@ class VenueServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Contracts\VenueContract'];
+        return ['Energy\Contracts\VenueContract'];
     }
 }

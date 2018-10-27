@@ -1,10 +1,10 @@
 <?php
 
-namespace euro_hms\Http\Controllers;
+namespace Energy\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use euro_hms\Http\Requests;
+use Energy\Http\Requests;
 
 class FrontendController extends Controller
 {

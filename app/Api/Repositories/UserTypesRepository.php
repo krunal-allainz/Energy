@@ -1,9 +1,9 @@
 <?php
-  namespace euro_hms\Api\Repositories;
+  namespace Energy\Api\Repositories;
 
  use Carbon\Carbon;
  use DB;
- use euro_hms\Models\UserTypes;
+ use Energy\Models\UserTypes;
 
 
 

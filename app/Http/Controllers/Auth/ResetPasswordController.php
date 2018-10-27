@@ -1,8 +1,8 @@
 <?php
 
-namespace euro_hms\Http\Controllers\Auth;
+namespace Energy\Http\Controllers\Auth;
 
-use euro_hms\Http\Controllers\Controller;
+use Energy\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Notifications;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Str;
-use euro_hms\Models\User;
-use euro_hms\Models\Role;
+use Energy\Models\User;
+use Energy\Models\Role;
 
 class ResetPasswordController extends Controller
 {
@@ -171,7 +171,7 @@ class ResetPasswordController extends Controller
     protected function isValidOTP($user,$otp)
     {
        $encoded_otp = base64_encode($user->id."|".$otp);
-        $userOtp = \euro_hms\Models\UserOtp::where(["user_id"=>$user->id,
+        $userOtp = \Energy\Models\UserOtp::where(["user_id"=>$user->id,
           'encoded_key'=>$encoded_otp])->first();
         if($userOtp){
 

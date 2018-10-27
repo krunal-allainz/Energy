@@ -1,9 +1,9 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use euro_hms\Services\UserService;
+use Energy\Services\UserService;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -30,7 +30,7 @@ class UserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('euro_hms\Contracts\UserContract', function ($app) {
+        $this->app->bind('Energy\Contracts\UserContract', function ($app) {
             return new UserService();
         });
     }
@@ -42,6 +42,6 @@ class UserServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Contracts\UserContract'];
+        return ['Energy\Contracts\UserContract'];
     }
 }

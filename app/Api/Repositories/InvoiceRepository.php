@@ -1,10 +1,10 @@
 <?php
-namespace euro_hms\Api\Repositories;
+namespace Energy\Api\Repositories;
 use Carbon\Carbon;
 use DB;
-use euro_hms\Models\Invoice;
-use euro_hms\Api\Repositories\UserRepository;
-use euro_hms\Api\Repositories\NominationRepository;
+use Energy\Models\Invoice;
+use Energy\Api\Repositories\UserRepository;
+use Energy\Api\Repositories\NominationRepository;
 use Excel;
 use File;
 

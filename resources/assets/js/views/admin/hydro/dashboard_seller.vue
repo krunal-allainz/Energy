@@ -97,7 +97,7 @@
                             <div class="card main-chart">
                                 <div class="card-header panel-tabs">
                                     
-                                            <a > Buyer allocation</a>
+                                            <a > Buyer allocation </a><span></span>
                                     
                                 </div>
                                 <div class="card-body">
@@ -170,6 +170,7 @@ export default {
                 'total_availability':'',
                 'total_approved':'',
                 'total_supplied':'',
+                
         }
     },
     methods: {
@@ -389,7 +390,7 @@ export default {
             data: {
                 datasets: [
                 {
-                    data: [0,100],
+                    data: [0,vm.total_availability],
                     backgroundColor: [
                         '#ff0000',
                         '#00ff40',
@@ -399,8 +400,8 @@ export default {
                 }
                 ],
                 labels: [
-                    'Requested',
-                    'Approved',
+                    'Available',
+                    'Supplied',
                 ]
             },
             options: {
@@ -422,10 +423,10 @@ export default {
             //         return randomScalingFactor();
             //     });   
             // });
-            if(config2.data.datasets[0].data[0] <100){
+            if(config2.data.datasets[0].data[0] <vm.total_availability){
 
-             config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +1;
-             config2.data.datasets[0].data[1] = 100 -config2.data.datasets[0].data[0]; 
+             config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+             config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
             }
             // window.myPie1.update();
             window.myPie2.update();
@@ -450,7 +451,8 @@ export default {
                     borderWidth: 1,
                     data: [
                         value.quantity_required,
-                        value.approved_quantity
+                        value.approved_quantity,
+                        value.supplied_quantity
                     ]
                 };
                 config1Data.datasets.push(newDataset);

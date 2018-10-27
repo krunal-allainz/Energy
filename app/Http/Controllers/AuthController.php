@@ -1,11 +1,11 @@
 <?php
 
-namespace euro_hms\Http\Controllers;
+namespace Energy\Http\Controllers;
 
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use euro_hms\Models\Settings;
+use Energy\Models\Settings;
 
 class AuthController extends Controller
 {

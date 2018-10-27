@@ -1,9 +1,9 @@
 <?php
 
-namespace euro_hms\Http\Controllers;
+namespace Energy\Http\Controllers;
 
 use Illuminate\Http\Request;
-use euro_hms\Contracts\TournamentContract;
+use Energy\Contracts\TournamentContract;
 
 class HomeController extends Controller
 {
@@ -27,7 +27,7 @@ class HomeController extends Controller
         //Todo: Login User We passed for Display Manage User Section
        $userName = \Auth::user()['username'];
 
-        $tournamentServiceObj = app()->make('euro_hms\Contracts\TournamentContract')->index();
+        $tournamentServiceObj = app()->make('Energy\Contracts\TournamentContract')->index();
         $tournamentObjArray = $tournamentServiceObj['data']->toarray();
         $tournamentObj = $tournamentObjArray;
 

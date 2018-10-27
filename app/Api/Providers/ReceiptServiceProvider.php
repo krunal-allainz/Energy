@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Api\Providers;
+namespace Energy\Api\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -24,7 +24,7 @@ class ReceiptServiceProvider extends ServiceProvider
     public function register()
     {
         //
-         $this->app->bind('euro_hms\Api\Contracts\ReceiptContract', function ($app) {
+         $this->app->bind('Energy\Api\Contracts\ReceiptContract', function ($app) {
             return new ReceiptService();
         });
     }
@@ -36,6 +36,6 @@ class ReceiptServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Api\Contracts\ReceiptContract'];
+        return ['Energy\Api\Contracts\ReceiptContract'];
     }
 }

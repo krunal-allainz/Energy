@@ -1,8 +1,8 @@
 <?php
 
-namespace euro_hms\Http\Requests;
+namespace Energy\Http\Requests;
 
-use euro_hms\Http\Requests\Request;
+use Energy\Http\Requests\Request;
 
 class SocialSettingsRequest extends Request
 {

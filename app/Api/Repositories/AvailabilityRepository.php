@@ -1,8 +1,8 @@
 <?php
-namespace euro_hms\Api\Repositories;
+namespace Energy\Api\Repositories;
 use Carbon\Carbon;
 use DB;
-use euro_hms\Models\Availability;
+use Energy\Models\Availability;
 use Excel;
 use File;
 use Auth;

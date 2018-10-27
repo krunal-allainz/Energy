@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'euro_hms\Model' => 'euro_hms\Policies\ModelPolicy',
+        'Energy\Model' => 'Energy\Policies\ModelPolicy',
     ];
 
     /**

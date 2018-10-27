@@ -14,17 +14,15 @@
               </nav>
                 <a href="#" class="logout-text text-right" @click.prevent="logout()"><i class="fa fa-sign-out"></i>Logout</a>
 
-                <ul class="action-list"> 
+                <ul class="action-list">
                   <li>
                    <!-- <router-link to="/login">Login</router-link> -->
                     </li>
-                }
-                }
                 </ul>
-
+ 
         </header>
     </div>
-{{user_id}} Test
+
         <div class="dashboard">
           <div class="wrapper">
             <!-- <aside class="left-aside" >
@@ -57,7 +55,7 @@ export default {
           return {
             // 'userType': '',
             curDateTime: '',
-            'user_id' : 10,
+            'user_id' : this.$store.state.Users.userDetails.id,
 
           }
         },

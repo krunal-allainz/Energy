@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Http\Controllers;
+namespace Energy\Http\Controllers;
 
 use Brotzka\DotenvEditor\DotenvEditor;
 

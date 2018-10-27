@@ -1,13 +1,13 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
 
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
-use euro_hms\Models\User;
-use euro_hms\Models\Availability;
-use euro_hms\Api\Repositories\AvailabilityRepository;
+use Energy\Models\User;
+use Energy\Models\Availability;
+use Energy\Api\Repositories\AvailabilityRepository;
 use DB;
 use Carbon\Carbon;
 

@@ -1,8 +1,8 @@
 <?php 
-namespace euro_hms\Api\Repositories;
+namespace Energy\Api\Repositories;
 
-use euro_hms\Models\User;
-use euro_hms\Models\Notification;
+use Energy\Models\User;
+use Energy\Models\Notification;
 use Carbon\Carbon;
 use DB;
 use Hash;

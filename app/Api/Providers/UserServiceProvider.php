@@ -1,9 +1,9 @@
 <?php
 
-namespace euro_hms\Api\Providers;
+namespace Energy\Api\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use euro_hms\Api\Services\UserService;
+use Energy\Api\Services\UserService;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -30,7 +30,7 @@ class UserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('euro_hms\Api\Contracts\UserContract', function ($app) {
+        $this->app->bind('Energy\Api\Contracts\UserContract', function ($app) {
             return new UserService();
         });
     }
@@ -42,6 +42,6 @@ class UserServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Api\Contracts\UserContract'];
+        return ['Energy\Api\Contracts\UserContract'];
     }
 }

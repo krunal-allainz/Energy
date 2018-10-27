@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;

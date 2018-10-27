@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(euro_hms\User::class, function (Faker\Generator $faker) {
+$factory->define(Energy\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [

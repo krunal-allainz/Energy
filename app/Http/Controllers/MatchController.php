@@ -1,9 +1,9 @@
 <?php
 
-namespace euro_hms\Http\Controllers;
+namespace Energy\Http\Controllers;
 
 use Illuminate\Http\Request;
-use euro_hms\Contracts\ApiContract;
+use Energy\Contracts\ApiContract;
 
 class MatchController extends Controller
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace euro_hms\Models;
+namespace Energy\Models;
 
  use Illuminate\Database\Eloquent\Model;	
- use euro_hms\Mail\SendMail;	
+ use Energy\Mail\SendMail;	
  use Illuminate\Support\Facades\Mail;	
  	
  class MailNotification extends Model	

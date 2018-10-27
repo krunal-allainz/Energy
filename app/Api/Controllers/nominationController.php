@@ -1,14 +1,14 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
 
 use Illuminate\Routing\Controller;
-use euro_hms\Models\NominationRequest;
+use Energy\Models\NominationRequest;
 use Illuminate\Http\Request;
-use euro_hms\Models\User;
-use euro_hms\Models\Nomination;
-use euro_hms\Api\Repositories\NominationRepository;
+use Energy\Models\User;
+use Energy\Models\Nomination;
+use Energy\Api\Repositories\NominationRepository;
 use DB;
 use Carbon\Carbon;
 

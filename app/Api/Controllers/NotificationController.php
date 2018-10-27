@@ -1,10 +1,10 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
-use euro_hms\Models\Notification;
+use Energy\Models\Notification;
 use Illuminate\Http\Request;
-use euro_hms\Api\Repositories\NotificationRepository;
+use Energy\Api\Repositories\NotificationRepository;
 
 class NotificationController extends Controller
 {
@@ -67,7 +67,7 @@ class NotificationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \euro_hms\notification  $notification
+     * @param  \Energy\notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function edit(notification $notification)
@@ -79,7 +79,7 @@ class NotificationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \euro_hms\notification  $notification
+     * @param  \Energy\notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, notification $notification)
@@ -90,7 +90,7 @@ class NotificationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \euro_hms\notification  $notification
+     * @param  \Energy\notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function destroy(notification $notification)

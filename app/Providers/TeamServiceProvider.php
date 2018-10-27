@@ -1,10 +1,10 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use euro_hms\Services\TeamService;
-use euro_hms\Repositories\TeamRepository;
+use Energy\Services\TeamService;
+use Energy\Repositories\TeamRepository;
 
 class TeamServiceProvider extends ServiceProvider
 {
@@ -24,7 +24,7 @@ class TeamServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('euro_hms\Contracts\TeamContract', function ($app) {
+        $this->app->bind('Energy\Contracts\TeamContract', function ($app) {
             return new TeamService(new TeamRepository());
         });
     }
@@ -36,6 +36,6 @@ class TeamServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Contracts\TeamContract'];
+        return ['Energy\Contracts\TeamContract'];
     }
 }

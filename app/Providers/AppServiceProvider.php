@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use URL;
 use Illuminate\Support\ServiceProvider;

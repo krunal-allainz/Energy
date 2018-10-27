@@ -1,9 +1,9 @@
 <?php 
-namespace euro_hms\Api\Services;
+namespace Energy\Api\Services;
 
-use euro_hms\Api\Repositories\ReceiptRepository;
-use euro_hms\Api\Contracts\ReceiptContract;
-use euro_hms\Models\Receipt;
+use Energy\Api\Repositories\ReceiptRepository;
+use Energy\Api\Contracts\ReceiptContract;
+use Energy\Models\Receipt;
 use DB;
 
 

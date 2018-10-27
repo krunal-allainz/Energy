@@ -531,8 +531,6 @@ export default {
                 },
             );
        },
-
-
     },
     components: {
             timeline

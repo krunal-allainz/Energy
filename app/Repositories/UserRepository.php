@@ -1,8 +1,8 @@
 <?php
 
-namespace euro_hms\Repositories;
+namespace Energy\Repositories;
 
-use euro_hms\Models\User;
+use Energy\Models\User;
 
 class UserRepository
 {

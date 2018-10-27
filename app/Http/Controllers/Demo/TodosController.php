@@ -1,13 +1,13 @@
 <?php
 
-namespace euro_hms\Http\Controllers\Demo;
+namespace Energy\Http\Controllers\Demo;
 
 use Illuminate\Http\Request;
 
 use Illuminate\View\View;
-use euro_hms\Http\Requests;
-use euro_hms\Http\Controllers\Controller;
-use euro_hms\Space\Demo\Todo;
+use Energy\Http\Requests;
+use Energy\Http\Controllers\Controller;
+use Energy\Space\Demo\Todo;
 
 class TodosController extends Controller
 {
