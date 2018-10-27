@@ -290,6 +290,22 @@ use Auth;
         return Nomination::whereIn('request',['Pending','Approved'])->groupBy('buyer_id')->get();
     }
 
+    /**
+     * [getTotalApprovedQuantity description]
+     * @param  [type] $date [description]
+     * @return [type]       [description]
+     */
+    public function getTotalApprovedQuantity($date)
+    {
+        $availability=Nomination::whereDate('date',$date)->select([DB::raw('SUM(approved_quantity) as total_approved_quantity')])->first();
+        return $availability->total_approved_quantity;
+    }
+
+     public function getTotalSuppliedQuantity($date)
+    {
+        $availability=Nomination::whereDate('date',$date)->select([DB::raw('SUM(supplied_quantity) as total_supplied_quantity')])->first();
+        return $availability->total_supplied_quantity;
+    }
     
  }
 ?>

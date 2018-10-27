@@ -38,6 +38,20 @@ class AvialabilityController extends Controller
         }
     }
 
+    public function getAvailability()
+    {
+        $date=Carbon::now()->addDays(1)->format('Y-m-d');
+        $get_Availability=$this->avlObj->getAvailability($date);
+        if($get_Availability)
+        {
+            return ['code' => 200 ,'data'=>$get_Availability,'message'=>'Availability successfully added.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
     
     
 }

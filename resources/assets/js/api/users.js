@@ -85,5 +85,14 @@ export default {
   },
   getBuyerList(){
     return api.post('user/getbuyerlist');
-  }
+  },
+  getAvailability(){
+    return api.post('availability/getAvailability');
+  },
+  getTotalApprovedQuantity(){
+    return api.post('nomination/getTotalApprovedQuantity');
+  },
+  getTotalSuppliedQuantity(){
+    return api.post('nomination/getTotalSuppliedQuantity');
+  },
 }

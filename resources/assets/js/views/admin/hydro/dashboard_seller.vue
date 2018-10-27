@@ -10,7 +10,6 @@
             </ol>
         </section>
           <div class="row">
-
             <div class="col-md-12 text-right">
                 <button class="btn btn-primary" @click="GenerateInvoice()">Generate Invoice</button>
             </div>
@@ -22,17 +21,23 @@
             </div>
         </div>
         <br/>
+         <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-success" @click="supplied_quantity()">Supplied Quantity</button>
+            </div>
+        </div>
+        <br/>
 
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                            <i class="ti-eye text-warning"></i>
+                            <i class="fa fa-cube text-warning"></i>
                         </div>
                         <div class="text-right">
-                           <h3 class="text-dark"><b>3752</b></h3>
-                            <p>Total Request</p>
+                           <h3 class="text-dark"><b>{{total_availability}}</b></h3>
+                            <p>Availability</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -49,11 +54,11 @@
                 <div class="flip">
             	    <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                            <i class="ti-shopping-cart text-success"></i>
+                            <i class="fa fa-check text-success"></i>
                         </div>
                         <div class="text-right">
-                            <h3><b id="widget_count3">3251</b></h3>
-                            <p>Sales status</p>
+                            <h3><b id="widget_count3">{{total_approved}}</b></h3>
+                            <p>Approved Quantity</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -70,7 +75,7 @@
             <div class="flip">
                 <div class="widget-bg-color-icon card-box front">
             	    <div class="bg-icon float-left">
-                       <i class="fas fa-file-invoice"></i>
+                       <i class="fa fa-file text-warning"></i>
                     </div>
                 	<div class="text-right">
                 		<h3 class="text-dark"><b><a href="/generate_invoice">Invoice</a></b></h3>
@@ -91,11 +96,11 @@
                 <div class="flip">
             	    <div class="widget-bg-color-icon card-box front">
                     	<div class="bg-icon float-left">
-                           <i class="ti-user text-info"></i>
+                           <i class="fa fa-cart-plus text-info"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b>1252</b></h3>
-                            <p>Subscribers</p>
+                            <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
+                            <p>Supplied Quantity</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -186,17 +191,80 @@ export default {
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
                 },
-                'nominationData':[]
+                'nominationData':[],
+                'total_availability':'',
+                'total_approved':'',
+                'total_supplied':'',
         }
     },
     methods: {
+       getAvailability()
+       {
+            let vm=this;
+             User.getAvailability().then(
+                 (response) => {
+                    let avail=response.data.data;
+                    if(avail!=null && avail!='' && avail!=0)
+                    {
+                        vm.total_availability=avail;
+                    }
+                    else
+                    {
+                         vm.total_availability=0;
+                    }
+                    
+                },
+                (error) => {
+                },
+            );
+       },
+       getTotalApprovedQuantity()
+       {
+            let vm=this;
+             User.getTotalApprovedQuantity().then(
+                 (response) => {
+                    let approve=response.data.data;
+                    if(approve!=null && approve!='' && approve!=0)
+                    {
+                        vm.total_approved=approve;
+                    }
+                    else
+                    {
+                         vm.total_approved=0;
+                    }
+                    
+                },
+                (error) => {
+                },
+            );
+       },
+       getTotalSuppliedQuantity()
+       {
+            let vm=this;
+             User.getTotalSuppliedQuantity().then(
+                 (response) => {
+                    let supply=response.data.data;
+                    if(supply!=null && supply!='' && supply!=0)
+                    {
+                        vm.total_supplied=supply;
+                    }
+                    else
+                    {
+                         vm.total_supplied=0;
+                    }
+                    
+                },
+                (error) => {
+                },
+            );
+       },
        getBuyerDetails(){
             let curDate = moment().format('DD-MM-YYYY');
             let nData = {'date':curDate};
             let vm =this;
             User.getNominationDetailsByDate(curDate).then(
                  (response) => {
-                    console.log('response',response);
+                    
                     // return false;
                     let nominationData  = [];
                     $.each(response.data.data, function(key, value) {
@@ -268,8 +336,12 @@ export default {
             timeline
     },
     mounted: function() {
-        this.getBuyerDetails();
+        
         let vm = this;
+        vm.getBuyerDetails();
+        vm.getAvailability();
+        vm.getTotalApprovedQuantity();
+        vm.getTotalSuppliedQuantity();
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
         };                    
@@ -279,7 +351,7 @@ export default {
 
         var color = Chart.helpers.color;
 
-var config1Data = {
+        var config1Data = {
                 datasets: [{
                     data: [0,100],
                     backgroundColor: [
@@ -362,7 +434,7 @@ var config1Data = {
         setTimeout(function(){
             config1Data.datasets.pop();
             _.forEach(vm.nominationData,function(value,key){
-                console.log(value,'value');
+               
                 // config1.data.datasets[key].data[0] = value.quantity_required;
                 // config1.data.datasets[key].data[1] = value.approved_quantity;
                 // config1.data.datasets[key].label = value.buyer_name;
@@ -385,13 +457,13 @@ var config1Data = {
 
                 // check_list_data.push(value.reportListId);
             });
-            console.log(config1Data,'config1Data');
+            
              // window.myPie1.update();
              window.myPie1 = new Chart(ctx1, config1);
             // config1.datasets.push(newDataset);
 
         },2000)
-
+        
     },
        
     destroyed: function() {
