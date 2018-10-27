@@ -38,7 +38,6 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    
             </div>
         </div>
         <div class="col-sm-6 col-md-6 col-xl-3">
@@ -48,8 +47,7 @@
                         <i class="fa fa-credit-card text-danger"></i>
                     </div>
                 	<div class="text-right">
-                		<h3 class="text-dark"><b>0</b></h3>
-                		<p>Invoice</p>
+                		<h3 class="text-dark"><b><a href="/buyer_invoice_list">Invoice</a></b></h3>
                 	</div>
                     <div class="clearfix"></div>
                 </div>
