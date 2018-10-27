@@ -48,9 +48,6 @@ import userDetailEdit from './views/admin/vins/userDetailEdit.vue'
 
 import UserList from './views/admin/vins/UserList.vue'
 
-// Receptionist Dashboard
-import DashboardReceptionist from './views/admin/vins/dashboard_receptionist.vue'
-
 //Hydro 
 import NominationForm from './views/admin/hydro/nomination_add.vue'
 import NominationList from './views/admin/hydro/nomination_list.vue'
@@ -101,13 +98,6 @@ const routes = [
                 name: 'dashboard'
             },
             {
-                path: '/buyer-dashboard',
-                component: DashboardReceptionist,
-                meta: { requiresAuth: true },
-                name: 'receptionist_dashboard'
-            },
-
-            {
                 path: '/nomination_add',
                 component: NominationForm,
                 meta: { requiresAuth: true },
@@ -131,8 +121,7 @@ const routes = [
                 meta: { requiresAuth: true },
                 name: 'invoice'
             },
-           
-             {
+            {
                 path: '/seller-dashboard',
                 component: dashboardSeller,
                 meta: { requiresAuth: true },
