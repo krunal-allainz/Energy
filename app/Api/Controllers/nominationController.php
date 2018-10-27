@@ -137,6 +137,7 @@ class NominationController extends Controller
      */
      public function getNominationDetailsByDate(Request $request)
     {
+       
         $date = $request->date;
         $get_details=$this->nomObj->getNominationDetailsByDate($date);
         if($get_details)

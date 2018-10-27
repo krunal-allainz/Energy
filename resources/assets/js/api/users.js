@@ -80,5 +80,8 @@ export default {
   getNominationDetailsByDate(date){
      return api.post('nomination/getNominationDetailsByDate',{'date':date});
   },
+  createAvailability(){
+     return api.post('availability/createAvailability');
+  },
 
 }

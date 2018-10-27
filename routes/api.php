@@ -106,6 +106,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
         //for getting nomination details by date
          $api->post('nomination/getNominationDetailsByDate', '\euro_hms\Api\Controllers\NominationController@getNominationDetailsByDate');
+
+         //for adding availibility
+         $api->post('availability/createAvailability', '\euro_hms\Api\Controllers\AvialabilityController@createAvailability');
 }); 
 
 
