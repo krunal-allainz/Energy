@@ -8,12 +8,7 @@
                 </li>
             </ol>
         </section>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
-            </div>
-        </div>
-        <br/>
+        
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
@@ -66,8 +61,8 @@
                            <i class="fa fa-user text-info"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b>0</b></h3>
-                            <p></p>
+                           <!--  <h3 class="text-dark"><b>0</b></h3> -->
+                             <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -493,7 +488,6 @@ export default {
                 },
             'total_request':'',
             'total_approved':'',
-           
         }
     },
     methods: {

@@ -111,10 +111,10 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         $api->post('invoice/generateinvoice', '\euro_hms\Api\Controllers\InvoiceController@generateInvoice');
 
          //for adding availibility
-         $api->post('availability/createAvailability', '\euro_hms\Api\Controllers\AvialabilityController@createAvailability');
+         $api->post('availability/createAvailability', '\euro_hms\Api\Controllers\AvailabilityController@createAvailability');
 
          //for getting availability
-          $api->post('availability/getAvailability', '\euro_hms\Api\Controllers\AvialabilityController@getAvailability');
+          $api->post('availability/getAvailability', '\euro_hms\Api\Controllers\AvailabilityController@getAvailability');
          
         $api->post('user/getbuyerlist', '\euro_hms\Api\Controllers\UserController@getBuyerList');
 
