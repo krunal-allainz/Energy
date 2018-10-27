@@ -37,7 +37,7 @@
                     </div>
                 </div>
 </template>
-<script >
+<script>
     import User from '../../../api/users.js';
     import moment from 'moment';
     export default{

@@ -112,11 +112,10 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
          //for adding availibility
          $api->post('availability/createAvailability', '\euro_hms\Api\Controllers\AvialabilityController@createAvailability');
+         
+        $api->post('user/getbuyerlist', '\euro_hms\Api\Controllers\UserController@getBuyerList');
 
 }); 
-
-
-        
 
         
         

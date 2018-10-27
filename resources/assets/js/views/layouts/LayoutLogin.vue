@@ -90,14 +90,10 @@ export default {
                                         vm.$router.push({'name':'seller-dashboard'});
                                         
                                 }else if(vm.$store.state.Users.userDetails.user_type ==  6) {
-                                        vm.$router.push({'name':'seller-dashboard'});
-
-                                }
-                                else if(vm.$store.state.Users.userDetails.user_type ==  7) {
                                         vm.$router.push({'name':'buyer-dashboard'});
 
                                 }
-
+                               
                             },2000)    
                         }else {
                             jQuery('.js-loader').addClass('d-none');
