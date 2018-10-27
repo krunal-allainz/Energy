@@ -180,17 +180,17 @@ return [
         /*
          * Application Service Providers...
          */
-        euro_hms\Providers\AppServiceProvider::class,
-        euro_hms\Providers\AuthServiceProvider::class,
-//        euro_hms\Providers\BroadcastServiceProvider::class,
-        euro_hms\Providers\EventServiceProvider::class,
-        euro_hms\Providers\RouteServiceProvider::class,
+        Energy\Providers\AppServiceProvider::class,
+        Energy\Providers\AuthServiceProvider::class,
+//        Energy\Providers\BroadcastServiceProvider::class,
+        Energy\Providers\EventServiceProvider::class,
+        Energy\Providers\RouteServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         // Laracasts\Flash\FlashServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Duro85\Roles\RolesServiceProvider::class,
-        euro_hms\Api\Providers\ReceiptServiceProvider::class,
+        Energy\Api\Providers\ReceiptServiceProvider::class,
       
 
        
@@ -251,7 +251,7 @@ return [
         //'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         // 'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
-        'ReceiptService' =>  euro_hms\Api\Providers\ReceiptServiceProvider::class,
+        'ReceiptService' =>  Energy\Api\Providers\ReceiptServiceProvider::class,
        
    ],
 

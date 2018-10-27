@@ -1,9 +1,9 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use euro_hms\Services\PitchService;
+use Energy\Services\PitchService;
 
 class PitchServiceProvider extends ServiceProvider
 {
@@ -23,7 +23,7 @@ class PitchServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('euro_hms\Contracts\PitchContract', function ($app) {
+        $this->app->bind('Energy\Contracts\PitchContract', function ($app) {
             return new PitchService();
         });
     }
@@ -35,6 +35,6 @@ class PitchServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Contracts\PitchContract'];
+        return ['Energy\Contracts\PitchContract'];
     }
 }

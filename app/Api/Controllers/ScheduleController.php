@@ -1,9 +1,9 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
-use euro_hms\Models\ScheduleRequest;
-use euro_hms\Api\Repositories\ScheduleRepository;
+use Energy\Models\ScheduleRequest;
+use Energy\Api\Repositories\ScheduleRepository;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -58,7 +58,7 @@ class ScheduleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \euro_hms\notification  $notification
+     * @param  \Energy\notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function edit(notification $notification)
@@ -72,7 +72,7 @@ class ScheduleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \euro_hms\notification  $notification
+     * @param  \Energy\notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, notification $notification)
@@ -83,7 +83,7 @@ class ScheduleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \euro_hms\notification  $notification
+     * @param  \Energy\notification  $notification
      * @return \Illuminate\Http\Response
      */
     public function destroy(notification $notification)

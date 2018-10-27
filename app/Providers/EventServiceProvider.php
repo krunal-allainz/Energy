@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'euro_hms\Events\SomeEvent' => [
-            'euro_hms\Listeners\EventListener',
+        'Energy\Events\SomeEvent' => [
+            'Energy\Listeners\EventListener',
         ],
     ];
 

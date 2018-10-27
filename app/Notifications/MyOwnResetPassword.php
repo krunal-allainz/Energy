@@ -1,12 +1,12 @@
 <?php
 
-namespace euro_hms\Notifications;
+namespace Energy\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use euro_hms\Notifications\Messages\MailMessage;
-use euro_hms\Models\User;
+use Energy\Notifications\Messages\MailMessage;
+use Energy\Models\User;
 
 class MyOwnResetPassword extends Notification
 {

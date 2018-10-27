@@ -1,5 +1,5 @@
 <?php
-namespace euro_hms\Notifications\Messages;
+namespace Energy\Notifications\Messages;
 
 use Illuminate\Notifications\Messages\SimpleMessage;
 

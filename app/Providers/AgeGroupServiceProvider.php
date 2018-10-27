@@ -1,10 +1,10 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use euro_hms\Services\AgeGroupService;
-use euro_hms\Repositories\AgeGroupRepository;
+use Energy\Services\AgeGroupService;
+use Energy\Repositories\AgeGroupRepository;
 
 class AgeGroupServiceProvider extends ServiceProvider
 {
@@ -24,7 +24,7 @@ class AgeGroupServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('euro_hms\Contracts\AgeGroupContract', function ($app) {
+        $this->app->bind('Energy\Contracts\AgeGroupContract', function ($app) {
             return new AgeGroupService(new AgeGroupRepository());
         });
     }
@@ -36,6 +36,6 @@ class AgeGroupServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Contracts\AgeContract'];
+        return ['Energy\Contracts\AgeContract'];
     }
 }

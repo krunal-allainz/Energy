@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Contracts;
+namespace Energy\Contracts;
 
 interface ApiContract
 {

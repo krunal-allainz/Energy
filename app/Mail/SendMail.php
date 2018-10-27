@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Mail;
+namespace Energy\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;

@@ -1,14 +1,14 @@
 <?php
-namespace euro_hms\Api\Repositories;
+namespace Energy\Api\Repositories;
 use Carbon\Carbon;
 use DB;
-use euro_hms\Models\Nomination;
-use euro_hms\Api\Repositories\NotificationRepository;
+use Energy\Models\Nomination;
+use Energy\Api\Repositories\NotificationRepository;
 use Excel;
 use File;
-use euro_hms\Api\Repositories\AgreementRepository;
-use euro_hms\Api\Repositories\AvailabilityRepository;
-use euro_hms\Api\Repositories\UserRepository;
+use Energy\Api\Repositories\AgreementRepository;
+use Energy\Api\Repositories\AvailabilityRepository;
+use Energy\Api\Repositories\UserRepository;
 use Auth;
 
 
@@ -312,17 +312,30 @@ use Auth;
         return $supplied->total_supplied_quantity;
     }
 
+    /**
+     * [getTotalRequestedQuantity description]
+     * @param  [type] $userId [description]
+     * @param  [type] $date   [description]
+     * @return [type]         [description]
+     */
     public function getTotalRequestedQuantity($userId,$date)
     {
         $requested=Nomination::whereDate('date',$date)->where('buyer_id',$userId)->select([DB::raw('SUM(quantity_required) as total_quantity_required')])->first();
         return $requested->total_quantity_required;
     }
 
+    /**
+     * [getTotalApprovedQuantityByBuyer description]
+     * @param  [type] $userId [description]
+     * @param  [type] $date   [description]
+     * @return [type]         [description]
+     */
     public function getTotalApprovedQuantityByBuyer($userId,$date)
     {
         $requested=Nomination::whereDate('date',$date)->where('buyer_id',$userId)->select([DB::raw('SUM(approved_quantity) as total_approved_quantity')])->first();
         return $requested->total_approved_quantity;
     }
+
 
 
     public function getNominationDetailsByDateById($date,$buyerId){
@@ -335,6 +348,19 @@ use Auth;
             })->whereDate('date',$new_date)->where('buyer_id',$buyerId)->first();
         return $list;
     }
+
+    /**
+     * [getNominationCountForBuyer description]
+     * @param  [type] $userId [description]
+     * @param  [type] $date   [description]
+     * @return [type]         [description]
+     */
+    public function getNominationCountForBuyer($userId,$date)
+    {
+        $list=Nomination::whereDate('date',$date)->where('buyer_id',$userId)->get();
+        return count($list);
+    }
+    
     
  }
 ?>

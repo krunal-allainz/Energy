@@ -1,12 +1,12 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
-use euro_hms\Models\User;
-use euro_hms\Models\Invoice;
-use euro_hms\Api\Repositories\InvoiceRepository;
+use Energy\Models\User;
+use Energy\Models\Invoice;
+use Energy\Api\Repositories\InvoiceRepository;
 
 
 use DB;

@@ -1,14 +1,14 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
 
 use Illuminate\Routing\Controller;
-use euro_hms\Models\NominationRequest;
+use Energy\Models\NominationRequest;
 use Illuminate\Http\Request;
-use euro_hms\Models\User;
-use euro_hms\Models\Nomination;
-use euro_hms\Api\Repositories\NominationRepository;
+use Energy\Models\User;
+use Energy\Models\Nomination;
+use Energy\Api\Repositories\NominationRepository;
 use DB;
 use Carbon\Carbon;
 
@@ -221,11 +221,36 @@ class NominationController extends Controller
         }
     }
 
+    /**
+     * [getTotalApprovedQuantityByBuyer description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
      public function getTotalApprovedQuantityByBuyer(Request $request)
     {
         $date =Carbon::now()->addDays(1)->format('Y-m-d');
         $userId = $request->userId;
         $get_details=$this->nomObj->getTotalApprovedQuantityByBuyer($userId,$date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+    /**
+     * [getNominationCountForBuyer description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function getNominationCountForBuyer(Request $request)
+    {
+        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $userId = $request->userId;
+        $get_details=$this->nomObj->getNominationCountForBuyer($userId,$date);
         if($get_details)
         {
             return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];

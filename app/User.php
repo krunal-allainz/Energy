@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms;
+namespace Energy;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;

@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Api\Contracts;
+namespace Energy\Api\Contracts;
 
 interface UserContract
 {

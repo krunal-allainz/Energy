@@ -1,6 +1,6 @@
 <?php
 
-use euro_hms\Space\Settings\Setting;
+use Energy\Space\Settings\Setting;
 
 /**
  * Set Active Path

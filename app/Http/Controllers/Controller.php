@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Http\Controllers;
+namespace Energy\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

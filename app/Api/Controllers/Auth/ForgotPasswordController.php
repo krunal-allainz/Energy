@@ -1,18 +1,18 @@
 <?php
 
-namespace euro_hms\Api\Controllers\Auth;
+namespace Energy\Api\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use euro_hms\Http\Controllers\Controller;
+use Energy\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Password;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use euro_hms\Models\User;
-use euro_hms\Models\MailNotification;
-use euro_hms\Custom\Helper\Common;
+use Energy\Models\User;
+use Energy\Models\MailNotification;
+use Energy\Custom\Helper\Common;
 use DB;
 use Mail;
 use App\Mail\EmailVerification;

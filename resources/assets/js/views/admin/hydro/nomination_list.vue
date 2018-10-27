@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-md-6"><h4>Nomination List</h4></div>
           
-          <div v-if="user_type==6" class="col-md-6 text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div></div>
+          <div v-if="user_type==6 && add_nomination_count==0" class="col-md-6 text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div></div>
         </div>
             <div class="card-body">
             	<div data-v-744e717e="" class="card p-3"  v-if="(nominationPagination.total > 0)">
@@ -103,6 +103,7 @@
 	export default {
 		 data() {
 		 	return {
+        'add_nomination_count':0,
         'today_date':moment().format('DD-MM-YYYY'),
         'tomorrow_date':moment().add(1,'days').format('DD-MM-YYYY'),
 		 	  'currentYear': (new Date()).getFullYear(),
@@ -122,6 +123,7 @@
         },
 		  mounted(){
 		 	let vm = this;
+      vm.getNominationCountForBuyer();
 		 	/* if(vm.$store.state.Users.userDetails.user_type != '6' || vm.$store.state.Users.userDetails.user_type != '7'){
           vm.$root.$emit('logout','You are not authorise to access this page'); 
         }*/
@@ -133,6 +135,17 @@
       
     },
 		 methods:{
+      getNominationCountForBuyer()
+      {
+          let vm=this;
+          User.getNominationCountForBuyer(vm.user_id).then(
+            (response)=> {
+             vm.add_nomination_count=response.data.data;
+            },
+            (error)=>{
+            }
+         )
+      },
       verifyImportFile: function(event)
       {
           let files=this.$refs.file.files[0];

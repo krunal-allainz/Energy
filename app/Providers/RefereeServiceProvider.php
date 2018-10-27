@@ -1,9 +1,9 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use euro_hms\Services\RefereeService;
+use Energy\Services\RefereeService;
 
 class RefereeServiceProvider extends ServiceProvider
 {
@@ -23,7 +23,7 @@ class RefereeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('euro_hms\Contracts\RefereeContract', function ($app) {
+        $this->app->bind('Energy\Contracts\RefereeContract', function ($app) {
             return new RefereeService();
         });
     }
@@ -35,6 +35,6 @@ class RefereeServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Contracts\RefereeContract'];
+        return ['Energy\Contracts\RefereeContract'];
     }
 }

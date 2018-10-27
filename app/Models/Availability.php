@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\models;
+namespace Energy\models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;

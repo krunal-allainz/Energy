@@ -1,8 +1,8 @@
 <?php
 
-namespace euro_hms\Http\Controllers\Auth;
+namespace Energy\Http\Controllers\Auth;
 
-use euro_hms\Http\Controllers\Controller;
+use Energy\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;

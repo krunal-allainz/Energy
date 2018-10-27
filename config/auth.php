@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => euro_hms\Models\User::class,
+            'model' => Energy\Models\User::class,
         ],
 
         // 'users' => [

@@ -106,5 +106,11 @@ export default {
   },
   getNominationDetailsByDateAndId(date,buyerId){
      return api.post('nomination/getNominationDetailsByDateById',{'date':date , 'buyerId' : buyerId});
-  }
+  },
+  getNominationCountForBuyer(userId){
+     return api.post('nomination/getNominationCountForBuyer',{'userId':userId});
+  },
+   getAllowedQuantityByBuyerId(userId){
+     return api.post('agreement/getAllowedQuantityByBuyerId',{'userId':userId});
+  },
 }

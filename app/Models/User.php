@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Models;
+namespace Energy\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\CanResetPassword;
-use euro_hms\Notifications\MyOwnResetPassword as ResetPasswordNotification;
-use euro_hms\Models\UserOtp;
+use Energy\Notifications\MyOwnResetPassword as ResetPasswordNotification;
+use Energy\Models\UserOtp;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements HasRoleAndPermissionContract, CanResetPassword

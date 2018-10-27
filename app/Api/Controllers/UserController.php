@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Api\Controllers;
+namespace Energy\Api\Controllers;
 
 use Brotzka\DotenvEditor\DotenvEditor;
 use Dingo\Api\Routing\Helpers;
@@ -8,14 +8,14 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
 // Need to Define Only Contracts
-// use euro_hms\Api\Contracts\UserContract;
+// use Energy\Api\Contracts\UserContract;
 use JWTAuth;
-use euro_hms\Models\User;
-use euro_hms\Models\UserTypes;
-use euro_hms\Models\Role;
-use euro_hms\Api\Repositories\UserRepository;
-use euro_hms\Api\Repositories\UserTypesRepository;
-use euro_hms\Custom\Helper\Common;
+use Energy\Models\User;
+use Energy\Models\UserTypes;
+use Energy\Models\Role;
+use Energy\Api\Repositories\UserRepository;
+use Energy\Api\Repositories\UserTypesRepository;
+use Energy\Custom\Helper\Common;
 use Hash;
 /**
  * Users Resource Description.

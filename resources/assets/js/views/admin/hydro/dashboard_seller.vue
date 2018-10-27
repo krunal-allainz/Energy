@@ -12,7 +12,7 @@
           <div class="row">
 
             <div class="col-md-12 text-right">
-                <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
+                <a href="/nomination_list"> <button class="btn btn-warning">Nomination</button></a>
             </div>
         </div>
         <br/>
@@ -22,7 +22,13 @@
             </div>
         </div>
         <br/>
-
+        <div class="row">
+            <div class="col-md-12 text-right">
+               <button class="btn btn-primary" @click="availibility()">Add Avialability</button>
+            </div>
+        </div>
+        <br/>
+    
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
@@ -92,7 +98,7 @@
                             <div class="card main-chart">
                                 <div class="card-header panel-tabs">
                                     
-                                            <a > Buyer allocation</a>
+                                            <a > Buyer allocation </a><span></span>
                                     
                                 </div>
                                 <div class="card-body">
@@ -165,9 +171,35 @@ export default {
                 'total_availability':'',
                 'total_approved':'',
                 'total_supplied':'',
+                
         }
     },
     methods: {
+         availibility()
+        {
+            let vm=this;
+            User.createAvailability().then(
+              (response)=> {
+               
+                if(response.data.code == 200){
+                   toastr.success('Availability  added successfully.', 'Availability', {timeOut: 5000});
+                } 
+                else if (response.data.code == 301) {
+                    toastr.error('Availability added already.', 'Availability', {timeOut: 5000});
+                }
+                else if (response.data.code == 300) {
+                    toastr.error('Something Went wrong.', 'Availability', {timeOut: 5000});
+                }
+                else
+                {
+                    toastr.error('Something Went wrong.', 'Availability', {timeOut: 5000});
+                }
+                
+              },
+              (error)=>{
+              }
+             )
+        },
        getAvailability()
        {
             let vm=this;
@@ -359,7 +391,7 @@ export default {
             data: {
                 datasets: [
                 {
-                    data: [0,100],
+                    data: [0,vm.total_availability],
                     backgroundColor: [
                         '#ff0000',
                         '#00ff40',
@@ -369,8 +401,8 @@ export default {
                 }
                 ],
                 labels: [
-                    'Requested',
-                    'Approved',
+                    'Available',
+                    'Supplied',
                 ]
             },
             options: {
@@ -392,10 +424,10 @@ export default {
             //         return randomScalingFactor();
             //     });   
             // });
-            if(config2.data.datasets[0].data[0] <100){
+            if(config2.data.datasets[0].data[0] <vm.total_availability){
 
-             config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +1;
-             config2.data.datasets[0].data[1] = 100 -config2.data.datasets[0].data[0]; 
+             config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+             config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
             }
             // window.myPie1.update();
             window.myPie2.update();
@@ -420,7 +452,8 @@ export default {
                     borderWidth: 1,
                     data: [
                         value.quantity_required,
-                        value.approved_quantity
+                        value.approved_quantity,
+                        value.supplied_quantity
                     ]
                 };
                 config1Data.datasets.push(newDataset);

@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Models;
+namespace Energy\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,7 +18,7 @@ class UserTypes extends Model
 
       public function userTypesDetail()
     {
-        return $this->belongsTo('euro_hms\Models\User','user_type');
+        return $this->belongsTo('Energy\Models\User','user_type');
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Exceptions;
+namespace Energy\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;

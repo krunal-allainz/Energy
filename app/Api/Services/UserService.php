@@ -1,28 +1,28 @@
 <?php
 
-namespace euro_hms\Api\Services;
+namespace Energy\Api\Services;
 
 
 use DB;
-use euro_hms\Api\Contracts\UserContract;
+use Energy\Api\Contracts\UserContract;
 use Validator;
 use Illuminate\Support\Facades\Password;
-use euro_hms\Custom\Helper\Common;
+use Energy\Custom\Helper\Common;
 use Illuminate\Mail\Message;
-use euro_hms\Models\User;
-use euro_hms\Models\Role;
+use Energy\Models\User;
+use Energy\Models\Role;
 use Hash;
 
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
-use euro_hms\Models\UserFavourites;
+use Energy\Models\UserFavourites;
 
 class UserService implements UserContract
 {
     public function __construct()
     {
-        $this->userRepoObj = new \euro_hms\Api\Repositories\UserRepository();
-        $this->peopleRepoObj = new \euro_hms\Api\Repositories\PeopleRepository();
+        $this->userRepoObj = new \Energy\Api\Repositories\UserRepository();
+        $this->peopleRepoObj = new \Energy\Api\Repositories\PeopleRepository();
         $this->s3  = \Storage::disk('s3');
         $this->getAWSUrl = getenv('S3_URL');
     }

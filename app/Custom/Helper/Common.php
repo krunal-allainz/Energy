@@ -1,7 +1,7 @@
 <?php
-namespace euro_hms\Custom\Helper;
+namespace Energy\Custom\Helper;
 
-use euro_hms\Mail\SendMail;
+use Energy\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 
 class Common {

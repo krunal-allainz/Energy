@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Space\Demo;
+namespace Energy\Space\Demo;
 
 use Illuminate\Database\Eloquent\Model;
 

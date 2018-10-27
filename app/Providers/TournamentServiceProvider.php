@@ -1,12 +1,12 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use euro_hms\Services\TournamentService;
-use euro_hms\Services\VenueTempService as VenueService;
-use euro_hms\Repositories\VenueRepository;
-use euro_hms\Repositories\TournamentRepository;
+use Energy\Services\TournamentService;
+use Energy\Services\VenueTempService as VenueService;
+use Energy\Repositories\VenueRepository;
+use Energy\Repositories\TournamentRepository;
 
 class TournamentServiceProvider extends ServiceProvider
 {
@@ -26,7 +26,7 @@ class TournamentServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('euro_hms\Contracts\TournamentContract', function ($app) {
+        $this->app->bind('Energy\Contracts\TournamentContract', function ($app) {
             return new TournamentService(new TournamentRepository(), new VenueService(new VenueRepository()));
         });
     }
@@ -38,6 +38,6 @@ class TournamentServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Contracts\TournamentContract'];
+        return ['Energy\Contracts\TournamentContract'];
     }
 }

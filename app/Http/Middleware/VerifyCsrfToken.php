@@ -1,6 +1,6 @@
 <?php
 
-namespace euro_hms\Http\Middleware;
+namespace Energy\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 

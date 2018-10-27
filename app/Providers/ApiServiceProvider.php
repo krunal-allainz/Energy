@@ -1,9 +1,9 @@
 <?php
 
-namespace euro_hms\Providers;
+namespace Energy\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use euro_hms\Services\ApiService;
+use Energy\Services\ApiService;
 
 class ApiServiceProvider extends ServiceProvider
 {
@@ -18,7 +18,7 @@ class ApiServiceProvider extends ServiceProvider
         //$app->bind('helloworld','App\Contracts\ApiContract');
         //$dispatcherObj = app('Dingo\Api\Dispatcher');
 
-        $this->app->bind('euro_hms\Contracts\ApiContract', function ($app) {
+        $this->app->bind('Energy\Contracts\ApiContract', function ($app) {
             return new ApiService();
         });
     }
@@ -39,6 +39,6 @@ class ApiServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['euro_hms\Contracts\ApiContract'];
+        return ['Energy\Contracts\ApiContract'];
     }
 }
