@@ -151,145 +151,7 @@
                 </div>
                 <timeline :userData=userData> </timeline>
                 <div class="col-xl-4  col-12">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-6 col-sm-6">
-                            <div class="card personal-chat">
-                                <div class="card-header">
-                                    <div class="card-title"><img class="chat-image rounded-circle float-left" height="36"
-                                                                  width="36"
-                                                                  src="img/authors/avatar5.jpg" alt="avatar-image">
-                                        <div class="header-elements">Wilton zeph
-                                            <br>
-                                            <small class="status"><b>Online</b></small>
-
-                                            <div class="float-right options">
-                                                <div class="btn-group">
-                                                <span class="toggle-dropdown" data-toggle="dropdown"
-                                                      aria-expanded="false" aria-haspopup="true" role="menu">
-                                                    <i class="ti-clip attachment"></i>
-                                                </span>
-                                                    <ul class="dropdown-menu dropdown-menu-right position_dropdown">
-                                                        <li class="dropdown-item"><a href="#"><i class="ti-file text-primary"></i>Document</a>
-                                                        </li>
-                                                        <li class="dropdown-item"><a href="#"><i
-                                                                class="ti-gallery text-primary"></i>Gallery</a>
-                                                        </li>
-                                                        <li class="dropdown-item"><a href="#"><i class="ti-location-arrow text-primary"></i>Location</a>
-                                                        </li>
-                                                        <li class="dropdown-item"><a href="#"><i class="ti-camera text-primary"></i>Camera</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="btn-group">
-                                                <span class="toggle-dropdown" data-toggle="dropdown"
-                                                      aria-expanded="false" aria-haspopup="true" role="menu">
-                                                    <i class="ti-more-alt more"></i>
-                                                </span>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#">Profile</a>
-                                                        </li>
-                                                        <li><a href="#">Media</a>
-                                                        </li>
-                                                        <li><a href="#">Mute</a>
-                                                        </li>
-                                                        <li><a href="#">More</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <!--</div>-->
-                                    <div class="chat-conversation">
-                                        <ul class="conversation-list">
-                                            <li class="clearfix odd conversers1">
-
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap m-t-10">
-                                                        <p class="text-left">
-                                                            Hello Wilton, are the review papers ready?
-                                                            <i class="text-right">8:31 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix  m-t-10 conversers2">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p>
-                                                            Not yet, it will take a bit of time for you to get them.
-                                                            <br><i class="text-right">8:31 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix odd m-t-10 conversers1">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p class="text-left">
-                                                            Treat this on urgent Basis.
-                                                            <i class="text-right">8:33 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix  m-t-10 conversers2">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p>
-                                                            I will make it as early as possible.
-                                                            <br><i class="text-right">8:34 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix odd m-t-10 conversers1">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p class="text-left">
-                                                            Okay.
-                                                            <i class="text-right">8:35 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix m-t-10 conversers2">
-                                                <div class="conversation-text">
-                                                    <div class="ctext-wrap">
-                                                        <p>
-                                                            If there is anything else..
-                                                            <br><i class="text-right">8:35 pm</i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <form id="main_input_box">
-                                            <div class="row">
-                                                <div class="col-12 m-b-15">
-                                                    <div class="input-group text-field">
-                                                        <input type="search"
-                                                               class="form-control chat-input custom_textbox"
-                                                               id="custom_textbox" placeholder="Type a message"
-                                                               required>
-                                                        <span class="input-group-btn">
-                                                    <button class="btn btn-success send-btn"
-                                                            type="submit"><i
-                                                            class="menu-icon ti-location-arrow text-white"></i></button>
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!--</div>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <!--rightside bar -->
@@ -659,6 +521,7 @@
     import moment from 'moment';
     import Chart from 'chart.js';
     import timeline from './timeline.vue';
+    import _ from 'lodash';
 
 export default {
     name: "dashboardSeller",
@@ -668,24 +531,33 @@ export default {
                 'userData' : {
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
-                }
+                },
+                'nominationData':[]
         }
     },
     methods: {
        getBuyerDetails(){
             let curDate = moment().format('DD-MM-YYYY');
             let nData = {'date':curDate};
+            let vm =this;
             User.getNominationDetailsByDate(curDate).then(
                  (response) => {
                     console.log('response',response);
-                    return false;
-                    let consult_data  = response.data.data;
-                    $.each(consult_data, function(key, value) {
-                        let name =  value.first_name ;
-                        let id  = value.id ;
-                        consult_list.push({text:name, id:id});
+                    // return false;
+                    let nominationData  = [];
+                    $.each(response.data.data, function(key, value) {
+                        let data =  {
+                            'buyer_id':value.buyer_id,
+                            'buyer_name':value.first_name,
+                            'quantity_required':value.quantity_required,
+                            'approved_quantity':value.approved_quantity,
+                            'supplied_quantity':value.supplied_quantity,
+                            'date':value.date
+                        }
+                        nominationData.push(data);
+                        
                     });
-                    vm.nominationData.seller_option=consult_list;
+                    vm.nominationData = nominationData;
                 },
                 (error) => {
                 },
@@ -720,83 +592,17 @@ export default {
     },
     mounted: function() {
         this.getBuyerDetails();
+        let vm = this;
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
         };                    
         var ctx1 = document.getElementById("myChart").getContext('2d');
         var ctx2 = document.getElementById("cSupply").getContext('2d');
-        var config1 = {
-            type: 'bar',
-            data: {
-                datasets: [
-                {
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        '#0040ff',
-                        '#ff6600',
-                        '#ffff00',
-                    ],
-                    label: 'Dataset 1'
-                },
-                {
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        '#0040ff',
-                        '#ff6600',
-                        '#ffff00',
-                    ],
-                    label: 'Dataset 2'
-                },
-                {
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        '#0040ff',
-                        '#ff6600',
-                        '#ffff00',
-                    ],
-                    label: 'Dataset 3'
-                },
-                ],
-                labels: [
-                    'Red',
-                    'Green',
-                    'Blue',
-                    'Orange',
-                    'Yellow'
-                ]
-            },
-            options: {
-                responsive: true
-            }
-        };
-       
-        var config2 = {
-            type: 'pie',
-            data: {
+     
+
+        var color = Chart.helpers.color;
+
+var config1Data = {
                 datasets: [{
                     data: [0,100],
                     backgroundColor: [
@@ -807,38 +613,107 @@ export default {
                     label: 'Dataset 1'
                 }],
                 labels: [
-                    'Supplied',
-                    'Remaining',
+                    'Requested',
+                    'Approved',
+                ]
+            };
+        var config1 = {
+            type: 'bar',
+            data: config1Data,
+            options: {
+                responsive: true,
+                legend: {
+                        position: 'top',
+                    },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        };
+
+        var config2 = {
+            type: 'pie',
+            data: {
+                datasets: [
+                {
+                    data: [0,100],
+                    backgroundColor: [
+                        '#ff0000',
+                        '#00ff40',
+                        
+                    ],
+                    label: 'Dataset 1'
+                }
+                ],
+                labels: [
+                    'Requested',
+                    'Approved',
                 ]
             },
             options: {
                 responsive: true
             }
         };
-        window.myPie1 = new Chart(ctx1, config1);
+        // window.myPie1 = new Chart(ctx1, config1);
         window.myPie2 = new Chart(ctx2, config2);
         setInterval(function(){
-            config1.data.datasets.forEach(function(dataset) {
-                dataset.data = dataset.data.map(function() {
-                    return randomScalingFactor();
-                });
-            });
+
+            // config1.data.datasets.forEach(function(dataset) {
+            //     dataset.data = dataset.data.map(function() {
+            //         return randomScalingFactor();
+            //     });
+            // });
+            
             //  config2.data.datasets.forEach(function(dataset) {
             //     dataset.data = dataset.data.map(function() {
             //         return randomScalingFactor();
             //     });   
             // });
-            console.log(config2.data.datasets[0].data[0]);
             if(config2.data.datasets[0].data[0] <100){
 
              config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +1;
              config2.data.datasets[0].data[1] = 100 -config2.data.datasets[0].data[0]; 
             }
-            window.myPie1.update();
+            // window.myPie1.update();
             window.myPie2.update();
         },2000)
+        var newDataset = {};
+        setTimeout(function(){
+            config1Data.datasets.pop();
+            _.forEach(vm.nominationData,function(value,key){
+                console.log(value,'value');
+                // config1.data.datasets[key].data[0] = value.quantity_required;
+                // config1.data.datasets[key].data[1] = value.approved_quantity;
+                // config1.data.datasets[key].label = value.buyer_name;
+                // config1.data[key] = value.buyer_name;
+                 var letters = '0123456789ABCDEF';
+                  var color = '#';
+                  for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                  }
+                var newDataset = {
+                    label: value.buyer_name,
+                    backgroundColor: color,
+                    borderWidth: 1,
+                    data: [
+                        value.quantity_required,
+                        value.approved_quantity
+                    ]
+                };
+                config1Data.datasets.push(newDataset);
 
+                // check_list_data.push(value.reportListId);
+            });
+            console.log(config1Data,'config1Data');
+             // window.myPie1.update();
+             window.myPie1 = new Chart(ctx1, config1);
+            // config1.datasets.push(newDataset);
 
+        },2000)
 
     },
        
