@@ -62,7 +62,7 @@
                         </div>
                         <div class="text-right">
                            <!--  <h3 class="text-dark"><b>0</b></h3> -->
-                             <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
+                             <a href="/nomination_list"> <button class="btn btn-warning">Nomination</button></a>
                         </div>
                         <div class="clearfix"></div>
                     </div>
