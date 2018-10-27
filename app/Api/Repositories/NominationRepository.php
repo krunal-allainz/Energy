@@ -7,6 +7,7 @@ use euro_hms\Api\Repositories\NotificationRepository;
 use Excel;
 use File;
 use euro_hms\Api\Repositories\AgreementRepository;
+use euro_hms\Api\Repositories\AvailabilityRepository;
 use euro_hms\Api\Repositories\UserRepository;
 use Auth;
 
@@ -17,7 +18,9 @@ use Auth;
  {
      public function __construct(){
         $this->agmtObj = new AgreementRepository();
+        $this->avalabObj = new AvailabilityRepository();
         $this->userObj = new UserRepository();
+
     }
    
  	/**
@@ -114,7 +117,13 @@ use Auth;
 
             $get_buyer=$this->getNominationDetailsById($id);
             $check_quantity=$this->check_quantity($form_data['approved_quantity'],$get_buyer->buyer_id);
-            if($check_quantity=='yes')
+            $check_availability=$this->check_availability($form_data['approved_quantity'],$id);
+            
+            if($check_availability=='yes')
+            {
+                $nom_id=array('nomination_id'=>'','code'=>302);
+            }
+            else if($check_quantity=='yes')
             {
                 $nom_id=array('nomination_id'=>'','code'=>301);
             }
@@ -125,7 +134,15 @@ use Auth;
                 $nom->quantity_required=$form_data['quantity'];
                 $nom->approved_quantity=$form_data['approved_quantity'];
                 $nom->status=1;
-                $nom->request=$form_data['request'];
+                if(Auth::user()->user_type==6)
+                {
+                    $nom->request='Pending';
+                }
+                else
+                {
+                    $nom->request=$form_data['request'];
+                }
+                
                 $nom->save();
                 $nom_id=array('nomination_id'=>$nom->id,'code'=>200);
                 $dataUserId = $get_buyer->buyer_id;
@@ -159,12 +176,36 @@ use Auth;
        
         return  $nom_id;
     }
-
+    /**
+     * [check_quantity description]
+     * @param  [type] $approved_quantity [description]
+     * @param  [type] $buyer_id          [description]
+     * @return [type]                    [description]
+     */
     public function check_quantity($approved_quantity,$buyer_id)
     {
+
         $allowed_quantity=$this->agmtObj->getAllowedQuantityByBuyerId($buyer_id);
         $total_quantity=($allowed_quantity*120)/100;
         if($approved_quantity>$total_quantity)
+        {
+            return 'yes';
+        }
+        else
+        {
+            return 'no';
+        }
+        return 'no';
+    }
+
+    public function check_availability($approved_quantity,$id)
+    {
+        $date=Carbon::now()->addDays(1)->format('Y-m-d');
+        $availability=$this->avalabObj->getAvailability($date);
+        $total_quantity=Nomination::whereDate('date',$date)->whereRaw('id != ?',$id)->select([DB::raw('SUM(approved_quantity) as total_approved_quantity')])->get();
+        $total=$total_quantity[0]['total_approved_quantity']+$approved_quantity;
+        //echo $total.'||'.$availability;exit;
+        if($total>$availability)
         {
             return 'yes';
         }
@@ -242,13 +283,13 @@ use Auth;
     }
 
     /**
-    *
-    *
-    **/
-
+     * [getNominationRequestList description]
+     * @return [type] [description]
+     */
     public function getNominationRequestList(){
         return Nomination::whereIn('request',['Pending','Approved'])->groupBy('buyer_id')->get();
     }
+
     
  }
 ?>
