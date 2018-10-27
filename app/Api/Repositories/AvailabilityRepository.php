@@ -22,11 +22,22 @@ use Auth;
         $avail= new Availability;
         $date=Carbon::now()->addDays(1)->format('Y-m-d');
         $avail->date=$date;
-        $avail->quantity=200;
+        $avail->quantity=1000;
         $avail->save();
         $avail_id=array('availbility_id'=>$avail->id,'code'=>200);
 
         return $avail_id;
+    }
+
+    /**
+     * [getAvailability description]
+     * @param  [type] $date [description]
+     * @return [type]       [description]
+     */
+    public function getAvailability($date)
+    {
+        $availability=Availability::whereDate('date',$date)->first();
+        return $availability->quantity;
     }
  }
 ?>

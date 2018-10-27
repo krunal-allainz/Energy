@@ -85,15 +85,22 @@ export default {
                             })
                             setTimeout(function(){
                                 jQuery('.js-loader').addClass('d-none');
-                                console.log(vm.$store.state.Users.userDetails.user_type);
-                                if(vm.$store.state.Users.userDetails.user_type == '7'){
-                                        vm.$router.push({'name':'seller-dashboard'});
-                                        
-                                }else if(vm.$store.state.Users.userDetails.user_type ==  6) {
+
+                                //console.log(vm.$store.state.Users.userDetails.user_type);
+                                 if(vm.$store.state.Users.userDetails.user_type ==  6) {
                                         vm.$router.push({'name':'buyer-dashboard'});
 
                                 }
-                               
+                                else if(vm.$store.state.Users.userDetails.user_type ==  7) {
+                                        vm.$router.push({'name':'seller-dashboard'});
+
+                                }
+                                else
+                                {
+                                    vm.$router.push({'name':'buyer-dashboard'});
+                                }
+
+
                             },2000)    
                         }else {
                             jQuery('.js-loader').addClass('d-none');
