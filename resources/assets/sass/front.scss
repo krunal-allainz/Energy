@@ -1,3 +1,4 @@
+$green:  #82be00;
 .site-header .container {
     width: 95%;
     max-width: 100%;
@@ -710,7 +711,10 @@ th {
 .header{
     padding-left: 15px;
     padding-right: 15px;
+    background-color: #eaeaea !important;
+    border-bottom: solid 1px #dadada !important;
     nav{
+        background-color: #eaeaea !important;
         h1{
             font-size: 30px;
             margin-bottom: 5px;
@@ -722,7 +726,7 @@ th {
     padding: 0 15px;
     h1{
         color: #fff;
-        margin-top: 5px;
+        margin-top: 7px;
         margin-bottom: 0px;
     }
 }
@@ -735,6 +739,8 @@ th {
     padding: 0.99rem 1rem;
     margin-bottom: 0px;
     display: inline-block;
+    position: relative;
+    top: 4px;
     .breadcrumb-item.active{
         color: $white;
     }
@@ -769,8 +775,13 @@ th {
         display: none;
     }
     li{
+        border-bottom: solid 1px #efefef;
         .timeline-card{
-            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: none !important;
+            border: none !important;
+            &::before{
+                display: none !important;
+            }
         }
     }
 }
@@ -793,7 +804,7 @@ th {
 }
 
 .table{
-    border: solid 1px #ddd;
+    border: solid 1px #efefef;
     thead{
         tr{
             th{
@@ -818,13 +829,46 @@ th {
 }
 .btn{
     font-size: 14px !important;
-    padding: 0.5rem 1.5rem !important;
+    padding: 0.6rem 1.5rem !important;
+    min-width: 120px;
+    text-transform: uppercase;
 }
 .btn.forgot-link{
     padding-right: 0px !important;
+    &:hover{
+        color: #004696 !important;
+        cursor: pointer;
+    }
 }
 .flip{
     .card-box{
         min-height: 132px;
+        h3{
+            color: #6d7377;
+        }
+        h3.text-dark{
+            color: #333 !important;
+        }
     }
+}
+
+.widget-bg-color-icon .bg-icon i{
+    font-size: 48px !important;
+}
+
+.main-chart .panel-tabs .nav-tabs .active{
+    background-color: #82be00 !important;
+    border: none !important;
+}
+
+.main-chart .panel-tabs .nav-tabs :hover{
+    border: none !important;
+}
+.card.main-chart{
+    .buyer_chart1{
+        padding: 0.25rem 2.25rem 0.25rem 1.25rem !important;
+    }
+}
+.form-group {
+    margin-bottom: 1.55rem;
 }

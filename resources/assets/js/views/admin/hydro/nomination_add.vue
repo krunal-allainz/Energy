@@ -1,13 +1,15 @@
 <template>
-	<div class="container">
-		<div class="page-header">
-			<div class="row">
-				<div class="col-md-6">
-				<h2>Nomination Add </h2>
-				</div>
-			</div>
-		</div>
-		<form method="post"> 
+<section>
+    <div class="col-lg-12 mb-3">
+   
+		<div class="card bg-success-card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-md-12"><h4 class="mt-2">Nomination Add</h4></div>
+          </div>
+        </div>
+        <div class="card-body">
+            <form method="post"> 
             <div class="row">
                 <div class="col-md-12">
                         <div class="card-body">
@@ -57,7 +59,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row form-group">
+                                <div class="row form-group mt-5">
                                     <div class="col-md-3">
                                     </div>
                                     <div class="col-md-9">
@@ -74,7 +76,11 @@
             </div>
       
         </form>
-	</div>
+        </div>
+		</div>
+    </div>
+	
+    </section>
 </template>
 
 <script>

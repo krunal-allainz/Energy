@@ -39,11 +39,11 @@
                         <a href="/nomination_list">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                                <i class="fa fa-cube text-blue"></i>
+                                <i class="fa fa-share-square-o text-blue"></i>
                             </div>
                             <div class="text-right">
-                                <h2>Nomination</h2>
-                            <h3 class="text-dark"><b>{{total_availability}}</b></h3>
+                                <h3><b>Nomination</b></h3>
+                                <h3 class="text-dark"><b>0 {{total_availability}}</b></h3>
                                 <p>Nomination Request</p>
                             </div>
                             <div class="clearfix"></div>
@@ -56,11 +56,11 @@
                         <a href="#">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                                <i class="fa fa-check text-info"></i>
+                                <i class="fa fa-certificate text-success"></i>
                             </div>
                             <div class="text-right">
-                                <h2>Quantity</h2>
-                                <h3><b id="widget_count3">{{total_approved}}</b></h3>
+                                <h3><b>Quantity</b></h3>
+                                <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
                                 <p>Approved Quantity</p>
                             </div>
                             <div class="clearfix"></div>
@@ -76,8 +76,9 @@
                         <i class="fa fa-credit-card text-blue"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b><a href="/generate_invoice">Invoice</a></b></h3>
-                            <!-- <p>Hits</p> -->
+                            <h3><b><a href="/generate_invoice">Invoice</a></b></h3>
+                            <h3 class="text-dark"><b>0</b></h3>
+                            <p>Generate Invoice</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -89,10 +90,10 @@
                         <a href="#" @click="supplied_quantity()">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                            <i class="fa fa-cart-plus text-info"></i>
+                            <i class="fa fa-cart-plus text-success"></i>
                             </div>
                             <div class="text-right">
-                                <h2>Quantity</h2>
+                                <h3><b>Quantity</b></h3>
                                 <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
                                 <p>Supplied Quantity</p>
                             </div>
@@ -109,7 +110,7 @@
                                 <div class="card main-chart">
                                     <div class="card-header panel-tabs">
                                         
-                                                <a > Buyer allocation</a>
+                                                <a > Buyer Allocation</a>
                                         
                                     </div>
                                     <div class="card-body">
@@ -139,7 +140,7 @@
                                         <!-- <div class="tab-content"> -->
                                             
                                             <div class="tab-pane fade" id="supply">
-                                                <div style="width: 50%;">
+                                                <div style="width: 80%; margin: 20px auto 0 auto;">
                                                     <canvas id="cSupply" width="100px" height="100px"></canvas>
                                                 </div>
                                             </div>
@@ -343,8 +344,8 @@ export default {
                 datasets: [{
                     data: [0,100],
                     backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
+                        '#004696',
+                        '#82be00',
                         
                     ],
                     label: 'Dataset 1'
