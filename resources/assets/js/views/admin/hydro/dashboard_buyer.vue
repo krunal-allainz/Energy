@@ -19,33 +19,27 @@
              	<div class="flip">
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                            <i class="fa fa-eye text-warning"></i>
+                            <i class="fa fa-share-square-o text-warning"></i>
                           
                         </div>
                         <div class="text-right">
-                           <h3 class="text-dark"><b>3752</b></h3>
-                            <p>Daily Visits</p>
+                           <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                            <p>Requested Quantity</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="widget-bg-color-icon card-box back">
-                        <div class="text-center">
-                    	    <span id="loadspark-chart"></span>
-                        		<hr><p>Check summary</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
             	    <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                           <!--  <i class="ti-shopping-cart text-success"></i> -->
+                           <i class="fa fa-check text-success"></i> 
                         </div>
                         <div class="text-right">
-                            <h3><b id="widget_count3">3251</b></h3>
-                            <p>Sales status</p>
+                            <h3><b id="widget_count3">{{total_approved}}</b></h3>
+                            <p>Approved Quantity</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -55,10 +49,10 @@
             <div class="flip">
                 <div class="widget-bg-color-icon card-box front">
             	    <div class="bg-icon float-left">
-                        <i class="ti-thumb-up text-danger"></i>
+                        <i class="fa fa-credit-card text-danger"></i>
                     </div>
                 	<div class="text-right">
-                		<h3 class="text-dark"><b><a href="/buyer_invoice_list">Invoice List</a></b></h3>
+                		<h3 class="text-dark"><b><a href="/buyer_invoice_list">Invoice</a></b></h3>
                 	</div>
                     <div class="clearfix"></div>
                 </div>
@@ -69,11 +63,11 @@
                 <div class="flip">
             	    <div class="widget-bg-color-icon card-box front">
                     	<div class="bg-icon float-left">
-                           <i class="ti-user text-info"></i>
+                           <i class="fa fa-user text-info"></i>
                         </div>
                         <div class="text-right">
-                            <h3 class="text-dark"><b>1252</b></h3>
-                            <p>Subscribers</p>
+                            <h3 class="text-dark"><b>0</b></h3>
+                            <p></p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -496,17 +490,63 @@ export default {
              'userData' : {
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
-                }
+                },
+            'total_request':'',
+            'total_approved':'',
            
         }
     },
     methods: {
+        getTotalRequestedQuantity()
+       {
+            let vm=this;
+             User.getTotalRequestedQuantity(vm.userData.userId).then(
+                 (response) => {
+                    let request=response.data.data;
+                    if(request!=null && request!='' && request!=0)
+                    {
+                        vm.total_request=request;
+                    }
+                    else
+                    {
+                         vm.total_request=0;
+                    }
+                    
+                },
+                (error) => {
+                },
+            );
+       },
+       getTotalApprovedQuantityByBuyer()
+       {
+            let vm=this;
+             User.getTotalApprovedQuantityByBuyer(vm.userData.userId).then(
+                 (response) => {
+                    let approve=response.data.data;
+                    if(approve!=null && approve!='' && approve!=0)
+                    {
+                        vm.total_approved=approve;
+                    }
+                    else
+                    {
+                         vm.total_approved=0;
+                    }
+                    
+                },
+                (error) => {
+                },
+            );
+       },
+
 
     },
     components: {
             timeline
     },
     mounted: function() {
+        let vm=this;
+        vm.getTotalRequestedQuantity();
+        vm.getTotalApprovedQuantityByBuyer();
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
         };                    

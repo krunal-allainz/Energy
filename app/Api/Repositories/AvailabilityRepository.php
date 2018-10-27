@@ -39,5 +39,9 @@ use Auth;
         $availability=Availability::whereDate('date',$date)->first();
         return $availability->quantity;
     }
+
+
+
+    
  }
 ?>

@@ -85,5 +85,23 @@ export default {
   },
   getBuyerRequestList(buyerId,requestType,typeInclude){
     return api.post('user/getbuyerlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
+  },
+  getBuyerList(){
+    return api.post('user/getbuyerlist');
+  },
+  getAvailability(){
+    return api.post('availability/getAvailability');
+  },
+  getTotalApprovedQuantity(){
+    return api.post('nomination/getTotalApprovedQuantity');
+  },
+  getTotalSuppliedQuantity(){
+    return api.post('nomination/getTotalSuppliedQuantity');
+  },
+  getTotalRequestedQuantity(userId){
+     return api.post('nomination/getTotalRequestedQuantity',{'userId':userId});
+  },
+  getTotalApprovedQuantityByBuyer(userId){
+     return api.post('nomination/getTotalApprovedQuantityByBuyer',{'userId':userId});
   }
 }
