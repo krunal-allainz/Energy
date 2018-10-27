@@ -124,6 +124,13 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         //for total supplied
          $api->post('nomination/getTotalSuppliedQuantity', '\euro_hms\Api\Controllers\NominationController@getTotalSuppliedQuantity');
 
+          //for total request quantity of buyer
+         $api->post('nomination/getTotalRequestedQuantity', '\euro_hms\Api\Controllers\NominationController@getTotalRequestedQuantity');
+
+          //for total approved quantity of buyer
+         $api->post('nomination/getTotalApprovedQuantityByBuyer', '\euro_hms\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
+
+
 
 }); 
 

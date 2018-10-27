@@ -63,7 +63,7 @@
             <div class="flip">
                 <div class="widget-bg-color-icon card-box front">
             	    <div class="bg-icon float-left">
-                       <i class="fa fa-file text-warning"></i>
+                       <i class="fa fa-credit-card text-warning"></i>
                     </div>
                 	<div class="text-right">
                 		<h3 class="text-dark"><b><a href="/generate_invoice">Invoice</a></b></h3>

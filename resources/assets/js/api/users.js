@@ -95,4 +95,10 @@ export default {
   getTotalSuppliedQuantity(){
     return api.post('nomination/getTotalSuppliedQuantity');
   },
+  getTotalRequestedQuantity(userId){
+     return api.post('nomination/getTotalRequestedQuantity',{'userId':userId});
+  },
+  getTotalApprovedQuantityByBuyer(userId){
+     return api.post('nomination/getTotalApprovedQuantityByBuyer',{'userId':userId});
+  },
 }
