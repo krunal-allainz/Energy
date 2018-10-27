@@ -83,7 +83,7 @@ export default {
   createAvailability(){
      return api.post('availability/createAvailability');
   },
-  getBuyerList(){
-    return api.post('user/getbuyerlist');
+  getBuyerRequestList(buyerId,requestType,typeInclude){
+    return api.post('user/getbuyerlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
   }
 }

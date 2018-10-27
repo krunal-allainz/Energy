@@ -49,7 +49,6 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    
             </div>
         </div>
         <div class="col-sm-6 col-md-6 col-xl-3">
@@ -59,8 +58,7 @@
                         <i class="ti-thumb-up text-danger"></i>
                     </div>
                 	<div class="text-right">
-                		<h3 class="text-dark"><b>1532</b></h3>
-                		<p>Hits</p>
+                		<h3 class="text-dark"><b><a href="/buyer_invoice_list">Invoice List</a></b></h3>
                 	</div>
                     <div class="clearfix"></div>
                 </div>

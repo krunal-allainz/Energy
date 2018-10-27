@@ -8,48 +8,31 @@
 			</div>
 		</div>
 		<form method="post" enctype="multipart/form-data">
-			<div class="row form-group">
-                <div class="col-md-3">
-                <label for="Quantity" class="control-label float-right txt_media1">Quantity:</label>
-                </div>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="quantity"  v-validate="'required'" v-model="nominationData.quantity" name="quantity">
-                    <i v-show="errors.has('quantity')" class="fa fa-warning"></i>
-                    <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
-                </div>
-            </div>
+			
             <div class="row form-group">
             	<div class="col-md-3">
-		      		<label class="control-label float-right" >Supplier: </label>
+		      		<label class="control-label float-right" for="buyer" > Select Buyer: </label>
 				</div>
 				<div class="col-md-6">
-		      		<select class="form-control ls-select2"  id="supplier" name="supplier" v-validate="'required'" >
+		      		<select class="form-control ls-select2"  id="buyer" name="buyer" v-validate="'required'" >
 		      			<option value="">Select</option>
-						 <option :value="supplier.id" v-for="supplier in nominationData.seller_option">{{supplier.text}}</option>
+						 <option :value="buyer.id" v-for="buyer in invoiceData.buyer_option">{{buyer.name}}</option>
 		      		</select>
-		      		<i v-show="errors.has('supplier')" class="fa fa-warning"></i>
-		      		<span class="help is-danger" v-show="errors.has('supplier')">
-	                	Please select supplier.
+		      		<i v-show="errors.has('buyer')" class="fa fa-warning"></i>
+		      		<span class="help is-danger" v-show="errors.has('buyer')">
+	                	Please select buyer.
 	                </span>
 				</div>
 				
             </div>
-            <div class="row form-group">
-            	<div class="col-md-3">
-		      		<label class="control-label float-right" >Date: </label>
-				</div>
-				<div class="col-md-6">
-		      		<input type="text" class="form-control" id="date"  v-model="nominationData.date" name="date" readonly="readonly">
-				</div>
-				
-            </div>
-            <div class="row form-group">
+           
+           <!--  <div class="row form-group">
                 <div class="col-md-3">
                 </div>
                 <div class="col-md-9">
                     <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
                 </div>
-            </div>
+            </div> -->
 		</form>
 	</div>
 </template>
@@ -62,15 +45,13 @@
     export default {
         data() {
             return {
-                    'nominationData' : {
-                            	'date':moment().format('DD-MMM-YYYY'),
-                            	'quantity': '',
-                            	'seller_id': '',
-                            	'buyer_id': '',
-                            	'seller_option':{},
-                                
-                           // 	'userIamge': ''
+                    'invoiceData' : {
+                    	'buyer_option'  : '',
+                    	'buyer_id': '',
+                    	'date':moment().format('DD-MMM-YYYY'),
+                    	'noIncludeType': 'Invoice',
                     },
+                    'buyerRequestList' : '',
                     
                 }
         },
@@ -80,31 +61,56 @@
             $('.ls-select2').select2({
                 placeholder: "Select"
             });
-            vm.getSupplierList();
+             $('#buyer').change("select2:select", function (e) {
+           		 let selectedBuyerId = $(this).val();
+              	vm.invoiceData.buyer_id=selectedBuyerId;
+             	let requestType = vm.noIncludeType;
+             	let typeInclude = 'no;'
+              	vm.getBuyerRequestList(selectedBuyerId,requestType,typeInclude);
+          }); 
+            vm.getBuyeList();
         },
         methods: {
-            getSupplierList()
+             getBuyeList()
             {
+            	 var vm = this;
                 var consult_list=[];
-                User.generateUserDetailsByType(7,'Active').then(
+                User.generateUserDetailsByType(6,'Active').then(
                      (response) => {
                         let consult_data  = response.data.data;
                         $.each(consult_data, function(key, value) {
                             let name =  value.first_name ;
                             let id  = value.id ;
-                            consult_list.push({text:name, id:id});
+                            consult_list.push({name:name, id:id});
                         });
-                        vm.nominationData.seller_option=consult_list;
+                        vm.invoiceData.buyer_option=consult_list;
                     },
                     (error) => {
                     },
                 );
             },
+            getBuyerRequestList(buyerId,requestType,typeInclude)
+            {
+            	var request_list = [];
+            	var request_data = '';
+            	User.getBuyerRequestList(buyerId,requestType,typeInclude).then(
+                     (response) => {
+                        let  request_data  = response.data.data;
+                        $.each(request_data, function(key, value) {
+                            let name =  value.first_name ;
+                            let id  = value.id ;
+                            request_list.push({name:name, id:id});
+                        });
+                        vm.buyerRequestList=request_list;
+                    },
+                    (error) => {
+                    },
+                );
+            	
+            },
             initialState() {
-                this.$data.data.date = '',
-                this.$data.data.quantity =  '',
-                this.$data.data.seller_id ='',
-                this.$data.data.buyer_id=''
+                this.$data.invoiceData.date = '',
+                this.$data.invoiceData.buyer_id=''
             },
             
             validateBeforeSubmit() {

@@ -153,5 +153,11 @@ class NominationController extends Controller
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
     }
+
+    public function getBuyerRequestList(){
+
+        // write code for get buyer list
+        return 
+    }
     
 }

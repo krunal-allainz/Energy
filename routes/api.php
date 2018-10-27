@@ -115,6 +115,8 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
          
         $api->post('user/getbuyerlist', '\euro_hms\Api\Controllers\UserController@getBuyerList');
 
+        $api->post('user/getbuyerrequestlist', '\euro_hms\Api\Controllers\NominationController@getBuyerRequestList');
+
 }); 
 
         
