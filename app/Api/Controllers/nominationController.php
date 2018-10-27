@@ -212,11 +212,36 @@ class NominationController extends Controller
         }
     }
 
+    /**
+     * [getTotalApprovedQuantityByBuyer description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
      public function getTotalApprovedQuantityByBuyer(Request $request)
     {
         $date =Carbon::now()->addDays(1)->format('Y-m-d');
         $userId = $request->userId;
         $get_details=$this->nomObj->getTotalApprovedQuantityByBuyer($userId,$date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+    /**
+     * [getNominationCountForBuyer description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function getNominationCountForBuyer(Request $request)
+    {
+        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $userId = $request->userId;
+        $get_details=$this->nomObj->getNominationCountForBuyer($userId,$date);
         if($get_details)
         {
             return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];

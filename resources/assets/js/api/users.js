@@ -101,4 +101,10 @@ export default {
   getTotalApprovedQuantityByBuyer(userId){
      return api.post('nomination/getTotalApprovedQuantityByBuyer',{'userId':userId});
   },
+  getNominationCountForBuyer(userId){
+     return api.post('nomination/getNominationCountForBuyer',{'userId':userId});
+  },
+   getAllowedQuantityByBuyerId(userId){
+     return api.post('agreement/getAllowedQuantityByBuyerId',{'userId':userId});
+  },
 }

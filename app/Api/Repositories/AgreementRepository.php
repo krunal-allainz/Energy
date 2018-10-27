@@ -18,7 +18,15 @@ use File;
     public function getAllowedQuantityByBuyerId($buyer_id)
     {
         $allowed=Agreement::where('buyer_id',$buyer_id)->first();
-        return $allowed->allowed_quantity;
+        if($allowed)
+        {
+            return $allowed->allowed_quantity;
+        }
+        else
+        {
+            return 0;
+        }
+       
     }
     
  }

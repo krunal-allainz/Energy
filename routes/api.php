@@ -130,8 +130,11 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
           //for total approved quantity of buyer
          $api->post('nomination/getTotalApprovedQuantityByBuyer', '\euro_hms\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
 
+          //for total approved quantity of buyer
+         $api->post('nomination/getNominationCountForBuyer', '\euro_hms\Api\Controllers\NominationController@getNominationCountForBuyer');
 
-
+         //for MDCQ
+          $api->post('agreement/getAllowedQuantityByBuyerId', '\euro_hms\Api\Controllers\AgreementController@getAllowedQuantityByBuyerId');
 }); 
 
         
