@@ -42,9 +42,10 @@ class AvailabilityController extends Controller
         }
     }
 
-    public function getAvailability()
+    public function getAvailability(Request $request)
     {
-        $date=Carbon::now()->addDays(1)->format('Y-m-d');
+        $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
         $get_Availability=$this->avlObj->getAvailability($date);
         if($get_Availability)
         {

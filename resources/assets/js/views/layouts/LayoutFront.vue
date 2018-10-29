@@ -83,7 +83,7 @@ export default {
                 var s = today.getSeconds();
                 m = vm.checkTime(m);
                 s = vm.checkTime(s);
-                console.log('ff');
+                //console.log('ff');
                 vm.curDateTime = h + ":" + m + ":" + s;
               }, 500);
 
