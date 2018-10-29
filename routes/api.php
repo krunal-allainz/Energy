@@ -143,6 +143,12 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
          //for MDCQ
           $api->post('agreement/getAllowedQuantityByBuyerId', '\Energy\Api\Controllers\AgreementController@getAllowedQuantityByBuyerId');
+
+        $api->post('invoice/invoicelistbybuyerid', '\Energy\Api\Controllers\InvoiceController@getInvoiceLisyByBuyerId');
+
+        $api->post('invoice/generateinvoicebybuyer','\Energy\Api\Controllers\InvoiceController@generateInvoiceLisyByBuyerId');
+
+        $api->post('invoice/viewbybuyer', '\Energy\Api\Controllers\InvoiceController@viewbyBuyer');
 }); 
 
         

@@ -371,13 +371,19 @@ use Auth;
 
         if($typeInclude == 'no'){
 
-            $list = Nomination::where('request','!=',$requestType)->where('buyer_id',$buyerId)->get();
+            $list = Nomination::where('request','!=',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_request.buyer_id');
+            })->get();
         }else if($typeInclude == 'yes'){
 
-            $list = Nomination::where('request','=',$requestType)->where('buyer_id',$buyerId)->get();
+            $list = Nomination::where('request','=',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_request.buyer_id');
+            })->get();
         }else{
 
-            $list = Nomination::where('buyer_id',$buyerId)->get();
+            $list = Nomination::where('buyer_id',$buyerId)->join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_request.buyer_id');
+            })->get();
         }
 
         return $list;

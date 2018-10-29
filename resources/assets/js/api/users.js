@@ -80,6 +80,12 @@ export default {
   generateInvoice(){
     return api.post('invoice/generateinvoice');
   },
+  generateInvoiceByBuyerId(buyerId){
+     return api.post('invoice/generateinvoicebybuyer', { 'buyerId' : buyerId});
+  },
+  generateInvoiceViewByBuyerId(buyerId){
+    return api.post('invoice/viewbybuyer', { 'buyerId' : buyerId});
+  },
   createAvailability(){
      return api.post('availability/createAvailability');
   },
@@ -110,7 +116,10 @@ export default {
   getNominationCountForBuyer(userId){
      return api.post('nomination/getNominationCountForBuyer',{'userId':userId});
   },
-   getAllowedQuantityByBuyerId(userId){
+  getAllowedQuantityByBuyerId(userId){
      return api.post('agreement/getAllowedQuantityByBuyerId',{'userId':userId});
   },
+  getInvoiceDataByBuyerId(buyerId,noOfpage,pageUrl){
+     return api.post(pageUrl,{'buyerId':buyerId ,'noOfpage' : noOfpage});
+  }
 }

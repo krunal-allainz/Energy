@@ -72,6 +72,62 @@ class InvoiceController extends Controller
         }
     }
 
+    public function getInvoiceLisyByBuyerId(Request $request){
+
+         $buyerId = $request->buyerId; 
+         $noOfpage  = $request->noOfpage; 
+         $invoice=$this->invObj->getInvoiceLisyByBuyerId($buyerId,$noOfpage);
+        if($invoice)
+        {
+            return ['code' => 200 ,'data'=>$invoice,'message'=>'Invoce list successfully'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+    /**
+    *
+    *
+    *
+    *
+    **/
+
+    public function generateInvoiceLisyByBuyerId(Request $request){
+
+        $buyerId = $request->buyerId;
+        $invoice=$this->invObj->generateInvoiceLisyByBuyerId($buyerId);
+        if($invoice)
+        {
+            return ['code' => 200 ,'data'=>$invoice,'message'=>'Invoce generate successfully'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+
+    /**
+    *
+    *
+    *
+    **/
+
+    public function viewbyBuyer(Request $request){
+        $buyerId = $request->buyerId;
+        $invoice=$this->invObj->viewbyBuyer($buyerId);
+        if($invoice)
+        {
+            return ['code' => 200 ,'data'=>$invoice,'message'=>'Invoce viewgenerate successfully'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
    
     
 }

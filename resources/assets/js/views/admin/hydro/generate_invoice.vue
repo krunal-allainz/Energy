@@ -14,7 +14,7 @@
 		      		<label class="control-label float-right" for="buyer" > Select Buyer: </label>
 				</div>
 				<div class="col-md-6">
-		      		<select class="form-control ls-select2"  id="buyer" name="buyer" v-validate="'required'" >
+		      		<select class="form-control ls-select2"  id="buyer" name="buyer" v-validate="'required'">
 		      			<option value="">Select</option>
 						 <option :value="buyer.id" v-for="buyer in invoiceData.buyer_option">{{buyer.name}}</option>
 		      		</select>
@@ -25,7 +25,9 @@
 				</div>
 				
             </div>
-            <invoiceListBuyer :buyerRequestList="buyerRequestList"></invoiceListBuyer>
+            <invoiceListBuyer  :buyerId='buyer_id'   v-if="(loadList == true)"></invoiceListBuyer>
+
+
            
            <!--  <div class="row form-group">
                 <div class="col-md-3">
@@ -51,9 +53,9 @@
                     	'buyer_option'  : '',
                     	'buyer_id': '',
                     	'date':moment().format('DD-MMM-YYYY'),
-                    	'noIncludeType': 'Invoice',
                     },
-                    'buyerRequestList' : '',
+                   
+                    'loadList' : false,
                 }
         },
         components: {
@@ -61,21 +63,36 @@
         },
         mounted() {
             var vm = this;
+             vm.loadList = false; 
             let user_type = [] ;
             $('.ls-select2').select2({
                 placeholder: "Select"
             });
              $('#buyer').change("select2:select", function (e) {
-           		 let selectedBuyerId = $(this).val();
+               
+           		let selectedBuyerId = $(this).val();
               	vm.invoiceData.buyer_id=selectedBuyerId;
              	let requestType = vm.invoiceData.noIncludeType;
              	let typeInclude = 'no';
-              	vm.getBuyerRequestList(selectedBuyerId,requestType,typeInclude);
-          }); 
+                vm.buyer_id = $(this).val();
+                 vm.loadList = false;     
+                
+                setTimeout(function(){
+                 if(vm.buyer_id != ''){
+                     vm.loadList = true;  
+                }
+                },1000) ;
+               
+                
+              	//
+                // vm.$buyerRequestList.$emit('getInvoiceDataByBuyerId',vm.buyer_id);
+          });
+
+            
             vm.getBuyeList();
         },
         methods: {
-             getBuyeList()
+            getBuyeList()
             {
             	 var vm = this;
                 var consult_list=[];
@@ -92,25 +109,6 @@
                     (error) => {
                     },
                 );
-            },
-            getBuyerRequestList(buyerId,requestType,typeInclude)
-            {  
-            	var request_list = [];
-            	var request_data = '';
-            	User.getBuyerRequestList(buyerId,requestType,typeInclude).then(
-                     (response) => {
-                        let  request_data  = response.data.data;
-                        $.each(request_data, function(key, value) {
-                            let name =  value.first_name ;
-                            let id  = value.id ;
-                            request_list.push({name:name, id:id});
-                        });
-                        vm.buyerRequestList=request_list;
-                    },
-                    (error) => {
-                    },
-                );
-            	
             },
             initialState() {
                 this.$data.invoiceData.date = '',
