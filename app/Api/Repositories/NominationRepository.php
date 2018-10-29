@@ -272,9 +272,7 @@ use Auth;
      */
     public function getNominationDetailsByDate($date)
     {
-
         $new_date=Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
-
         $list= Nomination::join('users', function ($join) {
                 $join->on('users.id', '=', 'nomination_request.buyer_id');
             })->whereDate('date',$new_date)->get();
@@ -290,6 +288,16 @@ use Auth;
         return Nomination::whereIn('request',['Pending','Approved'])->groupBy('buyer_id')->get();
     }
 
+    /**
+     * [getTotalRequestedQuantityForSeller description]
+     * @param  [type] $date [description]
+     * @return [type]       [description]
+     */
+    public function getTotalRequestedQuantityForSeller($date)
+    {
+        $required=Nomination::whereDate('date',$date)->select([DB::raw('SUM(quantity_required) as total_required_quantity')])->first();
+        return $required->total_required_quantity;
+    }
     /**
      * [getTotalApprovedQuantity description]
      * @param  [type] $date [description]
@@ -336,13 +344,26 @@ use Auth;
         return $requested->total_approved_quantity;
     }
 
+    /**
+     * [getTotalSuppliedQuantityByBuyer description]
+     * @param  [type] $userId [description]
+     * @param  [type] $date   [description]
+     * @return [type]         [description]
+     */
+     public function getTotalSuppliedQuantityByBuyer($userId,$date)
+    {
+        $requested=Nomination::whereDate('date',$date)->where('buyer_id',$userId)->select([DB::raw('SUM(supplied_quantity) as total_supplied_quantity')])->first();
+        return $requested->total_supplied_quantity;
+    }
 
-
+    /**
+     * [getNominationDetailsByDateById description]
+     * @param  [type] $date    [description]
+     * @param  [type] $buyerId [description]
+     * @return [type]          [description]
+     */
     public function getNominationDetailsByDateById($date,$buyerId){
-
-
-         $new_date=Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
-
+        $new_date=Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
         $list= Nomination::join('users', function ($join) {
                 $join->on('users.id', '=', 'nomination_request.buyer_id');
             })->whereDate('date',$new_date)->where('buyer_id',$buyerId)->first();

@@ -121,6 +121,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
         $api->post('nomination/getbuyerrequestlist', '\Energy\Api\Controllers\NominationController@getBuyerRequestList');
 
+        //for total requested
+         $api->post('nomination/getTotalRequestedQuantityForSeller', '\Energy\Api\Controllers\NominationController@getTotalRequestedQuantityForSeller');
+
         //for total approved
         $api->post('nomination/getTotalApprovedQuantity', '\Energy\Api\Controllers\NominationController@getTotalApprovedQuantity');
 
@@ -132,11 +135,14 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
           //for total approved quantity of buyer
 
-         $api->post('nomination/getTotalApprovedQuantityByBuyer', '\euro_hms\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
+         $api->post('nomination/getTotalApprovedQuantityByBuyer', '\Energy\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
 
-          $api->post('nomination/getNominationDetailsByDateById', '\euro_hms\Api\Controllers\NominationController@getNominationDetailsByDateById');
+          $api->post('nomination/getNominationDetailsByDateById', '\Energy\Api\Controllers\NominationController@getNominationDetailsByDateById');
 
          $api->post('nomination/getTotalApprovedQuantityByBuyer', '\Energy\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
+
+           //for total supplied at buyer dashbord
+         $api->post('nomination/getTotalSuppliedQuantityByBuyer', '\Energy\Api\Controllers\NominationController@getTotalSuppliedQuantityByBuyer');
 
           //for total approved quantity of buyer
          $api->post('nomination/getNominationCountForBuyer', '\Energy\Api\Controllers\NominationController@getNominationCountForBuyer');
@@ -149,6 +155,7 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         $api->post('invoice/generateinvoicebybuyer','\Energy\Api\Controllers\InvoiceController@generateInvoiceLisyByBuyerId');
 
         $api->post('invoice/viewbybuyer', '\Energy\Api\Controllers\InvoiceController@viewbyBuyer');
+
 }); 
 
         

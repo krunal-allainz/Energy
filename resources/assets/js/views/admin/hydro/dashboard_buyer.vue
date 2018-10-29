@@ -1,4 +1,24 @@
 <template>
+
+<section>
+    <section class="content-header mb-3">
+            <div class="row">
+                <div class="col-md-4 col-sm-5">
+                    <h1>Dashboard</h1> 
+                </div>
+                <div class="col-md-8 col-sm-7 text-right">
+                     <ol class="breadcrumb">
+                        <li role="presentation" class="breadcrumb-item active">
+                            <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+    </section>
+    <section>
+        <previousNextDate></previousNextDate>
+    </section>
+
 	<section class="content">
         <section class="content-header">
             <h1>Dashboard</h1> 
@@ -12,14 +32,18 @@
 		<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
-                    <div class="widget-bg-color-icon card-box front">
-                        <div class="bg-icon float-left">
-                            <i class="fa fa-share-square-o text-warning"></i>
-                          
-                        </div>
-                        <div class="text-right">
-                           <h3 class="text-dark"><b>{{total_request}}</b></h3>
-                            <p>Requested Quantity</p>
+                     <a href="/nomination_list">
+                        <div class="widget-bg-color-icon card-box front">
+                            <div class="bg-icon float-left">
+                                <i class="fa fa-share-square-o text-blue"></i>
+                            
+                            </div>
+                            <div class="text-right">
+                            <h3><b>Nomination Request</b></h3>
+                            <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                                <!-- <p>Requested Quantity</p> -->
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -33,13 +57,32 @@
                            <i class="fa fa-check text-success"></i> 
                         </div>
                         <div class="text-right">
-                            <h3><b id="widget_count3">{{total_approved}}</b></h3>
-                            <p>Approved Quantity</p>
+
+                            <h3><b>Approved Quantity</b></h3>
+                            <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
+
                         </div>
                         <div class="clearfix"></div>
                     </div>
             </div>
         </div>
+           <div class="col-sm-6 col-md-6 col-xl-3">
+                <div class="flip">
+                    <a href="#">
+                    <div class="widget-bg-color-icon card-box front">
+                        <div class="bg-icon float-left">
+                           <i class="fa fa-shopping-cart text-warning"></i>
+                        </div>
+                        <div class="text-right">
+                            <h3><b>Supplied Quantity</b></h3>
+                            <h3 class="text-dark"><b id="widget_count3">{{total_supplied}}</b></h3>
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    </a>
+                    </div>
+                </div>
         <div class="col-sm-6 col-md-6 col-xl-3">
             <div class="flip">
                 <div class="widget-bg-color-icon card-box front">
@@ -54,21 +97,7 @@
                 
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="flip">
-            	    <div class="widget-bg-color-icon card-box front">
-                    	<div class="bg-icon float-left">
-                           <i class="fa fa-user text-info"></i>
-                        </div>
-                        <div class="text-right">
-                           <!--  <h3 class="text-dark"><b>0</b></h3> -->
-                             <a href="/nomination_list"> <button class="btn btn-warning">Nomination</button></a>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    
-                    </div>
-                </div>
+
             </div>
              <div class="row">
                 <div class="col-xl-8 col-12">
@@ -78,12 +107,13 @@
                                 <div class="card-header panel-tabs">
                                     <ul class="nav nav-tabs nav-float" role="tablist">
                                         <li class=" text-center nav-item">
-                                            <a href="#allocation" class="nav-link active" role="tab" data-toggle="tab">Live Feeds</a>
+                                            <a href="#allocation" class="nav-link active" role="tab" data-toggle="tab">Nomination</a>
                                         </li>
-                                        <li class="text-center nav-item">
-                                            <a href="#profile" role="tab" data-toggle="tab" class="nav-link"><span class="d-none d-sm-block">Annual</span>
-                                                Revenue</a>
-                                        </li>
+
+                                        <!-- <li class="text-center nav-item">
+                                            <a href="#profile" role="tab" data-toggle="tab" class="nav-link"><span class="d-none d-sm-block">Annual Revenue</span>
+                                                </a>
+                                        </li> -->
                                     </ul>
                                 </div>
                                 <div class="card-body">
@@ -92,8 +122,10 @@
                                             <div style="width: 50%;">
                                                <!--  <canvas id="myChart" width="100px" height="100px"></canvas> -->
                                                 <canvas id="myplotArea" width="100px" height="100px"></canvas>
-                                                <button class="btn btn-success" @click="getPrevoiusDay()">Previous</button>
-                                                <button   class="btn btn-success" @click="getNextDay()">Next</button>
+
+                                               <!--  <button class="btn btn-success" @click="getPrevoiusDay()"><i class="fa fa-arrow-left fa-lg"></i></button>
+                                               <button   class="btn btn-success" @click="getNextDay()"><i class="fa fa-arrow-right fa-lg"></i></button> -->
+
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="profile">
@@ -479,6 +511,7 @@
     import moment from 'moment';
     import Chart from 'chart.js';
     import timeline from './timeline.vue';
+    import previousNextDate from './previousNextDate.vue';
 
 export default {
     name: "dashboardSeller",
@@ -487,18 +520,41 @@ export default {
             formstate: {},
 
             'selectedDate' : moment().format('DD-MM-YYYY'),
-             'userData' : {
+            'userData' : {
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
-                },
+            },
             'total_request':'',
             'total_approved':'',
-
-            'nominationData' : [],  
-
+            'total_supplied':'',
+            'nominationData' : [], 
+            'selected_date' :'',
+            'selectedDashbordDate' : moment().format('DD-MM-YYYY'),
         }
     },
+    created: function(){
+        this.$root.$on('changeDashbordDate',this.changeDashbordDate);
+    },
+    components: {
+            timeline,
+            previousNextDate
+    },
+    mounted: function() {
+        let vm=this;
+        vm.chartData();
+    },
     methods: {
+        changeDashbordDate(selectDate)
+        {
+            let vm=this;
+            vm.selectedDashbordDate=selectDate;
+            console.log('fdsfds');
+            vm.getTotalSuppliedQuantityByBuyer(vm.selectedDashbordDate,vm.userData.userId);
+            vm.getTotalRequestedQuantity(vm.selectedDashbordDate,vm.userData.userId);
+            vm.getTotalApprovedQuantityByBuyer(vm.selectedDashbordDate,vm.userData.userId);
+            vm.getBuyerDetailsById(vm.selectedDashbordDate,vm.userData.userId);
+            vm.chartData();
+        },
         getPrevoiusDay(){
             let vm=this;
             let prevoiusDay = moment(vm.selectedDate,'DD-MM-YYYY').add(-1,'days').format('DD-MM-YYYY');
@@ -513,10 +569,30 @@ export default {
             vm.getBuyerDetailsById(vm.selectedDate,vm.userData.userId);
 
         },
-        getTotalRequestedQuantity()
+        getTotalSuppliedQuantityByBuyer(selected_date,buyer_id)
        {
             let vm=this;
-             User.getTotalRequestedQuantity(vm.userData.userId).then(
+             User.getTotalSuppliedQuantityByBuyer(selected_date,buyer_id).then(
+                 (response) => {
+                    let supply=response.data.data;
+                    if(supply!=null && supply!='' && supply!=0)
+                    {
+                        vm.total_supplied=supply;
+                    }
+                    else
+                    {
+                         vm.total_supplied=0;
+                    }
+                    
+                },
+                (error) => {
+                },
+            );
+       },
+        getTotalRequestedQuantity(selected_date,buyer_id)
+       {
+            let vm=this;
+             User.getTotalRequestedQuantity(selected_date,buyer_id).then(
                  (response) => {
                     let request=response.data.data;
                     if(request!=null && request!='' && request!=0)
@@ -565,10 +641,10 @@ export default {
                 },
             );
         },
-       getTotalApprovedQuantityByBuyer()
+       getTotalApprovedQuantityByBuyer(selected_date,buyer_id)
        {
             let vm=this;
-             User.getTotalApprovedQuantityByBuyer(vm.userData.userId).then(
+             User.getTotalApprovedQuantityByBuyer(selected_date,buyer_id).then(
                  (response) => {
                     let approve=response.data.data;
                     if(approve!=null && approve!='' && approve!=0)
@@ -579,99 +655,90 @@ export default {
                     {
                          vm.total_approved=0;
                     }
-                    
                 },
                 (error) => {
                 },
             );
        },
-    },
-    components: {
-            timeline
-    },
-    mounted: function() {
-        let vm=this;
-        vm.getBuyerDetailsById(vm.selectedDate,vm.userData.userId);
-        vm.getTotalRequestedQuantity();
-        vm.getTotalApprovedQuantityByBuyer();
-        var randomScalingFactor = function() {
-            return Math.round(Math.random() * 100);
-        };  
+       chartData()
+       {
+            let vm=this;
+            var randomScalingFactor = function() {
+                return Math.round(Math.random() * 100);
+            };
+             var ctx1 = document.getElementById("myplotArea").getContext("2d");
+           
 
-         var ctx1 = document.getElementById("myplotArea").getContext("2d");
-       
+              var config1Data = {
+                            datasets: [{
+                                data: [0,100],
+                                backgroundColor: [
+                                    '#ff0000',
+                                    '#00ff40',
+                                    
 
-  var config1Data = {
-                datasets: [{
-                    data: [0,100],
-                    backgroundColor: [
-                        '#ff0000',
-                        '#00ff40',
-                        
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    'Request Quantity',
-                    'Actual Quantity',
-                    'Supply Quantity',
-                ]
-            };           
-      var config1 = {
-            type: 'bar',
-            data: config1Data,
-            options: {
-                responsive: true,
-                legend: {
-                        position: 'top',
-                    },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
+                                ],
+                                label: 'Dataset 1'
+                            }],
+                            labels: [
+                                'Request Quantity',
+                                'Approved Quantity',
+                                'Supplied Quantity',
+                            ]
+                        };           
+                  var config1 = {
+                        type: 'bar',
+                        data: config1Data,
+                        options: {
+                            responsive: true,
+                            legend: {
+                                    position: 'top',
+                                },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }]
+                            }
                         }
-                    }]
-                }
-            }
-        };
-       var newDataset = {};
-        setTimeout(function(){
-            config1Data.datasets.pop();
-            _.forEach(vm.nominationData,function(value,key){
-               
-                // config1.data.datasets[key].data[0] = value.quantity_required;
-                // config1.data.datasets[key].data[1] = value.approved_quantity;
-                // config1.data.datasets[key].label = value.buyer_name;
-                // config1.data[key] = value.buyer_name;
-                 var letters = '0123456789ABCDEF';
-                  var color = '#';
-                  for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                  }
-                var newDataset = {
-                    label: value.buyer_name,
-                    backgroundColor: color,
-                    borderWidth: 1,
-                    data: [
-                        value.quantity_required,
-                        value.approved_quantity,
-                        value.supplied_quantity,
-                    ]
-                };
-                config1Data.datasets.push(newDataset);
+                    };
+               var newDataset = {};
+                setTimeout(function(){
+                    config1Data.datasets.pop();
+                    _.forEach(vm.nominationData,function(value,key){
+                       
+                        // config1.data.datasets[key].data[0] = value.quantity_required;
+                        // config1.data.datasets[key].data[1] = value.approved_quantity;
+                        // config1.data.datasets[key].label = value.buyer_name;
+                        // config1.data[key] = value.buyer_name;
+                         var letters = '0123456789ABCDEF';
+                          var color = '#';
+                          for (var i = 0; i < 6; i++) {
+                            color += letters[Math.floor(Math.random() * 16)];
+                          }
+                        var newDataset = {
+                            label: value.buyer_name,
+                            backgroundColor: color,
+                            borderWidth: 1,
+                            data: [
+                                value.quantity_required,
+                                value.approved_quantity,
+                                value.supplied_quantity,
+                            ]
+                        };
+                        config1Data.datasets.push(newDataset);
 
-                // check_list_data.push(value.reportListId);
-            });
-            
-             // window.myPie1.update();
-             window.myPie1 = new Chart(ctx1, config1);
-            // config1.datasets.push(newDataset);
+                        // check_list_data.push(value.reportListId);
+                    });
+                    
+                     // window.myPie1.update();
+                     window.myPie1 = new Chart(ctx1, config1);
+                    // config1.datasets.push(newDataset);
 
-        },2000)
-
-
-    },
-       
+                },1500)
+       }
+    }, 
     destroyed: function() {
 
     }

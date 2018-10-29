@@ -95,20 +95,26 @@ export default {
   getBuyerList(){
     return api.post('user/getbuyerlist');
   },
-  getAvailability(){
-    return api.post('availability/getAvailability');
+  getAvailability(selected_date){
+    return api.post('availability/getAvailability',{'selected_date':selected_date});
   },
-  getTotalApprovedQuantity(){
-    return api.post('nomination/getTotalApprovedQuantity');
+  getTotalRequestedQuantityForSeller(selected_date){
+    return api.post('nomination/getTotalRequestedQuantityForSeller',{'selected_date':selected_date});
   },
-  getTotalSuppliedQuantity(){
-    return api.post('nomination/getTotalSuppliedQuantity');
+  getTotalApprovedQuantity(selected_date){
+    return api.post('nomination/getTotalApprovedQuantity',{'selected_date':selected_date});
   },
-  getTotalRequestedQuantity(userId){
-     return api.post('nomination/getTotalRequestedQuantity',{'userId':userId});
+  getTotalSuppliedQuantity(selected_date){
+    return api.post('nomination/getTotalSuppliedQuantity',{'selected_date':selected_date});
   },
-  getTotalApprovedQuantityByBuyer(userId){
-     return api.post('nomination/getTotalApprovedQuantityByBuyer',{'userId':userId});
+  getTotalRequestedQuantity(selected_date,userId){
+     return api.post('nomination/getTotalRequestedQuantity',{'selected_date':selected_date,'userId':userId});
+  },
+  getTotalApprovedQuantityByBuyer(selected_date,userId){
+     return api.post('nomination/getTotalApprovedQuantityByBuyer',{'selected_date':selected_date,'userId':userId});
+  },
+  getTotalSuppliedQuantityByBuyer(selected_date,userId){
+     return api.post('nomination/getTotalSuppliedQuantityByBuyer',{'selected_date':selected_date,'userId':userId});
   },
   getNominationDetailsByDateAndId(date,buyerId){
      return api.post('nomination/getNominationDetailsByDateById',{'date':date , 'buyerId' : buyerId});
