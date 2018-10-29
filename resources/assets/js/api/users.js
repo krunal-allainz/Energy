@@ -103,7 +103,9 @@ export default {
   },
   getTotalApprovedQuantityByBuyer(userId){
      return api.post('nomination/getTotalApprovedQuantityByBuyer',{'userId':userId});
-
+  },
+  getNominationDetailsByDateAndId(date,buyerId){
+     return api.post('nomination/getNominationDetailsByDateById',{'date':date , 'buyerId' : buyerId});
   },
   getNominationCountForBuyer(userId){
      return api.post('nomination/getNominationCountForBuyer',{'userId':userId});
@@ -111,5 +113,4 @@ export default {
    getAllowedQuantityByBuyerId(userId){
      return api.post('agreement/getAllowedQuantityByBuyerId',{'userId':userId});
   },
-
 }
