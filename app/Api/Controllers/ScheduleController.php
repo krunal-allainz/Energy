@@ -96,10 +96,8 @@ class ScheduleController extends Controller
     *
     **/
     public function updateSupplierQty(){
-        
-          $result = $this->scheduleOBJ->updateSupplierQty();
-
-          if($result)
+        $result = $this->scheduleOBJ->updateSupplierQty();
+        if(count($result)>0)
         {
             return ['code' => 200 ,'data'=>$result,'message'=>'update Supplier Quntity successfully.'];
         }

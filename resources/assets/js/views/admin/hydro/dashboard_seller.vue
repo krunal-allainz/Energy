@@ -23,7 +23,7 @@
         <div class="row">
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="#" @click="availibility()">
+                        <a href="#" @click="availibility()" title="Add Availability">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                 <i class="fa fa-truck text-warning"></i>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="/nomination_list">
+                        <a href="/nomination_list" title="Add Nomination">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                 <i class="fa fa-share-square-o text-blue"></i>
@@ -77,7 +77,7 @@
           
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="#" @click="supplied_quantity()">
+                        <a href="#" @click="supplied_quantity()" title="Add Supplied">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                             <i class="fa fa-cart-plus text-success"></i>
@@ -165,9 +165,10 @@
 
                 <!-- /#right -->
                 <div class="background-overlay"></div>
-
+              <div  v-if="open_supplied_modal">
+                    <suppliedModal  :tableData="supplied_table_data"></suppliedModal>
+                </div>  
         </section>
-    </section>
 </template>
 	
 <script >
@@ -177,6 +178,7 @@
     import timeline from './timeline.vue';
     import _ from 'lodash';
     import previousNextDate from './previousNextDate.vue';
+    import suppliedModal from './suppliedModal.vue';
 
 export default {
     name: "dashboardSeller",
@@ -193,14 +195,18 @@ export default {
                 'total_approved':'',
                 'total_supplied':'',
                 'selectedDashbordDate' : moment().format('DD-MM-YYYY'),
+                'open_supplied_modal':false,
+                'supplied_table_data':{}
         }
     },
     components: {
             timeline,
-            previousNextDate
+            previousNextDate,
+            suppliedModal
     },
     created: function(){
         this.$root.$on('changeDashbordDate',this.changeDashbordDate);
+        this.$root.$on('close_modal', this.close_modal);
     },
     mounted: function() {
         
@@ -210,6 +216,12 @@ export default {
         
     },
     methods: {
+        close_modal()
+        {
+            let vm=this;
+            vm.supplied_table_data={};
+            vm.open_supplied_modal=false;
+        },
         changeDashbordDate(selectDate)
         {
             let vm=this;
@@ -361,9 +373,14 @@ export default {
               (response)=> {
                
                 if(response.data.code == 200){
-                   toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
+                   //toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
+                    vm.supplied_table_data=response.data.data;
+                    vm.open_supplied_modal=true;
+                    console.log('fdsfds');
+                    $('#suppliedModalId').modal('show');
+
                 } else if (response.data.code == 300) {
-                    toastr.error('Something Went wrong.', 'Supplied Quantity', {timeOut: 5000});
+                    toastr.error('You have alredy updated supplied quantity.', 'Supplied Quantity', {timeOut: 5000});
                 }
                 else
                 {
