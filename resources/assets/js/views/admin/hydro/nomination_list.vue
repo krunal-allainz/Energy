@@ -4,14 +4,30 @@
 		<div class="card bg-success-card">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-6"><h4>Nomination List</h4></div>
+          <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
           
           <div v-if="user_type==6 && add_nomination_count==0" class="col-md-6 text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div></div>
         </div>
             <div class="card-body">
-            	<div data-v-744e717e="" class="card p-3"  v-if="(nominationPagination.total > 0)">
+            	<div data-v-744e717e="" class="px-3"  v-if="(nominationPagination.total > 0)">
               		<div data-v-744e717e="" class="table-header">
-                  		<h4 data-v-744e717e="" class="table-title text-center mt-3"></h4>
+                  		    <!-- <h4 data-v-744e717e="" class="table-title text-center mt-3"></h4> -->
+                            <div data-v-744e717e="" class="datatable-length mb-4">
+                            <span data-v-744e717e="">Rows per page:</span>
+                                <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageNomination">
+                                    <option data-v-744e717e="" value="2">2</option>
+                                    <option data-v-744e717e="" value="5">5</option>
+                                    <option data-v-744e717e="" value="10">10</option>
+                                    <option data-v-744e717e="" value="20">20</option>
+                                    <option data-v-744e717e="" value="50">50</option>
+                                    <!--     <option data-v-744e717e="" value="-1">All</option> -->
+                                </select>
+
+                            <!-- <div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationPagination.total > 0)">
+                                <span data-v-744e717e="">Showing </span> {{nominationPagination.current_page}} - {{nominationPagination.to}} of {{nominationPagination.total}}
+                                <span data-v-744e717e="">records</span>
+                            </div> -->
+                        </div>
               		</div>
               		<div data-v-744e717e="" class="table-responsive">
               			<table data-v-744e717e="" class="table">
@@ -71,15 +87,15 @@
               		</div>
               		<div data-v-744e717e="" class="table-footer">
                 		<div data-v-744e717e="" class="datatable-length float-left pl-3">
-                  			<span data-v-744e717e="">Rows per page:</span>
-                    			<select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageNomination">
+                  			<!-- <span data-v-744e717e="">Rows per page:</span> -->
+                    			<!-- <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageNomination">
                     				<option data-v-744e717e="" value="2">2</option>
                      				<option data-v-744e717e="" value="5">5</option>
                       				<option data-v-744e717e="" value="10">10</option>
                       				<option data-v-744e717e="" value="20">20</option>
                       				<option data-v-744e717e="" value="50">50</option>
-                   					<!--     <option data-v-744e717e="" value="-1">All</option> -->
-                    			</select>
+      
+                    			</select> -->
 
                      		<div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationPagination.total > 0)">
                         		<span data-v-744e717e="">Showing </span> {{nominationPagination.current_page}} - {{nominationPagination.to}} of {{nominationPagination.total}}
