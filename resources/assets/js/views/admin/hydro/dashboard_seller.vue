@@ -48,7 +48,6 @@
                             <div class="text-right">
                                 <h3><b>Nomination</b></h3>
                                 <h3 class="text-dark"><b>{{total_request}}</b></h3>
-                               
                             </div>
                             <div class="clearfix"></div>
 
@@ -538,6 +537,7 @@ export default {
                     config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
                     config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
                 }
+
                 else if(vm.selectedDashbordDate<today)
                 {
                     config2.data.datasets[0].data[1]=1000;
@@ -552,7 +552,6 @@ export default {
                     }
                 }
                 /*if(config2.data.datasets[0].data[0] <vm.total_availability){
-
                  config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
                  config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
                 }*/

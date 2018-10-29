@@ -55,7 +55,6 @@
                         <div class="text-right">
                             <h3><b>Approved Quantity</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
-                            <!-- <p>Approved Quantity</p> -->
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -655,7 +654,6 @@ export default {
                     {
                          vm.total_approved=0;
                     }
-                    
                 },
                 (error) => {
                 },
