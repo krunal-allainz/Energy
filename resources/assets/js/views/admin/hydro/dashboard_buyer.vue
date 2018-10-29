@@ -90,7 +90,10 @@
                                     <div class="tab-content">
                                         <div class="tab-pane  active" id="allocation">
                                             <div style="width: 50%;">
-                                                <canvas id="myChart" width="100px" height="100px"></canvas>
+                                               <!--  <canvas id="myChart" width="100px" height="100px"></canvas> -->
+                                                <canvas id="myplotArea" width="100px" height="100px"></canvas>
+                                                <button class="btn btn-success" @click="getPrevoiusDay()">Previous</button>
+                                                <button   class="btn btn-success" @click="getNextDay()">Next</button>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="profile">
@@ -482,15 +485,34 @@ export default {
     data() {
         return {
             formstate: {},
+
+            'selectedDate' : moment().format('DD-MM-YYYY'),
              'userData' : {
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
                 },
             'total_request':'',
             'total_approved':'',
+
+            'nominationData' : [],  
+
         }
     },
     methods: {
+        getPrevoiusDay(){
+            let vm=this;
+            let prevoiusDay = moment(vm.selectedDate,'DD-MM-YYYY').add(-1,'days').format('DD-MM-YYYY');
+             vm.selectedDate =  prevoiusDay;
+            vm.getBuyerDetailsById(vm.selectedDate,vm.userData.userId);
+        },
+        getNextDay(){
+            let vm=this;
+              let nextDay = moment(vm.selectedDate,'DD-MM-YYYY').add(1,'days').format('DD-MM-YYYY');
+             vm.selectedDate =  nextDay;
+          
+            vm.getBuyerDetailsById(vm.selectedDate,vm.userData.userId);
+
+        },
         getTotalRequestedQuantity()
        {
             let vm=this;
@@ -511,6 +533,38 @@ export default {
                 },
             );
        },
+        getBuyerDetailsById(date,buyerId){
+            let curDate = date;
+            let nData = {'date':curDate};
+            let vm =this;
+            User.getNominationDetailsByDateAndId(curDate,buyerId).then(
+                 (response) => {
+                    
+                    // return false;
+                    let nominationData  = [];
+                   // $.each(response.data.data, function(key, value) {
+                    if(response.data.code == 200){
+                        let data =  {
+                            'buyer_id':response.data.data.buyer_id,
+                            'buyer_name':response.data.data.first_name,
+                            'quantity_required':response.data.data.quantity_required,
+                            'approved_quantity':response.data.data.approved_quantity,
+                            'supplied_quantity':response.data.data.supplied_quantity,
+                            'date':response.data.data.date
+                        }
+                        nominationData.push(data);
+                        
+                   // });
+                        vm.nominationData = nominationData;
+                     }
+                      if(response.data.code == 300){
+                        toastr.error('No data available.', 'Live Feed', {timeOut: 5000});
+                      }
+                },
+                (error) => {
+                },
+            );
+        },
        getTotalApprovedQuantityByBuyer()
        {
             let vm=this;
@@ -537,54 +591,83 @@ export default {
     },
     mounted: function() {
         let vm=this;
+        vm.getBuyerDetailsById(vm.selectedDate,vm.userData.userId);
         vm.getTotalRequestedQuantity();
         vm.getTotalApprovedQuantityByBuyer();
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
-        };                    
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var config = {
-            type: 'pie',
-            data: {
+        };  
+
+         var ctx1 = document.getElementById("myplotArea").getContext("2d");
+       
+
+  var config1Data = {
                 datasets: [{
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
+                    data: [0,100],
                     backgroundColor: [
                         '#ff0000',
                         '#00ff40',
-                        '#0040ff',
-                        '#ff6600',
-                        '#ffff00',
+                        
                     ],
                     label: 'Dataset 1'
                 }],
                 labels: [
-                    'Red',
-                    'Orqange',
-                    'Blue',
-                    'Green',
-                    'Yellow'
+                    'Request Quantity',
+                    'Actual Quantity',
+                    'Supply Quantity',
                 ]
-            },
+            };           
+      var config1 = {
+            type: 'bar',
+            data: config1Data,
             options: {
-                responsive: true
+                responsive: true,
+                legend: {
+                        position: 'top',
+                    },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
             }
         };
-        window.myPie = new Chart(ctx, config);
-        setInterval(function(){
-            config.data.datasets.forEach(function(dataset) {
-                dataset.data = dataset.data.map(function() {
-                    return randomScalingFactor();
-                });
-            });
+       var newDataset = {};
+        setTimeout(function(){
+            config1Data.datasets.pop();
+            _.forEach(vm.nominationData,function(value,key){
+               
+                // config1.data.datasets[key].data[0] = value.quantity_required;
+                // config1.data.datasets[key].data[1] = value.approved_quantity;
+                // config1.data.datasets[key].label = value.buyer_name;
+                // config1.data[key] = value.buyer_name;
+                 var letters = '0123456789ABCDEF';
+                  var color = '#';
+                  for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                  }
+                var newDataset = {
+                    label: value.buyer_name,
+                    backgroundColor: color,
+                    borderWidth: 1,
+                    data: [
+                        value.quantity_required,
+                        value.approved_quantity,
+                        value.supplied_quantity,
+                    ]
+                };
+                config1Data.datasets.push(newDataset);
 
-            window.myPie.update();
-        },1000)
+                // check_list_data.push(value.reportListId);
+            });
+            
+             // window.myPie1.update();
+             window.myPie1 = new Chart(ctx1, config1);
+            // config1.datasets.push(newDataset);
+
+        },2000)
 
 
     },

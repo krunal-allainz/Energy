@@ -261,4 +261,26 @@ class NominationController extends Controller
         }
     }
     
+
+    /**
+    *
+    *
+    *
+    **/
+
+    public function getNominationDetailsByDateById(Request $request){
+
+
+        $date = $request->date;
+        $buyerId = $request->buyerId;
+        $get_details=$this->nomObj->getNominationDetailsByDateById($date,$buyerId);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
 }
