@@ -76,7 +76,7 @@ export default {
                 // this.$validator.validateAll();
                 if (!this.errors.any()) {(
                     Auth.login(this.loginData).then((response) => {
-                        console.log(response,'response');
+                        //console.log(response,'response');
                         // return false;
                         if(response == 'success'){
                             Auth.check().then((res) => {

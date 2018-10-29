@@ -16,29 +16,28 @@
                 </div>
             </div>
         </section>
-          <div class="row">
-
-            <div class="col-md-12 text-right">
-                <a href="/nomination_list"> <button class="btn btn-warning">Nomination</button></a>
-            </div>
-        </div>
-        <br/>
-         <div class="row">
-            <div class="col-md-12 text-right">
-                <button class="btn btn-success" @click="supplied_quantity()">Supplied Quantity</button>
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-            <div class="col-md-12 text-right">
-               <button class="btn btn-primary" @click="availibility()">Add Avialability</button>
-            </div>
-        </div>
-        <br/>
-    
-
+         <section>
+            <previousNextDate></previousNextDate>
+        </section>
 
         <div class="row">
+                <div class="col-sm-6 col-md-6 col-xl-3">
+                    <div class="flip">
+                        <a href="#" @click="availibility()">
+                        <div class="widget-bg-color-icon card-box front">
+                            <div class="bg-icon float-left">
+                                <i class="fa fa-truck text-warning"></i>
+                            </div>
+                            <div class="text-right">
+                                <h3><b>Availability</b></h3>
+                                <h3 class="text-dark"><b>{{total_availability}}</b></h3>
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </div>
+                        </a>
+                    </div>
+                </div>
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
                         <a href="/nomination_list">
@@ -48,8 +47,8 @@
                             </div>
                             <div class="text-right">
                                 <h3><b>Nomination</b></h3>
-                                <h3 class="text-dark"><b>0 {{total_availability}}</b></h3>
-                                <p>Nomination Request</p>
+                                <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                               
                             </div>
                             <div class="clearfix"></div>
 
@@ -57,6 +56,7 @@
                         </a>
                     </div>
                 </div>
+               
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
                         <a href="#">
@@ -65,32 +65,16 @@
                                 <i class="fa fa-certificate text-success"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Quantity</b></h3>
+                                <h3><b>Approved Quantity</b></h3>
                                 <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
-                                <p>Approved Quantity</p>
+                                <!-- <p>Approved Quantity</p> -->
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         </a>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="flip">
-                    <a href="#" @click="GenerateInvoice()">
-                    <div class="widget-bg-color-icon card-box front">
-                        <div class="bg-icon float-left">
-                        <i class="fa fa-credit-card text-blue"></i>
-                        </div>
-                        <div class="text-right">
-                            <h3><b><a href="/generate_invoice">Invoice</a></b></h3>
-                            <h3 class="text-dark"><b>0</b></h3>
-                            <p>Generate Invoice</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    </a>
-                    </div>
-                </div>
+          
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
                         <a href="#" @click="supplied_quantity()">
@@ -99,9 +83,26 @@
                             <i class="fa fa-cart-plus text-success"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Quantity</b></h3>
+                                <h3><b>Supplied Quantity</b></h3>
                                 <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
-                                <p>Supplied Quantity</p>
+                               <!--  <p>Supplied Quantity</p> -->
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-3">
+                    <div class="flip">
+                        <a href="#" @click="GenerateInvoice()">
+                        <div class="widget-bg-color-icon card-box front">
+                            <div class="bg-icon float-left">
+                            <i class="fa fa-credit-card text-blue"></i>
+                            </div>
+                            <div class="text-right">
+                                <h3><b><a href="/generate_invoice">Invoice</a></b></h3>
+                                <h3 class="text-dark"><b>0</b></h3>
+                                <p>Generate Invoice</p>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -159,8 +160,6 @@
                     </div>
                     <timeline :userData=userData> </timeline>
                     <div class="col-xl-4  col-12">
-
-                    
                     </div>
                 </div>
 
@@ -177,6 +176,7 @@
     import Chart from 'chart.js';
     import timeline from './timeline.vue';
     import _ from 'lodash';
+    import previousNextDate from './previousNextDate.vue';
 
 export default {
     name: "dashboardSeller",
@@ -189,12 +189,38 @@ export default {
                 },
                 'nominationData':[],
                 'total_availability':'',
+                'total_request':'',
                 'total_approved':'',
                 'total_supplied':'',
-                
+                'selectedDashbordDate' : moment().format('DD-MM-YYYY'),
         }
     },
+    components: {
+            timeline,
+            previousNextDate
+    },
+    created: function(){
+        this.$root.$on('changeDashbordDate',this.changeDashbordDate);
+    },
+    mounted: function() {
+        
+        let vm = this;
+        vm.chart1Data();
+        vm.chart2Data();
+        
+    },
     methods: {
+        changeDashbordDate(selectDate)
+        {
+            let vm=this;
+            vm.selectedDashbordDate=selectDate;
+            vm.getBuyerDetails(vm.selectedDashbordDate);
+            vm.getAvailability(vm.selectedDashbordDate);
+            vm.getTotalRequestedQuantityForSeller(vm.selectedDashbordDate);
+            vm.getTotalApprovedQuantity(vm.selectedDashbordDate);
+            vm.getTotalSuppliedQuantity(vm.selectedDashbordDate);
+            vm.chart1Data();
+        },
          availibility()
         {
             let vm=this;
@@ -220,19 +246,40 @@ export default {
               }
              )
         },
-       getAvailability()
+       getAvailability(selected_date)
        {
             let vm=this;
-             User.getAvailability().then(
+             User.getAvailability(selected_date).then(
                  (response) => {
                     let avail=response.data.data;
                     if(avail!=null && avail!='' && avail!=0)
                     {
                         vm.total_availability=avail;
+
                     }
                     else
                     {
                          vm.total_availability=0;
+                    }
+                    vm.chart2Data();
+                },
+                (error) => {
+                },
+            );
+       },
+       getTotalRequestedQuantityForSeller(selected_date)
+       {
+            let vm=this;
+             User.getTotalRequestedQuantityForSeller(selected_date).then(
+                 (response) => {
+                    let request=response.data.data;
+                    if(request!=null && request!='' && request!=0)
+                    {
+                        vm.total_request=request;
+                    }
+                    else
+                    {
+                         vm.total_request=0;
                     }
                     
                 },
@@ -240,10 +287,10 @@ export default {
                 },
             );
        },
-       getTotalApprovedQuantity()
+       getTotalApprovedQuantity(selected_date)
        {
             let vm=this;
-             User.getTotalApprovedQuantity().then(
+             User.getTotalApprovedQuantity(selected_date).then(
                  (response) => {
                     let approve=response.data.data;
                     if(approve!=null && approve!='' && approve!=0)
@@ -260,10 +307,10 @@ export default {
                 },
             );
        },
-       getTotalSuppliedQuantity()
+       getTotalSuppliedQuantity(selected_date)
        {
             let vm=this;
-             User.getTotalSuppliedQuantity().then(
+             User.getTotalSuppliedQuantity(selected_date).then(
                  (response) => {
                     let supply=response.data.data;
                     if(supply!=null && supply!='' && supply!=0)
@@ -280,8 +327,8 @@ export default {
                 },
             );
        },
-       getBuyerDetails(){
-            let curDate = moment().format('DD-MM-YYYY');
+       getBuyerDetails(selected_date){
+            let curDate = selected_date;
             let nData = {'date':curDate};
             let vm =this;
             User.getNominationDetailsByDate(curDate).then(
@@ -351,144 +398,154 @@ export default {
               }
 
              );
-        }
+        },
+        chart1Data()
+        {
+            let vm=this;
+            var randomScalingFactor = function() {
+                return Math.round(Math.random() * 100);
+            }; 
+            var ctx1 = document.getElementById("myChart").getContext('2d'); 
+            var color = Chart.helpers.color;
 
-    },
-    components: {
-            timeline
-    },
-    mounted: function() {
-        
-        let vm = this;
-        vm.getBuyerDetails();
-        vm.getAvailability();
-        vm.getTotalApprovedQuantity();
-        vm.getTotalSuppliedQuantity();
-        var randomScalingFactor = function() {
-            return Math.round(Math.random() * 100);
-        };                    
-        var ctx1 = document.getElementById("myChart").getContext('2d');
-        var ctx2 = document.getElementById("cSupply").getContext('2d');
-     
-
-        var color = Chart.helpers.color;
-
-        var config1Data = {
-                datasets: [{
-                    data: [0,100],
-                    backgroundColor: [
-                        '#004696',
-                        '#82be00',
-                        
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    'Requested',
-                    'Approved',
-                ]
-            };
-        var config1 = {
-            type: 'bar',
-            data: config1Data,
-            options: {
-                responsive: true,
-                legend: {
-                        position: 'top',
-                    },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        };
-
-        var config2 = {
-            type: 'pie',
-            data: {
-                datasets: [
-                {
-                    data: [0,vm.total_availability],
-                    backgroundColor: [
-                        '#82be00',
-                        '#004696',
-                        
-                    ],
-                    label: 'Dataset 1'
-                }
-                ],
-                labels: [
-                    'Available',
-                    'Supplied',
-                ]
-            },
-            options: {
-                responsive: true
-            }
-        };
-        // window.myPie1 = new Chart(ctx1, config1);
-        window.myPie2 = new Chart(ctx2, config2);
-        setInterval(function(){
-
-            // config1.data.datasets.forEach(function(dataset) {
-            //     dataset.data = dataset.data.map(function() {
-            //         return randomScalingFactor();
-            //     });
-            // });
-            
-            //  config2.data.datasets.forEach(function(dataset) {
-            //     dataset.data = dataset.data.map(function() {
-            //         return randomScalingFactor();
-            //     });   
-            // });
-            if(config2.data.datasets[0].data[0] <vm.total_availability){
-
-             config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-             config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
-            }
-            // window.myPie1.update();
-            window.myPie2.update();
-        },2000)
-        var newDataset = {};
-        setTimeout(function(){
-            config1Data.datasets.pop();
-            _.forEach(vm.nominationData,function(value,key){
-               
-                // config1.data.datasets[key].data[0] = value.quantity_required;
-                // config1.data.datasets[key].data[1] = value.approved_quantity;
-                // config1.data.datasets[key].label = value.buyer_name;
-                // config1.data[key] = value.buyer_name;
-                 var letters = '0123456789ABCDEF';
-                  var color = '#';
-                  for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                  }
-                var newDataset = {
-                    label: value.buyer_name,
-                    backgroundColor: color,
-                    borderWidth: 1,
-                    data: [
-                        value.quantity_required,
-                        value.approved_quantity,
-                        value.supplied_quantity
+            var config1Data = {
+                    datasets: [{
+                        data: [0,100],
+                        backgroundColor: [
+                            '#004696',
+                            '#82be00',
+                            
+                        ],
+                        label: 'Dataset 1'
+                    }],
+                    labels: [
+                        'Requested',
+                        'Approved',
+                        'Supplied',
                     ]
                 };
-                config1Data.datasets.push(newDataset);
+            var config1 = {
+                type: 'bar',
+                data: config1Data,
+                options: {
+                    responsive: true,
+                    legend: {
+                            position: 'top',
+                        },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            };
+            var newDataset = {};
+            setTimeout(function(){
+                config1Data.datasets.pop();
+                _.forEach(vm.nominationData,function(value,key){
+                   
+                    // config1.data.datasets[key].data[0] = value.quantity_required;
+                    // config1.data.datasets[key].data[1] = value.approved_quantity;
+                    // config1.data.datasets[key].label = value.buyer_name;
+                    // config1.data[key] = value.buyer_name;
+                     var letters = '0123456789ABCDEF';
+                      var color = '#';
+                      for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                      }
+                    var newDataset = {
+                        label: value.buyer_name,
+                        backgroundColor: color,
+                        borderWidth: 1,
+                        data: [
+                            value.quantity_required,
+                            value.approved_quantity,
+                            value.supplied_quantity
+                        ]
+                    };
+                    config1Data.datasets.push(newDataset);
 
-                // check_list_data.push(value.reportListId);
-            });
+                    // check_list_data.push(value.reportListId);
+                });
+                
+                 // window.myPie1.update();
+                 window.myPie1 = new Chart(ctx1, config1);
+               
+
+            },2000)
+        },
+        chart2Data()
+        {
+            let vm=this;
             
-             // window.myPie1.update();
-             window.myPie1 = new Chart(ctx1, config1);
-            // config1.datasets.push(newDataset);
+            var randomScalingFactor = function() {
+                return Math.round(Math.random() * 100);
+            };                    
+           
+            var ctx2 = document.getElementById("cSupply").getContext('2d');
+            var config2 = {
+                type: 'pie',
+                data: {
+                    datasets: [
+                    {
+                        data: [0,vm.total_availability],
+                        backgroundColor: [
+                            '#82be00',
+                            '#004696',
+                            
+                        ],
+                        label: 'Dataset 1'
+                    }
+                    ],
+                    labels: [
+                        'Available',
+                        'Supplied',
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            };
+            // window.myPie1 = new Chart(ctx1, config1);
+            window.myPie2 = new Chart(ctx2, config2);
 
-        },2000)
-        
-    },
-       
+            //setInterval(function(){
+               
+                let next_date=moment().add(1,'days').format('DD-MM-YYYY');
+                let today=moment().format('DD-MM-YYYY');
+                if(vm.selectedDashbordDate==next_date)
+                {
+                    config2.data.datasets[0].data[0]=vm.total_availability;
+                    config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+                    config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                }
+                else if(vm.selectedDashbordDate<today)
+                {
+                    config2.data.datasets[0].data[1]=1000;
+                    config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+                    config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                }
+                else
+                {
+                    if(config2.data.datasets[0].data[0] <vm.total_availability){
+                     config2.data.datasets[0].data[0] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                     config2.data.datasets[0].data[1] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+                    }
+                }
+                /*if(config2.data.datasets[0].data[0] <vm.total_availability){
+
+                 config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+                 config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                }*/
+                // window.myPie1.update();
+                window.myPie2.update();
+           // },2000)
+            
+        },
+
+    }, 
     destroyed: function() {
 
     }
