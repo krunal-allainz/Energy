@@ -520,62 +520,7 @@ export default {
                     config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
                     config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
                 }
-<<<<<<< HEAD
-                ],
-                labels: [
-                    'Available',
-                    'Supplied',
-                ]
-            },
-            options: {
-                responsive: true
-            }
-        };
-        // window.myPie1 = new Chart(ctx1, config1);
-        window.myPie2 = new Chart(ctx2, config2);
-        setInterval(function(){
 
-            // config1.data.datasets.forEach(function(dataset) {
-            //     dataset.data = dataset.data.map(function() {
-            //         return randomScalingFactor();
-            //     });
-            // });
-            
-            //  config2.data.datasets.forEach(function(dataset) {
-            //     dataset.data = dataset.data.map(function() {
-            //         return randomScalingFactor();
-            //     });   
-            // });
-            if(config2.data.datasets[0].data[0] <vm.total_availability){
-
-             config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-             config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
-            }
-            // window.myPie1.update();
-            window.myPie2.update();
-        },2000)
-        var newDataset = {};
-        setTimeout(function(){
-            config1Data.datasets.pop();
-            _.forEach(vm.nominationData,function(value,key){
-               
-                var letters = '0123456789ABCDEF';
-                  var color = '#';
-                  for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                  }
-                var newDataset = {
-                    label: value.buyer_name,
-                    backgroundColor: color,
-                    borderWidth: 1,
-                    data: [
-                        value.quantity_required,
-                        value.approved_quantity,
-                        value.supplied_quantity
-                    ]
-                };
-                config1Data.datasets.push(newDataset);
-=======
                 else if(vm.selectedDashbordDate<today)
                 {
                     config2.data.datasets[0].data[1]=1000;
@@ -590,8 +535,6 @@ export default {
                     }
                 }
                 /*if(config2.data.datasets[0].data[0] <vm.total_availability){
->>>>>>> 27d74456f6831e02782b6bee28b596ff91e244ed
-
                  config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
                  config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
                 }*/

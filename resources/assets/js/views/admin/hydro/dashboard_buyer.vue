@@ -55,11 +55,6 @@
                         <div class="text-right">
                             <h3><b>Approved Quantity</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
-<<<<<<< HEAD
-                            
-=======
-                            <!-- <p>Approved Quantity</p> -->
->>>>>>> 27d74456f6831e02782b6bee28b596ff91e244ed
                         </div>
                         <div class="clearfix"></div>
                     </div>
