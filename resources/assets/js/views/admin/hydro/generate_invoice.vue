@@ -25,6 +25,7 @@
 				</div>
 				
             </div>
+            <invoiceListBuyer :buyerRequestList="buyerRequestList"></invoiceListBuyer>
            
            <!--  <div class="row form-group">
                 <div class="col-md-3">
@@ -41,6 +42,7 @@
 
 	import User from '../../../api/users.js';
   	import moment from 'moment';
+    import invoiceListBuyer from './invoiceListBuyer.vue' ; 
 
     export default {
         data() {
@@ -52,8 +54,10 @@
                     	'noIncludeType': 'Invoice',
                     },
                     'buyerRequestList' : '',
-                    
                 }
+        },
+        components: {
+            invoiceListBuyer
         },
         mounted() {
             var vm = this;
@@ -64,7 +68,7 @@
              $('#buyer').change("select2:select", function (e) {
            		 let selectedBuyerId = $(this).val();
               	vm.invoiceData.buyer_id=selectedBuyerId;
-             	let requestType = vm.noIncludeType;
+             	let requestType = vm.invoiceData.noIncludeType;
              	let typeInclude = 'no';
               	vm.getBuyerRequestList(selectedBuyerId,requestType,typeInclude);
           }); 
@@ -90,7 +94,7 @@
                 );
             },
             getBuyerRequestList(buyerId,requestType,typeInclude)
-            {
+            {  
             	var request_list = [];
             	var request_data = '';
             	User.getBuyerRequestList(buyerId,requestType,typeInclude).then(

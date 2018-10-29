@@ -116,10 +116,10 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
          //for getting availability
           $api->post('availability/getAvailability', '\Energy\Api\Controllers\AvailabilityController@getAvailability');
          
-        $api->post('user/getbuyerlist', '\Energy\Api\Controllers\UserController@getBuyerList');
+        $api->post('user/getbuyerlist', '\Energy\Api\Controllers\NominationController@getBuyerList');
 
 
-        $api->post('user/getbuyerrequestlist', '\Energy\Api\Controllers\NominationController@getBuyerRequestList');
+        $api->post('nomination/getbuyerrequestlist', '\Energy\Api\Controllers\NominationController@getBuyerRequestList');
 
         //for total approved
         $api->post('nomination/getTotalApprovedQuantity', '\Energy\Api\Controllers\NominationController@getTotalApprovedQuantity');

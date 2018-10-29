@@ -84,7 +84,7 @@ export default {
      return api.post('availability/createAvailability');
   },
   getBuyerRequestList(buyerId,requestType,typeInclude){
-    return api.post('user/getbuyerlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
+    return api.post('nomination/getbuyerrequestlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
   },
   getBuyerList(){
     return api.post('user/getbuyerlist');

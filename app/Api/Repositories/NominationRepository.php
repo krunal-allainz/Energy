@@ -360,6 +360,29 @@ use Auth;
         $list=Nomination::whereDate('date',$date)->where('buyer_id',$userId)->get();
         return count($list);
     }
+
+    /**
+    *
+    *
+    *
+    **/
+
+    public function getBuyerRequestList($buyerId,$requestType,$typeInclude){
+
+        if($typeInclude == 'no'){
+
+            $list = Nomination::where('request','!=',$requestType)->where('buyer_id',$buyerId)->get();
+        }else if($typeInclude == 'yes'){
+
+            $list = Nomination::where('request','=',$requestType)->where('buyer_id',$buyerId)->get();
+        }else{
+
+            $list = Nomination::where('buyer_id',$buyerId)->get();
+        }
+
+        return $list;
+
+    }
     
     
  }
