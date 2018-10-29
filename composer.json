@@ -27,7 +27,7 @@
             "database"
         ],
         "psr-4": {
-            "euro_hms\\": "app/"
+            "Energy\\": "app/"
         },
         "files" : [ "app/Space/helpers.php"]
     },
