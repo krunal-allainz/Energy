@@ -8,7 +8,9 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
     <!-- <script src="/assets/js/core/pace.js"></script> -->
-    <link href="{{mix('assets/css/laraspace.css')}}" rel="stylesheet" type="text/css">
+    <!-- <link href="{{mix('assets/css/laraspace.css')}}" rel="stylesheet" type="text/css"> -->
+     <link href="/assets/css/laraspace.css" rel="stylesheet" type="text/css">
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-icon-60x60.png">
