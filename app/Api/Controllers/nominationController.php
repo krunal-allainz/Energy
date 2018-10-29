@@ -162,6 +162,25 @@ class NominationController extends Controller
      }
 
 
+     /**
+      * [getTotalRequestedQuantityForSeller description]
+      * @param  Request $request [description]
+      * @return [type]           [description]
+      */
+    public function getTotalRequestedQuantityForSeller(Request $request)
+    {
+        $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
+        $get_details=$this->nomObj->getTotalRequestedQuantityForSeller($date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
 
     /**
      * [getTotalApprovedQuantity description]
@@ -170,7 +189,8 @@ class NominationController extends Controller
      */
     public function getTotalApprovedQuantity(Request $request)
     {
-        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
         $get_details=$this->nomObj->getTotalApprovedQuantity($date);
         if($get_details)
         {
@@ -189,7 +209,8 @@ class NominationController extends Controller
      */
     public function getTotalSuppliedQuantity(Request $request)
     {
-        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+         $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
         $get_details=$this->nomObj->getTotalSuppliedQuantity($date);
         if($get_details)
         {
@@ -208,7 +229,8 @@ class NominationController extends Controller
      */
     public function getTotalRequestedQuantity(Request $request)
     {
-        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
         $userId = $request->userId;
         $get_details=$this->nomObj->getTotalRequestedQuantity($userId,$date);
         if($get_details)
@@ -228,9 +250,31 @@ class NominationController extends Controller
      */
      public function getTotalApprovedQuantityByBuyer(Request $request)
     {
-        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
         $userId = $request->userId;
         $get_details=$this->nomObj->getTotalApprovedQuantityByBuyer($userId,$date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+     /**
+     * [getTotalSuppliedQuantityByBuyer description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function getTotalSuppliedQuantityByBuyer(Request $request)
+    {
+        $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
+        $userId = $request->userId;
+        $get_details=$this->nomObj->getTotalSuppliedQuantityByBuyer($userId,$date);
         if($get_details)
         {
             return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
@@ -248,7 +292,7 @@ class NominationController extends Controller
      */
     public function getNominationCountForBuyer(Request $request)
     {
-        $date =Carbon::now()->addDays(1)->format('Y-m-d');
+        $date=Carbon::now()->addDays(1)->format('Y-m-d');
         $userId = $request->userId;
         $get_details=$this->nomObj->getNominationCountForBuyer($userId,$date);
         if($get_details)
@@ -261,13 +305,11 @@ class NominationController extends Controller
         }
     }
     
-
     /**
-    *
-    *
-    *
-    **/
-
+     * [getNominationDetailsByDateById description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function getNominationDetailsByDateById(Request $request){
 
 
@@ -283,4 +325,6 @@ class NominationController extends Controller
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
     }
+
+   
 }

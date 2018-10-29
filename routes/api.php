@@ -121,6 +121,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
         $api->post('user/getbuyerrequestlist', '\Energy\Api\Controllers\NominationController@getBuyerRequestList');
 
+        //for total requested
+         $api->post('nomination/getTotalRequestedQuantityForSeller', '\Energy\Api\Controllers\NominationController@getTotalRequestedQuantityForSeller');
+
         //for total approved
         $api->post('nomination/getTotalApprovedQuantity', '\Energy\Api\Controllers\NominationController@getTotalApprovedQuantity');
 
@@ -138,11 +141,16 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
          $api->post('nomination/getTotalApprovedQuantityByBuyer', '\Energy\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
 
+           //for total supplied at buyer dashbord
+         $api->post('nomination/getTotalSuppliedQuantityByBuyer', '\Energy\Api\Controllers\NominationController@getTotalSuppliedQuantityByBuyer');
+
           //for total approved quantity of buyer
          $api->post('nomination/getNominationCountForBuyer', '\Energy\Api\Controllers\NominationController@getNominationCountForBuyer');
 
          //for MDCQ
           $api->post('agreement/getAllowedQuantityByBuyerId', '\Energy\Api\Controllers\AgreementController@getAllowedQuantityByBuyerId');
+
+
 }); 
 
         

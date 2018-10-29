@@ -83,6 +83,7 @@ export default {
                 var s = today.getSeconds();
                 m = vm.checkTime(m);
                 s = vm.checkTime(s);
+
                 vm.curDateTime = h + ":" + m + ":" + s;
               }, 500);
 
