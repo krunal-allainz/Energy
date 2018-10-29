@@ -132,9 +132,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
           //for total approved quantity of buyer
 
-         $api->post('nomination/getTotalApprovedQuantityByBuyer', '\euro_hms\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
+         $api->post('nomination/getTotalApprovedQuantityByBuyer', '\Energy\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
 
-          $api->post('nomination/getNominationDetailsByDateById', '\euro_hms\Api\Controllers\NominationController@getNominationDetailsByDateById');
+          $api->post('nomination/getNominationDetailsByDateById', '\Energy\Api\Controllers\NominationController@getNominationDetailsByDateById');
 
          $api->post('nomination/getTotalApprovedQuantityByBuyer', '\Energy\Api\Controllers\NominationController@getTotalApprovedQuantityByBuyer');
 

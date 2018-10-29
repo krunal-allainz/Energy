@@ -48,7 +48,7 @@
                             </div>
                             <div class="text-right">
                                 <h3><b>Nomination</b></h3>
-                                <h3 class="text-dark"><b>0 {{total_availability}}</b></h3>
+                                <h3 class="text-dark"><b>{{total_availability}}</b></h3>
                                 <p>Nomination Request</p>
                             </div>
                             <div class="clearfix"></div>
@@ -457,11 +457,7 @@ export default {
             config1Data.datasets.pop();
             _.forEach(vm.nominationData,function(value,key){
                
-                // config1.data.datasets[key].data[0] = value.quantity_required;
-                // config1.data.datasets[key].data[1] = value.approved_quantity;
-                // config1.data.datasets[key].label = value.buyer_name;
-                // config1.data[key] = value.buyer_name;
-                 var letters = '0123456789ABCDEF';
+                var letters = '0123456789ABCDEF';
                   var color = '#';
                   for (var i = 0; i < 6; i++) {
                     color += letters[Math.floor(Math.random() * 16)];
