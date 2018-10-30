@@ -210,7 +210,6 @@
             vm.genrateInvoiceView(vm.buyerId);
            vm.getInvoice1();
            vm.getInvoice2();
-            
         },
         methods: {
             genrateInvoiceView(buyerId){

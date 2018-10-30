@@ -92,7 +92,7 @@
                     </div>
                     <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="#" @click="GenerateInvoice()">
+                        <a href="/generate_invoice">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                             <i class="fa fa-credit-card text-blue"></i>
@@ -225,6 +225,7 @@ export default {
         },
         changeDashbordDate(selectDate)
         {
+            console.log('ggg',selectDate);
             let vm=this;
             vm.selectedDashbordDate=selectDate;
             vm.getBuyerDetails(vm.selectedDashbordDate);
@@ -232,7 +233,13 @@ export default {
             vm.getTotalRequestedQuantityForSeller(vm.selectedDashbordDate);
             vm.getTotalApprovedQuantity(vm.selectedDashbordDate);
             vm.getTotalSuppliedQuantity(vm.selectedDashbordDate);
+            if( window.myPie1) {
+                
+                window.myPie1.destroy();
+                 window.myPie2.destroy();
+            } 
             vm.chart1Data();
+            vm.chart2Data();
         },
          availibility()
         {
@@ -428,12 +435,12 @@ export default {
         },
         chart1Data()
         {
+
+            console.log('hi');
             let vm=this;
-            var randomScalingFactor = function() {
-                return Math.round(Math.random() * 100);
-            }; 
+            
             var ctx1 = document.getElementById("myChart").getContext('2d'); 
-            var color = Chart.helpers.color;
+            // var color = Chart.helpers.color;
 
             var config1Data = {
                     datasets: [{
@@ -473,10 +480,6 @@ export default {
                 config1Data.datasets.pop();
                 _.forEach(vm.nominationData,function(value,key){
                    
-                    // config1.data.datasets[key].data[0] = value.quantity_required;
-                    // config1.data.datasets[key].data[1] = value.approved_quantity;
-                    // config1.data.datasets[key].label = value.buyer_name;
-                    // config1.data[key] = value.buyer_name;
                      var letters = '0123456789ABCDEF';
                       var color = '#';
                       for (var i = 0; i < 6; i++) {
@@ -501,7 +504,7 @@ export default {
                  window.myPie1 = new Chart(ctx1, config1);
                
 
-            },2000)
+            },1000)
         },
         chart2Data()
         {
