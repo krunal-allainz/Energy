@@ -100,9 +100,6 @@ export default {
             else if(this.userType == '6') {
               return '/buyer-dashboard';
             }
-             else if(this.userType == '7') {
-              return '/buyer-dashboard';
-            }
           },
           logout(msg=''){
             let vm =this;
@@ -118,7 +115,7 @@ export default {
               setTimeout(function(){
                 $("body .js-loader").addClass('d-none');
                 vm.$router.replace('/login')
-              },3000);
+              },1000);
             })
           },
         }
