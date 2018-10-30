@@ -161,7 +161,7 @@ class NominationController extends Controller
         $buyerId = $request->buyerId;
         $requestType = $request->requestType;
         $typeInclude = $request->typeInclude;
-        $get_details=$this->nomObj->getBuyerRequestList($buyerId,$requestType,$typeInclude);
+        $get_details=$this->nomObj->getBuyerRequestList($buyerId,$requestType,$typeInclude); 
         if($get_details)
         {
             return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination list successfully get.'];
