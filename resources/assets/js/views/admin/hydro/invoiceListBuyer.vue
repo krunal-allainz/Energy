@@ -132,7 +132,7 @@
         },
          mounted() {
             var vm = this;
-            let pageUrl = 'invoice/invoicelistbybuyerid/';
+            let pageUrl = 'invoice/invoicelistbybuyerid';
             let noOfPage = vm.perPage;
             let requestType = vm.noIncludeType;
             let typeInclude = 'no';
@@ -226,7 +226,7 @@
                  },
             setPerPage(e){
             let vm =this;
-            let pageUrl = 'invoice/invoicelistbybuyerid/';
+            let pageUrl = 'invoice/invoicelistbybuyerid';
             let noOfPage = vm.perPage;
              vm.getInvoiceDataByBuyerId(vm.buyerId,vm.perPage,pageUrl);
             
