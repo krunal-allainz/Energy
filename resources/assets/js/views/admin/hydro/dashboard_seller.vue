@@ -207,8 +207,11 @@ export default {
         this.$root.$on('close_modal', this.close_modal);
     },
     mounted: function() {
+        let vm =this;
+        if(vm.$store.state.Users.userDetails.user_type != '7'){
+              vm.$root.$emit('logout','You are not authorise to access this page'); 
+          }
         
-        let vm = this;
         vm.chart1Data();
         vm.chart2Data();
         
