@@ -41,12 +41,14 @@ export default {
             let vm=this;
             let prevoiusDay = moment(vm.selectedDate,'DD-MM-YYYY').add(-1,'days').format('DD-MM-YYYY');
             vm.selectedDate =  prevoiusDay;
+            toastr.success('Your selected date is : '+vm.selectedDate+'.', 'Dashbord', {timeOut: 1500});
             vm.$root.$emit('changeDashbordDate',vm.selectedDate);
         },
         getNextDate(){
             let vm=this;
             let nextDay = moment(vm.selectedDate,'DD-MM-YYYY').add(1,'days').format('DD-MM-YYYY');
             vm.selectedDate =  nextDay;
+             toastr.success('Your selected date is : '+vm.selectedDate+'.', 'Dashbord', {timeOut: 1500});
             vm.$root.$emit('changeDashbordDate',vm.selectedDate);
         },
     },

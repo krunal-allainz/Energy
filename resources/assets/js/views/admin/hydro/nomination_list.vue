@@ -4,7 +4,7 @@
 		<div class="card bg-success-card">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-6"><h4 class="mt-2">Nomination List123</h4></div>
+          <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
           
           <div v-if="user_type==6 && add_nomination_count==0" class="col-md-6 text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div></div>
         </div>
