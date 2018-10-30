@@ -31,9 +31,10 @@
                             <div class="text-right">
                                 <h3><b>Availability</b></h3>
                                 <h3 class="text-dark"><b>{{total_availability}}</b></h3>
+                                <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
-
+        
                         </div>
                         </a>
                     </div>
@@ -48,6 +49,7 @@
                             <div class="text-right">
                                 <h3><b>Nomination</b></h3>
                                 <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                                <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
 
@@ -83,7 +85,7 @@
                             <div class="text-right">
                                 <h3><b>Supplied Quantity</b></h3>
                                 <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
-                               <!--  <p>Supplied Quantity</p> -->
+                                <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -394,7 +396,7 @@ export default {
                     toastr.error('You have alredy updated supplied quantity.', 'Supplied Quantity', {timeOut: 5000});
                 }
                 else if (response.data.code == 302) {
-                    toastr.error('Approved quantity not added.', 'Supplied Quantity', {timeOut: 5000});
+                    toastr.error('Schedule quantity not added.', 'Supplied Quantity', {timeOut: 5000});
                 }
                 else if (response.data.code == 300) {
                     toastr.error('No record found.', 'Supplied Quantity', {timeOut: 5000});
@@ -454,7 +456,7 @@ export default {
                     }],
                     labels: [
                         'Requested',
-                        'Approved',
+                        'Schedule',
                         'Supplied',
                     ]
                 };

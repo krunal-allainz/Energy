@@ -60,9 +60,13 @@ class NominationController extends Controller
     public function createNomination(Request $request)
     {
         $add_Nomination=$this->nomObj->create($request);
-        if($add_Nomination)
+        if($add_Nomination['code']==200)
         {
             return ['code' => 200 ,'data'=>$add_Nomination,'message'=>'Nomination successfully added.'];
+        }
+        else if($add_Nomination['code']==301)
+        {
+            return ['code' => 301 ,'data'=>$add_Nomination,'message'=>'MCDQ is lower then quantity.'];
         }
         else
         {

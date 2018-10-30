@@ -1,6 +1,8 @@
 <template>
 	<div class="col-lg-12 mb-3">
-   
+    <section v-if="page_add_enabled">
+      <nominationAdd></nominationAdd>
+  </section>
 		<div class="card bg-success-card">
       <div class="card-header">
         <div class="row">
@@ -42,7 +44,7 @@
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
-                                  Approved Quantity 
+                                  Schedule Quantity 
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
@@ -82,11 +84,17 @@
                                 {{ nominationData.date}}
                             </td>
                             <td data-v-744e717e="" class="text-uppercase">
-                                {{ nominationData.request}}
+                              <span v-if="nominationData.request=='Pending'">
+                                Pending
+                              </span>
+                              <span v-else>
+                                  Schedule
+                              </span>
+                               
                             </td>
                       				<td data-v-744e717e="" class="">
                       					<a v-if="today_date==nominationData.date || tomorrow_date==nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Nomination Delete"></i></a>
-                                <a  v-if="today_date==nominationData.date || tomorrow_date==nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Edit"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                                <a  v-if="today_date==nominationData.date || tomorrow_date==nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -122,6 +130,7 @@
 </template>
 <script>
 	import User from '../../../api/users.js';
+  import nominationAdd from './nomination_add';
   
 	export default {
 		 data() {
@@ -138,26 +147,33 @@
         'perPage' : 20,
         'perPageNomination' : 5,
         'nominationPagination': {},
-        'import_file':''
+        'import_file':'',
+        'page_add_enabled':false
 		 	}
 		 },
-       created: function() {
-            
-        },
+    created: function() {
+        this.$root.$on('nominationSuccess',this.nominationSuccess);
+    },
 		  mounted(){
 		 	let vm = this;
       vm.getNominationCountForBuyer();
-		 	/* if(vm.$store.state.Users.userDetails.user_type != '6' || vm.$store.state.Users.userDetails.user_type != '7'){
-          vm.$root.$emit('logout','You are not authorise to access this page'); 
-        }*/
-		 
-       vm.getNominationList('/nomination/getNominationList');
+      vm.getNominationList('/nomination/getNominationList');
       
 		 },
      components: {
-      
+        nominationAdd
     },
 		 methods:{
+      nominationSuccess()
+      {
+          let vm=this;
+          vm.page_add_enabled=false;
+          vm.$store.dispatch('SetNominationId', ''); 
+          vm.$store.dispatch('SetNominationPage','');
+          vm.getNominationCountForBuyer();
+          vm.getNominationList('/nomination/getNominationList');
+
+      },
       getNominationCountForBuyer()
       {
           let vm=this;
@@ -186,11 +202,13 @@
       removeNomination(id)
       {
           let vm=this;
+          vm.page_add_enabled=false;
             User.deleteNomination(id).then(
                 (response)=> {
                  
                   if(response.data.code == 200){
                     //$('#presp_'+id).remove();
+                     vm.getNominationCountForBuyer();
                     vm.getNominationList('/nomination/getNominationList');
                     toastr.success('Nomination deleted successfully', 'Add Nomination', {timeOut: 5000});
                       //this.initialState();
@@ -215,14 +233,16 @@
         let vm=this;
           vm.$store.dispatch('SetNominationId', id); 
           vm.$store.dispatch('SetNominationPage','EDIT');
-          vm.$router.push({'name':'nomination_add'});
+           vm.page_add_enabled=true;
+          //vm.$router.push({'name':'nomination_add'});
       },
       setAddNomination()
       {
           let vm=this;
           vm.$store.dispatch('SetNominationId', ''); 
           vm.$store.dispatch('SetNominationPage','ADD');
-          vm.$router.push({'name':'nomination_add'});
+          vm.page_add_enabled=true;
+          //vm.$router.push({'name':'nomination_add'});
       },
 		 	getNominationList(page_url){
 		 		let vm = this;

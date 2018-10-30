@@ -39,7 +39,7 @@
                             <div class="text-right">
                             <h3><b>Nomination</b></h3>
                             <h3 class="text-dark"><b>{{total_request}}</b></h3>
-                                <!-- <p>Requested Quantity</p> -->
+                            <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -54,8 +54,9 @@
                            <i class="fa fa-certificate text-success"></i> 
                         </div>
                         <div class="text-right">
-                            <h3><b>Approved Quantity</b></h3>
+                            <h3><b>Schedule Quantity</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
+                            <p>For Date:{{selectedDashbordDate}}</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -74,6 +75,7 @@
                         <div class="text-right">
                             <h3><b>Supplied Quantity</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">{{total_supplied}}</b></h3>
+                            <p>For Date:{{selectedDashbordDate}}</p>
 
                         </div>
                         <div class="clearfix"></div>
@@ -91,6 +93,7 @@
                     <div class="text-right">
 
                         <h3><b><a href="/generate_buyer_invoice">Invoice</a></b></h3>
+                        <p>Generate Invoice</p>
 
                     </div>
                     <div class="clearfix"></div>
@@ -682,7 +685,7 @@ export default {
                             }],
                             labels: [
                                 'Request Quantity',
-                                'Approved Quantity',
+                                'Schedule Quantity',
                                 'Supplied Quantity',
                             ]
                         };           

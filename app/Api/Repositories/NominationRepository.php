@@ -55,16 +55,15 @@ use Auth;
     public function create($request)
     {
     	$form_data=$request->nominationData;
-        //$check_duplicate=$this->check_duplicate('ADD',0,$form_data['buyer_id'],$form_data['seller_id']);
-        //if($check_duplicate=='yes')
-        //{
-            //$nom_id=array('nomination_id'=>0,'code'=>301);
-        //}
-        //else
-        //{
+        $check_quantity=$this->check_quantity($form_data['quantity'],$form_data['buyer_id']);
+        if($check_quantity=='yes')
+        {
+            $nom_id=array('nomination_id'=>'','code'=>301);
+        }
+        else
+        {
             $nom= new Nomination;
             $nom->buyer_id=$form_data['buyer_id'];
-            //$nom->seller_id=$form_data['seller_id'];
             $nom->date=$form_data['date']['time'];
             $nom->quantity_required=$form_data['quantity'];
             $nom->status=1;
@@ -82,9 +81,7 @@ use Auth;
             $dataTable = 'nomination_request';
             $this->notificationObj = new NotificationRepository();
             $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy);
-
-
-        //}
+        }
         return $nom_id;
     }
 
@@ -107,72 +104,70 @@ use Auth;
     {
         $form_data=$request->nominationData;
         $id=$form_data['nominationId'];
-        //$check_duplicate=$this->check_duplicate('EDIT',$id,$form_data['name'],$form_data['type']);
-        //if($check_duplicate=='yes')
-       // {
-            //$lab_id=array('nomination_id'=>0,'code'=>301);
-        //}
-        //else
-        //{
+        
 
-            $get_buyer=$this->getNominationDetailsById($id);
-            $check_quantity=$this->check_quantity($form_data['approved_quantity'],$get_buyer->buyer_id);
-            $check_availability=$this->check_availability($form_data['approved_quantity'],$id);
-            
-            if($check_availability=='yes')
+        $get_buyer=$this->getNominationDetailsById($id);
+        $check_quantity_buyer=$this->check_quantity($form_data['quantity'],$get_buyer->buyer_id);
+        $check_quantity=$this->check_quantity($form_data['approved_quantity'],$get_buyer->buyer_id);
+        $check_availability=$this->check_availability($form_data['approved_quantity'],$id);
+        if($check_quantity_buyer=='yes')
+        {
+             $nom_id=array('nomination_id'=>'','code'=>301);
+        }
+        else if($check_availability=='yes')
+        {
+            $nom_id=array('nomination_id'=>'','code'=>302);
+        }
+        else if($check_quantity=='yes')
+        {
+            $nom_id=array('nomination_id'=>'','code'=>301);
+        }
+        else
+        {
+            $nom= Nomination::findOrFail($id);
+            $nom->date=$form_data['date']['time'];
+            $nom->quantity_required=$form_data['quantity'];
+            $nom->approved_quantity=$form_data['approved_quantity'];
+            $nom->status=1;
+            if(Auth::user()->user_type==6)
             {
-                $nom_id=array('nomination_id'=>'','code'=>302);
-            }
-            else if($check_quantity=='yes')
-            {
-                $nom_id=array('nomination_id'=>'','code'=>301);
+                $nom->request='Pending';
             }
             else
             {
-                $nom= Nomination::findOrFail($id);
-                $nom->date=$form_data['date']['time'];
-                $nom->quantity_required=$form_data['quantity'];
-                $nom->approved_quantity=$form_data['approved_quantity'];
-                $nom->status=1;
-                if(Auth::user()->user_type==6)
-                {
-                    $nom->request='Pending';
-                }
-                else
-                {
-                    $nom->request=$form_data['request'];
-                }
-                
-                $nom->save();
-                $nom_id=array('nomination_id'=>$nom->id,'code'=>200);
-                $dataUserId = $get_buyer->buyer_id;
-                $userName = $this->userObj->getUserNameById( $dataUserId);
-                $dataId = $nom->id;
-                $qty    = $form_data['quantity'];
-                $type   = 'update_notification';
-                $dataText =  $userName.' update notification for '.$qty;
-                $title  = 'Nomination request updated';
-                $addedBy  = Auth::user()->id;
-                $userType = Auth::user()->user_type;
-                $dataTable = 'nomination_request';
-                $this->notificationObj = new NotificationRepository();
-                $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy);
-
-                if($userType == 7){
-                    $dataUserId1 = $nom->buyer_id;
-                    $approveQty = $form_data['approved_quantity'];
-                    $reuestType = $form_data['request'];
-                    $acualQty = $form_data['quantity'];
-                $dataText1 = $userName.' quantity of '.$acualQty.' chnaged to '.$reuestType.''.$approveQty;
-                 
-                      $title1  = 'Request quantity'.$reuestType;
-                      $type1   = 'update_request_qty_status';
-
-                    $this->notificationObj->insert($dataId,$type1,$dataUserId1,$dataText1,$title1,$dataTable,$addedBy);
-                }
-
+                $nom->request=$form_data['request'];
             }
-        //}
+            
+            $nom->save();
+            $nom_id=array('nomination_id'=>$nom->id,'code'=>200);
+            $dataUserId = $get_buyer->buyer_id;
+            $userName = $this->userObj->getUserNameById( $dataUserId);
+            $dataId = $nom->id;
+            $qty    = $form_data['quantity'];
+            $type   = 'update_notification';
+            $dataText =  $userName.' update notification for '.$qty;
+            $title  = 'Nomination request updated';
+            $addedBy  = Auth::user()->id;
+            $userType = Auth::user()->user_type;
+            $dataTable = 'nomination_request';
+            $this->notificationObj = new NotificationRepository();
+            $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy);
+
+            if($userType == 7){
+                $dataUserId1 = $nom->buyer_id;
+                $approveQty = $form_data['approved_quantity'];
+                $reuestType = $form_data['request'];
+                $acualQty = $form_data['quantity'];
+            $dataText1 = $userName.' quantity of '.$acualQty.' chnaged to '.$reuestType.''.$approveQty;
+             
+                  $title1  = 'Request quantity'.$reuestType;
+                  $type1   = 'update_request_qty_status';
+
+                $this->notificationObj->insert($dataId,$type1,$dataUserId1,$dataText1,$title1,$dataTable,$addedBy);
+            }
+
+        }
+        
        
         return  $nom_id;
     }
