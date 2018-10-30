@@ -375,11 +375,20 @@ export default {
                    //toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
                     vm.supplied_table_data=response.data.data;
                     vm.open_supplied_modal=true;
-                    console.log('fdsfds');
-                    $('#suppliedModalId').modal('show');
+                    
+                    setTimeout(function(){
+                        $('#suppliedModalId').modal('show');
+                    },100);
 
-                } else if (response.data.code == 300) {
+                } 
+                else if (response.data.code == 301) {
                     toastr.error('You have alredy updated supplied quantity.', 'Supplied Quantity', {timeOut: 5000});
+                }
+                else if (response.data.code == 302) {
+                    toastr.error('Approved quantity not added.', 'Supplied Quantity', {timeOut: 5000});
+                }
+                else if (response.data.code == 300) {
+                    toastr.error('No record found.', 'Supplied Quantity', {timeOut: 5000});
                 }
                 else
                 {
