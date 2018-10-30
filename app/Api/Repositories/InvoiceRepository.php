@@ -77,7 +77,7 @@ use Auth;
     
     public function generateInvoice(){
 
-        $nominationList = $this->nominationRepoObj->getNominationRequestList();
+       // $nominationList = $this->nominationRepoObj->getNominationRequestList();
        
     }
 
