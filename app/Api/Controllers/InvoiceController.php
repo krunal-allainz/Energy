@@ -95,9 +95,10 @@ class InvoiceController extends Controller
     **/
 
     public function generateInvoiceLisyByBuyerId(Request $request){
-
+        $invoicedata = $request->all()['invoiceData'];
+        dd($invoicedata);
         $buyerId = $request->buyerId;
-        $invoice=$this->invObj->generateInvoiceLisyByBuyerId($buyerId);
+        $invoice=$this->invObj->generateInvoiceLisyByBuyerId($buyerId,$invoicedata);
         if($invoice)
         {
             return ['code' => 200 ,'data'=>$invoice,'message'=>'Invoce generate successfully'];

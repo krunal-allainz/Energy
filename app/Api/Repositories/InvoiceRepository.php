@@ -123,42 +123,54 @@ use Auth;
         $requestList = $this->nominationRepoObj->getBuyerRequestList($buyerId,'Invoice','no');
         $lastId =  $lastIdRecord->id;
         $result = array();
-       
         $invoiceNo = $lastId; 
         $max_loop=5;
         $count = 0;
         $total_supplied_qty = 0;
-        foreach($requestList as $request){
+        $getRequestList = 1;
+
+        foreach($requestList as $request){ 
             $count++;
-            $supplyQty = $request->supplied_quantity;
-            $total_supplied_qty = $total_supplied_qty +  $supplyQty;
-             if($count%5 == 0){
+             $result['count'][$count] = ($count%5); 
+            $getsupplyQty = $request->supplied_quantity;
+            $total_supplied_qty = $total_supplied_qty +  $getsupplyQty;
+              $result['requestList'][$getRequestList][$request->nId]['supplied_Qty'] =$getsupplyQty; 
+            $result['requestList'][$getRequestList][$request->nId]['date'] =$request->date;
+            $result['requestList'][$getRequestList][$request->nId]['quantityRequired'] =$request->quantity_required; 
+            $result['requestList'][$getRequestList][$request->nId]['approveQuntity'] =$request->approved_quantity;
+             if(($count%5) == 0){
+                $getRequestList = $getRequestList + 1;
                 $supplidQty = $total_supplied_qty;
+                $getsupplyQty = 0;
                 $invoiceNo = $invoiceNo + 1;
                 $dt = Carbon::now()->format('Ymd').$invoiceNo;
                 $result[$invoiceNo]['invoice_no'] = '#'.$dt;
-                $result[$invoiceNo]['total_amount']  = $supplidQty * $price ;
+                $result[$invoiceNo]['sub_amount']  = $supplidQty * $price ;
                 $new_date=Carbon::now()->format('Y-m-d');
                 $result[$invoiceNo]['date']  = $new_date;
                 $result[$invoiceNo]['status']  = 0;
-                $result[$invoiceNo]['sub_amount']  = $result[$invoiceNo]['total_amount'] - $external_fuel_type_rate;
+                $subAmount = $result[$invoiceNo]['sub_amount'];
+                $amountAfterPanelty= $subAmount - $external_fuel_type_rate;
+                $taxRateAmount = ($amountAfterPanelty/100) * $tax_rate ;
+                $result[$invoiceNo]['tax_rate_amount_cal'] = $taxRateAmount;
+                $result[$invoiceNo]['total_amount'] = $amountAfterPanelty +  $taxRateAmount;
                 $result[$invoiceNo]['supplied_quantity']  = $supplidQty;
                 $result['generateInvociedata'][$invoiceNo]= $result[$invoiceNo];
-             }
-
+             }  
+            
         }
           
         $addedBy  = Auth::user()->id;
         $result['buyerData']['buyer_id']  = $buyerId;
         $result['buyerData']['seller_id']  = $addedBy;
-        
         $result['buyerData']['rate']  = $tax_rate;
         $result['buyerData']['tax']  = $tax_type;
+        $result['buyerData']['price']  = $price;
         $result['buyerData']['paneltyType']  = $external_fuel_type;
         $result['buyerData']['panelty']  = $external_fuel_type_rate;
         $result['buyerData']['first_name'] = $userData->first_name;
         $result['buyerData']['last_name'] = $userData->last_name;
-        $result['mobile_no'] = $userData->mobile_no;
+        $result['buyerData']['mobile_no'] = $userData->mobile_no;
         $result['buyerData']['address'] = $userData->address;
         $result['buyerData']['email'] = $userData->email;
 
@@ -166,9 +178,10 @@ use Auth;
 
     }
 
-    public function generateInvoiceLisyByBuyerId($buyerId){
+    public function generateInvoiceLisyByBuyerId($buyerId,$invoiceData){
        // $lastIncreamentId = Invoice::
-        dd('call');
+        dd($invoiceData);
+        
     }
     
  }

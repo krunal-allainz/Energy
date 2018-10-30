@@ -125,7 +125,7 @@
                 'pagination': {},
                  'perPage' : 5,
                  'invoiceList' : '',
-                  'buyerRequestList' : '',
+                 'buyerRequestList' : '',
                  'generateInvoice' : false,
                  'noIncludeType': 'Invoice',
             }
@@ -141,7 +141,6 @@
             vm.checkGenerateInvoiceRequest();
         },
         methods: {
-        	
         	checkGenerateInvoiceRequest(status){
  				var vm = this;
         		vm.generateInvoice = status;
