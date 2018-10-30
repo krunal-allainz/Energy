@@ -69,7 +69,7 @@
                     <a href="#">
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                           <i class="fa fa-shopping-cart text-warning"></i>
+                          <i class="far fa-caret-square-right"></i>
                         </div>
                         <div class="text-right">
                             <h3><b>Supplied Quantity</b></h3>
