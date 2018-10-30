@@ -19,7 +19,9 @@ class Invoice extends Model
               'rate',
               'tax',
               'panelty',
-              'total_amount'
+              'total_amount',
+              'invoice_no',
+              'invoiceView'
         ];
 
         /**
@@ -29,9 +31,8 @@ class Invoice extends Model
          */
         public function getDateAttribute($value)
         {
-         
           if($value != null && $value != ''){
-              return Carbon::parse($value)->format('d-m-Y');
+              return Carbon::parse($value)->format('Y-m-d');
           }else{
             return null;
           }
@@ -43,7 +44,7 @@ class Invoice extends Model
         public function setDateAttribute($value)
         {
           if($value != ''){
-            return $this->attributes['date'] =   Carbon::createFromFormat('d-m-Y', $value);
+            return $this->attributes['date'] =   Carbon::createFromFormat('Y-m-d', $value);
           }else{
              return $this->attributes['date'] = null;
           }

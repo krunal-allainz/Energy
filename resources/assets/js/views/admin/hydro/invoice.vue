@@ -150,10 +150,11 @@
                             </table>
                         </div>
                     </div>
-                    <form><div><button class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form>
+                    <form><div><button type="button" class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form>
             </div>
         </div>
     </section>
+
 	</div>
 </template>
 
@@ -161,6 +162,8 @@
 
 	import User from '../../../api/users.js';
     import myDatepicker from 'vue-datepicker';
+    
+
     export default {
         data() {
             return {
@@ -195,6 +198,7 @@
         },
         components: {
             'date-picker': myDatepicker,
+            
         },
         mounted() {
             var vm = this;
@@ -243,6 +247,7 @@
                                 $.each(value, function(index,data) {
                                     let supplied_Qty =  data.supplied_Qty ;
                                     let date  = data.date ;
+                                    let nid  = data.nid ;
                                     let quantityRequired  = data.quantityRequired ;
                                     let approveQuntity  = data.approveQuntity ;
                                     
@@ -251,6 +256,7 @@
                                      'date':date,
                                      'quantityRequired':quantityRequired,
                                      'approveQuntity': approveQuntity,
+                                     'nid':nid,
                                     });
                                 });
                                vm.requestList[key] = request_list;
@@ -279,14 +285,19 @@
             },
             generateInvoice(invoiceDataIndex,buyerId){
                  let vm=this;
-                 let invoiceGenerateData = vm.InvoiceData[invoiceDataIndex];
-                 User.generateInvoiceByBuyerId(vm.buyerId,vm.InvoiceData,invoiceDataIndex).then(
+                 var invoiceHtml = $("#invoice-stmt").html();
+                 User.generateInvoiceByBuyerId(vm.buyerId,vm.user_id,vm.invoiceData,invoiceDataIndex,invoiceHtml,vm.requestList,vm.agreementData).then(
                      (response) => {
-                   
+                        if(response.data.code == 200){
+                            if(response.data.data == true){
+                                  this.$router.push({name: 'generate_invoice'})
+                            }
+                        }
                     },
                     (error) => {
                     },
                 );
+                 
             },
             getInvoice1()
             {
