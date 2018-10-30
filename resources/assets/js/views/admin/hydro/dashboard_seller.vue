@@ -56,7 +56,7 @@
                     </div>
                 </div>
                
-                <div class="col-sm-6 col-md-6 col-xl-3">
+                <!-- <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
                         <a href="#">
                         <div class="widget-bg-color-icon card-box front">
@@ -66,13 +66,12 @@
                             <div class="text-right">
                                 <h3><b>Approved Quantity</b></h3>
                                 <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
-                                <!-- <p>Approved Quantity</p> -->
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         </a>
                 </div>
-            </div>
+            </div> -->
           
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
