@@ -1,4 +1,5 @@
 <template>
+
 <section>
     <section class="content-header mb-3">
             <div class="row">
@@ -19,14 +20,14 @@
     </section>
 
 	<section class="content">
-        
         <!-- <div class="row">
             <div class="col-md-12 text-right">
                 <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
             </div>
         </div>
         <br/> -->
-		<div class="row">
+        
+	<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
                      <a href="/nomination_list" title="Add Nomination">
@@ -48,7 +49,7 @@
             <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
                     <a href="#">
-            	    <div class="widget-bg-color-icon card-box front">
+                    <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
                            <i class="fa fa-certificate text-success"></i> 
                         </div>
@@ -84,14 +85,14 @@
             <div class="flip">
                 <a href="#">
                 <div class="widget-bg-color-icon card-box front">
-            	    <div class="bg-icon float-left">
+                    <div class="bg-icon float-left">
                         <i class="fa fa-credit-card text-blue"></i>
                     </div>
-                	<div class="text-right">
+                    <div class="text-right">
 
-                		<h3><b><a href="/buyer_invoice_list">Invoice</a></b></h3>
+                        <h3><b><a href="/buyer_invoice_list">Invoice</a></b></h3>
 
-                	</div>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
                 </a>
@@ -99,7 +100,7 @@
             </div>
          
             </div>
-             <div class="row">
+            <div class="row">
                 <div class="col-xl-8 col-12">
                     <div class="row">
                         <div class="col-sm-12">
@@ -501,7 +502,7 @@
             <!-- /#right -->
             <div class="background-overlay"></div>
 </section>
-	</section>
+    </section>
 </template>
 	
 <script >
