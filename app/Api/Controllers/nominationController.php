@@ -39,8 +39,9 @@ class NominationController extends Controller
         $userType = $request->userType;
         $userId = $request->userId ;
         $noOfPage = $request->noofRecord;
-        
-        $nomination_list=$this->nomObj->getNominationList($userType,$noOfPage,$userId);
+        $selected_date =$request->selectedDate;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
+        $nomination_list=$this->nomObj->getNominationList($userType,$noOfPage,$userId,$date);
         if($nomination_list)
         {
             return ['code' => 200 ,'data'=>$nomination_list,'message'=>'Getting case type successfully.'];
@@ -60,9 +61,13 @@ class NominationController extends Controller
     public function createNomination(Request $request)
     {
         $add_Nomination=$this->nomObj->create($request);
-        if($add_Nomination)
+        if($add_Nomination['code']==200)
         {
             return ['code' => 200 ,'data'=>$add_Nomination,'message'=>'Nomination successfully added.'];
+        }
+        else if($add_Nomination['code']==301)
+        {
+            return ['code' => 301 ,'data'=>$add_Nomination,'message'=>'MCDQ is lower then quantity.'];
         }
         else
         {
