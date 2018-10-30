@@ -16,7 +16,7 @@
 				<div class="col-md-6">
 		      		<select class="form-control ls-select2"  id="buyer" name="buyer" v-validate="'required'">
 		      			<option value="">Select</option>
-						 <option :value="buyer.nId" v-for="buyer in invoiceData.buyer_option">{{buyer.name}}</option>
+						 <option :value="buyer.id" v-for="buyer in invoiceData.buyer_option">{{buyer.name}}</option>
 		      		</select>
 		      		<i v-show="errors.has('buyer')" class="fa fa-warning"></i>
 		      		<span class="help is-danger" v-show="errors.has('buyer')">
