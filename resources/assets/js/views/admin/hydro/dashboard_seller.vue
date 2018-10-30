@@ -23,7 +23,7 @@
         <div class="row">
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="#" @click="availibility()">
+                        <a href="#" @click="availibility()" title="Add Availability">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                 <i class="fa fa-truck text-warning"></i>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="/nomination_list">
+                        <a href="/nomination_list" title="Add Nomination">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                 <i class="fa fa-share-square-o text-blue"></i>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                
-                <div class="col-sm-6 col-md-6 col-xl-3">
+                <!-- <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
                         <a href="#">
                         <div class="widget-bg-color-icon card-box front">
@@ -66,17 +66,16 @@
                             <div class="text-right">
                                 <h3><b>Approved Quantity</b></h3>
                                 <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
-                                <!-- <p>Approved Quantity</p> -->
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         </a>
                 </div>
-            </div>
+            </div> -->
           
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="#" @click="supplied_quantity()">
+                        <a href="#" @click="supplied_quantity()" title="Add Supplied">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                             <i class="fa fa-cart-plus text-success"></i>
@@ -164,9 +163,10 @@
 
                 <!-- /#right -->
                 <div class="background-overlay"></div>
-
+              <div  v-if="open_supplied_modal">
+                    <suppliedModal  :tableData="supplied_table_data"></suppliedModal>
+                </div>  
         </section>
-    </section>
 </template>
 	
 <script >
@@ -176,6 +176,7 @@
     import timeline from './timeline.vue';
     import _ from 'lodash';
     import previousNextDate from './previousNextDate.vue';
+    import suppliedModal from './suppliedModal.vue';
 
 export default {
     name: "dashboardSeller",
@@ -192,23 +193,36 @@ export default {
                 'total_approved':'',
                 'total_supplied':'',
                 'selectedDashbordDate' : moment().format('DD-MM-YYYY'),
+                'open_supplied_modal':false,
+                'supplied_table_data':{}
         }
     },
     components: {
             timeline,
-            previousNextDate
+            previousNextDate,
+            suppliedModal
     },
     created: function(){
         this.$root.$on('changeDashbordDate',this.changeDashbordDate);
+        this.$root.$on('close_modal', this.close_modal);
     },
     mounted: function() {
+        let vm =this;
+        if(vm.$store.state.Users.userDetails.user_type != '7'){
+              vm.$root.$emit('logout','You are not authorise to access this page'); 
+          }
         
-        let vm = this;
         vm.chart1Data();
         vm.chart2Data();
         
     },
     methods: {
+        close_modal()
+        {
+            let vm=this;
+            vm.supplied_table_data={};
+            vm.open_supplied_modal=false;
+        },
         changeDashbordDate(selectDate)
         {
             let vm=this;
@@ -360,9 +374,23 @@ export default {
               (response)=> {
                
                 if(response.data.code == 200){
-                   toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
-                } else if (response.data.code == 300) {
-                    toastr.error('Something Went wrong.', 'Supplied Quantity', {timeOut: 5000});
+                   //toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
+                    vm.supplied_table_data=response.data.data;
+                    vm.open_supplied_modal=true;
+                    
+                    setTimeout(function(){
+                        $('#suppliedModalId').modal('show');
+                    },100);
+
+                } 
+                else if (response.data.code == 301) {
+                    toastr.error('You have alredy updated supplied quantity.', 'Supplied Quantity', {timeOut: 5000});
+                }
+                else if (response.data.code == 302) {
+                    toastr.error('Approved quantity not added.', 'Supplied Quantity', {timeOut: 5000});
+                }
+                else if (response.data.code == 300) {
+                    toastr.error('No record found.', 'Supplied Quantity', {timeOut: 5000});
                 }
                 else
                 {
@@ -517,15 +545,15 @@ export default {
                 if(vm.selectedDashbordDate==next_date)
                 {
                     config2.data.datasets[0].data[0]=vm.total_availability;
-                    config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                    // config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+                    config2.data.datasets[0].data[1] = 0; 
                 }
 
                 else if(vm.selectedDashbordDate<today)
                 {
-                    config2.data.datasets[0].data[1]=1000;
-                    config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                    // config2.data.datasets[0].data[1]=1000;
+                    config2.data.datasets[0].data[0] = 0;
+                    config2.data.datasets[0].data[1] = vm.total_availability; 
                 }
                 else
                 {

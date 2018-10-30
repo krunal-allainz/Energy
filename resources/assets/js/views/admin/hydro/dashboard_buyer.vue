@@ -29,15 +29,15 @@
         
 	<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="flip">
-                     <a href="/nomination_list">
+             	<div class="flip">
+                     <a href="/nomination_list" title="Add Nomination">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                 <i class="fa fa-share-square-o text-blue"></i>
                             
                             </div>
                             <div class="text-right">
-                            <h3><b>Nomination Request</b></h3>
+                            <h3><b>Nomination</b></h3>
                             <h3 class="text-dark"><b>{{total_request}}</b></h3>
                                 <!-- <p>Requested Quantity</p> -->
                             </div>
@@ -540,6 +540,9 @@ export default {
     },
     mounted: function() {
         let vm=this;
+       if(vm.$store.state.Users.userDetails.user_type != '6'){
+              vm.$root.$emit('logout','You are not authorise to access this page'); 
+          }
         vm.chartData();
     },
     methods: {
