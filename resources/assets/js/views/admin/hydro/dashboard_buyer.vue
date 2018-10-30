@@ -20,18 +20,16 @@
     </section>
 
 	<section class="content">
-        <section class="content-header">
-            <h1>Dashboard</h1> 
-            <ol class="breadcrumb">
-                <li role="presentation" class="breadcrumb-item active">
-                    <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
-                </li>
-            </ol>
-        </section>
+        <!-- <div class="row">
+            <div class="col-md-12 text-right">
+                <a href="/nomination_list"> <button class="btn btn-warning">Nomination Request</button></a>
+            </div>
+        </div>
+        <br/> -->
         
-		<div class="row">
+	<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
-             	<div class="flip">
+                <div class="flip">
                      <a href="/nomination_list">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
@@ -45,25 +43,25 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    
+                     </a>
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
-            	    <div class="widget-bg-color-icon card-box front">
+                    <a href="#">
+                    <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                           <i class="fa fa-check text-success"></i> 
+                           <i class="fa fa-certificate text-success"></i> 
                         </div>
                         <div class="text-right">
-
                             <h3><b>Approved Quantity</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
-
                         </div>
                         <div class="clearfix"></div>
                     </div>
+
+                    </a>  
+
             </div>
         </div>
            <div class="col-sm-6 col-md-6 col-xl-3">
@@ -85,31 +83,33 @@
                 </div>
         <div class="col-sm-6 col-md-6 col-xl-3">
             <div class="flip">
+                <a href="#">
                 <div class="widget-bg-color-icon card-box front">
-            	    <div class="bg-icon float-left">
-                        <i class="fa fa-credit-card text-danger"></i>
+                    <div class="bg-icon float-left">
+                        <i class="fa fa-credit-card text-blue"></i>
                     </div>
-                	<div class="text-right">
-                		<h3 class="text-dark"><b><a href="/buyer_invoice_list">Invoice</a></b></h3>
-                	</div>
+                    <div class="text-right">
+
+                        <h3><b><a href="/buyer_invoice_list">Invoice</a></b></h3>
+
+                    </div>
                     <div class="clearfix"></div>
                 </div>
-                
+                </a>
                 </div>
             </div>
-
+         
             </div>
-             <div class="row">
+            <div class="row">
                 <div class="col-xl-8 col-12">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card main-chart">
-                                <div class="card-header panel-tabs">
+                                <div class="card-header panel-tabs buyer_chart1">
                                     <ul class="nav nav-tabs nav-float" role="tablist">
                                         <li class=" text-center nav-item">
                                             <a href="#allocation" class="nav-link active" role="tab" data-toggle="tab">Nomination</a>
                                         </li>
-
                                         <!-- <li class="text-center nav-item">
                                             <a href="#profile" role="tab" data-toggle="tab" class="nav-link"><span class="d-none d-sm-block">Annual Revenue</span>
                                                 </a>
@@ -119,10 +119,9 @@
                                 <div class="card-body">
                                     <div class="tab-content">
                                         <div class="tab-pane  active" id="allocation">
-                                            <div style="width: 50%;">
+                                            <div style="width: 50%;  margin: 20px auto 0 auto;">
                                                <!--  <canvas id="myChart" width="100px" height="100px"></canvas> -->
                                                 <canvas id="myplotArea" width="100px" height="100px"></canvas>
-
                                                <!--  <button class="btn btn-success" @click="getPrevoiusDay()"><i class="fa fa-arrow-left fa-lg"></i></button>
                                                <button   class="btn btn-success" @click="getNextDay()"><i class="fa fa-arrow-right fa-lg"></i></button> -->
 
@@ -502,8 +501,8 @@
             </div>
             <!-- /#right -->
             <div class="background-overlay"></div>
-
-	</section>
+</section>
+    </section>
 </template>
 	
 <script >
