@@ -56,7 +56,7 @@
                     </div>
                 </div>
                
-                <div class="col-sm-6 col-md-6 col-xl-3">
+                <!-- <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
                         <a href="#">
                         <div class="widget-bg-color-icon card-box front">
@@ -66,13 +66,12 @@
                             <div class="text-right">
                                 <h3><b>Approved Quantity</b></h3>
                                 <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
-                                <!-- <p>Approved Quantity</p> -->
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         </a>
                 </div>
-            </div>
+            </div> -->
           
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
@@ -208,8 +207,11 @@ export default {
         this.$root.$on('close_modal', this.close_modal);
     },
     mounted: function() {
+        let vm =this;
+        if(vm.$store.state.Users.userDetails.user_type != '7'){
+              vm.$root.$emit('logout','You are not authorise to access this page'); 
+          }
         
-        let vm = this;
         vm.chart1Data();
         vm.chart2Data();
         
@@ -543,15 +545,15 @@ export default {
                 if(vm.selectedDashbordDate==next_date)
                 {
                     config2.data.datasets[0].data[0]=vm.total_availability;
-                    config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                    // config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+                    config2.data.datasets[0].data[1] = 0; 
                 }
 
                 else if(vm.selectedDashbordDate<today)
                 {
-                    config2.data.datasets[0].data[1]=1000;
-                    config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                    // config2.data.datasets[0].data[1]=1000;
+                    config2.data.datasets[0].data[0] = 0;
+                    config2.data.datasets[0].data[1] = vm.total_availability; 
                 }
                 else
                 {

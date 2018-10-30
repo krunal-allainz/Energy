@@ -135,7 +135,7 @@
         'user_type':this.$store.state.Users.userDetails.user_type,
         'getNominationData' : '',
         'pagination': {},
-        'perPage' : 5,
+        'perPage' : 20,
         'perPageNomination' : 5,
         'nominationPagination': {},
         'import_file':''
