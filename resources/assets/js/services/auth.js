@@ -32,6 +32,7 @@ export default {
             Ls.remove('email')
             Ls.remove('vuex')
             Ls.remove('userData')
+            Ls.remove('userID')
             // here we have to reload the page
         }).catch(error => {
         });

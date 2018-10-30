@@ -34,7 +34,6 @@
                                         <div class="col">
                                             <button class="btn btn-success text-center" type="button" @click="signInUser()">Sign in</button>
                                             
-                                             <a class="btn btn-link float-right forgot-link" style="white-space: normal;" @click = "GetSelectComponent('LayoutForgotPasswords')">  Forgot Your Password? </a>
                                         </div>
 
                                             
