@@ -90,7 +90,7 @@
                     </div>
                     <div class="text-right">
 
-                        <h3><b><a href="/buyer_invoice_list">Invoice</a></b></h3>
+                        <h3><b><a href="/generate_buyer_invoice">Invoice</a></b></h3>
 
                     </div>
                     <div class="clearfix"></div>

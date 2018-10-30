@@ -80,8 +80,8 @@
                       <td data-v-744e717e="" class="text-right" colspan="5">
                       	Pending
                       </td>
-                      <td>
-                      	<a :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
+                      <td >
+                      	<a v-if="user_type==7" :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
                       </td>
                     </tr>
                   </tbody>
@@ -128,6 +128,7 @@
                  'buyerRequestList' : '',
                  'generateInvoice' : false,
                  'noIncludeType': 'Invoice',
+                 'user_type':this.$store.state.Users.userDetails.user_type,
             }
         },
          mounted() {

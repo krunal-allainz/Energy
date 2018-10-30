@@ -66,6 +66,8 @@ import generateInvoice from './views/admin/hydro/generate_invoice.vue'
 
 import invoiceListBuyer from './views/admin/hydro/invoiceListBuyer.vue'
 
+import generateBuyerInvoice from './views/admin/hydro/generate_buyer_invoice.vue'
+
 
 
 Vue.use(VueRouter)
@@ -117,6 +119,12 @@ const routes = [
                 component: generateInvoice,
                 meta: { requiresAuth: true },
                 name: 'generate_invoice'
+            },
+            {
+                path: '/generate_buyer_invoice',
+                component: generateBuyerInvoice,
+                meta: { requiresAuth: true },
+                name: 'generate_buyer_invoice'
             },
             {
                 path: '/invoice/:id',
