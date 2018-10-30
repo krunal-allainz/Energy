@@ -545,15 +545,15 @@ export default {
                 if(vm.selectedDashbordDate==next_date)
                 {
                     config2.data.datasets[0].data[0]=vm.total_availability;
-                    config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                    // config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+                    config2.data.datasets[0].data[1] = 0; 
                 }
 
                 else if(vm.selectedDashbordDate<today)
                 {
-                    config2.data.datasets[0].data[1]=1000;
-                    config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                    // config2.data.datasets[0].data[1]=1000;
+                    config2.data.datasets[0].data[0] = 0;
+                    config2.data.datasets[0].data[1] = vm.total_availability; 
                 }
                 else
                 {
