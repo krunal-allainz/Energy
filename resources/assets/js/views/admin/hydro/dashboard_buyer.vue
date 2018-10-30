@@ -550,12 +550,11 @@ export default {
         {
             let vm=this;
             vm.selectedDashbordDate=selectDate;
-            console.log('fdsfds');
             vm.getTotalSuppliedQuantityByBuyer(vm.selectedDashbordDate,vm.userData.userId);
             vm.getTotalRequestedQuantity(vm.selectedDashbordDate,vm.userData.userId);
             vm.getTotalApprovedQuantityByBuyer(vm.selectedDashbordDate,vm.userData.userId);
             vm.getBuyerDetailsById(vm.selectedDashbordDate,vm.userData.userId);
-            vm.chartData();
+            
         },
         getPrevoiusDay(){
             let vm=this;
@@ -617,7 +616,6 @@ export default {
             let vm =this;
             User.getNominationDetailsByDateAndId(curDate,buyerId).then(
                  (response) => {
-                    
                     // return false;
                     let nominationData  = [];
                    // $.each(response.data.data, function(key, value) {
@@ -631,13 +629,13 @@ export default {
                             'date':response.data.data.date
                         }
                         nominationData.push(data);
-                        
-                   // });
                         vm.nominationData = nominationData;
                      }
                       if(response.data.code == 300){
-                        toastr.error('No data available.', 'Live Feed', {timeOut: 5000});
+                        vm.nominationData={};
+                        //toastr.error('No data available.', 'Live Feed', {timeOut: 5000});
                       }
+                      vm.chartData();
                 },
                 (error) => {
                 },
