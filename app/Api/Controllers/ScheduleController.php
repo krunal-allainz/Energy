@@ -96,16 +96,22 @@ class ScheduleController extends Controller
     *
     **/
     public function updateSupplierQty(){
-        
-          $result = $this->scheduleOBJ->updateSupplierQty();
-
-          if($result)
+        $result = $this->scheduleOBJ->updateSupplierQty();
+        if($result['code']==200)
         {
-            return ['code' => 200 ,'data'=>$result,'message'=>'update Supplier Quntity successfully.'];
+            return ['code' => 200 ,'data'=>$result['result'],'message'=>'Update Supplier Quntity successfully.'];
+        }
+        else if($result['code']==301)
+        {
+             return ['code' => 301 ,'data'=>$result['result'],'message'=>'Supplied quantity already updated.'];
+        }
+        else if($result['code']==302)
+        {
+             return ['code' => 302 ,'data'=>$result['result'],'message'=>'Approved quantoity not added.'];
         }
         else
         {
-            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+            return ['code'=> 300 ,'data'=>'','message'=>'No record found.'];
         }
     }
 }
