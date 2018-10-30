@@ -119,7 +119,7 @@ const routes = [
                 name: 'generate_invoice'
             },
             {
-                path: '/invoice',
+                path: '/invoice/:id',
                 component: Invoice,
                 meta: { requiresAuth: true },
                 name: 'invoice'

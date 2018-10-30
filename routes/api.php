@@ -116,10 +116,10 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
          //for getting availability
           $api->post('availability/getAvailability', '\Energy\Api\Controllers\AvailabilityController@getAvailability');
          
-        $api->post('user/getbuyerlist', '\Energy\Api\Controllers\UserController@getBuyerList');
+        $api->post('user/getbuyerlist', '\Energy\Api\Controllers\NominationController@getBuyerList');
 
 
-        $api->post('user/getbuyerrequestlist', '\Energy\Api\Controllers\NominationController@getBuyerRequestList');
+        $api->post('nomination/getbuyerrequestlist', '\Energy\Api\Controllers\NominationController@getBuyerRequestList');
 
         //for total requested
          $api->post('nomination/getTotalRequestedQuantityForSeller', '\Energy\Api\Controllers\NominationController@getTotalRequestedQuantityForSeller');
@@ -150,6 +150,11 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
          //for MDCQ
           $api->post('agreement/getAllowedQuantityByBuyerId', '\Energy\Api\Controllers\AgreementController@getAllowedQuantityByBuyerId');
 
+        $api->post('invoice/invoicelistbybuyerid', '\Energy\Api\Controllers\InvoiceController@getInvoiceLisyByBuyerId');
+
+        $api->post('invoice/generateinvoicebybuyer','\Energy\Api\Controllers\InvoiceController@generateInvoiceLisyByBuyerId');
+
+        $api->post('invoice/viewbybuyer', '\Energy\Api\Controllers\InvoiceController@viewbyBuyer');
 
 }); 
 

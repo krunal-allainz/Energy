@@ -1,6 +1,6 @@
 <template>
 	<div class="container invoice_page">
-		<section class="content p-l-r-15" id="invoice-stmt">
+		<section class="content p-l-r-15" id="invoice-stmt"  v-for="invData,index in invoiceData">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
@@ -16,26 +16,24 @@
                     <div class="row">
 
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg">
-                                <h4><img src="assets/img/h_energylogo.png" alt="clear"/></h4>
+                                <h4><img src="/assets/img/h_energylogo.png" alt="clear"/></h4>
                                 <h4><strong>Billing Details:</strong></h4>
-                                <address>
-                                    Lewis Doe
-                                    <br/> 6889 Lunette Street
-                                    <br/> Melbourne,Austria
-                                    <br/> <strong>Phone:</strong>12-345-678
-                                    <br/> <strong>Mail Id:</strong> Adelle_Champlin@yahoo.com
-                                </address>
+                                 <address>
+                                        {{user}}
+                                        <br/> {{address}}
+                                        <br/> <strong>Phone:</strong> {{phoneno}}
+                                        <br/> <strong>Mail Id:</strong> {{email}}
+                                    </address>
                             </div>
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg text-right">
                                 <div class="float-right">
-                                    <h4><strong>#678956 / 25 Sep 2016</strong></h4>
+                                    <h4><strong>{{invData.invoice_no}} / {{invData.date}}</strong></h4>
                                     <h4><strong>Invoice Info:</strong></h4>
                                     <address>
-                                        {{user}}
-                                        <br/> 3946 Penn Street
-                                        <br/> Ohio,USA
-                                        <br/> <strong>Phone:</strong> 32-666-756
-                                        <br/> <strong>Mail Id:</strong> {{email}}
+                                        {{buyerData.name}}
+                                        <br/>  {{buyerData.address}}
+                                        <br/> <strong>Phone:</strong> <span v-if="(buyerData.mobileno != '')">{{buyerData.mobileno}}</span>
+                                        <br/> <strong>Mail Id:</strong> <span v-if="(buyerData.email != '')">{{buyerData.email}}</span>
                                     </address>
                                     <span></span>
                                 </div>
@@ -46,37 +44,40 @@
                             <table class="table table-striped table-condensed" id="customtable">
                                 <thead>
                                 <tr class="bg-primary">
-                                    <th>
+                                    <th class="text-center">
                                         <strong>Date</strong>
                                     </th>
-                                    <th class="text-center">
+                                    <th class="text-center" colspan="3" >
                                         <strong>
                                            Supplied Quantity
                                         </strong>
                                     </th>
-                                    <th>
+                                     <th colspan="2" class="text-right">
+                                        <strong>Price</strong>
+                                    </th>
+                                   <!--  <th>
                                         <strong>Rate</strong>
                                     </th>
                                      <th>
                                         <strong>Tax</strong>
-                                    </th>
-                                    <th></th>
+                                    </th> -->
+                                   
                                     <th class="text-right">
                                         <strong>Total</strong>
                                     </th>
-                                    <th class="text-center" id="add_row"><i class="fa fa-fw ti-plus"></i></th>
+                                    <!-- <th class="text-center" id="add_row"><i class="fa fa-fw ti-plus"></i></th> -->
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                    <tr v-for="inv1 in invoice1">
-                                        <td>{{inv1.date}}</td>
-                                        <td class="text-center">{{inv1.supplied_quantity}}</td>
-                                        <td>{{inv1.rate}}</td>
-                                        <td>{{inv1.tax}}</td>
-                                        <td></td>
-                                        <td class="text-right">{{inv1.total_amount}}</td>
-                                        <td></td>
+                                    <tr  v-for="request in requestList[index + 1]">
+                                        <td class="text-center">{{request.date}}</td>
+                                        <td class="text-center" colspan="3">{{request.supplied_Qty}}</td>
+                                       
+                                         <td colspan="2" class="text-right">{{agreementData.price}}</td>
+                                        <td class="text-right">{{request.supplied_Qty * agreementData.price}}</td>
+                                        
+
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -85,30 +86,48 @@
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
+                                     <td></td>
                                     <td class="highrow text-right">
                                         <strong>
                                             Sub Total: &nbsp;
                                         </strong>
                                     </td>
                                     <td class="highrow text-right">
-                                        <strong contenteditable><span class="top tipso_style" title="Adjust" data-tipso="Here amount is deducted.">${{invoice1_subdata.sub_total}}</span></strong>
+                                        <strong contenteditable><span class="top tipso_style" title="Sub Total" data-tipso="Here amount total charge.">${{invData.sub_amount}}</span></strong>
                                     </td>
-                                    <td></td>
+                                   
+                                </tr>
+                                 <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                      <td></td>
+                                    <td class="emptyrow text-center"></td>
+                                    <td class="emptyrow text-right">
+                                        <strong>
+                                            <span v-if="(agreementData.paneltyType == 'fuel')">Fuel</span><span v-if="(agreementData.paneltyType == 'company_work_loas')">Less Working Hours</span>: &nbsp;
+                                        </strong>
+                                    </td>
+                                    <td class="highrow text-right">
+                                        <strong contenteditable>  - <span class="top tipso_style" title="Panelty Define In Agreement" data-tipso="Here amount is deducted."> ${{ agreementData.panelty}}</span></strong>
+                                    </td>
+                                  
                                 </tr>
                                 <tr>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
+                                       <td></td>
                                     <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-right">
                                         <strong>
-                                            Vat: &nbsp;
+                                            {{agreementData.taxType}} : &nbsp; ( %{{agreementData.taxRate}})  &nbsp;
                                         </strong>
                                     </td>
                                     <td class="highrow text-right">
-                                        <strong contenteditable>${{invoice1_subdata.rate}}</strong>
+                                        <strong contenteditable>  +  ${{invData.tax_rate_amount_cal}}</strong>
                                     </td>
-                                    <td></td>
+                                 
                                 </tr>
                                 <tr>
                                     <td class="emptyrow">
@@ -116,6 +135,7 @@
                                     </td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
+                                    <td></td>
                                     <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-right">
                                         <strong>
@@ -123,151 +143,18 @@
                                         </strong>
                                     </td>
                                     <td class="highrow text-right">
-                                        <strong contenteditable>${{invoice1_subdata.total_all}}</strong>
+                                        <strong contenteditable>${{invData.total_amount}}</strong>
                                     </td>
-                                    <td></td>
                                 </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
-            </div>
-        </div>
-    </section>
-    <section class="content p-l-r-15" id="invoice-stmt">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        <i class="fa fa-credit-card"></i> Invoice
-                    </h3>
-                    <span class="float-right">
-                        <i class="fa fa-fw ti-angle-up clickable"></i>
-                        <i class="fa fa-fw ti-close removecard"></i>
-                    </span> 
-                </div>
-                <div class="card-body">
-                     <div class="row">
-
-                            <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg">
-                                <h4><img src="assets/img/h_energylogo.png" alt="clear"/></h4>
-                                <h4><strong>Billing Details:</strong></h4>
-                                <address>
-                                    Lewis Doe
-                                    <br/> 6889 Lunette Street
-                                    <br/> Melbourne,Austria
-                                    <br/> <strong>Phone:</strong>12-345-678
-                                    <br/> <strong>Mail Id:</strong> Adelle_Champlin@yahoo.com
-                                </address>
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg text-right">
-                                <div class="float-right">
-                                    <h4><strong>#678956 / 25 Sep 2016</strong></h4>
-                                    <h4><strong>Invoice Info:</strong></h4>
-                                    <address>
-                                        {{user}}
-                                        <br/> 3946 Penn Street
-                                        <br/> Ohio,USA
-                                        <br/> <strong>Phone:</strong> 32-666-756
-                                        <br/> <strong>Mail Id:</strong> {{email}}
-                                    </address>
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div>
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-condensed" id="customtable">
-                                <thead>
-                                <tr class="bg-primary">
-                                    <th>
-                                        <strong>Date</strong>
-                                    </th>
-                                    <th class="text-center">
-                                        <strong>
-                                           Supplied Quantity
-                                        </strong>
-                                    </th>
-                                    <th>
-                                        <strong>Rate</strong>
-                                    </th>
-                                     <th>
-                                        <strong>Tax</strong>
-                                    </th>
-                                    <th></th>
-                                    <th class="text-right">
-                                        <strong>Total</strong>
-                                    </th>
-                                    <th class="text-center" id="add_row"><i class="fa fa-fw ti-plus"></i></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="inv2 in invoice2">
-                                        <td>{{inv2.date}}</td>
-                                        <td class="text-center">{{inv2.supplied_quantity}}</td>
-                                        <td>{{inv2.rate}}</td>
-                                        <td>{{inv2.tax}}</td>
-                                        <td></td>
-                                        <td class="text-right">{{inv2.total_amount}}</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <td class="highrow"></td>
-                                    <td class="highrow"></td>
-                                    <td class="highrow"></td>
-                                    <td class="highrow text-center"></td>
-                                    <td class="highrow text-right">
-                                        <strong>
-                                            Sub Total: &nbsp;
-                                        </strong>
-                                    </td>
-                                    <td class="highrow text-right">
-                                        <strong contenteditable><span class="top tipso_style" data-tipso="Here amount is deducted.">${{invoice2_subdata.sub_total}}</span></strong>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-right">
-                                        <strong>
-                                            Vat: &nbsp;
-                                        </strong>
-                                    </td>
-                                    <td class="highrow text-right">
-                                        <strong contenteditable>${{invoice2_subdata.rate}}</strong>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="emptyrow">
-                                        <i class="livicon" data-name="barcode" data-size="60" data-loop="true"></i>
-                                    </td>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-right">
-                                        <strong>
-                                            Total: &nbsp;
-                                        </strong>
-                                    </td>
-                                    <td class="highrow text-right">
-                                        <strong contenteditable>${{invoice2_subdata.total_all}}</strong>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
+                   <!--  <form><div><button class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form> -->
             </div>
         </div>
     </section>
 	</div>
-
 </template>
 
 <script>
@@ -277,11 +164,29 @@
     export default {
         data() {
             return {
+                'buyerId' : this.$route.params.id,
                 'email':this.$store.state.Users.userDetails.email,
                 'user':this.$store.state.Users.userDetails.first_name,
+                'address':this.$store.state.Users.userDetails.address,
+                'phoneno':this.$store.state.Users.userDetails.mobile_no,
                 'user_id':this.$store.state.Users.userDetails.id,
                 'currentYear': new Date().getFullYear(),
                 'user_type':this.$store.state.Users.userDetails.user_type,
+                'invoiceData' : '',
+                'requestList' : [],
+                'buyerData' : {
+                    'name' : '',
+                    'address' : '',
+                    'mobileno' : '',
+                    'email' : '',
+                },
+                'agreementData' : {
+                    'taxType' : '',
+                    'taxRate'  : '',
+                    'paneltyType' : '',
+                    'panelty' : '',
+                    'price' : '',
+                },
                 'invoice1':{},
                 'invoice1_subdata':{},
                 'invoice2':{},
@@ -302,11 +207,87 @@
             $('.ls-select2').select2({
                 placeholder: "Select"
             });
+            vm.genrateInvoiceView(vm.buyerId);
            vm.getInvoice1();
            vm.getInvoice2();
             
         },
         methods: {
+            genrateInvoiceView(buyerId){
+                var vm = this;
+               
+                User.generateInvoiceViewByBuyerId(buyerId).then(
+                    (response) => {
+                        if(response.data.code == 200){
+                            let  request_data  = response.data.data;
+                            // return false;
+                             var invoice_list = [];
+                             
+                            $.each(request_data.generateInvociedata, function(key, value) {
+                                let invoice_no =  value.invoice_no ;
+                                let sub_amount  = value.sub_amount ;
+                                let supplied_quantity  = value.supplied_quantity ;
+                                let total_amount  = value.total_amount ;
+                                let date  = value.date ;
+                                let tax_rate_amount_cal = value.tax_rate_amount_cal;
+                               invoice_list.push({
+                                 'invoice_no':invoice_no,
+                                 'sub_amount':sub_amount,
+                                 'supplied_quantity':supplied_quantity,
+                                 'total_amount': total_amount,
+                                 'date' : date,
+                                 'tax_rate_amount_cal' : tax_rate_amount_cal
+                                });
+                            });
+                            $.each(request_data.requestList, function(key,value) {
+                                var request_list = [];
+                                $.each(value, function(index,data) {
+                                    let supplied_Qty =  data.supplied_Qty ;
+                                    let date  = data.date ;
+                                    let quantityRequired  = data.quantityRequired ;
+                                    let approveQuntity  = data.approveQuntity ;
+                                    
+                                   request_list.push({
+                                     'supplied_Qty':supplied_Qty,
+                                     'date':date,
+                                     'quantityRequired':quantityRequired,
+                                     'approveQuntity': approveQuntity,
+                                    });
+                                });
+                               vm.requestList[key] = request_list;
+                            });
+                            
+                            vm.invoiceData = invoice_list;
+                            if(request_data.buyerData.last_name != null){
+                                vm.buyerData.name = request_data.buyerData.first_name + '' +  request_data.buyerData.last_name ; 
+                            }else{
+                                 vm.buyerData.name = request_data.buyerData.first_name; 
+                            }
+                            vm.buyerData.address = request_data.buyerData.address;
+                            vm.buyerData.mobileno = request_data.buyerData.mobile_no;
+                            vm.buyerData.email = request_data.buyerData.email;
+                            vm.agreementData.taxType = request_data.buyerData.tax;
+                            vm.agreementData.taxRate = request_data.buyerData.rate;
+                            vm.agreementData.paneltyType = request_data.buyerData.paneltyType;
+                            vm.agreementData.panelty = request_data.buyerData.panelty;
+                            vm.agreementData.price = request_data.buyerData.price;
+                            
+                        }
+                    },
+                    (error) => {
+                    },
+                );
+            },
+            generateInvoice(invoiceNo,buyerId){
+                 let vm=this;
+                 User.generateInvoiceByBuyerId(vm.buyerId,vm.InvoiceData,invoiceDataIndex).then(
+                     (response) => {
+                   
+                    },
+                    (error) => {
+                    },
+                );
+            },
             getInvoice1()
             {
                 let vm=this;
@@ -316,7 +297,6 @@
                     let inv1_arr = response.data.data.inv_arr;
                     vm.invoice1=inv1_arr;
                     vm.invoice1_subdata=response.data.data;
-                    
                     },
                     (error) => {
                     },

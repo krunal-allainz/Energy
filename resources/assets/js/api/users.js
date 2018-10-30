@@ -80,11 +80,17 @@ export default {
   generateInvoice(){
     return api.post('invoice/generateinvoice');
   },
+  generateInvoiceByBuyerId(buyerId,invoiceData){
+     return api.post('invoice/generateinvoicebybuyer', { 'buyerId' : buyerId, 'invoiceData' : invoiceData});
+  },
+  generateInvoiceViewByBuyerId(buyerId){
+    return api.post('invoice/viewbybuyer', { 'buyerId' : buyerId});
+  },
   createAvailability(){
      return api.post('availability/createAvailability');
   },
   getBuyerRequestList(buyerId,requestType,typeInclude){
-    return api.post('user/getbuyerlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
+    return api.post('nomination/getbuyerrequestlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
   },
   getBuyerList(){
     return api.post('user/getbuyerlist');
@@ -116,7 +122,10 @@ export default {
   getNominationCountForBuyer(userId){
      return api.post('nomination/getNominationCountForBuyer',{'userId':userId});
   },
-   getAllowedQuantityByBuyerId(userId){
+  getAllowedQuantityByBuyerId(userId){
      return api.post('agreement/getAllowedQuantityByBuyerId',{'userId':userId});
   },
+  getInvoiceDataByBuyerId(buyerId,noOfpage,pageUrl){
+     return api.post(pageUrl,{'buyerId':buyerId ,'noOfpage' : noOfpage});
+  }
 }
