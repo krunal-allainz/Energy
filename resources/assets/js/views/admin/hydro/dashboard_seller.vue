@@ -227,7 +227,6 @@ export default {
         },
         changeDashbordDate(selectDate)
         {
-            console.log('ggg',selectDate);
             let vm=this;
             vm.selectedDashbordDate=selectDate;
             vm.getBuyerDetails(vm.selectedDashbordDate);

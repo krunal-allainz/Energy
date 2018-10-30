@@ -30,18 +30,18 @@ use Auth;
  	 * @param  [type] $userId   [description]
  	 * @return [type]           [description]
  	 */
-    public function getNominationList($userType,$noOfPage,$userId)
+    public function getNominationList($userType,$noOfPage,$userId,$date)
     {
         if($userType==6)
         {
-             $list= Nomination::where('nomination_request.buyer_id',$userId)->select('nomination_request.*','nomination_request.id as nId')->orderBy('nomination_request.created_at','desc')->paginate($noOfPage);
+             $list= Nomination::whereDate('date',$date)->where('nomination_request.buyer_id',$userId)->select('nomination_request.*','nomination_request.id as nId')->orderBy('nomination_request.created_at','desc')->paginate($noOfPage);
 
         }
         else if($userType==7)
         {
              $list= Nomination::join('users', function ($join) {
                 $join->on('users.id', '=', 'nomination_request.buyer_id');
-            })->select('nomination_request.*','nomination_request.id as nId','users.first_name as buyer_name')->groupBy('nomination_request.id')->orderBy('nomination_request.created_at','desc')->paginate($noOfPage);
+            })->whereDate('nomination_request.date',$date)->select('nomination_request.*','nomination_request.id as nId','users.first_name as buyer_name')->groupBy('nomination_request.id')->orderBy('nomination_request.created_at','desc')->paginate($noOfPage);
         }
         
         return $list;

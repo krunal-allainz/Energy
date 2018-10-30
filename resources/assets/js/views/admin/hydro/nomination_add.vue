@@ -22,7 +22,7 @@
                                         <label for="quantity " class="control-label float-right txt_media1">Quantity :</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="quantity"  v-validate="'required'" v-model="nominationData.quantity" name="quantity">
+                                        <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationData.quantity" name="quantity">
                                         <i v-show="errors.has('quantity')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
                                     </div>
@@ -32,7 +32,7 @@
                                         <label for="approved_quantity " class="control-label float-right txt_media1">Schedule Quantity :</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="approved_quantity"  v-validate="'required'" v-model="nominationData.approved_quantity" name="approved_quantity">
+                                        <input type="text" class="form-control" id="approved_quantity"  v-validate="'required|decimal:2'" v-model="nominationData.approved_quantity" name="approved_quantity">
                                         <i v-show="errors.has('approved_quantity')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('approved_quantity')">Please enter valid approved quantity.</span>
                                     </div>
@@ -42,7 +42,7 @@
                                         <label class="control-label float-right" >Date: </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" id = "date" class="form-control" name="date" v-model="nominationData.date.time" v-validate="'required'" readonly>
+                                        <input type="text" id = "date" class="form-control" name="date" v-model="nominationData.date.time"  readonly>
                                         <i v-show="errors.has('date')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('date')">
                                             Please enter valid date.

@@ -7,8 +7,12 @@
       <div class="card-header">
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
-          
-          <div v-if="user_type==6 && add_nomination_count==0" class="col-md-6 text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div></div>
+          <div   v-if="user_type==6 && add_nomination_count==0" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+        </div>
+        <br/>
+           <div class="row">
+            <div class="col-md-12"><previousNextDate></previousNextDate></div>
+          </div>
         </div>
             <div class="card-body">
             	<div data-v-744e717e="" class="px-3"  v-if="(nominationPagination.total > 0)">
@@ -131,7 +135,7 @@
 <script>
 	import User from '../../../api/users.js';
   import nominationAdd from './nomination_add';
-  
+  import previousNextDate from './previousNextDate.vue';
 	export default {
 		 data() {
 		 	return {
@@ -148,22 +152,31 @@
         'perPageNomination' : 5,
         'nominationPagination': {},
         'import_file':'',
-        'page_add_enabled':false
+        'page_add_enabled':false,
+        'selectedDashbordDate':moment().format('DD-MM-YYYY'),
 		 	}
 		 },
     created: function() {
         this.$root.$on('nominationSuccess',this.nominationSuccess);
+        this.$root.$on('changeDashbordDate',this.changeDashbordDate);
     },
 		  mounted(){
 		 	let vm = this;
       vm.getNominationCountForBuyer();
-      vm.getNominationList('/nomination/getNominationList');
+       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
       
 		 },
      components: {
-        nominationAdd
+        nominationAdd,
+        previousNextDate
     },
 		 methods:{
+       changeDashbordDate(selectDate)
+        {
+            let vm=this;
+            vm.selectedDashbordDate=selectDate;
+            vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+        },
       nominationSuccess()
       {
           let vm=this;
@@ -171,7 +184,7 @@
           vm.$store.dispatch('SetNominationId', ''); 
           vm.$store.dispatch('SetNominationPage','');
           vm.getNominationCountForBuyer();
-          vm.getNominationList('/nomination/getNominationList');
+           vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
 
       },
       getNominationCountForBuyer()
@@ -209,7 +222,7 @@
                   if(response.data.code == 200){
                     //$('#presp_'+id).remove();
                      vm.getNominationCountForBuyer();
-                    vm.getNominationList('/nomination/getNominationList');
+                     vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
                     toastr.success('Nomination deleted successfully', 'Add Nomination', {timeOut: 5000});
                       //this.initialState();
                       
@@ -244,7 +257,7 @@
           vm.page_add_enabled=true;
           //vm.$router.push({'name':'nomination_add'});
       },
-		 	getNominationList(page_url){
+		 	getNominationList(page_url,select_date){
 		 		let vm = this;
 		 		let userId = vm.user_id;
 		 		let userType = vm.user_type;
@@ -252,7 +265,7 @@
         let no_of_page = '';
         no_of_page = vm.perPageNomination;
 
-		 		User.getNominationList(page_url,userType,no_of_page,userId).then(
+		 		User.getNominationList(page_url,userType,no_of_page,userId,select_date).then(
 		 			 (response) => {
               vm.getNominationData = response.data.data.data;
 		 			 	  vm.makePagination( response.data.data);
@@ -276,11 +289,11 @@
           
     setPerPage(e){
       let vm =this;
-      vm.getNominationList('/nomination/getNominationList');
+       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
     },
     setPerPageNomination(e){
       let vm =this;
-      vm.getNominationList('/nomination/getNominationList');
+       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
     },
 	},
 		
