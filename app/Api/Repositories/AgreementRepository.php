@@ -28,6 +28,11 @@ use File;
         }
        
     }
+
+
+    public function getAgreementData($buyer_id){
+         return Agreement::where('buyer_id',$buyer_id)->first();
+    }
     
  }
 ?>

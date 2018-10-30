@@ -381,6 +381,35 @@ use Auth;
         $list=Nomination::whereDate('date',$date)->where('buyer_id',$userId)->get();
         return count($list);
     }
+
+    /**
+    *
+    *
+    *
+    **/
+
+    public function getBuyerRequestList($buyerId,$requestType,$typeInclude){
+
+        if($typeInclude == 'no'){
+
+            $list = Nomination::select('nomination_request.id as nId','nomination_request.*','users.*')->where('request','!=',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_request.buyer_id');
+            })->get();
+        }else if($typeInclude == 'yes'){
+
+            $list = Nomination::where('request','=',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_request.buyer_id');
+            })->get();
+        }else{
+
+            $list = Nomination::where('buyer_id',$buyerId)->join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_request.buyer_id');
+            })->get();
+        }
+
+        return $list;
+
+    }
     
     
  }
