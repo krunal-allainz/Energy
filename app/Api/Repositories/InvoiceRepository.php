@@ -98,6 +98,7 @@ use Auth;
             $res_arr['status']=$inv->status;
             $res_arr['tax']=$inv->tax;
             $res_arr['total_amount']=$inv->total_amount;
+            $res_arr['invoiceHtml']=$inv->invoiceView;
             $total=$total+$inv->total_amount;
             $result_array['inv_arr'][]=$res_arr;
         }
@@ -130,9 +131,10 @@ use Auth;
         foreach($requestList as $request){ 
             $count++;
             $getsupplyQty = $request->supplied_quantity;
-
+            if($getsupplyQty != null || $getsupplyQty != ''){
                 $total_supplied_qty = $total_supplied_qty +  $getsupplyQty;
                 $result['requestList'][$getRequestList][$request->nId]['supplied_Qty'] =$getsupplyQty; 
+                 $result['requestList'][$getRequestList][$request->nId]['nid'] =$request->nId; 
                 $result['requestList'][$getRequestList][$request->nId]['date'] =$request->date;
                 $result['requestList'][$getRequestList][$request->nId]['quantityRequired'] =$request->quantity_required; 
                 $result['requestList'][$getRequestList][$request->nId]['approveQuntity'] =$request->approved_quantity;
@@ -155,6 +157,7 @@ use Auth;
                     $result[$invoiceNo]['supplied_quantity']  = $supplidQty;
                     $result['generateInvociedata'][$invoiceNo]= $result[$invoiceNo];
                  } 
+             }
         }
           
         $addedBy  = Auth::user()->id;
@@ -175,10 +178,25 @@ use Auth;
 
     }
 
-    public function generateInvoiceLisyByBuyerId($buyerId,$invoiceData){
-       // $lastIncreamentId = Invoice::
-      //  dd($invoiceData);
+    public function generateInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata,$invoiceHtml,$requestList,$agreementData){
+        Invoice::create([
+            'buyer_id' => $buyerId, 
+            'seller_id' => $sellerId,
+            'date' => $invoicedata['date'],
+            'supplied_quantity' => $invoicedata['supplied_quantity'],
+            'status' => 0,
+            'rate' => $agreementData['price'],
+            'tax' => $invoicedata['tax_rate_amount_cal'],
+            'panelty' => $agreementData['panelty'],
+            'total_amount' =>  $invoicedata['total_amount'],
+            'invoice_no' => $invoicedata['invoice_no'],
+            'invoiceView' => $invoiceHtml
+        ]);
         
+        foreach($requestList as $request){
+            $this->nominationRepoObj->updateRequeststatus('Invoice',$request['nid']);
+        }
+        return true;
     }
     
  }

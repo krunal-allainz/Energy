@@ -135,7 +135,8 @@ use Auth;
             }
             else
             {
-                $nom->request=$form_data['request'];
+
+                      $nom->request=$form_data['request'];
             }
             
             $nom->save();
@@ -152,22 +153,31 @@ use Auth;
             $dataTable = 'nomination_request';
             $this->notificationObj = new NotificationRepository();
             $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy);
+                if($userType == 7){
+                    $dataUserId1 = $nom->buyer_id;
+                    $approveQty = $form_data['approved_quantity'];
+                    $reuestType = $form_data['request'];
+                    $acualQty = $form_data['quantity'];
+                    if($reuestType == 'Approved'){
+                        $requesttext = 'Schedule';
+                    }else if($reuestType == 'Pending'){
+                        $requesttext = 'Pending';
+                    }else if($reuestType == 'Invoice'){
+                        $requesttext = 'Invoice';
+                    }else{
+                       $requesttext = $reuestType;
+                    }
+                $dataText1 = $userName.' quantity of '.$acualQty.' chnaged to '.$requesttext.''.$approveQty;
+                 
+                      $title1  = 'Request quantity'.$requesttext;
+                      $type1   = 'update_request_qty_status';
 
-            if($userType == 7){
-                $dataUserId1 = $nom->buyer_id;
-                $approveQty = $form_data['approved_quantity'];
-                $reuestType = $form_data['request'];
-                $acualQty = $form_data['quantity'];
-            $dataText1 = $userName.' quantity of '.$acualQty.' chnaged to '.$reuestType.''.$approveQty;
-             
-                  $title1  = 'Request quantity'.$reuestType;
-                  $type1   = 'update_request_qty_status';
-
-                $this->notificationObj->insert($dataId,$type1,$dataUserId1,$dataText1,$title1,$dataTable,$addedBy);
-            }
+                    $this->notificationObj->insert($dataId,$type1,$dataUserId1,$dataText1,$title1,$dataTable,$addedBy);
+                }
 
         }
         
+
        
         return  $nom_id;
     }
@@ -404,6 +414,10 @@ use Auth;
 
         return $list;
 
+    }
+
+    public function updateRequeststatus($requestType,$nid){
+        return Nomination::where('id',$nid)->update(array('request' => $requestType));
     }
     
     

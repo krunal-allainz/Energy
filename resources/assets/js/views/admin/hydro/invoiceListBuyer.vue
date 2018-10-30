@@ -68,11 +68,13 @@
                        <span v-if="invoice.status == 0"> Pending</span>
                       </td>
                       <td data-v-744e717e="" class="">
-                      	 <i data-v-744e717e="" class="fa fa-eye"></i>
+                      	 <i data-v-744e717e="" class="fa fa-eye" data-toggle="modal" data-target="#invoiceViewDisaply"></i>
+                        <dispalyInvoiceView :invoiceHtml="invoice.invoiceHtml"></dispalyInvoiceView>
                        <!--  <a  :href="'/user/edit/'+user.id"> <i class="fa fa-pencil"  title="User edit"></i></a>
                                       <a > <i class="fa fa-trash"  title="request delete" @click="deleteUser(buyer.id)"  ></i></a> -->                    
                       </td>
                     </tr>
+
                     <tr v-show="generateInvoice == true">
                       <td data-v-744e717e="" class="">
                         #
@@ -80,13 +82,16 @@
                       <td data-v-744e717e="" class="text-right" colspan="5">
                       	Pending
                       </td>
+
                       <td >
                       	<a v-if="user_type==7" :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
                       </td>
+
                     </tr>
                   </tbody>
                 </table>	
               </div>
+              
               <div data-v-744e717e="" class="table-footer">
                 <div data-v-744e717e="" class="datatable-length float-left pl-3">
                   <span data-v-744e717e="">Rows per page:</span>
@@ -112,10 +117,12 @@
             </div>
           </div>
         </div>
+        
 	</div>
 </template>
 <script>
 	import User from '../../../api/users.js';
+  import dispalyInvoiceView from './dispalyInvoiceView.vue';
 
 	export default{
         props :['buyerId'],
@@ -141,8 +148,13 @@
             vm.getBuyerRequestList(vm.buyerId,requestType,typeInclude);
             vm.checkGenerateInvoiceRequest();
         },
+        components: {
+           dispalyInvoiceView
+            
+        },
         methods: {
-        	checkGenerateInvoiceRequest(status){
+        	checkGenerateInvoiceRequest(noOfRecord,status){
+           
  				var vm = this;
         		vm.generateInvoice = status;
 
@@ -154,11 +166,22 @@
             	var request_data = '';
             	User.getBuyerRequestList(buyerId,requestType,typeInclude).then(
                      (response) => {
-                     var coundListForInvoice = response.data.data.length;  
-            	        if(coundListForInvoice >= 5){
-            	        	vm.checkGenerateInvoiceRequest(true);
+                     //var coundListForInvoice = response.data.data.length; 
+
+                     let requestCount = 0;
+                     let  request_data  = response.data.data;
+
+                     $.each(request_data, function(key, value){
+                       let supplied_quantity  = value.supplied_quantity ;
+                       if(supplied_quantity != null){
+                          requestCount =  requestCount+1;
+                       }
+                     }); 
+
+            	        if(requestCount  >= 5){
+            	        	vm.checkGenerateInvoiceRequest(requestCount,true);
             	        }else{
-            	        	vm.checkGenerateInvoiceRequest(false);
+            	        	vm.checkGenerateInvoiceRequest(requestCount,false);
             	        }
                         // let  request_data  = response.data.data;
                         // $.each(request_data, function(key, value) {
@@ -197,13 +220,15 @@
                             let name =  value.buyer_name ;
                             let date  = value.date ;
                             let status  = value.status ;
+                            let invoiceHtml = value.invoiceHtml;
                             invoice_list.push({
-                            	name:name,
-                            	date:date,
-                            	invoice_no:invoice_no,
-                            	total_amount:total_amount,
-                            	sub_total : sub_total,
-                            	status: status,
+                            	'name':name,
+                            	'date':date,
+                            	'invoice_no':invoice_no,
+                            	'total_amount':total_amount,
+                            	'sub_total' : sub_total,
+                            	'status': status,
+                              'invoiceHtml' : invoiceHtml,
                             });
                         });
                         vm.invoiceList=invoice_list;
