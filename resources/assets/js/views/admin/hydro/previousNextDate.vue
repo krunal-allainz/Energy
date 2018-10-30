@@ -3,12 +3,8 @@
 	<section class="content">
         <div class="">
             <div class="row">
-                <div class="col-md-6 text-left">
-                     <h3>Date : {{selectedDate}}</h3>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button class="btn btn-info" @click="getPrevoiusDate()"><i class="fa fa-arrow-left fa-lg"></i></button>
-                    <button class="btn btn-info" :disabled="selectedDate==disabledDate" @click="getNextDate()"><i class="fa fa-arrow-right fa-lg"></i></button>
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-info" @click="getPrevoiusDate()">Previous Day</button> <span><b>Date : {{selectedDate}}</b></span> <button class="btn btn-info" :disabled="selectedDate==disabledDate" @click="getNextDate()">Next Day</button>
                 </div>
             </div>
         </div>
