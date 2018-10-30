@@ -80,8 +80,8 @@
                       <td data-v-744e717e="" class="text-right" colspan="5">
                       	Pending
                       </td>
-                      <td>
-                      	<a :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
+                      <td >
+                      	<a v-if="user_type==7" :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
                       </td>
                     </tr>
                   </tbody>
@@ -128,11 +128,12 @@
                  'buyerRequestList' : '',
                  'generateInvoice' : false,
                  'noIncludeType': 'Invoice',
+                 'user_type':this.$store.state.Users.userDetails.user_type,
             }
         },
          mounted() {
             var vm = this;
-            let pageUrl = 'invoice/invoicelistbybuyerid/';
+            let pageUrl = 'invoice/invoicelistbybuyerid';
             let noOfPage = vm.perPage;
             let requestType = vm.noIncludeType;
             let typeInclude = 'no';
@@ -226,7 +227,7 @@
                  },
             setPerPage(e){
             let vm =this;
-            let pageUrl = 'invoice/invoicelistbybuyerid/';
+            let pageUrl = 'invoice/invoicelistbybuyerid';
             let noOfPage = vm.perPage;
              vm.getInvoiceDataByBuyerId(vm.buyerId,vm.perPage,pageUrl);
             

@@ -150,7 +150,7 @@
                             </table>
                         </div>
                     </div>
-                   <!--  <form><div><button class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form> -->
+                    <form><div><button class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form>
             </div>
         </div>
     </section>
@@ -208,8 +208,8 @@
                 placeholder: "Select"
             });
             vm.genrateInvoiceView(vm.buyerId);
-           vm.getInvoice1();
-           vm.getInvoice2();
+           //vm.getInvoice1();
+           //vm.getInvoice2();
         },
         methods: {
             genrateInvoiceView(buyerId){
@@ -277,8 +277,9 @@
                     },
                 );
             },
-            generateInvoice(invoiceNo,buyerId){
+            generateInvoice(invoiceDataIndex,buyerId){
                  let vm=this;
+                 let invoiceGenerateData = vm.InvoiceData[invoiceDataIndex];
                  User.generateInvoiceByBuyerId(vm.buyerId,vm.InvoiceData,invoiceDataIndex).then(
                      (response) => {
                    
