@@ -92,7 +92,7 @@
                     </div>
                     <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="#" @click="GenerateInvoice()">
+                        <a href="/generate_invoice">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                             <i class="fa fa-credit-card text-blue"></i>
