@@ -163,16 +163,24 @@ use Auth;
                     $approveQty = $form_data['approved_quantity'];
                     $reuestType = $form_data['request'];
                     $acualQty = $form_data['quantity'];
-                $dataText1 = $userName.' quantity of '.$acualQty.' chnaged to '.$reuestType.''.$approveQty;
+                    if($reuestType == 'Approved'){
+                        $requesttext = 'Schedule';
+                    }else if($reuestType == 'Pending'){
+                        $requesttext = 'Pending';
+                    }else if($reuestType == 'Invoice'){
+                        $requesttext = 'Invoice';
+                    }else{
+                       $requesttext = $reuestType;
+                    }
+                $dataText1 = $userName.' quantity of '.$acualQty.' chnaged to '.$requesttext.''.$approveQty;
                  
-                      $title1  = 'Request quantity'.$reuestType;
+                      $title1  = 'Request quantity'.$requesttext;
                       $type1   = 'update_request_qty_status';
 
                     $this->notificationObj->insert($dataId,$type1,$dataUserId1,$dataText1,$title1,$dataTable,$addedBy);
                 }
 
             }
-        //}
        
         return  $nom_id;
     }
@@ -409,6 +417,10 @@ use Auth;
 
         return $list;
 
+    }
+
+    public function updateRequeststatus($requestType,$nid){
+        return Nomination::where('id',$nid)->update(array('request' => $requestType));
     }
     
     

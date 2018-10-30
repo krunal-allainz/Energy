@@ -95,10 +95,15 @@ class InvoiceController extends Controller
     **/
 
     public function generateInvoiceLisyByBuyerId(Request $request){
+        
         $invoicedata = $request->all()['invoiceData'];
-        dd($invoicedata);
+        $invoiceGenerateNo = $request->invoiceDataIndex;
+        $invoiceHtml =  $request->invoiceHtml;
+        $requestList = $request->all()['requestList'];
+        $agreementData = $request->all()['agreementData'];
         $buyerId = $request->buyerId;
-        $invoice=$this->invObj->generateInvoiceLisyByBuyerId($buyerId,$invoicedata);
+        $sellerId = $request->sellerId;
+        $invoice=$this->invObj->generateInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata[$invoiceGenerateNo],$invoiceHtml,$requestList[$invoiceGenerateNo+1],$agreementData);
         if($invoice)
         {
             return ['code' => 200 ,'data'=>$invoice,'message'=>'Invoce generate successfully'];

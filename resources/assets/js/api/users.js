@@ -80,8 +80,8 @@ export default {
   generateInvoice(){
     return api.post('invoice/generateinvoice');
   },
-  generateInvoiceByBuyerId(buyerId,invoiceData){
-     return api.post('invoice/generateinvoicebybuyer', { 'buyerId' : buyerId, 'invoiceData' : invoiceData});
+  generateInvoiceByBuyerId(buyerId,sellerId,invoiceData,invoiceDataIndex,invoiceHtml,requestList,agreementData){
+     return api.post('invoice/generateinvoicebybuyer', { 'buyerId' : buyerId, 'sellerId' : sellerId ,'invoiceData' : invoiceData , 'invoiceDataIndex' : invoiceDataIndex , 'invoiceHtml' : invoiceHtml , 'requestList' : requestList, 'agreementData' : agreementData});
   },
   generateInvoiceViewByBuyerId(buyerId){
     return api.post('invoice/viewbybuyer', { 'buyerId' : buyerId});
