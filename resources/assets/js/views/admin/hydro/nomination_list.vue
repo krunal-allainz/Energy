@@ -1,12 +1,18 @@
 <template>
 	<div class="col-lg-12 mb-3">
-   
+    <section v-if="page_add_enabled">
+      <nominationAdd></nominationAdd>
+  </section>
 		<div class="card bg-success-card">
       <div class="card-header">
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
-          
-          <div v-if="user_type==6 && add_nomination_count==0" class="col-md-6 text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div></div>
+          <div   v-if="user_type==6 && add_nomination_count==0" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+        </div>
+        <br/>
+           <div class="row">
+            <div class="col-md-12"><previousNextDate></previousNextDate></div>
+          </div>
         </div>
             <div class="card-body">
             	<div data-v-744e717e="" class="px-3"  v-if="(nominationPagination.total > 0)">
@@ -42,7 +48,7 @@
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
-                                  Approved Quantity 
+                                  Schedule Quantity 
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
@@ -82,11 +88,17 @@
                                 {{ nominationData.date}}
                             </td>
                             <td data-v-744e717e="" class="text-uppercase">
-                                {{ nominationData.request}}
+                              <span v-if="nominationData.request=='Pending'">
+                                Pending
+                              </span>
+                              <span v-else>
+                                  Schedule
+                              </span>
+                               
                             </td>
                       				<td data-v-744e717e="" class="">
                       					<a v-if="today_date==nominationData.date || tomorrow_date==nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Nomination Delete"></i></a>
-                                <a  v-if="today_date==nominationData.date || tomorrow_date==nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Edit"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                                <a  v-if="today_date==nominationData.date || tomorrow_date==nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -122,7 +134,8 @@
 </template>
 <script>
 	import User from '../../../api/users.js';
-  
+  import nominationAdd from './nomination_add';
+  import previousNextDate from './previousNextDate.vue';
 	export default {
 		 data() {
 		 	return {
@@ -138,26 +151,42 @@
         'perPage' : 20,
         'perPageNomination' : 5,
         'nominationPagination': {},
-        'import_file':''
+        'import_file':'',
+        'page_add_enabled':false,
+        'selectedDashbordDate':moment().format('DD-MM-YYYY'),
 		 	}
 		 },
-       created: function() {
-            
-        },
+    created: function() {
+        this.$root.$on('nominationSuccess',this.nominationSuccess);
+        this.$root.$on('changeDashbordDate',this.changeDashbordDate);
+    },
 		  mounted(){
 		 	let vm = this;
       vm.getNominationCountForBuyer();
-		 	/* if(vm.$store.state.Users.userDetails.user_type != '6' || vm.$store.state.Users.userDetails.user_type != '7'){
-          vm.$root.$emit('logout','You are not authorise to access this page'); 
-        }*/
-		 
-       vm.getNominationList('/nomination/getNominationList');
+       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
       
 		 },
      components: {
-      
+        nominationAdd,
+        previousNextDate
     },
 		 methods:{
+       changeDashbordDate(selectDate)
+        {
+            let vm=this;
+            vm.selectedDashbordDate=selectDate;
+            vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+        },
+      nominationSuccess()
+      {
+          let vm=this;
+          vm.page_add_enabled=false;
+          vm.$store.dispatch('SetNominationId', ''); 
+          vm.$store.dispatch('SetNominationPage','');
+          vm.getNominationCountForBuyer();
+           vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+
+      },
       getNominationCountForBuyer()
       {
           let vm=this;
@@ -186,12 +215,14 @@
       removeNomination(id)
       {
           let vm=this;
+          vm.page_add_enabled=false;
             User.deleteNomination(id).then(
                 (response)=> {
                  
                   if(response.data.code == 200){
                     //$('#presp_'+id).remove();
-                    vm.getNominationList('/nomination/getNominationList');
+                     vm.getNominationCountForBuyer();
+                     vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
                     toastr.success('Nomination deleted successfully', 'Add Nomination', {timeOut: 5000});
                       //this.initialState();
                       
@@ -215,16 +246,18 @@
         let vm=this;
           vm.$store.dispatch('SetNominationId', id); 
           vm.$store.dispatch('SetNominationPage','EDIT');
-          vm.$router.push({'name':'nomination_add'});
+           vm.page_add_enabled=true;
+          //vm.$router.push({'name':'nomination_add'});
       },
       setAddNomination()
       {
           let vm=this;
           vm.$store.dispatch('SetNominationId', ''); 
           vm.$store.dispatch('SetNominationPage','ADD');
-          vm.$router.push({'name':'nomination_add'});
+          vm.page_add_enabled=true;
+          //vm.$router.push({'name':'nomination_add'});
       },
-		 	getNominationList(page_url){
+		 	getNominationList(page_url,select_date){
 		 		let vm = this;
 		 		let userId = vm.user_id;
 		 		let userType = vm.user_type;
@@ -232,7 +265,7 @@
         let no_of_page = '';
         no_of_page = vm.perPageNomination;
 
-		 		User.getNominationList(page_url,userType,no_of_page,userId).then(
+		 		User.getNominationList(page_url,userType,no_of_page,userId,select_date).then(
 		 			 (response) => {
               vm.getNominationData = response.data.data.data;
 		 			 	  vm.makePagination( response.data.data);
@@ -256,11 +289,11 @@
           
     setPerPage(e){
       let vm =this;
-      vm.getNominationList('/nomination/getNominationList');
+       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
     },
     setPerPageNomination(e){
       let vm =this;
-      vm.getNominationList('/nomination/getNominationList');
+       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
     },
 	},
 		

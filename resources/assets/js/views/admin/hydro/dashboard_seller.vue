@@ -5,12 +5,12 @@
 		<section class="content-header mb-3">
             <div class="row">
                 <div class="col-md-4 col-sm-5">
-                    <h1>Dashboard</h1> 
+                    <h1><i class="fas fa-chart-bar"></i>  Dashboard</h1> 
                 </div>
                 <div class="col-md-8 col-sm-7 text-left text-sm-right">
                     <ol class="breadcrumb">
                         <li role="presentation" class="breadcrumb-item active">
-                            <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
+                            <span aria-current="location"><i class="fas fa-chart-bar">  </i>Dashboard</span>
                         </li>
                     </ol>
                 </div>
@@ -26,14 +26,16 @@
                         <a href="#" @click="availibility()" title="Add Availability">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                                <i class="fa fa-truck text-warning"></i>
+                                <!-- <i class="fa fa-truck text-warning"></i> -->
+                                <i class="fas fa-coins"></i>
                             </div>
                             <div class="text-right">
                                 <h3><b>Availability</b></h3>
                                 <h3 class="text-dark"><b>{{total_availability}}</b></h3>
+                                <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
-
+        
                         </div>
                         </a>
                     </div>
@@ -43,11 +45,12 @@
                         <a href="/nomination_list" title="Add Nomination">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                                <i class="fa fa-share-square-o text-blue"></i>
+                                <i class="fas fa-charging-station"></i>
                             </div>
                             <div class="text-right">
                                 <h3><b>Nomination</b></h3>
                                 <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                                <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
 
@@ -78,12 +81,12 @@
                         <a href="#" @click="supplied_quantity()" title="Add Supplied">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                            <i class="fa fa-cart-plus text-success"></i>
+                            <i class="far fa-caret-square-right"></i>
                             </div>
                             <div class="text-right">
                                 <h3><b>Supplied Quantity</b></h3>
                                 <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
-                               <!--  <p>Supplied Quantity</p> -->
+                                <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -95,7 +98,7 @@
                         <a href="/generate_invoice">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                            <i class="fa fa-credit-card text-blue"></i>
+                           <i class="fas fa-money-check"></i>
                             </div>
                             <div class="text-right">
                                 <h3><b><a href="/generate_invoice">Invoice</a></b></h3>
@@ -225,7 +228,6 @@ export default {
         },
         changeDashbordDate(selectDate)
         {
-            console.log('ggg',selectDate);
             let vm=this;
             vm.selectedDashbordDate=selectDate;
             vm.getBuyerDetails(vm.selectedDashbordDate);
@@ -251,7 +253,7 @@ export default {
                    toastr.success('Availability  added successfully.', 'Availability', {timeOut: 5000});
                 } 
                 else if (response.data.code == 301) {
-                    toastr.error('Availability added already.', 'Availability', {timeOut: 5000});
+                    toastr.error('Availability has been added already.', 'Availability', {timeOut: 5000});
                 }
                 else if (response.data.code == 300) {
                     toastr.error('Something Went wrong.', 'Availability', {timeOut: 5000});
@@ -394,7 +396,7 @@ export default {
                     toastr.error('You have alredy updated supplied quantity.', 'Supplied Quantity', {timeOut: 5000});
                 }
                 else if (response.data.code == 302) {
-                    toastr.error('Approved quantity not added.', 'Supplied Quantity', {timeOut: 5000});
+                    toastr.error('Schedule quantity not added.', 'Supplied Quantity', {timeOut: 5000});
                 }
                 else if (response.data.code == 300) {
                     toastr.error('No record found.', 'Supplied Quantity', {timeOut: 5000});
@@ -454,7 +456,7 @@ export default {
                     }],
                     labels: [
                         'Requested',
-                        'Approved',
+                        'Schedule',
                         'Supplied',
                     ]
                 };
