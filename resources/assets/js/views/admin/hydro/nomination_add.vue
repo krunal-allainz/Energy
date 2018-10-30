@@ -2,11 +2,10 @@
 
 <section>
     <div class="col-lg-12 mb-3">
-   
-		<div class="card bg-success-card">
+		<div class="card bg-success-card nomination_class">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-12"><h4 class="mt-2">Nomination Add</h4></div>
+          <div class="col-md-12"><h4 class="mt-2" v-if="nominationData.pageName=='EDIT'">Nomination Update</h4><h4 class="mt-2" v-else>Nomination Add</h4></div>
           </div>
           <div class="col-md-6 text-right">
                     <strong>MDCQ:</strong> <strong>{{mdcq}}</strong>
@@ -23,17 +22,17 @@
                                         <label for="quantity " class="control-label float-right txt_media1">Quantity :</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="quantity"  v-validate="'required'" v-model="nominationData.quantity" name="quantity">
+                                        <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationData.quantity" name="quantity">
                                         <i v-show="errors.has('quantity')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
                                     </div>
                                 </div>
                                  <div class="row form-group"  v-if="nominationData.pageName=='EDIT' && user_type==7">
                                     <div class="col-md-3">
-                                        <label for="approved_quantity " class="control-label float-right txt_media1">Approved Quantity :</label>
+                                        <label for="approved_quantity " class="control-label float-right txt_media1">Schedule Quantity :</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="approved_quantity"  v-validate="'required'" v-model="nominationData.approved_quantity" name="approved_quantity">
+                                        <input type="text" class="form-control" id="approved_quantity"  v-validate="'required|decimal:2'" v-model="nominationData.approved_quantity" name="approved_quantity">
                                         <i v-show="errors.has('approved_quantity')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('approved_quantity')">Please enter valid approved quantity.</span>
                                     </div>
@@ -43,7 +42,7 @@
                                         <label class="control-label float-right" >Date: </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <date-picker  :date.sync="nominationData.date" :option="option" id = "date" class="" type="date" name="date" :limit="limit" v-model="nominationData.date.time" v-validate="'required'"></date-picker> 
+                                        <input type="text" id = "date" class="form-control" name="date" v-model="nominationData.date.time"  readonly>
                                         <i v-show="errors.has('date')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('date')">
                                             Please enter valid date.
@@ -58,7 +57,7 @@
                                         <select class="form-control ls-select2"  id="request" name="request">
                                             <option value="">Select</option>
                                             <option value="Pending">Pending</option>
-                                            <option value="Approved">Approve</option>
+                                            <option value="Approved">Schedule</option>
                                         </select>
                                         
                                     </div>
@@ -69,7 +68,7 @@
                                     </div>
                                     <div class="col-md-9">
                                         <span v-if="nominationData.pageName=='EDIT'">
-                                            <button class="btn btn-success" type="button" @click="editValidateBeforeSubmit()">Edit</button>
+                                            <button class="btn btn-success" type="button" @click="editValidateBeforeSubmit()">Update</button>
                                         </span>
                                         <span v-else>
                                              <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
@@ -255,10 +254,15 @@
                            
                             if(response.data.code == 200){
                                 toastr.success('Nomination added successfully', 'Add Nomination', {timeOut: 5000});
-                                vm.$router.push('nomination_list');
+                                vm.$root.$emit('nominationSuccess',1);
                                 //this.initialState();
                                 
-                            } else if (response.data.code == 300) {
+                            }
+                            else if (response.data.code == 301) {
+                                toastr.error('MDCQ is higher then quantity.', 'Edit Nomination', {timeOut: 5000});
+                                //this.initialState(); 
+                            }
+                            else if (response.data.code == 300) {
                                 toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
@@ -285,26 +289,26 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success('Nomination edited successfully', 'Edit Nomination', {timeOut: 5000});
-                                vm.$router.push('nomination_list');
+                                toastr.success('Nomination updated successfully', 'Update Nomination', {timeOut: 5000});
+                                vm.$root.$emit('nominationSuccess',1);
                                 //this.initialState();
                                 
                             } 
                             else if (response.data.code == 301) {
-                                toastr.error('MDCQ is higher.', 'Edit Nomination', {timeOut: 5000});
+                                toastr.error('MDCQ is higher then quantity.', 'Update Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 302) {
-                                toastr.error('Approved quantity limit exceed.', 'Edit Nomination', {timeOut: 5000});
+                                toastr.error('Approved quantity limit exceed.', 'Update Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error('Something Went wrong.', 'Edit Nomination', {timeOut: 5000});
+                                toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Edit Nomination', {timeOut: 5000});
+                                toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
                             }
                             
                           },
@@ -319,3 +323,9 @@
         }
     }
 </script>
+<style>
+    .nomination_class
+    {
+        min-height:0px !important;
+    }
+</style>
