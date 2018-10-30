@@ -39,8 +39,13 @@ class NominationController extends Controller
         $userType = $request->userType;
         $userId = $request->userId ;
         $noOfPage = $request->noofRecord;
-        $selected_date =$request->selectedDate;
-        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
+        //$date =Carbon::now()->format('Y-m-d'); 
+        //if(isset($request->selectedDate))
+        //{
+            $selected_date=$request->selectedDate;
+            $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
+        //}
+        
         $nomination_list=$this->nomObj->getNominationList($userType,$noOfPage,$userId,$date);
         if($nomination_list)
         {

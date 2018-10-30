@@ -33,7 +33,7 @@
                      <a href="/nomination_list" title="Add Nomination">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                               <i class="far fa-charging-station"></i>
+                               <i class="fas fa-charging-station"></i>
                             
                             </div>
                             <div class="text-right">
