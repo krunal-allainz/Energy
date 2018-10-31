@@ -61,6 +61,7 @@ export default {
         },
         created: function() {
           this.$root.$on('logout',this.logout);
+          this.$root.$on('setDate',this.setDate);
         },
         computed:{
           userType(){
@@ -74,20 +75,23 @@ export default {
           // },3000)
           //this.$store.dispatch('SetIpdId',0);
              
-              var t = setInterval(function(){
+              // var t = setInterval(function(){
                
-               var today = new Date();
-                var h = today.getHours();
-                var m = today.getMinutes();
-                var s = today.getSeconds();
-                m = vm.checkTime(m);
-                s = vm.checkTime(s);
+              //  var today = new Date();
+              //   var h = today.getHours();
+              //   var m = today.getMinutes();
+              //   var s = today.getSeconds();
+              //   m = vm.checkTime(m);
+              //   s = vm.checkTime(s);
 
-                vm.curDateTime = h + ":" + m + ":" + s;
-              }, 500);
+              //   vm.curDateTime = h + ":" + m + ":" + s;
+              // }, 500);
 
         },
         methods:{
+          setDate(setDate){
+              this.curDateTime = setDate;
+          },
           checkTime(i){
             if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
               return i;
