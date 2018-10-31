@@ -43,7 +43,7 @@
                         			 </th>
                         			
                                 <th style="width: auto;">
-                                  Quantity Request
+                                  Requested Quantity
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
@@ -74,14 +74,14 @@
                        					{{ nominationData.buyer_name}}
                       			</td>
                       			
-                            <td data-v-744e717e="" class="text-uppercase">
-                                {{ nominationData.quantity_required}}
+                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationData.quantity_required)">
+                               
                             </td>
-                             <td data-v-744e717e="" class="text-uppercase">
-                                {{ nominationData.approved_quantity}}
+                             <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationData.approved_quantity)">
+                               
                             </td>
-                            <td data-v-744e717e="" class="text-uppercase">
-                                {{ nominationData.supplied_quantity}}
+                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationData.supplied_quantity)">
+                               
                             </td>
                              <td data-v-744e717e="" class="text-uppercase">
                                 {{ nominationData.date}}
@@ -177,6 +177,15 @@
             let vm=this;
             vm.selectedDashbordDate=selectDate;
             vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+        },
+        setQty(data){
+          // let vm=this;
+          if(data) {
+            return data + ' MMBTU';
+          } else {
+            return '00.00' + ' MMBTU';
+
+          }
         },
       nominationSuccess()
       {
