@@ -4,16 +4,15 @@
       <nominationAdd></nominationAdd>
   </section>
 		<div class="card bg-success-card">
-      <div class="card-header">
+      <div class="card-header  mb-3" >
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
-          <div   v-if="user_type==6 && add_nomination_count==0" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+          <div   v-if="user_type==6 && add_nomination_count==0 && tomorrow_date==selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
         </div>
-        <br/>
-           <div class="row">
+      </div>
+        <div class="row">
             <div class="col-md-12"><previousNextDate></previousNextDate></div>
           </div>
-        </div>
             <div class="card-body">
             	<div data-v-744e717e="" class="px-3"  v-if="(nominationPagination.total > 0)">
               		<div data-v-744e717e="" class="table-header">
@@ -154,6 +153,7 @@
         'import_file':'',
         'page_add_enabled':false,
         'selectedDashbordDate':moment().format('DD-MM-YYYY'),
+        
 		 	}
 		 },
     created: function() {
@@ -162,8 +162,9 @@
     },
 		  mounted(){
 		 	let vm = this;
+      //vm.initData();
       vm.getNominationCountForBuyer();
-       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+      vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
       
 		 },
      components: {
@@ -180,11 +181,13 @@
       nominationSuccess()
       {
           let vm=this;
+          
+          vm.selectedDashbordDate=vm.tomorrow_date;
           vm.page_add_enabled=false;
           vm.$store.dispatch('SetNominationId', ''); 
           vm.$store.dispatch('SetNominationPage','');
           vm.getNominationCountForBuyer();
-           vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+          vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
 
       },
       getNominationCountForBuyer()
@@ -246,8 +249,7 @@
         let vm=this;
           vm.$store.dispatch('SetNominationId', id); 
           vm.$store.dispatch('SetNominationPage','EDIT');
-           vm.page_add_enabled=true;
-          //vm.$router.push({'name':'nomination_add'});
+          vm.page_add_enabled=true;
       },
       setAddNomination()
       {
@@ -255,7 +257,6 @@
           vm.$store.dispatch('SetNominationId', ''); 
           vm.$store.dispatch('SetNominationPage','ADD');
           vm.page_add_enabled=true;
-          //vm.$router.push({'name':'nomination_add'});
       },
 		 	getNominationList(page_url,select_date){
 		 		let vm = this;

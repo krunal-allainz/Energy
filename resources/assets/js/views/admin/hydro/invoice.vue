@@ -39,7 +39,8 @@
                         </div>
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-striped table-condensed" id="customtable"  width="100%">
+                            <table class="invoice-table table table-striped table-condensed" id="customtable"  width="100%">
+
                                 <thead>
                                 <tr class="bg-primary">
                                     <th class="text-center" style="width: 150px;">
@@ -103,7 +104,8 @@
                                     <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-center">
                                         <strong>
-                                            <span v-if="(agreementData.paneltyType == 'fuel')">Fuel</span><span v-if="(agreementData.paneltyType == 'company_work_loas')">Less Working Hours</span>: &nbsp;
+                                            <span v-if="(agreementData.paneltyType == 'fuel')">Fuel</span><span v-else)">Less Working Hours</span>: &nbsp;
+
                                         </strong>
                                     </td>
                                     <td class="highrow text-center">

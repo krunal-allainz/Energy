@@ -9,17 +9,16 @@
                       <img src="/assets/img/h_energylogo.png" id="logo-desk" alt="Hydrocarbon Accounting" class="hidden-sm-down">
                       <img src="/assets/img/h_energylogo.png" id="logo-mobile" alt="Hydrocarbon Accounting" class="hidden-md-up">
                   </router-link>
+                  
+                 
+                  
                     <H1 class="text-blue bg-dark text-center mt-50">  Hydrocarbon Accounting<span style="float:right;margin-left:15px;margin-top: -10px;margin-bottom: 5px;">{{curDateTime}}</span></H1>
                   <!-- Sidebar toggle button -->
               </nav>
+              <div>
+               <a  href="#"  class="logout-text text-left back_nav" @click=backNavigate()><i class="fas fa-step-backward"></i>Back</a>
                 <a href="#" class="logout-text text-right" @click.prevent="logout()"><i class="fa fa-sign-out"></i>Logout</a>
-
-                <ul class="action-list">
-                  <li>
-                   <!-- <router-link to="/login">Login</router-link> -->
-                    </li>
-
-                </ul>
+                  </div>
  
         </header>
     </div>
@@ -62,6 +61,7 @@ export default {
         },
         created: function() {
           this.$root.$on('logout',this.logout);
+          this.$root.$on('setDate',this.setDate);
         },
         computed:{
           userType(){
@@ -75,23 +75,33 @@ export default {
           // },3000)
           //this.$store.dispatch('SetIpdId',0);
              
-              var t = setInterval(function(){
+              // var t = setInterval(function(){
                
-               var today = new Date();
-                var h = today.getHours();
-                var m = today.getMinutes();
-                var s = today.getSeconds();
-                m = vm.checkTime(m);
-                s = vm.checkTime(s);
+              //  var today = new Date();
+              //   var h = today.getHours();
+              //   var m = today.getMinutes();
+              //   var s = today.getSeconds();
+              //   m = vm.checkTime(m);
+              //   s = vm.checkTime(s);
 
-                vm.curDateTime = h + ":" + m + ":" + s;
-              }, 500);
+              //   vm.curDateTime = h + ":" + m + ":" + s;
+              // }, 500);
 
         },
         methods:{
+          setDate(setDate){
+              this.curDateTime = setDate;
+          },
           checkTime(i){
             if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
               return i;
+          },
+          backNavigate(){
+                // console.log(this.$router.currentRoute.name);
+                if(this.$router.currentRoute.name != 'buyer-dashboard' && this.$router.currentRoute.name != 'seller-dashboard') {
+
+                      this.$router.go(-1);
+                }
           },
           dashboardLink(){
             if(this.userType == '7'){
@@ -121,3 +131,10 @@ export default {
         }
   }
 </script>
+<style type="text/css" scoped>
+.back_nav {
+  float: left;
+  margin: auto;
+}
+  
+</style>
