@@ -49,19 +49,19 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="row form-group" v-if="nominationData.pageName=='EDIT' && user_type==7">
-                                    <div class="col-md-3">
-                                        <label class="control-label float-right" >Status: </label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select class="form-control ls-select2"  id="request" name="request">
-                                            <option value="">Select</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Approved">Schedule</option>
-                                        </select>
-                                        
-                                    </div>
-                                </div>
+                           <!--      <div class="row form-group" v-if="nominationData.pageName=='EDIT' && user_type==7">
+                               <div class="col-md-3">
+                                   <label class="control-label float-right" >Status: </label>
+                               </div>
+                               <div class="col-md-6">
+                                   <select class="form-control ls-select2"  id="request" name="request">
+                                       <option value="">Select</option>
+                                       <option value="Pending">Pending</option>
+                                       <option value="Approved">Schedule</option>
+                                   </select>
+                                   
+                               </div>
+                           </div> -->
 
                                 <div class="row form-group mt-5">
                                     <div class="col-md-3">
@@ -108,7 +108,7 @@
                         'approved_quantity':'',
                         'nominationId':'',
                         'pageName':'',
-                        'request':'',
+                        //'request':'',
                     },
                     'option': {
                         type: 'day',
@@ -148,7 +148,7 @@
             });
             
             
-             setTimeout(function(){
+             /*setTimeout(function(){
               $('#request').select2({
                 placeholder: "Select",
                 tags:false 
@@ -157,7 +157,7 @@
                 
                     vm.nominationData.request = $(this).val();
                 }); 
-            },100)
+            },100)*/
 
             vm.initData();
             if(vm.nominationData.pageName!='EDIT')
@@ -213,13 +213,13 @@
                         vm.nominationData.quantity =presp_data.quantity_required;
                         vm.nominationData.approved_quantity =presp_data.approved_quantity;
                         vm.nominationData.date.time =presp_data.date;
-                        vm.nominationData.request =presp_data.request;
+                        //vm.nominationData.request =presp_data.request;
                         vm.user_id =presp_data.buyer_id;
                         vm.getAllowedQuantityByBuyerId();
                         setTimeout(function(){
                             $('#supplier').val(presp_data.seller_id).trigger('change');
                         },200);
-                        $('#request').val(presp_data.request).trigger('change');
+                        //$('#request').val(presp_data.request).trigger('change');
                     } else if (response.data.code == 300) {
                         toastr.error('No Nomination Found.', 'Add Nomination', {timeOut: 5000});
                         //this.initialState(); 
@@ -239,7 +239,7 @@
             initialState() {
                 this.$data.nominationData.quantity ='',
                 this.$data.nominationData.date ='',
-                this.$data.nominationData.request ='',
+                //this.$data.nominationData.request ='',
                 this.$data.nominationData.approved_quantity =''
                 
             },
@@ -259,7 +259,7 @@
                                 
                             }
                             else if (response.data.code == 301) {
-                                toastr.error('MDCQ is higher then quantity.', 'Edit Nomination', {timeOut: 5000});
+                                toastr.error('Quantity higher than MDCQ.', 'Edit Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 300) {
@@ -295,11 +295,11 @@
                                 
                             } 
                             else if (response.data.code == 301) {
-                                toastr.error('MDCQ is higher then quantity.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Quantity higher than MDCQ.', 'Update Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 302) {
-                                toastr.error('Approved quantity limit exceed.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Availability is not available.', 'Update Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 300) {

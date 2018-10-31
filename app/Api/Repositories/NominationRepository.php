@@ -79,8 +79,11 @@ use Auth;
             $dataText = $userName.' new nomination for '.$qty.'added';
             $title  = 'Nomination request added';
             $dataTable = 'nomination_request';
+            $new_date=Carbon::createFromFormat('d-m-Y', $nom->date)->format('Y-m-d');
+            $nomination_date=$new_date;
+            //echo $nomination_date;exit;
             $this->notificationObj = new NotificationRepository();
-            $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy);
+            $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
         }
         return $nom_id;
     }
@@ -109,7 +112,7 @@ use Auth;
         $get_buyer=$this->getNominationDetailsById($id);
         $check_quantity_buyer=$this->check_quantity($form_data['quantity'],$get_buyer->buyer_id);
         $check_quantity=$this->check_quantity($form_data['approved_quantity'],$get_buyer->buyer_id);
-        $check_availability=$this->check_availability($form_data['approved_quantity'],$id);
+        $check_availability=$this->check_availability($form_data['approved_quantity'],$id,$get_buyer->date);
         if($check_quantity_buyer=='yes')
         {
              $nom_id=array('nomination_id'=>'','code'=>301);
@@ -125,7 +128,7 @@ use Auth;
         else
         {
             $nom= Nomination::findOrFail($id);
-            $nom->date=$form_data['date']['time'];
+           // $nom->date=$form_data['date']['time'];
             $nom->quantity_required=$form_data['quantity'];
             $nom->approved_quantity=$form_data['approved_quantity'];
             $nom->status=1;
@@ -135,8 +138,10 @@ use Auth;
             }
             else
             {
-
-                      $nom->request=$form_data['request'];
+                if($form_data['approved_quantity']!='' && $form_data['approved_quantity']!=NULL && $form_data['approved_quantity']!=0.00)
+                {
+                     $nom->request='Approved';
+                }
             }
             
             $nom->save();
@@ -151,29 +156,31 @@ use Auth;
             $addedBy  = Auth::user()->id;
             $userType = Auth::user()->user_type;
             $dataTable = 'nomination_request';
+            $new_date=Carbon::createFromFormat('d-m-Y', $nom->date)->format('Y-m-d');
+            $nomination_date=$new_date;
             $this->notificationObj = new NotificationRepository();
-            $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy);
-                if($userType == 7){
-                    $dataUserId1 = $nom->buyer_id;
-                    $approveQty = $form_data['approved_quantity'];
-                    $reuestType = $form_data['request'];
-                    $acualQty = $form_data['quantity'];
-                    if($reuestType == 'Approved'){
-                        $requesttext = 'Schedule';
-                    }else if($reuestType == 'Pending'){
-                        $requesttext = 'Pending';
-                    }else if($reuestType == 'Invoice'){
-                        $requesttext = 'Invoice';
-                    }else{
-                       $requesttext = $reuestType;
-                    }
-                $dataText1 = $userName.' quantity of '.$acualQty.' chnaged to '.$requesttext.''.$approveQty;
-                 
-                      $title1  = 'Request quantity'.$requesttext;
-                      $type1   = 'update_request_qty_status';
-
-                    $this->notificationObj->insert($dataId,$type1,$dataUserId1,$dataText1,$title1,$dataTable,$addedBy);
+            $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
+            if($userType == 7){
+                $dataUserId1 = $nom->buyer_id;
+                $approveQty = $form_data['approved_quantity'];
+                $reuestType = $nom->request;
+                $acualQty = $form_data['quantity'];
+                if($reuestType == 'Approved'){
+                    $requesttext = 'Schedule';
+                }else if($reuestType == 'Pending'){
+                    $requesttext = 'Pending';
+                }else if($reuestType == 'Invoice'){
+                    $requesttext = 'Invoice';
+                }else{
+                   $requesttext = $reuestType;
                 }
+                $dataText1 = $userName.' quantity of '.$acualQty.' chnaged to '.$requesttext.' '.$approveQty;
+                $title1  = 'Request quantity '.$requesttext;
+                $type1   = 'update_request_qty_status';
+                $new_date=Carbon::createFromFormat('d-m-Y', $nom->date)->format('Y-m-d');
+                $nomination_date=$new_date;
+                $this->notificationObj->insert($dataId,$type1,$dataUserId1,$dataText1,$title1,$dataTable,$addedBy,$nomination_date);
+            }
 
         }
         
@@ -203,10 +210,10 @@ use Auth;
         return 'no';
     }
 
-    public function check_availability($approved_quantity,$id)
+    public function check_availability($approved_quantity,$id,$date)
     {
-        $date=Carbon::now()->addDays(1)->format('Y-m-d');
-        $availability=$this->avalabObj->getAvailability($date);
+        $new_date=Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
+        $availability=$this->avalabObj->getAvailability($new_date);
         $total_quantity=Nomination::whereDate('date',$date)->whereRaw('id != ?',$id)->select([DB::raw('SUM(approved_quantity) as total_approved_quantity')])->get();
         $total=$total_quantity[0]['total_approved_quantity']+$approved_quantity;
         //echo $total.'||'.$availability;exit;

@@ -20,7 +20,9 @@ class Notification extends Model
       'data_date',
       'data_text',
       'added_by',
-      'status'
+      'nomination_date',
+      'status',
+
     ];
 
 
@@ -33,5 +35,7 @@ class Notification extends Model
     { 
       return $this->attributes['data_date'] =   Carbon::createFromFormat('d-m-Y H:i:s', $value);
     }
+
+   
 
 }
