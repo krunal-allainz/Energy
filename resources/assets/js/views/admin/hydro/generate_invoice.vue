@@ -54,6 +54,10 @@
                     	'buyer_id': '',
                     	'date':moment().format('DD-MMM-YYYY'),
                     },
+                    'userData' : {
+                    'userType' : this.$store.state.Users.userDetails.user_type,
+                    'userId' : this.$store.state.Users.userDetails.id,
+                },
                    
                     'loadList' : false,
                 }
@@ -63,6 +67,9 @@
         },
         mounted() {
             var vm = this;
+             if(vm.$store.state.Users.userDetails.user_type != '7'){
+              vm.$root.$emit('logout','You are not authorise to access this page'); 
+          }
              vm.loadList = false; 
             let user_type = [] ;
             $('.ls-select2').select2({
