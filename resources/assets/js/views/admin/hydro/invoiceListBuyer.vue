@@ -75,11 +75,11 @@
                       <td data-v-744e717e="" class="">
                         #
                       </td>
-                      <td data-v-744e717e="" class="text-right" colspan="5">
+                      <td data-v-744e717e="" class="text-right" colspan="4">
                       	Pending
                       </td>
 
-                      <td >
+                      <td class="text-center">
                       	<a  :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
                       </td>
 
