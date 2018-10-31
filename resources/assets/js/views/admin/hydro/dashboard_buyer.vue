@@ -54,7 +54,7 @@
                            <i class="fas fa-clipboard-list"></i> 
                         </div>
                         <div class="text-right">
-                            <h3><b>Schedule Quantity</b></h3>
+                            <h3><b>Scheduled Quantity</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
                             <p>For Date:{{selectedDashbordDate}}</p>
                         </div>
@@ -73,7 +73,7 @@
                           <i class="far fa-caret-square-right"></i>
                         </div>
                         <div class="text-right">
-                            <h3><b>Supplied Quantity</b></h3>
+                            <h3><b>Allocated Quantity</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">{{total_supplied}}</b></h3>
                             <p>For Date:{{selectedDashbordDate}}</p>
 
@@ -333,8 +333,8 @@ export default {
                             }],
                             labels: [
                                 'Request Quantity',
-                                'Schedule Quantity',
-                                'Supplied Quantity',
+                                'Scheduled Quantity',
+                                'Allocated Quantity',
                             ]
                         };           
                   var config1 = {

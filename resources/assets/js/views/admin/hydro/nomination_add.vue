@@ -29,7 +29,7 @@
                                 </div>
                                  <div class="row form-group"  v-if="nominationData.pageName=='EDIT' && user_type==7">
                                     <div class="col-md-3">
-                                        <label for="approved_quantity " class="control-label float-right txt_media1">Schedule Quantity :</label>
+                                        <label for="approved_quantity " class="control-label float-right txt_media1">Scheduled Quantity :</label>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" id="approved_quantity"  v-validate="'required|decimal:2'" v-model="nominationData.approved_quantity" name="approved_quantity">
@@ -253,7 +253,7 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success('Nomination added successfully', 'Add Nomination', {timeOut: 5000});
+                                toastr.success(response.data.message, 'Add Nomination', {timeOut: 5000});
                                 vm.$root.$emit('nominationSuccess',1);
                                 //this.initialState();
                                 
@@ -289,7 +289,7 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success('Nomination updated successfully', 'Update Nomination', {timeOut: 5000});
+                                toastr.success(response.data.message, 'Update Nomination', {timeOut: 5000});
                                 vm.$root.$emit('nominationSuccess',1);
                                 //this.initialState();
                                 

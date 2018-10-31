@@ -47,11 +47,11 @@
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
-                                  Schedule Quantity 
+                                  Scheduled Quantity 
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
-                                  Supplied Quantity 
+                                  Allocated Quantity 
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                 <th style="width: auto;">
@@ -91,7 +91,7 @@
                                 Pending
                               </span>
                               <span v-else>
-                                  Schedule
+                                  Scheduled
                               </span>
                                
                             </td>
