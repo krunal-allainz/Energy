@@ -19,6 +19,7 @@
             }
         },
         mounted() {
+            this.$router.replace('/login')
             this.setLayoutClasses()
         },
         destroyed(){
