@@ -90,7 +90,7 @@
                             <i class="far fa-caret-square-right"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Supplied Quantity</b></h3>
+                                <h3><b>Aaloocated Quantity</b></h3>
                                 <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>

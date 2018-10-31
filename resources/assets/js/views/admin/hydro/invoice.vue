@@ -104,7 +104,7 @@
                                     <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-center">
                                         <strong>
-                                            <span v-if="(agreementData.paneltyType == 'fuel')">Fuel</span><span v-else)">Less Working Hours</span>: &nbsp;
+                                            <span >Panelty</span>: &nbsp;
 
                                         </strong>
                                     </td>
