@@ -19,7 +19,7 @@
                         <th data-v-744e717e="" class="sortable" style="width: auto;">
                             #
                         </th>
-                        <th data-v-744e717e="" class="sortable sorting-asc" style="width: 200px;">
+                        <th data-v-744e717e="" class="sortable sorting-asc" style="width: 200px;" colspan="2">
                                 Buyer Name 
                         </th>
                         <th style="width: auto;">
@@ -34,13 +34,13 @@
                            Total Amount
                             <i data-v-744e717e="" class="fa float-right"></i>
                         </th>
-                        <th data-v-744e717e="" class="sortable" style="width: auto;">
+                       <!--  <th data-v-744e717e="" class="sortable" style="width: auto;">
                             Status
                             <i data-v-744e717e="" class="fa float-right"></i>
-                        </th>
+                        </th> -->
                         
                       
-                        <th data-v-744e717e="" class="sortable" style="width: auto;" >
+                        <th data-v-744e717e="" class="sortable text-center" style="width: auto;" >
                             Action
                             <i data-v-744e717e="" class="fa float-right"></i>
                         </th>
@@ -51,7 +51,7 @@
                       <td data-v-744e717e="" class="">
                         {{++index}}
                       </td>
-                      <td data-v-744e717e="" class="">
+                      <td data-v-744e717e="" class="" colspan="2">
                         {{invoice.name }}
                       </td> <!---->
                       <td data-v-744e717e="" class="">
@@ -61,17 +61,15 @@
                        {{invoice.invoice_no }}
                       </td> 
                       <td data-v-744e717e="" class="">
-                        {{ invoice.total_amount }}
+                        {{ invoice.totalInvoice }}
                       </td>
-                      <td data-v-744e717e="" class="text-uppercase">
+                     <!--  <td data-v-744e717e="" class="text-uppercase">
                        <span v-if="invoice.status == 1"> Paid</span>
                        <span v-if="invoice.status == 0"> Pending</span>
-                      </td>
-                      <td data-v-744e717e="" class="">
+                      </td> -->
+                      <td data-v-744e717e="" class="text-center">
                       	 <i data-v-744e717e="" class="fa fa-eye" data-toggle="modal" data-target="#invoiceViewDisaply"></i>
                         <dispalyInvoiceView :invoiceHtml="invoice.invoiceHtml"></dispalyInvoiceView>
-                       <!--  <a  :href="'/user/edit/'+user.id"> <i class="fa fa-pencil"  title="User edit"></i></a>
-                                      <a > <i class="fa fa-trash"  title="request delete" @click="deleteUser(buyer.id)"  ></i></a> -->                    
                       </td>
                     </tr>
 
@@ -220,6 +218,7 @@
                             let name =  value.buyer_name ;
                             let date  = value.date ;
                             let status  = value.status ;
+                            let totalInvoice = value.total_amount
                             let invoiceHtml = value.invoiceHtml;
                             invoice_list.push({
                             	'name':name,
@@ -229,6 +228,7 @@
                             	'sub_total' : sub_total,
                             	'status': status,
                               'invoiceHtml' : invoiceHtml,
+                              'totalInvoice' : totalInvoice
                             });
                         });
                         vm.invoiceList=invoice_list;

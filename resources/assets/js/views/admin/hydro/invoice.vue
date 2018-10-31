@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg text-right">
                                 <div class="float-right">
-                                    <h4><strong>{{invData.invoice_no}} / {{invData.date}}</strong></h4>
+                                    <h4><strong>{{invData.invoice_no}} / {{invData.date | date}}</strong></h4>
                                     <h4><strong>Invoice Info:</strong></h4>
                                     <address>
                                         {{buyerData.name}}
@@ -162,9 +162,11 @@
 
 	import User from '../../../api/users.js';
     import myDatepicker from 'vue-datepicker';
+    import moment from 'moment';
     
 
     export default {
+        
         data() {
             return {
                 'buyerId' : this.$route.params.id,
