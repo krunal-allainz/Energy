@@ -127,5 +127,8 @@ export default {
   },
   getInvoiceDataByBuyerId(buyerId,noOfpage,pageUrl){
      return api.post(pageUrl,{'buyerId':buyerId ,'noOfpage' : noOfpage});
+  },
+  getInvoiceHtml(id){
+     return api.post('invoice/invoiceView',{ 'id' : id });
   }
 }

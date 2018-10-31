@@ -134,6 +134,25 @@ class InvoiceController extends Controller
         }
     }
 
+    /**
+    *
+    *
+    *
+    **/
+
+    public function getInvoiceView(Request $request){
+         $vId = $request->id;
+        $invoice=$this->invObj->getInvoiceView($vId);
+        if($invoice)
+        {
+            return ['code' => 200 ,'data'=>$invoice,'message'=>'Invoce viewgenerate successfully'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
    
     
 }
