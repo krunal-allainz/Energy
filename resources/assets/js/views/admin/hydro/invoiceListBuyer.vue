@@ -19,7 +19,7 @@
                         <th data-v-744e717e="" class="sortable" style="width: auto;">
                             #
                         </th>
-                        <th data-v-744e717e="" class="sortable sorting-asc" style="width: 200px;">
+                        <th data-v-744e717e="" class="sortable sorting-asc" style="width: 200px;" colspan="2">
                                 Buyer Name 
                         </th>
                         <th style="width: auto;">
@@ -34,13 +34,13 @@
                            Total Amount
                             <i data-v-744e717e="" class="fa float-right"></i>
                         </th>
-                        <th data-v-744e717e="" class="sortable" style="width: auto;">
+                       <!--  <th data-v-744e717e="" class="sortable" style="width: auto;">
                             Status
                             <i data-v-744e717e="" class="fa float-right"></i>
-                        </th>
+                        </th> -->
                         
                       
-                        <th data-v-744e717e="" class="sortable" style="width: auto;" >
+                        <th data-v-744e717e="" class="sortable text-center" style="width: auto;" >
                             Action
                             <i data-v-744e717e="" class="fa float-right"></i>
                         </th>
@@ -51,7 +51,7 @@
                       <td data-v-744e717e="" class="">
                         {{++index}}
                       </td>
-                      <td data-v-744e717e="" class="">
+                      <td data-v-744e717e="" class="" colspan="2">
                         {{invoice.name }}
                       </td> <!---->
                       <td data-v-744e717e="" class="">
@@ -61,17 +61,15 @@
                        {{invoice.invoice_no }}
                       </td> 
                       <td data-v-744e717e="" class="">
-                        {{ invoice.total_amount }}
+                        {{ invoice.totalInvoice }}
                       </td>
-                      <td data-v-744e717e="" class="text-uppercase">
+                     <!--  <td data-v-744e717e="" class="text-uppercase">
                        <span v-if="invoice.status == 1"> Paid</span>
                        <span v-if="invoice.status == 0"> Pending</span>
-                      </td>
-                      <td data-v-744e717e="" class="">
-                      	 <i data-v-744e717e="" class="fa fa-eye" data-toggle="modal" data-target="#invoiceViewDisaply"></i>
-                        <dispalyInvoiceView :invoiceHtml="invoice.invoiceHtml"></dispalyInvoiceView>
-                       <!--  <a  :href="'/user/edit/'+user.id"> <i class="fa fa-pencil"  title="User edit"></i></a>
-                                      <a > <i class="fa fa-trash"  title="request delete" @click="deleteUser(buyer.id)"  ></i></a> -->                    
+                      </td> -->
+                      <td data-v-744e717e="" class="text-center">
+                      	 <i data-v-744e717e="" class="fa fa-eye" data-toggle="modal" data-target="#invoiceViewDisaply" @click="viewHtmlShow(invoice.vid)"></i>
+                       
                       </td>
                     </tr>
 
@@ -91,7 +89,7 @@
                   </tbody>
                 </table>	
               </div>
-              
+               <dispalyInvoiceView  :invoicehtml="html" v-show="(viewHtml == true)"></dispalyInvoiceView>
               <div data-v-744e717e="" class="table-footer">
                 <div data-v-744e717e="" class="datatable-length float-left pl-3">
                   <span data-v-744e717e="">Rows per page:</span>
@@ -136,6 +134,9 @@
                  'generateInvoice' : false,
                  'noIncludeType': 'Invoice',
                  'user_type':this.$store.state.Users.userDetails.user_type,
+                'viewHtml' : false,
+                'invoiceId' : '',
+                'html' : ''
             }
         },
          mounted() {
@@ -144,6 +145,13 @@
             let noOfPage = vm.perPage;
             let requestType = vm.noIncludeType;
             let typeInclude = 'no';
+            vm.viewHtml = false;
+            setTimeout(function(){
+              vm.viewHtml = false;
+               vm.html = ''; 
+            
+            },1000);
+            vm.invoiceId = '';
             vm.getInvoiceDataByBuyerId(vm.buyerId,noOfPage,pageUrl);
             vm.getBuyerRequestList(vm.buyerId,requestType,typeInclude);
             vm.checkGenerateInvoiceRequest();
@@ -153,9 +161,28 @@
             
         },
         methods: {
+          viewHtmlShow(vid){
+            var vm = this;
+            vm.invoiceId = '';
+            vm.viewHtml = true;
+             vm.getInvoiceHtml(vid);
+
+          },
+           getInvoiceHtml(id){
+                let vm  =this;
+                vm.html = '';
+                User.getInvoiceHtml(id).then(
+                     (response) => {
+                        vm.html = response.data.data.invoiceView;
+                     },
+                     (error) => {
+                    },
+
+                    );
+                return true;
+            },
         	checkGenerateInvoiceRequest(noOfRecord,status){
-           
- 				var vm = this;
+ 				    var vm = this;
         		vm.generateInvoice = status;
 
         	},
@@ -218,10 +245,13 @@
                         $.each(data, function(key, value) {
                         	let invoice_no = value.invoice_no;
                             let name =  value.buyer_name ;
+                            let vid =  value.vid;
                             let date  = value.date ;
                             let status  = value.status ;
+                            let totalInvoice = value.total_amount
                             let invoiceHtml = value.invoiceHtml;
                             invoice_list.push({
+                              'vid' : vid,
                             	'name':name,
                             	'date':date,
                             	'invoice_no':invoice_no,
@@ -229,6 +259,7 @@
                             	'sub_total' : sub_total,
                             	'status': status,
                               'invoiceHtml' : invoiceHtml,
+                              'totalInvoice' : totalInvoice
                             });
                         });
                         vm.invoiceList=invoice_list;

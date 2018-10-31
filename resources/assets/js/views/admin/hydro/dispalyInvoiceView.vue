@@ -2,13 +2,19 @@
 	<div class="modal fade bg-modal-color refdel" id="invoiceViewDisaply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     	<div class="modal-dialog delete-modal" role="document">
         	<div class="modal-content">
-              <!--   <div class="modal-header">
-                    <h5 class="modal-title text-left" id="">
-                    	Invoice
-                    </h5>
+                <!-- <div class="modal-header">
+                     <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fa fa-credit-card"></i> Invoice
+                            </h3>
+                            <span class="float-right">
+                                <i class="fa fa-fw ti-angle-up clickable"></i>
+                                <i class="fa fa-fw ti-close removecard"></i>
+                            </span> 
+                         </div>
                 </div> -->
                 <div class="modal-body" >
-                    <div v-html="invoiceHtml"></div>
+                    <span v-html="invoicehtml"></span>
                    
                 </div>
                  <div class="modal-footer">
@@ -19,23 +25,29 @@
     </div>
 </template>
 <script >
+    import User from '../../../api/users.js';
     export default {
-        props:['invoiceHtml'],
+
+        props:['invoicehtml'],
         data() {
             return {
-                 
+                'html' : '',
                 }
         },
          mounted() {
-            console.log(this.invoiceHtml,'tt');
-             // setTimeout(function(){
-             //     if(vm.buyer_id != ''){
-             //         vm.loadList = true;  
-             //    }
-             //    },1000) ;
+            let vm  =this;
+           
          },
+         filters:{
+            dateFormate: function(date) {
+            return moment(date).format('Y, MMM DD');
+            }
+        },
          methods: {
+           
             hideModal() {
+                 let vm  =this;
+               
                 $('#invoiceViewDisaply').modal('hide')
                     return false
             },

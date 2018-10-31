@@ -4,16 +4,15 @@
       <nominationAdd></nominationAdd>
   </section>
 		<div class="card bg-success-card">
-      <div class="card-header">
+      <div class="card-header  mb-3" >
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
           <div   v-if="user_type==6 && add_nomination_count==0 && tomorrow_date==selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
         </div>
-        <br/>
-           <div class="row">
+      </div>
+        <div class="row">
             <div class="col-md-12"><previousNextDate></previousNextDate></div>
           </div>
-        </div>
             <div class="card-body">
             	<div data-v-744e717e="" class="px-3"  v-if="(nominationPagination.total > 0)">
               		<div data-v-744e717e="" class="table-header">

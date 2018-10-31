@@ -12,7 +12,7 @@
                     </span> 
                 </div>
 
-                <div class="card-body">
+                <div class="card-body" id="invoiceViewGet">
                     <div class="row">
 
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg">
@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg text-right">
                                 <div class="float-right">
-                                    <h4><strong>{{invData.invoice_no}} / {{invData.date}}</strong></h4>
+                                    <h4><strong>{{invData.invoice_no}} / <span id="dateFeildId">{{invData.date | dateFormate}}</span></strong></h4>
                                     <h4><strong>Invoice Info:</strong></h4>
                                     <address>
                                         {{buyerData.name}}
@@ -41,7 +41,7 @@
                         </div>
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-striped table-condensed" id="customtable">
+                            <table class="invoice-table table table-striped table-condensed" id="customtable">
                                 <thead>
                                 <tr class="bg-primary">
                                     <th class="text-center">
@@ -105,7 +105,8 @@
                                     <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-right">
                                         <strong>
-                                            <span v-if="(agreementData.paneltyType == 'fuel')">Fuel</span><span v-if="(agreementData.paneltyType == 'company_work_loas')">Less Working Hours</span>: &nbsp;
+                                            <span v-if="(agreementData.paneltyType == 'fuel')">Fuel</span><span v-else)">Less Working Hours</span>: &nbsp;
+
                                         </strong>
                                     </td>
                                     <td class="highrow text-right">
@@ -150,10 +151,12 @@
                             </table>
                         </div>
                     </div>
-                    <form><div><button type="button" class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form>
             </div>
+              <form><div class="text-right"><button type="button" class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form>
         </div>
+
     </section>
+
 
 	</div>
 </template>
@@ -162,9 +165,11 @@
 
 	import User from '../../../api/users.js';
     import myDatepicker from 'vue-datepicker';
+    import moment from 'moment';
     
 
     export default {
+
         data() {
             return {
                 'buyerId' : this.$route.params.id,
@@ -195,6 +200,11 @@
                 'invoice2':{},
                 'invoice2_subdata':{},
                 } 
+        },
+        filters:{
+            dateFormate: function(date) {
+            return moment(date).format('Y, MMM DD');
+            }
         },
         components: {
             'date-picker': myDatepicker,
@@ -285,7 +295,7 @@
             },
             generateInvoice(invoiceDataIndex,buyerId){
                  let vm=this;
-                 var invoiceHtml = $("#invoice-stmt").html();
+                 var invoiceHtml = $("#invoiceViewGet").html();
                  User.generateInvoiceByBuyerId(vm.buyerId,vm.user_id,vm.invoiceData,invoiceDataIndex,invoiceHtml,vm.requestList,vm.agreementData).then(
                      (response) => {
                         if(response.data.code == 200){
