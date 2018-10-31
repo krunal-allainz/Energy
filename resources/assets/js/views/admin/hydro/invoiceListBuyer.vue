@@ -75,7 +75,7 @@
                       <td data-v-744e717e="" class="">
                         #
                       </td>
-                      <td data-v-744e717e="" class="text-right" colspan="4">
+                      <td data-v-744e717e="" class="text-right" colspan="3">
                       	Pending
                       </td>
 
