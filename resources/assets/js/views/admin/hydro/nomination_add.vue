@@ -22,7 +22,9 @@
                                         <label for="quantity " class="control-label float-right txt_media1">Quantity :</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationData.quantity" name="quantity">
+                                       
+                                        <input type="text" class="form-control" id="quantity" v-model="nominationData.quantity" name="quantity"  v-if="user_type==7" readonly="readonly" >
+                                        <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationData.quantity" name="quantity" v-else >
                                         <i v-show="errors.has('quantity')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
                                     </div>
@@ -244,6 +246,8 @@
                 
             },
             validateBeforeSubmit() {
+                console.log('test2');
+
                let vm=this;
                 vm.$validator.validateAll().then(() => {
                     
@@ -281,6 +285,7 @@
                 })
             },
             editValidateBeforeSubmit() {
+                console.log('test1');
                let vm=this;
                 vm.$validator.validateAll().then(() => {
                     
