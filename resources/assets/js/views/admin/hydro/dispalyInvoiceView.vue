@@ -8,7 +8,7 @@
                     </h5>
                 </div> -->
                 <div class="modal-body" >
-                    <div v-html="invoiceHtml"></div>
+                    <span v-html="invoiceHtml"></span>
                    
                 </div>
                  <div class="modal-footer">
@@ -20,19 +20,13 @@
 </template>
 <script >
     export default {
+
         props:['invoiceHtml'],
         data() {
             return {
-                 
                 }
         },
          mounted() {
-            console.log(this.invoiceHtml,'tt');
-             // setTimeout(function(){
-             //     if(vm.buyer_id != ''){
-             //         vm.loadList = true;  
-             //    }
-             //    },1000) ;
          },
          methods: {
             hideModal() {
