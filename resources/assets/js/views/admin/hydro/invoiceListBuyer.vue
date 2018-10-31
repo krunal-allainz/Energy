@@ -19,10 +19,10 @@
                         <th data-v-744e717e="" class="sortable" style="width: auto;">
                             #
                         </th>
-                        <th data-v-744e717e="" class="sortable sorting-asc" style="width: 200px;" colspan="2">
+                      <!--   <th data-v-744e717e="" class="sortable sorting-asc" style="width: 200px;" colspan="2">
                                 Buyer Name 
-                        </th>
-                        <th style="width: auto;">
+                        </th> -->
+                        <th style="width: auto;" colspan="2">
                             Invoice Date
                              <i data-v-744e717e="" class="fa float-right"></i>
                          </th>
@@ -51,10 +51,10 @@
                       <td data-v-744e717e="" class="">
                         {{++index}}
                       </td>
-                      <td data-v-744e717e="" class="" colspan="2">
+                      <!-- <td data-v-744e717e="" class="" colspan="2">
                         {{invoice.name }}
-                      </td> <!---->
-                      <td data-v-744e717e="" class="">
+                      </td> --> <!---->
+                      <td data-v-744e717e="" class="" colspan="2">
                        {{invoice.date }}
                       </td>
                       <td data-v-744e717e="" class="numeric">
@@ -73,7 +73,7 @@
                       </td>
                     </tr>
 
-                    <tr v-show="generateInvoice == true">
+                    <tr v-show="generateInvoice == true" v-if="user_type==7">
                       <td data-v-744e717e="" class="">
                         #
                       </td>
@@ -82,7 +82,7 @@
                       </td>
 
                       <td >
-                      	<a v-if="user_type==7" :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
+                      	<a  :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
                       </td>
 
                     </tr>

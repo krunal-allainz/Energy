@@ -11,10 +11,8 @@
                         <i class="fa fa-fw ti-close removecard"></i>
                     </span> 
                 </div>
-
                 <div class="card-body" id="invoiceViewGet">
                     <div class="row">
-
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg">
                                 <h4><img src="/assets/img/h_energylogo.png" alt="clear"/></h4>
                                 <h4><strong>Billing Details:</strong></h4>
@@ -41,18 +39,18 @@
                         </div>
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-striped table-condensed" id="customtable">
+                            <table class="table table-striped table-condensed" id="customtable"  width="100%">
                                 <thead>
                                 <tr class="bg-primary">
-                                    <th class="text-center">
+                                    <th class="text-center" style="width: 150px;">
                                         <strong>Date</strong>
                                     </th>
-                                    <th class="text-center" colspan="3" >
+                                    <th class="text-center" colspan="3" style="width: 150px;">
                                         <strong>
                                            Supplied Quantity
                                         </strong>
                                     </th>
-                                     <th colspan="2" class="text-right">
+                                     <th colspan="2" class="text-center" style="width: 100px;">
                                         <strong>Price</strong>
                                     </th>
                                    <!--  <th>
@@ -62,7 +60,7 @@
                                         <strong>Tax</strong>
                                     </th> -->
                                    
-                                    <th class="text-right">
+                                    <th class="text-center" style="width: 100px;">
                                         <strong>Total</strong>
                                     </th>
                                     <!-- <th class="text-center" id="add_row"><i class="fa fa-fw ti-plus"></i></th> -->
@@ -74,8 +72,8 @@
                                         <td class="text-center">{{request.date}}</td>
                                         <td class="text-center" colspan="3">{{request.supplied_Qty}}</td>
                                        
-                                         <td colspan="2" class="text-right">{{agreementData.price}}</td>
-                                        <td class="text-right">{{request.supplied_Qty * agreementData.price}}</td>
+                                         <td colspan="2" class="text-center">{{agreementData.price}}</td>
+                                        <td class="text-center">{{request.supplied_Qty * agreementData.price}}</td>
                                         
 
                                     </tr>
@@ -87,12 +85,12 @@
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
                                      <td></td>
-                                    <td class="highrow text-right">
+                                    <td class="highrow text-center">
                                         <strong>
                                             Sub Total: &nbsp;
                                         </strong>
                                     </td>
-                                    <td class="highrow text-right">
+                                    <td class="highrow text-center">
                                         <strong contenteditable><span class="top tipso_style" title="Sub Total" data-tipso="Here amount total charge.">${{invData.sub_amount}}</span></strong>
                                     </td>
                                    
@@ -103,12 +101,12 @@
                                     <td class="emptyrow"></td>
                                       <td></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-right">
+                                    <td class="emptyrow text-center">
                                         <strong>
                                             <span v-if="(agreementData.paneltyType == 'fuel')">Fuel</span><span v-if="(agreementData.paneltyType == 'company_work_loas')">Less Working Hours</span>: &nbsp;
                                         </strong>
                                     </td>
-                                    <td class="highrow text-right">
+                                    <td class="highrow text-center">
                                         <strong contenteditable>  - <span class="top tipso_style" title="Panelty Define In Agreement" data-tipso="Here amount is deducted."> ${{ agreementData.panelty}}</span></strong>
                                     </td>
                                   
@@ -119,12 +117,12 @@
                                     <td class="emptyrow"></td>
                                        <td></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-right">
+                                    <td class="emptyrow text-center" width="50px">
                                         <strong>
-                                            {{agreementData.taxType}} : &nbsp; ( %{{agreementData.taxRate}})  &nbsp;
+                                            {{agreementData.taxType}}( %{{agreementData.taxRate}}):
                                         </strong>
                                     </td>
-                                    <td class="highrow text-right">
+                                    <td class="highrow text-center">
                                         <strong contenteditable>  +  ${{invData.tax_rate_amount_cal}}</strong>
                                     </td>
                                  
@@ -137,13 +135,13 @@
                                     <td class="emptyrow"></td>
                                     <td></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-right">
+                                    <td class="emptyrow text-center">
                                         <strong>
-                                            Total: &nbsp;
+                                            <b>Total: &nbsp;</b>
                                         </strong>
                                     </td>
-                                    <td class="highrow text-right">
-                                        <strong contenteditable>${{invData.total_amount}}</strong>
+                                    <td class="highrow text-center">
+                                        <strong contenteditable><b>${{invData.total_amount}}</b></strong>
                                     </td>
                                 </tr>
                                 </tfoot>
@@ -202,7 +200,7 @@
         },
         filters:{
             dateFormate: function(date) {
-            return moment(date).format('Y, MMM DD');
+            return moment(date).format('DD-MM-YYYY');
             }
         },
         components: {
@@ -299,11 +297,15 @@
                      (response) => {
                         if(response.data.code == 200){
                             if(response.data.data == true){
+                                 toastr.success('Invoice has been generated successfully', 'Generate Invoice', {timeOut: 5000});
                                   this.$router.push({name: 'generate_invoice'})
                             }
+                        }else{
+                             toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
                         }
                     },
                     (error) => {
+                          toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
                     },
                 );
                  
