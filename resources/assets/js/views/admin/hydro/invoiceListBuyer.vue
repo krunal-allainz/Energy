@@ -22,7 +22,7 @@
                       <!--   <th data-v-744e717e="" class="sortable sorting-asc" style="width: 200px;" colspan="2">
                                 Buyer Name 
                         </th> -->
-                        <th style="width: auto;" colspan="2">
+                        <th style="width: auto;" >
                             Invoice Date
                              <i data-v-744e717e="" class="fa float-right"></i>
                          </th>
@@ -51,12 +51,10 @@
                       <td data-v-744e717e="" class="">
                         {{++index}}
                       </td>
-                      <!-- <td data-v-744e717e="" class="" colspan="2">
-                        {{invoice.name }}
-                      </td> --> <!---->
-                      <td data-v-744e717e="" class="" colspan="2">
-                       {{invoice.date }}
-                      </td>
+
+                      <td data-v-744e717e="" class="" v-text="invoiceFormat(invoice.date)">
+                      </td>  <!---->
+                      
                       <td data-v-744e717e="" class="numeric">
                        {{invoice.invoice_no }}
                       </td> 
@@ -121,6 +119,7 @@
 <script>
 	import User from '../../../api/users.js';
   import dispalyInvoiceView from './dispalyInvoiceView.vue';
+    import moment from 'moment';
 
 	export default{
         props :['buyerId'],
@@ -167,6 +166,10 @@
             vm.viewHtml = true;
              vm.getInvoiceHtml(vid);
 
+          },
+          invoiceFormat(date){
+            return moment(date).format('DD-MM-YYYY');
+            
           },
            getInvoiceHtml(id){
                 let vm  =this;
