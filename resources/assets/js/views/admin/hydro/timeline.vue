@@ -17,7 +17,10 @@
                                                  <div class="timeline-card wow slideInLeft"
                                                      style="display:inline-block;">
                                                     <div class="timeline-heading">
-                                                        <h4 class="timeline-title">{{data.title}}</h4>
+                                                        <span v-if="data.dataTable=='nomination_request'">
+                                                          <a class="text-info point" @click="nomination_link(data.nDate)"><h4 class="timeline-title">{{data.title}}</h4></a>
+                                                        </span>
+                                                        
                                                         <p>
                                                             <small class="text-primary">{{data.Datadate}} </small>
                                                         </p>
@@ -70,7 +73,18 @@
               
          },
            methods: {
-                getTimelineData(){
+              nomination_link(date)
+              {
+                   
+                  let new_date=moment(date).format('DD-MM-YYYY');
+                  let vm=this;
+
+                  vm.$store.dispatch('SetNominationDate',new_date ); 
+                  vm.$store.dispatch('SetNominationPage','LIST');
+                  vm.$router.push({'name':'nomination_list'});
+
+              },
+              getTimelineData(){
                     let vm = this;
                     User.getTimelineData(vm.userData.userType,vm.userData.userId).then(
                              (response)=>{
@@ -85,3 +99,9 @@
            }
     }
 </script>
+<style>
+.text-info
+{
+  color: #17a2b8!important;
+}
+</style>

@@ -27,12 +27,27 @@ export default {
     },
     mounted: function() {
         let vm=this;
+        vm.initData();
         vm.$root.$emit('changeDashbordDate',vm.selectedDate);
     },
     components: {
            
     },
     methods: {
+        initData()
+        {
+          let vm=this;
+          let nomination_page=vm.$store.state.Nomination.nominationPage;
+         
+          //if(nomination_page=='LIST')
+          //{
+              let nDate=vm.$store.state.Nomination.nominationDate;
+              if(nDate!="" && nDate!=null)
+              {
+                  vm.selectedDate=nDate;
+              }
+          //}
+        },
         getPrevoiusDate(){
             let vm=this;
             let prevoiusDay = moment(vm.selectedDate,'DD-MM-YYYY').add(-1,'days').format('DD-MM-YYYY');
