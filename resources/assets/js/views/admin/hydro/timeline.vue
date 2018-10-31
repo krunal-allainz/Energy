@@ -7,8 +7,9 @@
                                     <h3 class="card-title">Notification</h3>
                                 </div>
                                 <div class="card-body">
-                                    <div >
-                                        <ul class="timeline timeline-update" style="overflow-y: scroll;">
+                                    <div  class="scrollbar" id="style-1">
+                                        <ul class="timeline timeline-update force-overflow" style="overflow: auto;">
+
                                             <li   v-for="data in timelineData">
                                                  <div class="timeline-badge primary wow lightSpeedIn center">
                                                  <!--    <img src="img/authors/avatar1.jpg" height="36" width="36"
@@ -32,6 +33,7 @@
                                                     </div>
                                                 </div>
                                             </li>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -57,8 +59,8 @@
              if ($('.timeline-update').length > 0) {
                  vm.getTimelineData();
                 $('.timeline-update').newsTicker({
-                    row_height: 20,
-                    max_rows: 4,
+                    row_height: 90,
+                    max_rows: 3,
                     speed: 2000,
                     direction: 'up',
                     duration: 3500,
@@ -67,6 +69,7 @@
                 });
              
              }
+             $('.force-overflow').css({overflow : 'auto'});
             setTimeout(function(){
                  vm.getTimelineData();
             },8000) ;
