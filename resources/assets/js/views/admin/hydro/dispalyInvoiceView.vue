@@ -14,7 +14,7 @@
                          </div>
                 </div> -->
                 <div class="modal-body" >
-                    <span v-html="invoiceHtml"></span>
+                    <span v-html="invoicehtml"></span>
                    
                 </div>
                  <div class="modal-footer">
@@ -25,17 +25,29 @@
     </div>
 </template>
 <script >
+    import User from '../../../api/users.js';
     export default {
 
-        props:['invoiceHtml'],
+        props:['invoicehtml'],
         data() {
             return {
+                'html' : '',
                 }
         },
          mounted() {
+            let vm  =this;
+           
          },
+         filters:{
+            dateFormate: function(date) {
+            return moment(date).format('Y, MMM DD');
+            }
+        },
          methods: {
+           
             hideModal() {
+                 let vm  =this;
+               
                 $('#invoiceViewDisaply').modal('hide')
                     return false
             },
