@@ -42,7 +42,8 @@
                 </div>
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="/nomination_list" title="Add Nomination">
+                        <!-- <a href="/nomination_list" title="Add Nomination"> -->
+                             <router-link to="/nomination_list" title="Add Nomination">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                 <i class="fas fa-charging-station"></i>
@@ -55,7 +56,8 @@
                             <div class="clearfix"></div>
 
                         </div>
-                        </a>
+                    </router-link>
+                        <!-- </a> -->
                     </div>
                 </div>
                
@@ -95,7 +97,8 @@
                     </div>
                     <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="/generate_invoice">
+                         <router-link to="/generate_invoice">
+                        <!-- <a href="/generate_invoice"> -->
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                            <i class="fas fa-money-check"></i>
@@ -107,7 +110,8 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        </a>
+                        <!-- </a> -->
+                        </router-link>
                         </div>
                     </div>
                 </div>
@@ -393,6 +397,7 @@ export default {
 
                 } 
                 else if (response.data.code == 301) {
+
                     toastr.error('You have alredy updated supplied quantity.', 'Supplied Quantity', {timeOut: 5000});
                 }
                 else if (response.data.code == 302) {
@@ -438,7 +443,6 @@ export default {
         chart1Data()
         {
 
-            console.log('hi');
             let vm=this;
             
             var ctx1 = document.getElementById("myChart").getContext('2d'); 

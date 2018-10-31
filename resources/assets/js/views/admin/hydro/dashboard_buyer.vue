@@ -4,12 +4,12 @@
     <section class="content-header mb-3">
             <div class="row">
                 <div class="col-md-4 col-sm-5">
-                    <h1>Dashboard</h1> 
+                    <h1><i class="fas fa-chart-bar"></i>Dashboard</h1> 
                 </div>
                 <div class="col-md-8 col-sm-7 text-right">
                      <ol class="breadcrumb">
                         <li role="presentation" class="breadcrumb-item active">
-                            <span aria-current="location"><i class="ti-home"></i> Dashboard</span>
+                            <span aria-current="location"><i class="fas fa-chart-bar"></i> Dashboard</span>
                         </li>
                     </ol>
                 </div>
@@ -48,7 +48,7 @@
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
-                    <a href="#">
+                    <a >
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
                            <i class="fas fa-clipboard-list"></i> 
@@ -67,7 +67,7 @@
         </div>
            <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
-                    <a href="#">
+                    <a >
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
                           <i class="far fa-caret-square-right"></i>
@@ -110,11 +110,9 @@
                         <div class="col-sm-12">
                             <div class="card main-chart">
                                 <div class="card-header panel-tabs buyer_chart1">
-                                    <ul class="nav nav-tabs nav-float" role="tablist">
-                                        <li class=" text-center nav-item">
-                                            <a href="#allocation" class="nav-link active" role="tab" data-toggle="tab">Nomination</a>
-                                        </li>
-                                    </ul>
+                                     <div class="card-header">
+                                        Nomination
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="tab-content">
