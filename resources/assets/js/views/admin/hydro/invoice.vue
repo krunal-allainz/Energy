@@ -48,7 +48,7 @@
                                     </th>
                                     <th class="text-center" colspan="3" style="width: 150px;">
                                         <strong>
-                                           Supplied Quantity
+                                           Allocated Quantity
                                         </strong>
                                     </th>
                                      <th colspan="2" class="text-center" style="width: 100px;">
@@ -92,7 +92,7 @@
                                         </strong>
                                     </td>
                                     <td class="highrow text-center">
-                                        <strong contenteditable><span class="top tipso_style" title="Sub Total" data-tipso="Here amount total charge.">${{invData.sub_amount}}</span></strong>
+                                        <strong contenteditable><span class="top tipso_style" title="Sub Total" data-tipso="Here amount total charge."><i class="fa fa-rupee"></i> {{invData.sub_amount}}</span></strong>
                                     </td>
                                    
                                 </tr>
@@ -109,7 +109,7 @@
                                         </strong>
                                     </td>
                                     <td class="highrow text-center">
-                                        <strong contenteditable>  - <span class="top tipso_style" title="Panelty Define In Agreement" data-tipso="Here amount is deducted."> ${{ agreementData.panelty}}</span></strong>
+                                        <strong contenteditable> <span class="top tipso_style" title="Panelty Define In Agreement" data-tipso="Here amount is deducted."> - <i class="fa fa-rupee"></i> {{ agreementData.panelty}}</span></strong>
                                     </td>
                                   
                                 </tr>
@@ -125,7 +125,7 @@
                                         </strong>
                                     </td>
                                     <td class="highrow text-center">
-                                        <strong contenteditable>  +  ${{invData.tax_rate_amount_cal}}</strong>
+                                        <strong contenteditable>  +  <i class="fa fa-rupee"></i> {{invData.tax_rate_amount_cal}}</strong>
                                     </td>
                                  
                                 </tr>
@@ -143,7 +143,7 @@
                                         </strong>
                                     </td>
                                     <td class="highrow text-center">
-                                        <strong contenteditable><b>${{invData.total_amount}}</b></strong>
+                                        <strong contenteditable><b><i class="fa fa-rupee"></i> {{invData.total_amount}}</b></strong>
                                     </td>
                                 </tr>
                                 </tfoot>
