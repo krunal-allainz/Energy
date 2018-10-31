@@ -15,9 +15,9 @@
     RewriteRule ^ index.php [L]
 
     
-    RewriteEngine On
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST} [L,R=301]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
