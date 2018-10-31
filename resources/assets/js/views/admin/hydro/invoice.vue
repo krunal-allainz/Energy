@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg text-right">
                                 <div class="float-right">
-                                    <h4><strong>{{invData.invoice_no}} / {{invData.date}}</strong></h4>
+                                    <h4><strong>{{invData.invoice_no}} / {{invData.date | dateFormate}}</strong></h4>
                                     <h4><strong>Invoice Info:</strong></h4>
                                     <address>
                                         {{buyerData.name}}
@@ -155,7 +155,7 @@
         </div>
 
     </section>
-   
+
 
 	</div>
 </template>
@@ -199,6 +199,11 @@
                 'invoice2':{},
                 'invoice2_subdata':{},
                 } 
+        },
+        filters:{
+            dateFormate: function(date) {
+            return moment(date).format('Y, MMM DD');
+    }
         },
         components: {
             'date-picker': myDatepicker,
