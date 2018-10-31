@@ -12,7 +12,7 @@
                     </span> 
                 </div>
 
-                <div class="card-body">
+                <div class="card-body" id="invoiceViewGet">
                     <div class="row">
 
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg">
@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg text-right">
                                 <div class="float-right">
-                                    <h4><strong>{{invData.invoice_no}} / {{invData.date | date}}</strong></h4>
+                                    <h4><strong>{{invData.invoice_no}} / {{invData.date | dateFormate}}</strong></h4>
                                     <h4><strong>Invoice Info:</strong></h4>
                                     <address>
                                         {{buyerData.name}}
@@ -150,10 +150,12 @@
                             </table>
                         </div>
                     </div>
-                    <form><div><button type="button" class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form>
             </div>
+              <form><div class="text-right"><button type="button" class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form>
         </div>
+
     </section>
+
 
 	</div>
 </template>
@@ -166,7 +168,7 @@
     
 
     export default {
-        
+
         data() {
             return {
                 'buyerId' : this.$route.params.id,
@@ -197,6 +199,11 @@
                 'invoice2':{},
                 'invoice2_subdata':{},
                 } 
+        },
+        filters:{
+            dateFormate: function(date) {
+            return moment(date).format('Y, MMM DD');
+    }
         },
         components: {
             'date-picker': myDatepicker,
@@ -287,7 +294,7 @@
             },
             generateInvoice(invoiceDataIndex,buyerId){
                  let vm=this;
-                 var invoiceHtml = $("#invoice-stmt").html();
+                 var invoiceHtml = $("#invoiceViewGet").html();
                  User.generateInvoiceByBuyerId(vm.buyerId,vm.user_id,vm.invoiceData,invoiceDataIndex,invoiceHtml,vm.requestList,vm.agreementData).then(
                      (response) => {
                         if(response.data.code == 200){
