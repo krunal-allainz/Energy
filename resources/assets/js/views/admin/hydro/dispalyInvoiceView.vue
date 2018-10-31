@@ -2,13 +2,19 @@
 	<div class="modal fade bg-modal-color refdel" id="invoiceViewDisaply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     	<div class="modal-dialog delete-modal" role="document">
         	<div class="modal-content">
-              <!--   <div class="modal-header">
-                    <h5 class="modal-title text-left" id="">
-                    	Invoice
-                    </h5>
+                <!-- <div class="modal-header">
+                     <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fa fa-credit-card"></i> Invoice
+                            </h3>
+                            <span class="float-right">
+                                <i class="fa fa-fw ti-angle-up clickable"></i>
+                                <i class="fa fa-fw ti-close removecard"></i>
+                            </span> 
+                         </div>
                 </div> -->
                 <div class="modal-body" >
-                    <div v-html="invoiceHtml"></div>
+                    <span v-html="invoiceHtml"></span>
                    
                 </div>
                  <div class="modal-footer">
@@ -20,19 +26,13 @@
 </template>
 <script >
     export default {
+
         props:['invoiceHtml'],
         data() {
             return {
-                 
                 }
         },
          mounted() {
-            console.log(this.invoiceHtml,'tt');
-             // setTimeout(function(){
-             //     if(vm.buyer_id != ''){
-             //         vm.loadList = true;  
-             //    }
-             //    },1000) ;
          },
          methods: {
             hideModal() {
