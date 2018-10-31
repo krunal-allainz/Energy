@@ -68,8 +68,8 @@
                        <span v-if="invoice.status == 0"> Pending</span>
                       </td> -->
                       <td data-v-744e717e="" class="text-center">
-                      	 <i data-v-744e717e="" class="fa fa-eye" data-toggle="modal" data-target="#invoiceViewDisaply"></i>
-                        <dispalyInvoiceView :invoiceHtml="invoice.invoiceHtml"></dispalyInvoiceView>
+                      	 <i data-v-744e717e="" class="fa fa-eye" data-toggle="modal" data-target="#invoiceViewDisaply" @click="viewHtmlShow"></i>
+                        <dispalyInvoiceView :invoiceHtml="invoice.invoiceHtml" v-show="(viewHtml == true)"></dispalyInvoiceView>
                       </td>
                     </tr>
 
@@ -134,6 +134,7 @@
                  'generateInvoice' : false,
                  'noIncludeType': 'Invoice',
                  'user_type':this.$store.state.Users.userDetails.user_type,
+                'viewHtml' : false,
             }
         },
          mounted() {
@@ -142,6 +143,7 @@
             let noOfPage = vm.perPage;
             let requestType = vm.noIncludeType;
             let typeInclude = 'no';
+            vm.viewHtml = false;
             vm.getInvoiceDataByBuyerId(vm.buyerId,noOfPage,pageUrl);
             vm.getBuyerRequestList(vm.buyerId,requestType,typeInclude);
             vm.checkGenerateInvoiceRequest();
@@ -151,9 +153,12 @@
             
         },
         methods: {
+          viewHtmlShow(){
+            var vm = this;
+            vm.viewHtml = true;
+          },
         	checkGenerateInvoiceRequest(noOfRecord,status){
-           
- 				var vm = this;
+ 				    var vm = this;
         		vm.generateInvoice = status;
 
         	},
