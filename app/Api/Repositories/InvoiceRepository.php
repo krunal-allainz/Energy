@@ -91,6 +91,7 @@ use Auth;
             $res_arr=array();
             $res_arr['date']=$inv->date;
             $res_arr['invoice_no']=$inv->invoice_no;
+            $res_arr['vid']=$inv->id;
             $res_arr['buyer_name']=$this->userObj->getUserNameInfoById($inv->buyer_id);
             $res_arr['seller_name']=$this->userObj->getUserNameInfoById($inv->seller_id);
             $res_arr['supplied_quantity']=$inv->supplied_quantity;
@@ -197,6 +198,10 @@ use Auth;
             $this->nominationRepoObj->updateRequeststatus('Invoice',$request['nid']);
         }
         return true;
+    }
+
+    public function getInvoiceView($vid){
+        return Invoice::select('invoiceView as invoiceView')->where('id',$vid)->first();
     }
     
  }

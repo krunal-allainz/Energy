@@ -68,8 +68,8 @@
                        <span v-if="invoice.status == 0"> Pending</span>
                       </td> -->
                       <td data-v-744e717e="" class="text-center">
-                      	 <i data-v-744e717e="" class="fa fa-eye" data-toggle="modal" data-target="#invoiceViewDisaply" @click="viewHtmlShow"></i>
-                        <dispalyInvoiceView :invoiceHtml="invoice.invoiceHtml" v-show="(viewHtml == true)"></dispalyInvoiceView>
+                      	 <i data-v-744e717e="" class="fa fa-eye" data-toggle="modal" data-target="#invoiceViewDisaply" @click="viewHtmlShow(invoice.vid)"></i>
+                       
                       </td>
                     </tr>
 
@@ -89,7 +89,7 @@
                   </tbody>
                 </table>	
               </div>
-              
+               <dispalyInvoiceView  :invoicehtml="html" v-show="(viewHtml == true)"></dispalyInvoiceView>
               <div data-v-744e717e="" class="table-footer">
                 <div data-v-744e717e="" class="datatable-length float-left pl-3">
                   <span data-v-744e717e="">Rows per page:</span>
@@ -135,6 +135,8 @@
                  'noIncludeType': 'Invoice',
                  'user_type':this.$store.state.Users.userDetails.user_type,
                 'viewHtml' : false,
+                'invoiceId' : '',
+                'html' : ''
             }
         },
          mounted() {
@@ -144,6 +146,12 @@
             let requestType = vm.noIncludeType;
             let typeInclude = 'no';
             vm.viewHtml = false;
+            setTimeout(function(){
+              vm.viewHtml = false;
+               vm.html = ''; 
+            
+            },1000);
+            vm.invoiceId = '';
             vm.getInvoiceDataByBuyerId(vm.buyerId,noOfPage,pageUrl);
             vm.getBuyerRequestList(vm.buyerId,requestType,typeInclude);
             vm.checkGenerateInvoiceRequest();
@@ -153,10 +161,26 @@
             
         },
         methods: {
-          viewHtmlShow(){
+          viewHtmlShow(vid){
             var vm = this;
+            vm.invoiceId = '';
             vm.viewHtml = true;
+             vm.getInvoiceHtml(vid);
+
           },
+           getInvoiceHtml(id){
+                let vm  =this;
+                vm.html = '';
+                User.getInvoiceHtml(id).then(
+                     (response) => {
+                        vm.html = response.data.data.invoiceView;
+                     },
+                     (error) => {
+                    },
+
+                    );
+                return true;
+            },
         	checkGenerateInvoiceRequest(noOfRecord,status){
  				    var vm = this;
         		vm.generateInvoice = status;
@@ -221,11 +245,13 @@
                         $.each(data, function(key, value) {
                         	let invoice_no = value.invoice_no;
                             let name =  value.buyer_name ;
+                            let vid =  value.vid;
                             let date  = value.date ;
                             let status  = value.status ;
                             let totalInvoice = value.total_amount
                             let invoiceHtml = value.invoiceHtml;
                             invoice_list.push({
+                              'vid' : vid,
                             	'name':name,
                             	'date':date,
                             	'invoice_no':invoice_no,
