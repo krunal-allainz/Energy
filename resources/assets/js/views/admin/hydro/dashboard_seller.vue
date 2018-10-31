@@ -84,13 +84,13 @@
           
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="#" @click="supplied_quantity()" title="Add Supplied">
+                        <a href="#" @click="supplied_quantity()" title="Add Allocated">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                             <i class="far fa-caret-square-right"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Aaloocated Quantity</b></h3>
+                                <h3><b>Allocated Quantity</b></h3>
                                 <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -148,7 +148,7 @@
                                         <!-- <ul class="nav nav-tabs nav-float" role="tablist"> -->
                                             
                                             <!-- <li class="text-center nav-item"> -->
-                                                <a><span class="d-none d-sm-block">Current Supply</span>
+                                                <a><span class="d-none d-sm-block">Current Allocate</span>
                                                     </a>
                                             <!-- </li> -->
                                         <!-- </ul> -->
@@ -410,17 +410,17 @@ export default {
                 } 
                 else if (response.data.code == 301) {
 
-                    toastr.error('You have alredy updated supplied quantity.', 'Supplied Quantity', {timeOut: 5000});
+                    toastr.error('You have alredy updated allocated quantity.', 'Allocated Quantity', {timeOut: 5000});
                 }
                 else if (response.data.code == 302) {
-                    toastr.error('Schedule quantity not added.', 'Supplied Quantity', {timeOut: 5000});
+                    toastr.error('Allocated quantity not added.', 'Allocated Quantity', {timeOut: 5000});
                 }
                 else if (response.data.code == 300) {
-                    toastr.error('No record found.', 'Supplied Quantity', {timeOut: 5000});
+                    toastr.error('No record found.', 'Allocated Quantity', {timeOut: 5000});
                 }
                 else
                 {
-                    toastr.error('Something Went wrong.', 'Supplied Quantity', {timeOut: 5000});
+                    toastr.error('Something Went wrong.', 'Allocated Quantity', {timeOut: 5000});
                 }
                 
               },
@@ -472,8 +472,8 @@ export default {
                     }],
                     labels: [
                         'Requested',
-                        'Schedule',
-                        'Supplied',
+                        'Scheduled',
+                        'Allocated',
                     ]
                 };
             var config1 = {
@@ -549,7 +549,7 @@ export default {
                     ],
                     labels: [
                         'Available',
-                        'Supplied',
+                        'Allocated',
                     ]
                 },
                 options: {

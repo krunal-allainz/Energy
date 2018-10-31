@@ -36,6 +36,7 @@ class NominationController extends Controller
      */
     public function getNominationList(Request $request)
     {
+
         $userType = $request->userType;
         $userId = $request->userId ;
         $noOfPage = $request->noofRecord;
@@ -68,7 +69,7 @@ class NominationController extends Controller
         $add_Nomination=$this->nomObj->create($request);
         if($add_Nomination['code']==200)
         {
-            return ['code' => 200 ,'data'=>$add_Nomination,'message'=>'Nomination successfully added.'];
+            return ['code' => 200 ,'data'=>$add_Nomination,'message'=>$add_Nomination['message']];
         }
         else if($add_Nomination['code']==301)
         {
@@ -109,7 +110,7 @@ class NominationController extends Controller
         $edit_Nomination=$this->nomObj->edit($request);
         if($edit_Nomination['code']==200)
         {
-            return ['code' => 200 ,'data'=>$edit_Nomination,'message'=>'Nomination successfully edited.'];
+            return ['code' => 200 ,'data'=>$edit_Nomination,'message'=>$edit_Nomination['message']];
         }
         else if($edit_Nomination['code']==301)
         {
