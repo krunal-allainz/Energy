@@ -51,7 +51,7 @@
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
-                                  Supplied Quantity 
+                                  Allocated Quantity 
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                 <th style="width: auto;">

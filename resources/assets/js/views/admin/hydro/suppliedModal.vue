@@ -23,7 +23,7 @@
                                         <th>Buyer Name</th>
                                         <th>Requested Quantity</th>
                                         <th>Approved Quantity</th>
-                                        <th>Supplied Quantity</th>
+                                        <th>Allocated Quantity</th>
                                     </tr>
                                     </thead>
                                     <tbody>
