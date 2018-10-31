@@ -10,7 +10,7 @@
                 <div class="col-md-8 col-sm-7 text-left text-sm-right">
                     <ol class="breadcrumb">
                         <li role="presentation" class="breadcrumb-item active">
-                            <span aria-current="location"><i class="fas fa-chart-bar">  </i>Dashboard</span>
+                            <span aria-current="location">Dashboard</span>
                         </li>
                     </ol>
                 </div>
