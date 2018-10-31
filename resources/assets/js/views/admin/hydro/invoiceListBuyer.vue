@@ -88,6 +88,7 @@
                 </table>	
               </div>
                <dispalyInvoiceView  :invoicehtml="html" v-show="(viewHtml == true)"></dispalyInvoiceView>
+
               <div data-v-744e717e="" class="table-footer">
                 <div data-v-744e717e="" class="datatable-length float-left pl-3">
                   <span data-v-744e717e="">Rows per page:</span>
@@ -107,9 +108,27 @@
                </div>
             </div>
             <div v-else>
-              <h6 class="card-header">
+            
+
+                <table>
+                 <tr  v-show="generateInvoice == true" v-if="user_type==7">
+                      <td data-v-744e717e="" class="">
+                        #
+                      </td>
+                      <td data-v-744e717e="" class="text-right" colspan="3">
+                        Pending
+                      </td>
+
+                      <td class="text-center">
+                        <a  :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
+                      </td>
+
+                    </tr>
+                    </table>
+                      <h6 class="card-header"  v-show="generateInvoice == false">
                <div>No records available</div>
             </h6>
+               </div>
             </div>
           </div>
         </div>
