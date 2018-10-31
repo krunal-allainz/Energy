@@ -8,9 +8,7 @@
                 </div>
                 <div class="col-md-8 col-sm-7 text-right">
                      <ol class="breadcrumb">
-                        <li role="presentation" class="breadcrumb-item active">
-                            <span aria-current="location"> Dashboard</span>
-                        </li>
+                        
                     </ol>
                 </div>
             </div>
@@ -94,7 +92,7 @@
                     <div class="text-right">
 
                         <h3><b><a href="/generate_buyer_invoice">Invoice</a></b></h3>
-                        <p>Generate Invoice</p>
+                        <!-- <p>Generate Invoice</p> -->
 
                     </div>
                     <div class="clearfix"></div>

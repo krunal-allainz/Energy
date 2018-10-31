@@ -21,6 +21,8 @@
                   </div>
  
         </header>
+        <a  href="#"  class=" back_nav" @click=backNavigate()><i class="fas fa-step-backward"></i>Back</a>
+
     </div>
 
         <div class="dashboard">

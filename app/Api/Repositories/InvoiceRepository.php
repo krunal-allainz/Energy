@@ -83,7 +83,7 @@ use Auth;
 
     public function getInvoiceLisyByBuyerId($buyerId,$noOfpage){
 
-         $list= Invoice::where('buyer_id',$buyerId)->paginate($noOfpage);
+         $list= Invoice::where('buyer_id',$buyerId)->orderBy('id','DESC')->paginate($noOfpage);
         $result_array=array();
         $total=0;
         foreach($list as $inv)
