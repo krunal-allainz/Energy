@@ -5,13 +5,9 @@ import * as actions from './actions'
 import * as getters from './getters'
 import * as types from './mutation-types'
 
-import Patient from './modules/patient'
+
 import Users from './modules/users'
-import Prescription from './modules/prescription'
-import Laboratory from './modules/laboratory'
-import Bodyparts from './modules/bodyparts'
-import Qualifiers from './modules/qualifiers'
-import SpecialRequest from './modules/specialRequest'
+
 
 //for nomination
 import Nomination from './modules/nomination'
@@ -47,13 +43,7 @@ export default new Vuex.Store({
   mutations,
   getters,
   modules: {
-    Patient,
     Users,
-    Prescription,
-    Laboratory,
-    Bodyparts,
-    Qualifiers,
-    SpecialRequest,
     Nomination,
     // Pitch,
     // Users

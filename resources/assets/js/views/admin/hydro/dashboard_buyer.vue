@@ -30,7 +30,7 @@
 	<div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
-                     <a href="/nomination_list" title="Add Nomination">
+                     <a href="#" @click="nomination_page()" title="Add Nomination">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                <i class="fas fa-charging-station"></i>
@@ -191,6 +191,14 @@ export default {
         vm.chartData();
     },
     methods: {
+        nomination_page()
+        {
+            let vm=this;
+            vm.$store.dispatch('SetNominationDate',''); 
+            vm.$store.dispatch('SetNominationPage','');
+            vm.$store.dispatch('SetNominationId','');
+            vm.$router.push({'name':'nomination_list'});
+        },
         changeDashbordDate(selectDate)
         {
             let vm=this;
