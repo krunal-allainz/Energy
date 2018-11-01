@@ -34,14 +34,17 @@ use Auth;
     {
         if($userType==6)
         {
-             $list= Nomination::whereDate('date',$date)->where('nomination_request.buyer_id',$userId)->select('nomination_request.*','nomination_request.id as nId')->orderBy('nomination_request.created_at','desc')->paginate($noOfPage);
-
+             $list= Nomination::join('agreement', function ($join) {
+                $join->on('agreement.buyer_id', '=', 'nomination_request.buyer_id');
+            })->whereDate('nomination_request.date',$date)->where('nomination_request.buyer_id',$userId)->select('nomination_request.*','nomination_request.id as nId','agreement.allowed_quantity as dcqValue')->orderBy('nomination_request.created_at','desc')->paginate($noOfPage);
         }
         else if($userType==7)
         {
              $list= Nomination::join('users', function ($join) {
                 $join->on('users.id', '=', 'nomination_request.buyer_id');
-            })->whereDate('nomination_request.date',$date)->select('nomination_request.*','nomination_request.id as nId','users.first_name as buyer_name')->groupBy('nomination_request.id')->orderBy('nomination_request.created_at','desc')->paginate($noOfPage);
+            })->join('agreement', function ($join) {
+                $join->on('agreement.buyer_id', '=', 'nomination_request.buyer_id');
+            })->whereDate('nomination_request.date',$date)->select('nomination_request.*','nomination_request.id as nId','users.first_name as buyer_name','agreement.allowed_quantity as dcqValue')->groupBy('nomination_request.id')->orderBy('nomination_request.created_at','desc')->paginate($noOfPage);
         }
         
         return $list;

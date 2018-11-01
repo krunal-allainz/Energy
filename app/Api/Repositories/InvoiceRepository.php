@@ -110,7 +110,13 @@ use Auth;
     }
 
     public function viewbyBuyer($buyerId){
+        $lastIdRecord  = 0;
         $lastIdRecord = Invoice::orderBy('id','DESC')->first();
+        if($lastIdRecord != null){
+            $lastId =  $lastIdRecord->id;
+        }else{
+             $lastId = 0;
+        }
         $userData = $this->userObj->getUserDetaileById($buyerId);
         $this->agreementObj = new AgreementRepository();
         $agreementData = $this->agreementObj->getAgreementData($buyerId);
@@ -120,7 +126,7 @@ use Auth;
         $external_fuel_type = $agreementData->external_fuel_type;
         $external_fuel_type_rate = $agreementData->external_fuel_type_rate;
         $requestList = $this->nominationRepoObj->getBuyerRequestList($buyerId,'Invoice','no');
-        $lastId =  $lastIdRecord->id;
+       
         $result = array();
         $invoiceNo = $lastId; 
         $max_loop=5;

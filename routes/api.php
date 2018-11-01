@@ -157,6 +157,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         $api->post('invoice/viewbybuyer', '\Energy\Api\Controllers\InvoiceController@viewbyBuyer');
 
          $api->post('invoice/invoiceView', '\Energy\Api\Controllers\InvoiceController@getInvoiceView');
+
+          $api->post('availability/getCheckAvaibilityForQuantity', '\Energy\Api\Controllers\AvailabilityController@checkAvaibilityForQuantityForApprove');
+
 }); 
 
         
