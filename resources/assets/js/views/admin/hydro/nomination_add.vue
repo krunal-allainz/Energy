@@ -166,7 +166,6 @@
             {
                 vm.getAllowedQuantityByBuyerId();
             }
-            
            
            
         },
@@ -186,6 +185,29 @@
 
                 )
             },
+            checkAvaibilityForQuantityForApprove(){
+
+                let vm=this;
+                let nominationDate = vm.nominationData.date.time;
+                let nomnationId =  vm.nominationData.nominationId ;
+                let requestQty = vm.nominationData.quantity;
+
+                User.checkAvaibilityForQuantityForApprove(nominationDate,nomnationId,requestQty).then(
+                   (response)=> {
+                    if(response.data.code == 200){
+                         let approveQty=response.data.data;
+                        if(approveQty != 0){
+                            vm.nominationData.approved_quantity=approveQty;
+
+                        }else{
+                           vm.nominationData.approved_quantity= '' ;
+                        }
+                    }    
+                  },
+                  (error)=>{
+                  } 
+                );
+            },
             initData()
             {
                 let vm=this;
@@ -199,6 +221,7 @@
                     if(pID!=0 || pID!=null)
                     {
                         vm.nominationData.nominationId=pID;
+
                         vm.setNominationData(pID);
 
                     }
@@ -218,6 +241,9 @@
                         //vm.nominationData.request =presp_data.request;
                         vm.user_id =presp_data.buyer_id;
                         vm.getAllowedQuantityByBuyerId();
+                        if(vm.nominationData.pageName=='EDIT' && vm.user_type==7){
+                            vm.checkAvaibilityForQuantityForApprove();
+                        }
                         setTimeout(function(){
                             $('#supplier').val(presp_data.seller_id).trigger('change');
                         },200);

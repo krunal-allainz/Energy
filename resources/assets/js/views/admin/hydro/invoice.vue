@@ -104,7 +104,7 @@
                                     <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-center">
                                         <strong>
-                                            <span >Panelty</span>: &nbsp;
+                                            <span >Penalty</span>: &nbsp;
 
                                         </strong>
                                     </td>
