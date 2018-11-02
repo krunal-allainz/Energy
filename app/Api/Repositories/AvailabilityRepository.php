@@ -86,7 +86,6 @@ use Auth;
                 $total = $nominationQty;
              }
            
-           
                 if($total<$avaibilty)
                 {
                     return $nominationQty;
