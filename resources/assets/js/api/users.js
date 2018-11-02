@@ -86,8 +86,8 @@ export default {
   generateInvoiceViewByBuyerId(buyerId){
     return api.post('invoice/viewbybuyer', { 'buyerId' : buyerId});
   },
-  createAvailability(){
-     return api.post('availability/createAvailability');
+  createAvailability(selected_date){
+     return api.post('availability/createAvailability',{'selected_date':selected_date});
   },
   getBuyerRequestList(buyerId,requestType,typeInclude){
     return api.post('nomination/getbuyerrequestlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
@@ -119,8 +119,8 @@ export default {
   getNominationDetailsByDateAndId(date,buyerId){
      return api.post('nomination/getNominationDetailsByDateById',{'date':date , 'buyerId' : buyerId});
   },
-  getNominationCountForBuyer(userId){
-     return api.post('nomination/getNominationCountForBuyer',{'userId':userId});
+  getNominationCountForBuyer(userId,selected_date){
+     return api.post('nomination/getNominationCountForBuyer',{'userId':userId,'selected_date':selected_date});
   },
   getAllowedQuantityByBuyerId(userId){
      return api.post('agreement/getAllowedQuantityByBuyerId',{'userId':userId});

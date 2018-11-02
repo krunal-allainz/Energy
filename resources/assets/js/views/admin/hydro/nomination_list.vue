@@ -7,7 +7,7 @@
       <div class="card-header  mb-3" >
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
-          <div   v-if="user_type==6 && add_nomination_count==0 && tomorrow_date==selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+          <div   v-if="user_type==6 && add_nomination_count==0 && today_date<selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
         </div>
       </div>
         <div class="row">
@@ -96,8 +96,8 @@
                                
                             </td>
                       				<td data-v-744e717e="" class="">
-                      					<a v-if="today_date==nominationData.date || tomorrow_date==nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Nomination Delete"></i></a>
-                                <a  v-if="today_date==nominationData.date || tomorrow_date==nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                      					<a v-if="today_date<=nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Nomination Delete"></i></a>
+                                <a  v-if="today_date<=nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -160,12 +160,11 @@
         this.$root.$on('nominationSuccess',this.nominationSuccess);
         this.$root.$on('changeDashbordDate',this.changeDashbordDate);
     },
-		  mounted(){
+		mounted(){
 		 	let vm = this;
       //vm.initData();
       vm.getNominationCountForBuyer();
       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
-      
 		 },
      components: {
         nominationAdd,
@@ -176,6 +175,7 @@
         {
             let vm=this;
             vm.selectedDashbordDate=selectDate;
+            vm.getNominationCountForBuyer();
             vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
         },
         setQty(data){
@@ -202,7 +202,7 @@
       getNominationCountForBuyer()
       {
           let vm=this;
-          User.getNominationCountForBuyer(vm.user_id).then(
+          User.getNominationCountForBuyer(vm.user_id,vm.selectedDashbordDate).then(
             (response)=> {
              vm.add_nomination_count=response.data.data;
             },
@@ -265,6 +265,7 @@
           let vm=this;
           vm.$store.dispatch('SetNominationId', ''); 
           vm.$store.dispatch('SetNominationPage','ADD');
+          vm.$store.dispatch('SetNominationDate',vm.selectedDashbordDate);
           vm.page_add_enabled=true;
       },
 		 	getNominationList(page_url,select_date){

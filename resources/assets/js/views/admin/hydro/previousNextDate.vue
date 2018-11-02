@@ -4,7 +4,7 @@
         <div class="">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <button class="btn btn-info" @click="getPrevoiusDate()">Previous Day</button> <button class="btn btn-info" :disabled="selectedDate==disabledDate" @click="getNextDate()">Next Day</button>
+                    <button class="btn btn-info" @click="getPrevoiusDate()">Previous Day</button> <button class="btn btn-info"  @click="getNextDate()">Next Day</button>
                 </div>
             </div>
         </div>

@@ -16,10 +16,8 @@ use Auth;
      * @param  [type] $request [description]
      * @return [type]          [description]
      */
-    public function create()
+    public function create($date)
     {
-
-        $date=Carbon::now()->addDays(1)->format('Y-m-d');
         $count=$this->getAvailabilityData($date);
         if($count>0)
         {
