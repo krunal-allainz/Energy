@@ -130,5 +130,8 @@ export default {
   },
   getInvoiceHtml(id){
      return api.post('invoice/invoiceView',{ 'id' : id });
+  },
+  checkAvaibilityForQuantityForApprove(nominationDate,nomnationId,nominationQty){
+    return api.post('availability/getCheckAvaibilityForQuantity',{ 'currrentDate' : currrentDate ,'nominationDate':nominationDate,'nomnationId' : nomnationId,'nominationQty' : nominationQty});
   }
 }

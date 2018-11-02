@@ -3,6 +3,7 @@ namespace Energy\Api\Repositories;
 use Carbon\Carbon;
 use DB;
 use Energy\Models\Availability;
+use Energy\Models\Nomination;
 use Excel;
 use File;
 use Auth;
@@ -63,6 +64,42 @@ use Auth;
              return 0;
         }
        
+    }
+
+    /**
+    *
+    *
+    *
+    **/
+
+    public function checkAvaibilityForQuantityForApprove($nominationDate,$nomnationId,$nominationQty){
+         $date =Carbon::parse($nominationDate )->format('Y-m-d'); 
+        $avaibilty = $this->getAvailability($date);
+         $total = 0;
+        if($avaibilty != 0){
+            $totalRequestQunatity=Nomination::whereDate('date',$date)->whereRaw('id != ?',$nomnationId)->select([DB::raw('SUM(approved_quantity) as total_approved_quantity')])->get();
+            if($totalRequestQunatity[0]['total_approved_quantity'] != null){
+                 $total=$totalRequestQunatity[0]['total_approved_quantity']+$nominationQty;
+             }else{
+                $total = $nominationQty;
+             }
+           
+           
+                if($total<$avaibilty)
+                {
+                    return $nominationQty;
+                }
+                else
+                {
+                    return 0;
+                }
+        }else{
+            return 0;
+        }
+
+
+        
+
     }
 
 

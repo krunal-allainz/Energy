@@ -54,6 +54,14 @@
                                   Allocated Quantity 
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
+                                 <th style="width: auto;">
+                                  DCQ
+                                  <i data-v-744e717e="" class="fa float-right"></i> 
+                                </th>
+                                 <th style="width: auto;">
+                                  MDCQ 
+                                  <i data-v-744e717e="" class="fa float-right"></i> 
+                                </th>
                                 <th style="width: auto;">
                                   Date
                                   <i data-v-744e717e="" class="fa float-right"></i> 
@@ -81,6 +89,12 @@
                                
                             </td>
                             <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationData.supplied_quantity)">
+                               
+                            </td>
+                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationData.dcqValue)">
+                               
+                            </td>
+                             <td data-v-744e717e="" class="text-uppercase" v-text="getMDCQValue(nominationData.dcqValue)">
                                
                             </td>
                              <td data-v-744e717e="" class="text-uppercase">
@@ -185,6 +199,14 @@
           } else {
             return '00.00' + ' MMBTU';
 
+          }
+        },
+        getMDCQValue(data){
+          if(data){
+            let value = (data*120)/100 ;
+            return value + ' MMBTU';
+          }else{
+            return '00.00' + ' MMBTU';
           }
         },
       nominationSuccess()

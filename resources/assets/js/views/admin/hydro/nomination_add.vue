@@ -8,7 +8,7 @@
           <div class="col-md-12"><h4 class="mt-2" v-if="nominationData.pageName=='EDIT'">Nomination Update</h4><h4 class="mt-2" v-else>Nomination Add</h4></div>
           </div>
           <div class="col-md-6 text-right">
-                    <strong>MDCQ:</strong> <strong>{{mdcq}}</strong>
+                    <strong>DCQ:</strong> <strong>{{mdcq}}</strong>
                 </div>
         </div>
         <div class="card-body">
@@ -22,11 +22,16 @@
                                         <label for="quantity " class="control-label float-right txt_media1">Quantity :</label>
                                     </div>
                                     <div class="col-md-6">
+                                        <div class=" input-group">
                                        
-                                        <input type="text" class="form-control" id="quantity" v-model="nominationData.quantity" name="quantity"  v-if="user_type==7" readonly="readonly" >
-                                        <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationData.quantity" name="quantity" v-else >
-                                        <i v-show="errors.has('quantity')" class="fa fa-warning"></i>
-                                        <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
+                                            <input type="text" class="form-control" id="quantity" v-model="nominationData.quantity" name="quantity"  v-if="user_type==7" readonly="readonly" >
+                                            <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationData.quantity" name="quantity" v-else >
+                                             <div class="input-group-append">
+                                                <span class="input-group-text ">MMBTU</span>
+                                            </div>
+                                        </div>
+
+                                            <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
                                     </div>
                                 </div>
                                  <div class="row form-group"  v-if="nominationData.pageName=='EDIT' && user_type==7">
@@ -34,8 +39,15 @@
                                         <label for="approved_quantity " class="control-label float-right txt_media1">Scheduled Quantity :</label>
                                     </div>
                                     <div class="col-md-6">
+                                        <div class=" input-group">
+
                                         <input type="text" class="form-control" id="approved_quantity"  v-validate="'required|decimal:2'" v-model="nominationData.approved_quantity" name="approved_quantity">
-                                        <i v-show="errors.has('approved_quantity')" class="fa fa-warning"></i>
+                                         <div class="input-group-append">
+                                                <span class="input-group-text ">MMBTU</span>
+                                            </div>
+                                    </div>
+
+
                                         <span class="help is-danger" v-show="errors.has('approved_quantity')">Please enter valid approved quantity.</span>
                                     </div>
                                 </div>
@@ -166,7 +178,6 @@
             {
                 vm.getAllowedQuantityByBuyerId();
             }
-            
            
            
         },
@@ -186,6 +197,29 @@
 
                 )
             },
+            checkAvaibilityForQuantityForApprove(){
+
+                let vm=this;
+                let nominationDate = vm.nominationData.date.time;
+                let nomnationId =  vm.nominationData.nominationId ;
+                let requestQty = vm.nominationData.quantity;
+
+                User.checkAvaibilityForQuantityForApprove(nominationDate,nomnationId,requestQty).then(
+                   (response)=> {
+                    if(response.data.code == 200){
+                         let approveQty=response.data.data;
+                        if(approveQty != 0){
+                            vm.nominationData.approved_quantity=approveQty;
+
+                        }else{
+                           vm.nominationData.approved_quantity= '' ;
+                        }
+                    }    
+                  },
+                  (error)=>{
+                  } 
+                );
+            },
             initData()
             {
                 let vm=this;
@@ -199,6 +233,7 @@
                     if(pID!=0 || pID!=null)
                     {
                         vm.nominationData.nominationId=pID;
+
                         vm.setNominationData(pID);
 
                     }
@@ -226,6 +261,9 @@
                         //vm.nominationData.request =presp_data.request;
                         vm.user_id =presp_data.buyer_id;
                         vm.getAllowedQuantityByBuyerId();
+                        if(vm.nominationData.pageName=='EDIT' && vm.user_type==7){
+                            vm.checkAvaibilityForQuantityForApprove();
+                        }
                         setTimeout(function(){
                             $('#supplier').val(presp_data.seller_id).trigger('change');
                         },200);

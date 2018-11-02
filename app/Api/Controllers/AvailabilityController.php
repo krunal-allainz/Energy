@@ -58,6 +58,30 @@ class AvailabilityController extends Controller
         }
     }
 
+
+    /**
+    *
+    *
+    *
+    **/
+
+    public function checkAvaibilityForQuantityForApprove(Request $request){
+        $nominationDate=$request->nominationDate;
+        $nominationQty=$request->nominationQty;
+        $nomnationId=$request->nomnationId;
+        
+        $getAvailabilityForQty=$this->avlObj->checkAvaibilityForQuantityForApprove($nominationDate,$nomnationId,$nominationQty);
+
+        if($getAvailabilityForQty)
+        {
+            return ['code' => 200 ,'data'=>$getAvailabilityForQty,'message'=>'Availability successfully added.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
     
     
 }
