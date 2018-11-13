@@ -28,11 +28,13 @@ class ScheduleRepository {
 		   	  		Nomination::where('id',$data->id)->update(array('supplied_quantity' => $newSupplierQty));
 		   	  		$id_array[]=$data->id;
    				}
-   				// else
-   				// {
-   				// 	return array('result'=>'','code'=>302);
-   				// }
-   			}
+   				else
+   				{
+   					return array('result'=>'','code'=>302);
+   				}
+   			} else {
+               $id_array[]=$data->id;
+            }
    		}
    		if(count($id_array)>0)
    		{
