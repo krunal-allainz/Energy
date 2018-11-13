@@ -13,7 +13,7 @@
                   <div id="accordion">
                     <div class="">
                         <div class="col-md-12" v-if="tableData.length>0">
-                           <card title="<i class='ti-layout-cta-left'></i> OPD Details"  class="filterable">
+                           <card title="<i class='ti-layout-cta-left'></i> Supplied Details"  class="filterable">
                              <div class="table-responsive">
                                 <table class="table table-striped table-bordered" id="">
                                     <thead>
