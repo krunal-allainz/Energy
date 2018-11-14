@@ -395,6 +395,11 @@ export default {
         supplied_quantity()
         {
             let vm=this;
+            let today=moment().format('DD-MM-YYYY');
+
+            if(vm.selectedDashbordDate!=today) {
+                return false;
+            }
             User.updateSuppliedQuantity().then(
               (response)=> {
                
