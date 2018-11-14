@@ -402,7 +402,7 @@ export default {
                    //toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
                     vm.supplied_table_data=response.data.data;
                     vm.open_supplied_modal=true;
-                    
+                    vm.getTotalApprovedQuantity(vm.selectedDashbordDate);
                     setTimeout(function(){
                         $('#suppliedModalId').modal('show');
                     },100);
