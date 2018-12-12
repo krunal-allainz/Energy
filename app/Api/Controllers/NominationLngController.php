@@ -24,12 +24,12 @@ class NominationLngController extends Controller
      * @return [type]           [description]
      */
     public function getNominationLngList(Request $request)
-    {
+    { 
         $userType = $request->userType;
         $userId = $request->userId ;
         $noOfPage = $request->noofRecord;
         $selected_date=$request->selectedDate;
-        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d');
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date)->format('Y-m-d');
 
         $nomination_lng_list=$this->nomLngObj->getNominationLngList($userType,$noOfPage,$userId,$date);
         if($nomination_lng_list)

@@ -6,36 +6,20 @@
 				<h2>Lng Suppliy By Truck List</h2>
 				</div>
 			</div>
+			<div class="row">
+        <div class="col-md-12">
+          <previousNextDate></previousNextDate></div>
+        </div>
 		</div>
-		<form method="post" enctype="multipart/form-data">
-			
-            <div class="row form-group">
-            	<div class="col-md-3">
-		      		<label class="control-label float-right" for="buyer" > Select Buyer: </label>
-				</div>
-				<div class="col-md-6">
-		      		<select class="form-control ls-select2"  id="buyer" name="buyer" v-validate="'required'">
-		      			<option value="">Select</option>
-						 <option :value="buyer.id" v-for="buyer in invoiceData.buyer_option">{{buyer.name}}</option>
-		      		</select>
-		      		<i v-show="errors.has('buyer')" class="fa fa-warning"></i>
-		      		<span class="help is-danger" v-show="errors.has('buyer')">
-	                	Please select buyer.
-	                </span>
-				</div>
-				
-            </div>
-            <lngSupplyBytruckListForSeller  :buyerId='buyer_id'   v-if="(loadList == true)"></lngSupplyBytruckListForSeller>
-
-
-           
-           <!--  <div class="row form-group">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-9">
-                    <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
-                </div>
-            </div> -->
+            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"></lngSupplyBytruckListForSeller>
+            <form method="post" enctype="multipart/form-data">
+              
+                <div  class="text-right">
+                  <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()">Approve</button>
+                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="editQuantity()">Edit</button>
+                  <button type="button" value="Request" class="btn btn-danger" name="btnReject" @click="rejectQuantity()">Reject</button>
+              </div>
+              
 		</form>
 	</div>
 </template>
@@ -44,7 +28,8 @@
 
 	import User from '../../../api/users.js';
   	import moment from 'moment';
-    import lngSupplyBytruckListForSeller from './nomination_lng_list_for_seller.vue' ; 
+  	import previousNextDate from './previousNextDate.vue';
+    import lngSupplyBytruckListForSeller from './lngSupplyBytruckListForSeller.vue'; 
 
     export default {
         data() {
@@ -57,20 +42,23 @@
                     'userData' : {
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
-                },
+                	},
                    
-                    'loadList' : false,
+                    'loadList' : true,
+                    'selectedDate' : moment().format('DD-MM-YYYY'),
+                    'buyer_id': '',
                 }
         },
         components: {
-            lngSupplyBytruckListForSeller
+          lngSupplyBytruckListForSeller,
+          previousNextDate
         },
         mounted() {
             var vm = this;
              if(vm.$store.state.Users.userDetails.user_type != '3'){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
           }
-             vm.loadList = false; 
+             vm.loadList = true; 
             let user_type = [] ;
             $('.ls-select2').select2({
                 placeholder: "Select"
@@ -89,21 +77,14 @@
                      vm.loadList = true;  
                 }
                 },1000) ;
-               
-                
-              	//
-                // vm.$buyerRequestList.$emit('getInvoiceDataByBuyerId',vm.buyer_id);
           });
-
-            
-            vm.getBuyeList();
         },
         methods: {
             getBuyeList()
             {
             	 var vm = this;
                 var consult_list=[];
-                User.generateUserDetailsByType(6,'Active').then(
+                User.generateUserDetailsByType(2,'Active').then(
                      (response) => {
                         let consult_data  = response.data.data;
                         $.each(consult_data, function(key, value) {
@@ -117,6 +98,16 @@
                     },
                 );
             },
+            editQuantity(){
+
+
+            },
+            approveQuantity(){
+
+            },
+            rejectQuantity(){
+
+            },
             initialState() {
                 this.$data.invoiceData.date = '',
                 this.$data.invoiceData.buyer_id=''
@@ -127,28 +118,7 @@
                 this.$validator.validateAll().then(() => {
                     
                     if (!this.errors.any()) {
-                    // if(this.$data.userData.id=="") {
-                                // here we add code for Mobile user for create user
-                                User.createNomination(this.nominationData).then(
-                                  (response)=> {
-                                    //console.log(response);
-                                    if(response.data.status_code == 200){
-                                        toastr.success('User added successfully', 'Create User', {timeOut: 5000});
-                                        this.initialState();
-                                        //localStorage.setItem("user_add",1)
-                                       // window.location.reload();
-                                    } else if (response.data.status_code == 301) {
-                                        //this.initialState();
-                                        toastr.error('User already exist.', 'Add User', {timeOut: 5000});
-
-                                    }
-                                    // this.$router.push('dashboard');
-                                  },
-                                  (error)=>{
-                                  }
-
-                                )
-                        // }
+                   
                     }
                 })
             }

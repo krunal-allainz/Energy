@@ -1,18 +1,9 @@
 <template>
-	<div class="col-lg-12 mb-3">
-		<div class="card bg-success-card">
-      <div class="card-header  mb-3" >
-        <div class="row">
-          <div class="col-md-6"><h4 class="mt-2">Lng Supply By Truck List</h4></div>
-        </div>
-      </div>
-        <div class="row">
-            <div class="col-md-12"><previousNextDate></previousNextDate></div>
-          </div>
+  <div>
+	   <div class="col-lg-12 mb-3">
             <div class="card-body">
             	<div data-v-744e717e="" class="px-3"  v-if="(nominationLngPagination.total > 0)">
               		<div data-v-744e717e="" class="table-header">
-                  		    <!-- <h4 data-v-744e717e="" class="table-title text-center mt-3"></h4> -->
                             <div data-v-744e717e="" class="datatable-length mb-4">
                             <span data-v-744e717e="">Rows per page:</span>
                                 <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageLngNomination">
@@ -39,76 +30,53 @@
                         			 </th>
                         			
                                 <th style="width: auto;">
-                                  Requested Quantity
+                                  Truck No
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
-                                  Scheduled Quantity 
+                                  Time 
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
-                                  Allocated Quantity 
+                                  Quantity (KG) 
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
-                                 <th style="width: auto;">
-                                  DCQ
-                                  <i data-v-744e717e="" class="fa float-right"></i> 
-                                </th>
-                                 <th style="width: auto;">
-                                  MDCQ 
-                                  <i data-v-744e717e="" class="fa float-right"></i> 
-                                </th>
-                                <th style="width: auto;">
+                               <!--  <th style="width: auto;">
                                   Date
                                   <i data-v-744e717e="" class="fa float-right"></i> 
-                                </th>
-                               <th style="width: auto;">
+                                </th> -->
+                              <!--  <th style="width: auto;">
                                   Status
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                         			 <th data-v-744e717e="" class="sortable" style="width: auto;">
                            				 Action
                             			<i data-v-744e717e="" class="fa float-right"></i>
-                        			 </th>
+                        			 </th> -->
                         		</tr>
                   			</thead>
                   			<tbody data-v-744e717e=""  v-for="nominationLngData in getNominationLngData">
                   				 <tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId">
-                  				 	<td data-v-744e717e="" class="text-uppercase"  v-if="user_type==3">
-                       					{{ nominationLngData.buyer_name}}
+                  				 	<td data-v-744e717e="" class="text-uppercase"  v-text="nominationLngData.first_name">
                       			</td>
                       			
-                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.quantity_required)">
+                            <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.truck_no">
                                
                             </td>
-                             <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.approved_quantity)">
+                             <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.lngTime">
                                
                             </td>
-                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.supplied_quantity)">
+                            <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.quantity">
                                
                             </td>
-                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.dcqValue)">
-                               
-                            </td>
-                             <td data-v-744e717e="" class="text-uppercase" v-text="getMDCQValue(nominationLngData.dcqValue)">
-                               
-                            </td>
+                           <!-- 
                              <td data-v-744e717e="" class="text-uppercase">
                                 {{ nominationLngData.date}}
-                            </td>
-                            <td data-v-744e717e="" class="text-uppercase">
-                              <span v-if="nominationLngData.request=='Pending'">
-                                Pending
-                              </span>
-                              <span v-else>
-                                  Scheduled
-                              </span>
-                               
-                            </td>
-                      				<td data-v-744e717e="" class="">
+                            </td> -->
+                      			<!-- 	<td data-v-744e717e="" class="">
                       					<a v-if="today_date<=nominationLngData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a>
                                 <a  v-if="today_date<=nominationLngData.date" @click="setNominationId(nominationLngData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
-                      				</td>
+                      				</td> -->
                   				 </tr>
                   			</tbody>
                 		</table>
@@ -124,7 +92,9 @@
                       				<option data-v-744e717e="" value="50">50</option>
       
                     			</select> -->
-
+                          <div>
+                            <div></div>
+                          </div>
                      		<div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationLngPagination.total > 0)">
                         		<span data-v-744e717e="">Showing </span> {{nominationLngPagination.current_page}} - {{nominationLngPagination.to}} of {{nominationLngPagination.total}}
                         		<span data-v-744e717e="">records</span>
@@ -140,13 +110,15 @@
             </div>
 		</div>
 	</div>
+</div>
 </template>
 <script>
 	import User from '../../../api/users.js';
-  import nominationLngAdd from './nomination_lng_add';
   import previousNextDate from './previousNextDate.vue';
 	export default {
+     
 		 data() {
+
 		 	return {
         'add_nomination_count':0,
         'today_date':moment().format('DD-MM-YYYY'),
@@ -176,7 +148,6 @@
       vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
 		 },
      components: {
-        nominationLngAdd,
         previousNextDate
     },
 		 methods:{
