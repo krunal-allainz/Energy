@@ -106,10 +106,10 @@ export default {
                 }
           },
           dashboardLink(){
-            if(this.userType == '7'){
+            if(this.userType == '3'){
               return '/seller-dashboard';
             } 
-            else if(this.userType == '6') {
+            else if(this.userType == '2') {
               return '/buyer-dashboard';
             }
           },

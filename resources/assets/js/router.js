@@ -51,7 +51,7 @@ import UserList from './views/admin/vins/UserList.vue'
 //Hydro 
 import NominationForm from './views/admin/hydro/nomination_add.vue'
 import NominationList from './views/admin/hydro/nomination_list.vue'
-
+import NominationLpgList from './views/admin/hydro/nomination_lng_list.vue'
 
 //invoice
 import Invoice from './views/admin/hydro/invoice.vue'
@@ -113,6 +113,12 @@ const routes = [
                 component: NominationList,
                 meta: { requiresAuth: true },
                 name: 'nomination_list'
+            },
+            {
+                path: '/nomination_lpg_list',
+                component: NominationLpgList,
+                meta: { requiresAuth: true },
+                name: 'nomination_lpg_list'
             },
             {
                 path: '/generate_invoice',

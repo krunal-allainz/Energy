@@ -238,6 +238,14 @@
 
                     }
                 }
+                else  if(nomination_page=='ADD')
+                {
+                    let nDate=vm.$store.state.Nomination.nominationDate;
+                      if(nDate!="" && nDate!=null)
+                      {
+                          vm.nominationData.date.time=nDate;
+                      }
+                }
             },
             setNominationData(id)
             {
