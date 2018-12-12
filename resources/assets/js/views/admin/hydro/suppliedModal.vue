@@ -4,7 +4,7 @@
       <div class="modal-dialog modal-lg" role="document" >
           <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel"> Supplied Nomination Detail</h4>
+                <h4 class="modal-title" id="exampleModalLabel"> Allocated Nomination Detail</h4>
                 <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close" @click="getClose()">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,7 +13,7 @@
                   <div id="accordion">
                     <div class="">
                         <div class="col-md-12" v-if="tableData.length>0">
-                           <card title="<i class='ti-layout-cta-left'></i> OPD Details"  class="filterable">
+                           <card title="<i class='ti-layout-cta-left'></i> Allocation Details"  class="filterable">
                              <div class="table-responsive">
                                 <table class="table table-striped table-bordered" id="">
                                     <thead>
