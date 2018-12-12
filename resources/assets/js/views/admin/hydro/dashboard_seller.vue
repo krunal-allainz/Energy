@@ -284,6 +284,17 @@ export default {
               }
              )
         },
+     // Add GCV for specific date
+        addGcv() {
+            let vm =this;
+            let cur_date = vm.selectedDashbordDate;
+
+             User.addGcv(cur_date).then(
+                (response)=> {
+                    
+                }
+                );
+        },   
        getAvailability(selected_date)
        {
             let vm=this;
@@ -599,9 +610,7 @@ export default {
         },
 
     }, 
-    destroyed: function() {
 
-    }
 }
 
 </script>

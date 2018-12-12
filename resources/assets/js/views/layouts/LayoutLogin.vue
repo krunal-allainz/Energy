@@ -29,6 +29,11 @@
                                                         Field is required
                                                     </span>
                                                 
+                                            <div class="col-sm-12 mt-3">
+                                                    <input name="landing_page" v-model="loginData.landing_page" id="rlng_dashboard" type="radio"   />&nbsp; R-Lng Dashboard
+                                                    <input name="landing_page" v-model="loginData.landing_page" id="truck_dashboard" type="radio"  />&nbsp; Truck loading Dashboard
+                                            </div>        
+                                                
                                             </div>
                                         </div>
                                         <div class="col">

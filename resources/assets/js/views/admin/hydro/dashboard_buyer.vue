@@ -388,9 +388,6 @@ export default {
                 },1500)
        }
     }, 
-    destroyed: function() {
-
-    }
 }
 
 </script>
