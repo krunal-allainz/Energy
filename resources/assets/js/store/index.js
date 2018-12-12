@@ -11,6 +11,7 @@ import Users from './modules/users'
 
 //for nomination
 import Nomination from './modules/nomination'
+import NominationLng from './modules/nominationLng'
 
 import createPersistedState from 'vuex-persistedstate'
 // import VuexPersist from 'vuex-persist';
@@ -45,6 +46,8 @@ export default new Vuex.Store({
   modules: {
     Users,
     Nomination,
+    NominationLng,
+
     // Pitch,
     // Users
   },

@@ -35,6 +35,7 @@ mix.combine([
     // pluginPath + 'multiselect/jquery.multi-select.js',
     // pluginPath + 'bootstrapSelect/bootstrap-select.js',
     pluginPath + 'bootstrap-datepicker/bootstrap-datepicker.js',
+     pluginPath + 'bootstrap-timepicker/js/bootstrap-timepicker.js',
     pluginPath + 'timepicker/jquery.timepicker.js',
     // pluginPath + 'summernote/summernote.js',
     // pluginPath + 'simplemde/simplemde.min.js',
