@@ -28,7 +28,7 @@ use Auth;
  	 */
     public function getNominationLngList($userType,$noOfPage,$userId,$date)
     {
-       
+
         if($userType==2)
         {
              $list= NominationLng::join('truck_details', function ($join) {
@@ -61,7 +61,7 @@ use Auth;
 
             $lngDate=Carbon::createFromFormat('d-m-Y', $formData['lngDate'])->format('Y-m-d');
             
-            $checkNominationLng=$this->checkNominationLng($formData['truck_details_id'],$lngDate,$formData['buyer_id']);
+            $checkNominationLng=$this->checkNominationLngWithTime($lngDate,$formData['buyer_id'],$formData['lngTime']);
             if($checkNominationLng>0)
             {
                 return ['code'=> 300 ,'data'=>'','message'=>'Truck is already added for this day.'];
@@ -89,6 +89,14 @@ use Auth;
             }
     }
 
+    public function checkNominationLngWithTime($lDate,$buyer_id,$time)
+    {
+        $list=NominationLng::whereDate('lngDate',$lDate)
+        ->where('buyer_id',$buyer_id)
+        ->where('lngTime',$time)
+        ->get();
+        return count($list);
+    }
     /**
      * [checkNominationLng description]
      * @param  [type] $truck_details_id [description]
