@@ -32,7 +32,9 @@ class ScheduleRepository {
    				{
    					return array('result'=>'','code'=>302);
    				}
-   			}
+   			// } else {
+      //          $id_array[]=$data->id;
+            }
    		}
    		if(count($id_array)>0)
    		{

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ProductionTable extends Migration
+class CreateAvailabilityTabel extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class ProductionTable extends Migration
      */
     public function up()
     {
-        Schema::create('productions', function (Blueprint $table) {
+        Schema::create('availability', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('production_from_time');
-            $table->dateTime('production_to_time');
-            $table->double('quantity');
+            $table->date('date')->nullable();
+            $table->integer('seller_id')->nullable();
+            $table->decimal('quantity',10,2)->nullable();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ class ProductionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productions');
+        Schema::dropIfExists('availability');
     }
 }
