@@ -24,7 +24,7 @@
                                     <div class="col-md-6">
                                         <div class=" input-group">
                                        
-                                            <input type="text" class="form-control" id="quantity" v-model="nominationData.quantity" name="quantity"  v-if="user_type==7" readonly="readonly" >
+                                            <input type="text" class="form-control" id="quantity" v-model="nominationData.quantity" name="quantity"  v-if="user_type==3" readonly="readonly" >
                                             <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationData.quantity" name="quantity" v-else >
                                              <div class="input-group-append">
                                                 <span class="input-group-text ">MMBTU</span>
@@ -34,7 +34,7 @@
                                             <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
                                     </div>
                                 </div>
-                                 <div class="row form-group"  v-if="nominationData.pageName=='EDIT' && user_type==7">
+                                 <div class="row form-group"  v-if="nominationData.pageName=='EDIT' && user_type==3">
                                     <div class="col-md-3">
                                         <label for="approved_quantity " class="control-label float-right txt_media1">Scheduled Quantity :</label>
                                     </div>
@@ -63,7 +63,7 @@
                                         </span>
                                     </div>
                                 </div>
-                           <!--      <div class="row form-group" v-if="nominationData.pageName=='EDIT' && user_type==7">
+                           <!--      <div class="row form-group" v-if="nominationData.pageName=='EDIT' && user_type==3">
                                <div class="col-md-3">
                                    <label class="control-label float-right" >Status: </label>
                                </div>
@@ -261,7 +261,7 @@
                         //vm.nominationData.request =presp_data.request;
                         vm.user_id =presp_data.buyer_id;
                         vm.getAllowedQuantityByBuyerId();
-                        if(vm.nominationData.pageName=='EDIT' && vm.user_type==7){
+                        if(vm.nominationData.pageName=='EDIT' && vm.user_type==3){
                             vm.checkAvaibilityForQuantityForApprove();
                         }
                         setTimeout(function(){

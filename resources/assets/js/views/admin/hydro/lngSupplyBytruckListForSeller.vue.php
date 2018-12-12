@@ -1,25 +1,21 @@
 <template>
 	<div class="col-lg-12 mb-3">
-    <section v-if="page_add_enabled">
-      <nominationAdd></nominationAdd>
-  </section>
 		<div class="card bg-success-card">
       <div class="card-header  mb-3" >
         <div class="row">
-          <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
-          <div   v-if="user_type==6 && add_nomination_count==0 && today_date<selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+          <div class="col-md-6"><h4 class="mt-2">Lng Supply By Truck List</h4></div>
         </div>
       </div>
         <div class="row">
             <div class="col-md-12"><previousNextDate></previousNextDate></div>
           </div>
             <div class="card-body">
-            	<div data-v-744e717e="" class="px-3"  v-if="(nominationPagination.total > 0)">
+            	<div data-v-744e717e="" class="px-3"  v-if="(nominationLngPagination.total > 0)">
               		<div data-v-744e717e="" class="table-header">
                   		    <!-- <h4 data-v-744e717e="" class="table-title text-center mt-3"></h4> -->
                             <div data-v-744e717e="" class="datatable-length mb-4">
                             <span data-v-744e717e="">Rows per page:</span>
-                                <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageNomination">
+                                <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageLngNomination">
                                     <option data-v-744e717e="" value="2">2</option>
                                     <option data-v-744e717e="" value="5">5</option>
                                     <option data-v-744e717e="" value="10">10</option>
@@ -28,8 +24,8 @@
                                     <!--     <option data-v-744e717e="" value="-1">All</option> -->
                                 </select>
 
-                            <!-- <div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationPagination.total > 0)">
-                                <span data-v-744e717e="">Showing </span> {{nominationPagination.current_page}} - {{nominationPagination.to}} of {{nominationPagination.total}}
+                            <!-- <div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationLngPagination.total > 0)">
+                                <span data-v-744e717e="">Showing </span> {{nominationLngPagination.current_page}} - {{nominationLngPagination.to}} of {{nominationLngPagination.total}}
                                 <span data-v-744e717e="">records</span>
                             </div> -->
                         </div>
@@ -76,32 +72,32 @@
                         			 </th>
                         		</tr>
                   			</thead>
-                  			<tbody data-v-744e717e=""  v-for="nominationData in getNominationData">
-                  				 <tr data-v-744e717e="" :id="'presp_'+nominationData.nId">
+                  			<tbody data-v-744e717e=""  v-for="nominationLngData in getNominationLngData">
+                  				 <tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId">
                   				 	<td data-v-744e717e="" class="text-uppercase"  v-if="user_type==3">
-                       					{{ nominationData.buyer_name}}
+                       					{{ nominationLngData.buyer_name}}
                       			</td>
                       			
-                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationData.quantity_required)">
+                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.quantity_required)">
                                
                             </td>
-                             <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationData.approved_quantity)">
+                             <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.approved_quantity)">
                                
                             </td>
-                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationData.supplied_quantity)">
+                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.supplied_quantity)">
                                
                             </td>
-                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationData.dcqValue)">
+                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.dcqValue)">
                                
                             </td>
-                             <td data-v-744e717e="" class="text-uppercase" v-text="getMDCQValue(nominationData.dcqValue)">
+                             <td data-v-744e717e="" class="text-uppercase" v-text="getMDCQValue(nominationLngData.dcqValue)">
                                
                             </td>
                              <td data-v-744e717e="" class="text-uppercase">
-                                {{ nominationData.date}}
+                                {{ nominationLngData.date}}
                             </td>
                             <td data-v-744e717e="" class="text-uppercase">
-                              <span v-if="nominationData.request=='Pending'">
+                              <span v-if="nominationLngData.request=='Pending'">
                                 Pending
                               </span>
                               <span v-else>
@@ -110,8 +106,8 @@
                                
                             </td>
                       				<td data-v-744e717e="" class="">
-                      					<a v-if="today_date<=nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Nomination Delete"></i></a>
-                                <a  v-if="today_date<=nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                      					<a v-if="today_date<=nominationLngData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a>
+                                <a  v-if="today_date<=nominationLngData.date" @click="setNominationId(nominationLngData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -120,7 +116,7 @@
               		<div data-v-744e717e="" class="table-footer">
                 		<div data-v-744e717e="" class="datatable-length float-left pl-3">
                   			<!-- <span data-v-744e717e="">Rows per page:</span> -->
-                    			<!-- <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageNomination">
+                    			<!-- <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageLngNomination">
                     				<option data-v-744e717e="" value="2">2</option>
                      				<option data-v-744e717e="" value="5">5</option>
                       				<option data-v-744e717e="" value="10">10</option>
@@ -129,8 +125,8 @@
       
                     			</select> -->
 
-                     		<div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationPagination.total > 0)">
-                        		<span data-v-744e717e="">Showing </span> {{nominationPagination.current_page}} - {{nominationPagination.to}} of {{nominationPagination.total}}
+                     		<div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationLngPagination.total > 0)">
+                        		<span data-v-744e717e="">Showing </span> {{nominationLngPagination.current_page}} - {{nominationLngPagination.to}} of {{nominationLngPagination.total}}
                         		<span data-v-744e717e="">records</span>
                    			</div>
                			</div>
@@ -147,7 +143,7 @@
 </template>
 <script>
 	import User from '../../../api/users.js';
-  import nominationAdd from './nomination_add';
+  import nominationLngAdd from './nomination_lng_add';
   import previousNextDate from './previousNextDate.vue';
 	export default {
 		 data() {
@@ -159,12 +155,11 @@
 		 	  'user':this.$store.state.Users.userDetails.first_name + " "+ this.$store.state.Users.userDetails.last_name ,
         'user_id':this.$store.state.Users.userDetails.id,
         'user_type':this.$store.state.Users.userDetails.user_type,
-        'getNominationData' : '',
+        'getNominationLngData' : '',
         'pagination': {},
         'perPage' : 20,
-        'perPageNomination' : 5,
-        'nominationPagination': {},
-        'import_file':'',
+        'perPageLngNomination' : 5,
+        'nominationLngPagination': {},
         'page_add_enabled':false,
         'selectedDashbordDate':moment().format('DD-MM-YYYY'),
         
@@ -178,10 +173,10 @@
 		 	let vm = this;
       //vm.initData();
       vm.getNominationCountForBuyer();
-      vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+      vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
 		 },
      components: {
-        nominationAdd,
+        nominationLngAdd,
         previousNextDate
     },
 		 methods:{
@@ -190,7 +185,7 @@
             let vm=this;
             vm.selectedDashbordDate=selectDate;
             vm.getNominationCountForBuyer();
-            vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+            vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
         },
         setQty(data){
           // let vm=this;
@@ -218,7 +213,7 @@
           vm.$store.dispatch('SetNominationId', ''); 
           vm.$store.dispatch('SetNominationPage','');
           vm.getNominationCountForBuyer();
-          vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+          vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
 
       },
       getNominationCountForBuyer()
@@ -232,21 +227,7 @@
             }
          )
       },
-      verifyImportFile: function(event)
-      {
-          let files=this.$refs.file.files[0];
-          if(files)
-          {
-              return true;
-          }
-          else
-          {
-            toastr.error('Please Add Files.', 'Add Nomination', {timeOut: 5000});
-            event.preventDefault();
-          }
-           
-      },
-      removeNomination(id)
+      removeNominationLng(id)
       {
           let vm=this;
           vm.page_add_enabled=false;
@@ -256,7 +237,7 @@
                   if(response.data.code == 200){
                     //$('#presp_'+id).remove();
                      vm.getNominationCountForBuyer();
-                     vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+                     vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
                     toastr.success('Nomination deleted successfully', 'Add Nomination', {timeOut: 5000});
                       //this.initialState();
                       
@@ -290,17 +271,17 @@
           vm.$store.dispatch('SetNominationDate',vm.selectedDashbordDate);
           vm.page_add_enabled=true;
       },
-		 	getNominationList(page_url,select_date){
+		 	getNominationLngList(page_url,select_date){
 		 		let vm = this;
 		 		let userId = vm.user_id;
 		 		let userType = vm.user_type;
 		 	
         let no_of_page = '';
-        no_of_page = vm.perPageNomination;
+        no_of_page = vm.perPageLngNomination;
 
-		 		User.getNominationList(page_url,userType,no_of_page,userId,select_date).then(
+		 		User.getNominationLngList(page_url,userType,no_of_page,userId,select_date).then(
 		 			 (response) => {
-              vm.getNominationData = response.data.data.data;
+              vm.getNominationLngData = response.data.data.data;
 		 			 	  vm.makePagination( response.data.data);
 		 			 },
 		 			 (error) => {
@@ -317,16 +298,16 @@
               from : data.from,
               to : data.to
           }
-          this.nominationPagination = pagination;
+          this.nominationLngPagination = pagination;
       },
           
     setPerPage(e){
       let vm =this;
-       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+       vm.getNominationLngList('/nomination/getNominationLngList',vm.selectedDashbordDate);
     },
     setPerPageNomination(e){
       let vm =this;
-       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
+       vm.getNominationLngList('/nomination/getNominationLngList',vm.selectedDashbordDate);
     },
 	},
 		
