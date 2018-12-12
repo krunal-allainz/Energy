@@ -51,8 +51,11 @@
                                     <div class="col-md-6">
                                         <div class=" input-group">
                                        
-                                            <input type="text" class="form-control" id="quantity" v-model="nominationLngData.quantity" name="quantity"  v-if="user_type==7" readonly="readonly" >
-                                            <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationLngData.quantity" name="quantity" v-else >
+
+                                            
+                                            <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationLngData.quantity" name="quantity" >
+
+                                 
                                              <div class="input-group-append">
                                                 <span class="input-group-text ">MMBTU</span>
                                             </div>
@@ -61,8 +64,8 @@
                                             <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
                                     </div>
                                 </div>
-                                 
                                 <!-- <div class="row form-group">
+
                                     <div class="col-md-3">
                                         <label class="control-label float-right" >Date: </label>
                                     </div>
@@ -72,9 +75,10 @@
                                         <span class="help is-danger" v-show="errors.has('date')">
                                             Please enter valid date.
                                         </span>
-                                    </div>
+                                    </div> 
                                 </div> -->
                            
+
 
                                 <div class="row form-group mt-5">
                                     <div class="col-md-3">
@@ -239,9 +243,11 @@
                         vm.nominationLngData.lngTime =presp_data.lngTime;
                         vm.nominationLngData.truck_details_id =presp_data.truck_details_id;
                         vm.user_id =presp_data.buyer_id;
+
                          setTimeout(function(){
                             $('#truck_details_id').val(presp_data.truck_details_id).trigger('change');
                         },100);
+                    
                     } else if (response.data.code == 300) {
                         toastr.error('No Nomination LNG Found.', 'Update Nomination LNG', {timeOut: 5000});
                     }

@@ -3,7 +3,7 @@
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-6">
-				<h2>Generate Invoice form</h2>
+				<h2>Lng Suppliy By Truck List</h2>
 				</div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 				</div>
 				
             </div>
-            <invoiceListBuyer  :buyerId='buyer_id'   v-if="(loadList == true)"></invoiceListBuyer>
+            <lngSupplyBytruckListForSeller  :buyerId='buyer_id'   v-if="(loadList == true)"></lngSupplyBytruckListForSeller>
 
 
            
@@ -44,7 +44,7 @@
 
 	import User from '../../../api/users.js';
   	import moment from 'moment';
-    import invoiceListBuyer from './invoiceListBuyer.vue' ; 
+    import lngSupplyBytruckListForSeller from './nomination_lng_list_for_seller.vue' ; 
 
     export default {
         data() {
@@ -63,7 +63,7 @@
                 }
         },
         components: {
-            invoiceListBuyer
+            lngSupplyBytruckListForSeller
         },
         mounted() {
             var vm = this;
