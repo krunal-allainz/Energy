@@ -133,5 +133,9 @@ export default {
   },
   checkAvaibilityForQuantityForApprove(nominationDate,nomnationId,nominationQty){
     return api.post('availability/getCheckAvaibilityForQuantity',{ 'currrentDate' : currrentDate ,'nominationDate':nominationDate,'nomnationId' : nomnationId,'nominationQty' : nominationQty});
+  },
+  addGcv(curDate) {
+    return api.post('gcv/addGcv',{'curDate':curDate});
+
   }
 }
