@@ -161,7 +161,7 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
           $api->post('availability/getCheckAvaibilityForQuantity', '\Energy\Api\Controllers\AvailabilityController@checkAvaibilityForQuantityForApprove');
 
           //Add GCV
-        $api->post('gcv/addGcv', '\Energy\Api\Controllers\AvailabilityController@checkAvaibilityForQuantityForApprove');
+        $api->post('gcv/addGcv', '\Energy\Api\Controllers\AvailabilityController@addGcv');
 
 
 }); 

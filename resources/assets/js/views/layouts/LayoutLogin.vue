@@ -89,10 +89,10 @@ export default {
                             })
                             setTimeout(function(){
                                 jQuery('.js-loader').addClass('d-none');
-                                if(vm.$store.state.Users.userDetails.user_type == '7'){
+                                if(vm.$store.state.Users.userDetails.user_type == '3'){
                                         vm.$router.push({'name':'seller-dashboard'});
                                         
-                                }else if(vm.$store.state.Users.userDetails.user_type ==  '6') {
+                                }else if(vm.$store.state.Users.userDetails.user_type ==  '2') {
 
                                         vm.$router.push({'name':'buyer-dashboard'});
                                 }

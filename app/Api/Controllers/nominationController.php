@@ -316,7 +316,8 @@ class NominationController extends Controller
      */
     public function getNominationCountForBuyer(Request $request)
     {
-        $date=Carbon::now()->addDays(1)->format('Y-m-d');
+        $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
         $userId = $request->userId;
         $get_details=$this->nomObj->getNominationCountForBuyer($userId,$date);
         if($get_details)

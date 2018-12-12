@@ -26,6 +26,24 @@
         <br/> -->
         
 	<div class="row">
+         <div class="col-sm-6 col-md-6 col-xl-3">
+                <div class="flip">
+                     <a href="#" @click="nomination_lpg()" title="Add Nomination LPGS">
+                        <div class="widget-bg-color-icon card-box front">
+                            <div class="bg-icon float-left">
+                               <i class="fas fa-truck"></i>
+                            
+                            </div>
+                            <div class="text-right">
+                            <h3><b>Nomination LNG</b></h3>
+                            <!-- <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                            <p>For Date:{{selectedDashbordDate}}</p> -->
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                     </a>
+                </div>
+            </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
                      <a href="#" @click="nomination_page()" title="Add Nomination">
@@ -181,12 +199,20 @@ export default {
     },
     mounted: function() {
         let vm=this;
-       if(vm.$store.state.Users.userDetails.user_type != '6'){
+       if(vm.$store.state.Users.userDetails.user_type != '2'){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
           }
         vm.chartData();
     },
     methods: {
+        nomination_lpg()
+        {
+            let vm=this;
+            /*vm.$store.dispatch('SetNominationDate',''); 
+            vm.$store.dispatch('SetNominationPage','');
+            vm.$store.dispatch('SetNominationId','');*/
+            vm.$router.push({'name':'nomination_lpg_list'});
+        },
         nomination_page()
         {
             let vm=this;
