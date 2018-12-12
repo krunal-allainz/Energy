@@ -4,7 +4,6 @@ namespace Energy\Api\Controllers;
 
 
 use Illuminate\Routing\Controller;
-use Energy\Models\TruckDetails;
 use Illuminate\Http\Request;
 use Energy\Models\User;
 use Energy\Models\TruckDetails;

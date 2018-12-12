@@ -15,6 +15,9 @@ class NominationLng extends Model
       	'lngDate',
       	'lngTime',
       	'quantity',
+      	'lng_status',
       	'status'
      ];
+     	
+     	
 }

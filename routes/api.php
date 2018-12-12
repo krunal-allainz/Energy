@@ -160,7 +160,19 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
           $api->post('availability/getCheckAvaibilityForQuantity', '\Energy\Api\Controllers\AvailabilityController@checkAvaibilityForQuantityForApprove');
 
+          // for getting nomination lpg list
           $api->post('/nominationLng/getNominationLngList', '\Energy\Api\Controllers\NominationLngController@getNominationLngList');
+          //for getting truck details list
+          $api->post('truckDetails/getTruckDetailsList','\Energy\Api\Controllers\TruckDetailsController@getTruckDetailsList');
+          //for create nomination lng
+          $api->post('nominationLng/createNominationLng','\Energy\Api\Controllers\NominationLngController@createNominationLng');
+
+          //for edit nomination lng
+          $api->post('nominationLng/editNominationLng','\Energy\Api\Controllers\NominationLngController@editNominationLng');
+          //for getting details of lng by id
+          $api->post('nominationLng/getNominationLngDetailsById','\Energy\Api\Controllers\NominationLngController@getNominationLngDetailsById');
+          //for delete nomination lng
+          $api->post('nominationLng/deleteNominationLngById','\Energy\Api\Controllers\NominationLngController@deleteNominationLngById');
 
 }); 
 
