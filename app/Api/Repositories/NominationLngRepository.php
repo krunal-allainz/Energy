@@ -28,7 +28,7 @@ use Auth;
  	 */
     public function getNominationLngList($userType,$noOfPage,$userId,$date)
     {
-
+       
         if($userType==2)
         {
              $list= NominationLng::join('truck_details', function ($join) {
@@ -39,6 +39,7 @@ use Auth;
              ->select('nomination_lng.*','nomination_lng.id as nId','truck_details.truck_no','truck_details.truck_company')
              ->orderBy('nomination_lng.created_at','desc')
              ->paginate($noOfPage);
+
         }
         else if($userType==3)
         {

@@ -6,6 +6,7 @@ use Energy\Models\TruckDetails;
 use Excel;
 use File;
 use Auth;
+use Energy\Api\Repositories\NominationLngRepository;
 
 
 
@@ -13,14 +14,30 @@ use Auth;
  class TruckDetailsRepository 
  {
      public function __construct(){
-
+     	$this->nomLngObj = new NominationLngRepository();
     }
    
  	
-    public function getTruckDetailsList()
+ 	/**
+ 	 * [getTruckDetailsList description]
+ 	 * @param  [type] $data [description]
+ 	 * @return [type]       [description]
+ 	 */
+    public function getTruckDetailsList($data)
     {
-        $list=TruckDetails::get();
-        return $list;
+        $truckList=TruckDetails::get();
+        $truckData=array();
+        $lngDate= $lngDate=Carbon::createFromFormat('d-m-Y', $data->lngDate)->format('Y-m-d');
+        $buyer_id=$data->buyer_id;
+        foreach($truckList as $truck)
+        {
+        	$truckD=array();
+        	$truckD['id']=$truck->id;
+        	$truckD['truck_name']=$truck->truck_company.'('.$truck->truck_no.')';
+        	$truckD['available']=$this->nomLngObj->checkNominationLng($truck->id,$lngDate,$buyer_id);
+        	$truckData[]=$truckD;
+        }
+        return $truckData;
     }
 
    

@@ -137,9 +137,9 @@ export default {
   getNominationLngList(page_url,userType,noofRecord,userId,select_date){
      return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
   },
-  getTruckDetailsList()
+  getTruckDetailsList(data)
   {
-      return api.post('truckDetails/getTruckDetailsList');
+      return api.post('truckDetails/getTruckDetailsList',data);
   },
   createNominationLng(nominationLngData)
   {
@@ -155,4 +155,5 @@ export default {
   deleteNominationLngById(id){
       return api.post('nominationLng/deleteNominationLngById',{'id':id});
   },
+
 }
