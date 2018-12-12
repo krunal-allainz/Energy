@@ -44,7 +44,7 @@
 
 	import User from '../../../api/users.js';
   	import moment from 'moment';
-   import lngSupplyBytruckListForSeller from './nomination_lng_list_for_seller.vue' ; 
+    import lngSupplyBytruckListForSeller from './nomination_lng_list_for_seller.vue' ; 
 
     export default {
         data() {
