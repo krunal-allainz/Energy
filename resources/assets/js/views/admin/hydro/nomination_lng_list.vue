@@ -7,7 +7,7 @@
       <div class="card-header  mb-3" >
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination LNG List</h4></div>
-          <div   v-if="user_type==2 && add_nomination_count==0 && today_date<selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+          <div   v-if="user_type==2 && add_nomination_count==0 && today_date==selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
         </div>
       </div>
         <div class="row">
@@ -16,7 +16,7 @@
             <div class="card-body">
             	<div data-v-744e717e="" class="px-3"  v-if="(nominationLngPagination.total > 0)">
               		<div data-v-744e717e="" class="table-header">
-                  		    <!-- <h4 data-v-744e717e="" class="table-title text-center mt-3"></h4> -->
+                  		   
                             <div data-v-744e717e="" class="datatable-length mb-4">
                             <span data-v-744e717e="">Rows per page:</span>
                                 <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageLngNomination">
@@ -25,51 +25,35 @@
                                     <option data-v-744e717e="" value="10">10</option>
                                     <option data-v-744e717e="" value="20">20</option>
                                     <option data-v-744e717e="" value="50">50</option>
-                                    <!--     <option data-v-744e717e="" value="-1">All</option> -->
                                 </select>
-
-                            <!-- <div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationLngPagination.total > 0)">
-                                <span data-v-744e717e="">Showing </span> {{nominationLngPagination.current_page}} - {{nominationLngPagination.to}} of {{nominationLngPagination.total}}
-                                <span data-v-744e717e="">records</span>
-                            </div> -->
+                           
                         </div>
               		</div>
               		<div data-v-744e717e="" class="table-responsive">
               			<table data-v-744e717e="" class="table">
                   			<thead data-v-744e717e="">
                     			<tr data-v-744e717e="">
-                    				 <th data-v-744e717e="" class="sortable sorting-asc " style="" v-if="user_type==3">
-                                		Buyer
-                        			 </th>
-                        			
                                 <th style="width: auto;">
-                                  Requested Quantity
+                                 Truck Name
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
                                  <th style="width: auto;">
-                                  Scheduled Quantity 
-                                  <i data-v-744e717e="" class="fa float-right"></i> 
-                                </th>
-                                 <th style="width: auto;">
-                                  Allocated Quantity 
-                                  <i data-v-744e717e="" class="fa float-right"></i> 
-                                </th>
-                                 <th style="width: auto;">
-                                  DCQ
-                                  <i data-v-744e717e="" class="fa float-right"></i> 
-                                </th>
-                                 <th style="width: auto;">
-                                  MDCQ 
-                                  <i data-v-744e717e="" class="fa float-right"></i> 
-                                </th>
-                                <th style="width: auto;">
                                   Date
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
-                               <th style="width: auto;">
-                                  Status
+                                 <th style="width: auto;">
+                                  Time
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
+                                 <th style="width: auto;">
+                                  Quantity
+                                  <i data-v-744e717e="" class="fa float-right"></i> 
+                                </th>
+                                 <th style="width: auto;">
+                                 Status
+                                  <i data-v-744e717e="" class="fa float-right"></i> 
+                                </th>
+                               
                         			 <th data-v-744e717e="" class="sortable" style="width: auto;">
                            				 Action
                             			<i data-v-744e717e="" class="fa float-right"></i>
@@ -78,40 +62,26 @@
                   			</thead>
                   			<tbody data-v-744e717e=""  v-for="nominationLngData in getNominationLngData">
                   				 <tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId">
-                  				 	<td data-v-744e717e="" class="text-uppercase"  v-if="user_type==3">
-                       					{{ nominationLngData.buyer_name}}
+                  				 	<td data-v-744e717e="" class="text-uppercase">
+                       					{{ nominationLngData.truck_company }} ({{ nominationLngData.truck_no }})
                       			</td>
                       			
-                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.quantity_required)">
-                               
-                            </td>
-                             <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.approved_quantity)">
-                               
-                            </td>
-                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.supplied_quantity)">
-                               
-                            </td>
-                            <td data-v-744e717e="" class="text-uppercase" v-text="setQty(nominationLngData.dcqValue)">
-                               
-                            </td>
-                             <td data-v-744e717e="" class="text-uppercase" v-text="getMDCQValue(nominationLngData.dcqValue)">
-                               
+                            <td data-v-744e717e="" class="text-uppercase">
+                              {{setLngDate(nominationLngData.lngDate)}}
                             </td>
                              <td data-v-744e717e="" class="text-uppercase">
-                                {{ nominationLngData.date}}
+                              {{nominationLngData.lngTime}}
                             </td>
                             <td data-v-744e717e="" class="text-uppercase">
-                              <span v-if="nominationLngData.request=='Pending'">
-                                Pending
-                              </span>
-                              <span v-else>
-                                  Scheduled
-                              </span>
-                               
+                               {{nominationLngData.quantity}}
                             </td>
+                            <td data-v-744e717e="" class="text-uppercase">
+                               {{nominationLngData.lng_status}}
+                            </td>
+                            
                       				<td data-v-744e717e="" class="">
-                      					<a v-if="today_date<=nominationLngData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a>
-                                <a  v-if="today_date<=nominationLngData.date" @click="setNominationId(nominationLngData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                      					<a href="javascript:void(0)" v-if="today_date==setLngDate(nominationLngData.lngDate)"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a>
+                                <a  href="javascript:void(0)" v-if="today_date==setLngDate(nominationLngData.lngDate)" @click="setNominationId(nominationLngData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -119,15 +89,6 @@
               		</div>
               		<div data-v-744e717e="" class="table-footer">
                 		<div data-v-744e717e="" class="datatable-length float-left pl-3">
-                  			<!-- <span data-v-744e717e="">Rows per page:</span> -->
-                    			<!-- <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageLngNomination">
-                    				<option data-v-744e717e="" value="2">2</option>
-                     				<option data-v-744e717e="" value="5">5</option>
-                      				<option data-v-744e717e="" value="10">10</option>
-                      				<option data-v-744e717e="" value="20">20</option>
-                      				<option data-v-744e717e="" value="50">50</option>
-      
-                    			</select> -->
 
                      		<div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationLngPagination.total > 0)">
                         		<span data-v-744e717e="">Showing </span> {{nominationLngPagination.current_page}} - {{nominationLngPagination.to}} of {{nominationLngPagination.total}}
@@ -149,6 +110,7 @@
 	import User from '../../../api/users.js';
   import nominationLngAdd from './nomination_lng_add';
   import previousNextDate from './previousNextDate.vue';
+  import moment from 'moment';
 	export default {
 		 data() {
 		 	return {
@@ -167,10 +129,11 @@
         'page_add_enabled':false,
         'selectedDashbordDate':moment().format('DD-MM-YYYY'),
         
+        
 		 	}
 		 },
     created: function() {
-        this.$root.$on('nominationSuccess',this.nominationSuccess);
+        this.$root.$on('nominationLngSuccess',this.nominationLngSuccess);
         this.$root.$on('changeDashbordDate',this.changeDashbordDate);
     },
 		mounted(){
@@ -191,6 +154,10 @@
             vm.getNominationCountForBuyer();
             vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
         },
+        setLngDate(ldate)
+        {
+           return moment(String(ldate)).format('DD-MM-YYYY');
+        },
         setQty(data){
           // let vm=this;
           if(data) {
@@ -208,15 +175,14 @@
             return '00.00' + ' MMBTU';
           }
         },
-      nominationSuccess()
+      nominationLngSuccess()
       {
           let vm=this;
           
-          vm.selectedDashbordDate=vm.tomorrow_date;
+          vm.selectedDashbordDate=vm.today_date;
           vm.page_add_enabled=false;
-          vm.$store.dispatch('SetNominationId', ''); 
-          vm.$store.dispatch('SetNominationPage','');
-          vm.getNominationCountForBuyer();
+          vm.$store.dispatch('SetNominationLngId', ''); 
+          vm.$store.dispatch('SetNominationLngPage','');
           vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
 
       },
@@ -235,19 +201,13 @@
       {
           let vm=this;
           vm.page_add_enabled=false;
-            User.deleteNomination(id).then(
+            User.deleteNominationLngById(id).then(
                 (response)=> {
-                 
                   if(response.data.code == 200){
-                    //$('#presp_'+id).remove();
-                     vm.getNominationCountForBuyer();
                      vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
-                    toastr.success('Nomination deleted successfully', 'Add Nomination', {timeOut: 5000});
-                      //this.initialState();
-                      
+                    toastr.success('Nomination LNG deleted successfully', 'Delete Nomination', {timeOut: 5000});
                   } else if (response.data.code == 300) {
                       toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
-                      //this.initialState(); 
                   }
                   else
                   {
@@ -263,16 +223,16 @@
       setNominationId(id)
       {
         let vm=this;
-          vm.$store.dispatch('SetNominationId', id); 
-          vm.$store.dispatch('SetNominationPage','EDIT');
+          vm.$store.dispatch('SetNominationLngId', id); 
+          vm.$store.dispatch('SetNominationLngPage','EDIT');
           vm.page_add_enabled=true;
       },
       setAddNomination()
       {
           let vm=this;
-          vm.$store.dispatch('SetNominationId', ''); 
-          vm.$store.dispatch('SetNominationPage','ADD');
-          vm.$store.dispatch('SetNominationDate',vm.selectedDashbordDate);
+          vm.$store.dispatch('SetNominationLngId', ''); 
+          vm.$store.dispatch('SetNominationLngPage','ADD');
+          vm.$store.dispatch('SetNominationLngDate',vm.selectedDashbordDate);
           vm.page_add_enabled=true;
       },
 		 	getNominationLngList(page_url,select_date){
