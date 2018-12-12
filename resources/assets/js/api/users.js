@@ -133,5 +133,8 @@ export default {
   },
   checkAvaibilityForQuantityForApprove(nominationDate,nomnationId,nominationQty){
     return api.post('availability/getCheckAvaibilityForQuantity',{ 'currrentDate' : currrentDate ,'nominationDate':nominationDate,'nomnationId' : nomnationId,'nominationQty' : nominationQty});
-  }
+  },
+  getNominationLngList(page_url,userType,noofRecord,userId,select_date){
+     return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
+  },
 }

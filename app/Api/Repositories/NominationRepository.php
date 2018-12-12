@@ -32,13 +32,13 @@ use Auth;
  	 */
     public function getNominationList($userType,$noOfPage,$userId,$date)
     {
-        if($userType==6)
+        if($userType==2)
         {
              $list= Nomination::join('agreement', function ($join) {
                 $join->on('agreement.buyer_id', '=', 'nomination_request.buyer_id');
             })->whereDate('nomination_request.date',$date)->where('nomination_request.buyer_id',$userId)->select('nomination_request.*','nomination_request.id as nId','agreement.allowed_quantity as dcqValue')->orderBy('nomination_request.created_at','desc')->paginate($noOfPage);
         }
-        else if($userType==7)
+        else if($userType==3)
         {
              $list= Nomination::join('users', function ($join) {
                 $join->on('users.id', '=', 'nomination_request.buyer_id');
@@ -137,7 +137,7 @@ use Auth;
             $nom->quantity_required=$form_data['quantity'];
             $nom->approved_quantity=$form_data['approved_quantity'];
             $nom->status=1;
-            if(Auth::user()->user_type==6)
+            if(Auth::user()->user_type==2)
             {
                 $nom->request='Pending';
             }

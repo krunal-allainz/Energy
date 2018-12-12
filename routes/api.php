@@ -160,6 +160,8 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
           $api->post('availability/getCheckAvaibilityForQuantity', '\Energy\Api\Controllers\AvailabilityController@checkAvaibilityForQuantityForApprove');
 
+          $api->post('/nominationLng/getNominationLngList', '\Energy\Api\Controllers\NominationLngController@getNominationLngList');
+
 }); 
 
         
