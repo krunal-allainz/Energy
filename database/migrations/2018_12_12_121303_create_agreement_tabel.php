@@ -15,7 +15,7 @@ class CreateAgreementTabel extends Migration
     {
         Schema::create('agreement', function (Blueprint $table) {
             $table->increments('id');
-             $table->integer('buyer_id')->nullable();
+            $table->integer('buyer_id')->nullable();
             $table->integer('seller_id')->nullable();
             $table->decimal('allowed_quantity',10,2)->nullable();
             $table->decimal('price',10,2)->nullable();
