@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoles extends Migration
+class CreateActualSuppliedGasTabel extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateRoles extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('actual_supplied_gas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('buyer_id')->nullable();
+            $table->integer('seller_id')->nullable();
+            $table->date('date')->nullable();
+            $table->decimal('supplied_quantity',10,2)->nullable();
             $table->timestamps();
-            $table->string('name')->nullable();
-            $table->string('slug')->nullable();
-            $table->text('description')->nullable();
-            $table->integer('level')->nullable();
-
         });
     }
 
@@ -31,6 +30,6 @@ class CreateRoles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('actual_supplied_gas');
     }
 }
