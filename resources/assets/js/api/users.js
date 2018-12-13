@@ -144,5 +144,24 @@ export default {
   
   getNominationLngList(page_url,userType,noofRecord,userId,select_date){
      return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
-  }
+  },
+  getTruckDetailsList(data)
+  {
+      return api.post('truckDetails/getTruckDetailsList',data);
+  },
+  createNominationLng(nominationLngData)
+  {
+      return api.post('nominationLng/createNominationLng',{'nominationLngData':nominationLngData});
+  },
+  editNominationLng(nominationLngData)
+  {
+      return api.post('nominationLng/editNominationLng',{'nominationLngData':nominationLngData});
+  },
+  getNominationLngDetailsById(id) {
+      return api.post('nominationLng/getNominationLngDetailsById',{'id':id})
+  },
+  deleteNominationLngById(id){
+      return api.post('nominationLng/deleteNominationLngById',{'id':id});
+  },
+
 }

@@ -163,7 +163,20 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
           //Add GCV
         $api->post('gcv/addGcv', '\Energy\Api\Controllers\GcvController@addGcv');
         $api->post('gcv/isAdded', '\Energy\Api\Controllers\GcvController@isGcvAdded');
+          // for getting nomination lpg list
+          $api->post('/nominationLng/getNominationLngList', '\Energy\Api\Controllers\NominationLngController@getNominationLngList');
+          //for getting truck details list
+          $api->post('truckDetails/getTruckDetailsList','\Energy\Api\Controllers\TruckDetailsController@getTruckDetailsList');
+          //for create nomination lng
+          $api->post('nominationLng/createNominationLng','\Energy\Api\Controllers\NominationLngController@createNominationLng');
 
+          //for edit nomination lng
+          $api->post('nominationLng/editNominationLng','\Energy\Api\Controllers\NominationLngController@editNominationLng');
+          //for getting details of lng by id
+          $api->post('nominationLng/getNominationLngDetailsById','\Energy\Api\Controllers\NominationLngController@getNominationLngDetailsById');
+          //for delete nomination lng
+          $api->post('nominationLng/deleteNominationLngById','\Energy\Api\Controllers\NominationLngController@deleteNominationLngById');
+ 
         
 }); 
 

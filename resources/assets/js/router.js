@@ -76,7 +76,7 @@ import dashboardTruckSeller from './views/admin/hydro/dashboard_truck_seller.vue
 
 
 
-import nominationLngSupplierByTruckList from './views/admin/hydro/nominationLngSupplierByTruckList.vue'
+//import nominationLngSupplierByTruckList from './views/admin/hydro/nominationLngSupplierByTruckList.vue'
 
 
 
@@ -130,12 +130,12 @@ const routes = [
                 meta: { requiresAuth: true },
                 name: 'nomination_lpg_list'
             },
-            {
+            /*{
                 path: '/lng_supply_bytruck_list',
                 component: nominationLngSupplierByTruckList,
                 meta: { requiresAuth: true },
                 name: 'lng_supply_bytruck_list'
-            },
+            },*/
             {
                 path: '/generate_invoice',
                 component: generateInvoice,
