@@ -7,11 +7,9 @@
       <div class="card-header  mb-3" >
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
-<<<<<<< HEAD
+
           <div   v-if="user_type==6 && add_nomination_count==0 && tomorrow_date<=selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
-=======
-          <div   v-if="user_type==6 && add_nomination_count==0 && today_date<selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
->>>>>>> 28a9bbe226544db47c2460eae67b635e5f45098c
+
         </div>
       </div>
         <div class="row">
