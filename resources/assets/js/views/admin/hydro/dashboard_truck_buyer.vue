@@ -28,7 +28,7 @@
 	<div class="row">
          <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
-                     <a @click="nomination_lpg()" title="Add Nomination LPGS">
+                     <a  @click="nomination_lpg()" title="Add Nomination LPGS">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                <i class="fas fa-truck"></i>
@@ -211,7 +211,7 @@ export default {
             /*vm.$store.dispatch('SetNominationDate',''); 
             vm.$store.dispatch('SetNominationPage','');
             vm.$store.dispatch('SetNominationId','');*/
-            // vm.$router.push({'name':'nomination_lpg_list'});
+            vm.$router.push({'name':'nomination_lpg_list'});
         },
         nomination_page()
         {
