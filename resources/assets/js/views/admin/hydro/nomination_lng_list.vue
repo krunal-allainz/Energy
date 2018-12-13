@@ -135,11 +135,12 @@
     created: function() {
         this.$root.$on('nominationLngSuccess',this.nominationLngSuccess);
         this.$root.$on('changeDashbordDate',this.changeDashbordDate);
+        this.$root.$on('cancelPage',this.cancelPage);
     },
 		mounted(){
 		 	let vm = this;
       //vm.initData();
-      vm.getNominationCountForBuyer();
+      
       vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
 		 },
      components: {
@@ -151,7 +152,7 @@
         {
             let vm=this;
             vm.selectedDashbordDate=selectDate;
-            vm.getNominationCountForBuyer();
+           
             vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
         },
         setLngDate(ldate)
@@ -174,6 +175,11 @@
           }else{
             return '00.00' + ' MMBTU';
           }
+        },
+        cancelPage()
+        {
+            let vm=this;
+            vm.page_add_enabled=false;
         },
       nominationLngSuccess()
       {
