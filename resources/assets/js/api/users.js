@@ -134,10 +134,14 @@ export default {
   checkAvaibilityForQuantityForApprove(nominationDate,nomnationId,nominationQty){
     return api.post('availability/getCheckAvaibilityForQuantity',{ 'currrentDate' : currrentDate ,'nominationDate':nominationDate,'nomnationId' : nomnationId,'nominationQty' : nominationQty});
   },
-  addGcv(curDate) {
-    return api.post('gcv/addGcv',{'curDate':curDate});
+  addGcv(data) {
+    return api.post('gcv/addGcv',{'data':data});
 
   },
+  isGcvAdded(curDate) {
+    return api.post('gcv/isAdded',{'curDate':curDate});
+  },
+  
   getNominationLngList(page_url,userType,noofRecord,userId,select_date){
      return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
   }
