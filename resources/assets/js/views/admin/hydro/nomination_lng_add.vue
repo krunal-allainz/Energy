@@ -8,7 +8,7 @@
           <div class="col-md-12"><h4 class="mt-2" v-if="nominationLngData.pageName=='EDIT'">Nomination Update</h4><h4 class="mt-2" v-else>Nomination LNG Add</h4></div>
           </div>
           <div class="col-md-6 text-right">
-                   <!--  <strong>DCQ:</strong> <strong>{{mdcq}}</strong> -->
+                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{today_date}} Date List.</strong> 
                 </div>
         </div>
         <div class="card-body">
@@ -24,7 +24,8 @@
                                     <div class="col-md-6">
                                         <select name="truck_details_id" id="truck_details_id" class="form-control ls-select2" v-model="nominationLngData.truck_details_id" v-validate="'required'">
                                             <option value="">Select</option>
-                                            <option v-for="truckDetails in truckDetailsOption" :value="truckDetails.id"><span class="text-danger">* </span>{{truckDetails.text}}</option>
+                                            <option :disabled="truckDetails.available>0" v-for="truckDetails in truckDetailsOption" :value="truckDetails.id" v-if="">
+                                               {{truckDetails.text}}</option>
                                         </select>
                                         <i v-show="errors.has('truck_details_id')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('truck_details_id')">
@@ -83,7 +84,7 @@
                                 <div class="row form-group mt-5">
                                     <div class="col-md-3">
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-1">
                                         <span v-if="nominationLngData.pageName=='EDIT'">
                                             <button class="btn btn-success" type="button" @click="editValidateBeforeSubmit()">Update</button>
                                         </span>
@@ -91,6 +92,9 @@
                                              <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
                                         </span>
                                     </div>
+                                     <div class="col-md-3">
+                                         <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
+                                     </div>
                                 </div>
                         </div>
                 </div>
@@ -113,6 +117,7 @@
             return {
                     'mdcq':'',
                     'currentYear': new Date().getFullYear(),
+                    'today_date':moment().format('DD-MM-YYYY'),
                     'user_id':this.$store.state.Users.userDetails.id,
                     'buyer_id':'',
                     'user_type':this.$store.state.Users.userDetails.user_type,
@@ -199,6 +204,11 @@
                       }*/
                 }
             },
+            cancelPage()
+            {
+                let vm=this;
+                vm.$root.$emit('cancelPage',1);
+            },
             getSelectedValueSelect2()
             {
                 let vm=this;
@@ -213,13 +223,15 @@
             {
                 let vm=this;
                 let truckDetailsList=[];
-                User.getTruckDetailsList().then(
+                let data={'lngDate':vm.today_date,'buyer_id':vm.nominationLngData.buyer_id};
+                User.getTruckDetailsList(data).then(
                      (response) => {
                     $.each(response.data.data, function(key,value) {
 
                        truckDetailsList.push({
                          'id' : value.id,
-                         'text' : value.truck_company+'('+value.truck_no+')',
+                         'text' : value.truck_name,
+                         'available':value.available
                       });
                     });
 

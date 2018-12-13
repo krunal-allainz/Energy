@@ -7,7 +7,8 @@
       <div class="card-header  mb-3" >
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
-          <div   v-if="user_type==6 && add_nomination_count==0 && today_date<selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+          <div   v-if="user_type==6 && add_nomination_count==0 && tomorrow_date<=selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+
         </div>
       </div>
         <div class="row">
@@ -297,13 +298,18 @@
 		 	
         let no_of_page = '';
         no_of_page = vm.perPageNomination;
+        $("body .js-loader").removeClass('d-none');
 
 		 		User.getNominationList(page_url,userType,no_of_page,userId,select_date).then(
 		 			 (response) => {
+                   $("body .js-loader").addClass('d-none');
+
               vm.getNominationData = response.data.data.data;
 		 			 	  vm.makePagination( response.data.data);
 		 			 },
 		 			 (error) => {
+                   $("body .js-loader").addClass('d-none');
+
                   	 },
 		 		);
 		 	},

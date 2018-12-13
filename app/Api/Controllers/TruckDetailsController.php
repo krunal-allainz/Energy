@@ -21,9 +21,10 @@ class TruckDetailsController extends Controller
      * [getTruckDetailsList description]
      * @return [type] [description]
      */
-    public function getTruckDetailsList()
+    public function getTruckDetailsList(Request $request)
     {
-        $truck_list=$this->truckObj->getTruckDetailsList();
+        
+        $truck_list=$this->truckObj->getTruckDetailsList($request);
         if($truck_list)
         {
             return ['code' => 200 ,'data'=>$truck_list,'message'=>'Getting case type successfully.'];

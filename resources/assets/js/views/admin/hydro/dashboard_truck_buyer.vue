@@ -1,4 +1,5 @@
 <template>
+
 <section>
     <section class="content-header mb-3">
             <div class="row">
@@ -25,42 +26,42 @@
         <br/> -->
         
 	<div class="row">
-        <div class="col-sm-6 col-md-6 col-xl-3">
-            <div class="flip">
-                 <a href="#" @click="nomination_lpg()" title="Add Nomination LPGS">
-                    <div class="widget-bg-color-icon card-box front">
-                        <div class="bg-icon float-left">
-                           <i class="fas fa-truck"></i>
-                        
+         <div class="col-sm-6 col-md-6 col-xl-3">
+                <div class="flip">
+                     <a  @click="nomination_lpg()" title="Add Nomination LPGS">
+                        <div class="widget-bg-color-icon card-box front">
+                            <div class="bg-icon float-left">
+                               <i class="fas fa-truck"></i>
+                            
+                            </div>
+                            <div class="text-right">
+                            <h3><b>Nomination LNG</b></h3>
+                            <!-- <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                            <p>For Date:{{selectedDashbordDate}}</p> -->
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="text-right">
-                        <h3><b>Nomination LNG</b></h3>
-                        <!-- <h3 class="text-dark"><b>{{total_request}}</b></h3>
-                        <p>For Date:{{selectedDashbordDate}}</p> -->
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                 </a>
+                     </a>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-md-6 col-xl-3">
-         	<div class="flip">
-                 <a href="#" @click="nomination_page()" title="Add Nomination">
-                    <div class="widget-bg-color-icon card-box front">
-                        <div class="bg-icon float-left">
-                           <i class="fas fa-charging-station"></i>
-                        
+            <div class="col-sm-6 col-md-6 col-xl-3">
+             	<div class="flip">
+                     <a href="#" @click="nomination_page()" title="Add Nomination">
+                        <div class="widget-bg-color-icon card-box front">
+                            <div class="bg-icon float-left">
+                               <i class="fas fa-charging-station"></i>
+                            
+                            </div>
+                            <div class="text-right">
+                            <h3><b>Nomination</b></h3>
+                            <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                            <p>For Date:{{selectedDashbordDate}}</p>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="text-right">
-                        <h3><b>Nomination</b></h3>
-                        <h3 class="text-dark"><b>{{total_request}}</b></h3>
-                        <p>For Date:{{selectedDashbordDate}}</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                 </a>
+                     </a>
+                </div>
             </div>
-        </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
                     <a >

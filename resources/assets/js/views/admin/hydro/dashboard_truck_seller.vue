@@ -21,36 +21,16 @@
         </section>
 
         <div class="row">
-            <div class="col-sm-6 col-md-6 col-xl-3">
-                    <div class="flip">
-                         <router-link to="/lng_supply_bytruck_list">
-                        <!-- <a href="/generate_invoice"> -->
-                        <div class="widget-bg-color-icon card-box front">
-                            <div class="bg-icon float-left">
-                           <i class="fa fa-truck"></i>
-                            </div>
-                            <div class="text-right">
-                                <h3><b><a href="/lng_supply_bytruck_list">LNG Suppliy Quantity</a></b></h3>
-                                <h3 class="text-dark"><b><!-- {{total_lng_quantity}} -->0</b></h3>
-                                 <p>For Date:{{selectedDashbordDate}}</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <!-- </a> -->
-                        </router-link>
-                        </div>
-                    </div>
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="#" @click="availibility()" title="Add Availability">
+                        <a href="#" @click="addGcv()" title="Add GCV">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                 <!-- <i class="fa fa-truck text-warning"></i> -->
                                 <i class="fas fa-coins"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Availability</b></h3>
-                                <h3 class="text-dark"><b>{{total_availability}}</b></h3>
+                                <h3><b>Add GCV</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
@@ -196,6 +176,9 @@
               <div  v-if="open_supplied_modal">
                     <suppliedModal  :tableData="supplied_table_data"></suppliedModal>
                 </div>  
+                 <div  v-if="open_gcv_modal">
+                    <gcvAddModel></gcvAddModel>
+                 </div>
         </section>
 </template>
 	
@@ -207,6 +190,7 @@
     import _ from 'lodash';
     import previousNextDate from './previousNextDate.vue';
     import suppliedModal from './suppliedModal.vue';
+    import gcvAddModel from './gcvAddModel.vue';
 
 export default {
     name: "dashboardSeller",
@@ -222,21 +206,24 @@ export default {
                 'total_request':'',
                 'total_approved':'',
                 'total_supplied':'',
-                'total_lng_quantity' : '',
                 'selectedDashbordDate' : moment().format('DD-MM-YYYY'),
                 'today_date':moment().format('DD-MM-YYYY'),
                 'open_supplied_modal':false,
+                'open_gcv_modal':true,
                 'supplied_table_data':{}
         }
     },
     components: {
             timeline,
             previousNextDate,
-            suppliedModal
+            suppliedModal,
+            gcvAddModel
     },
     created: function(){
         this.$root.$on('changeDashbordDate',this.changeDashbordDate);
         this.$root.$on('close_modal', this.close_modal);
+        this.$root.$on('saveGcv', this.saveGcv);
+
     },
     mounted: function() {
         let vm =this;
@@ -249,6 +236,9 @@ export default {
         
     },
     methods: {
+        saveGcv(data) {
+            console.log('data');
+        },
         nomination_page()
         {
             let vm=this;
@@ -262,6 +252,7 @@ export default {
             let vm=this;
             vm.supplied_table_data={};
             vm.open_supplied_modal=false;
+            vm.open_gcv_modal=false;
         },
         changeDashbordDate(selectDate)
         {
@@ -317,10 +308,24 @@ export default {
         addGcv() {
             let vm =this;
             let cur_date = vm.selectedDashbordDate;
+            jQuery('.js-loader').removeClass('d-none');
 
-             User.addGcv(cur_date).then(
+             User.isGcvAdded(cur_date).then(
                 (response)=> {
-                    
+                    jQuery('.js-loader').addClass('d-none');
+                    if(response.data.code == 200){
+                        vm.open_gcv_modal=true;
+                        $('#gcvAdd').modal('show');
+                        console.log(response.data);
+                    } else {
+                        toastr.error('GCV is already added', 'Error', {timeOut: 5000});
+
+                    }
+
+                },
+                (error) => {
+                    jQuery('.js-loader').addClass('d-none');
+
                 }
                 );
         },   

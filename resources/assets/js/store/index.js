@@ -22,6 +22,7 @@ const debug = process.env.NODE_ENV !== 'production'
 
 const state = {
   isAdmin:'',
+  'dashboard_type':''
 }
 
 // const vuexLocalStorage = new VuexPersist({
@@ -35,6 +36,9 @@ const state = {
 
 
 const mutations = {
+  [types.SET_DASHBOARD_TYPE] (state, dashboardType) {
+      state.dashboard_type = dashboardType;
+  }
 }
 export default new Vuex.Store({
   state,

@@ -160,6 +160,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
           $api->post('availability/getCheckAvaibilityForQuantity', '\Energy\Api\Controllers\AvailabilityController@checkAvaibilityForQuantityForApprove');
 
+          //Add GCV
+        $api->post('gcv/addGcv', '\Energy\Api\Controllers\GcvController@addGcv');
+        $api->post('gcv/isAdded', '\Energy\Api\Controllers\GcvController@isGcvAdded');
           // for getting nomination lpg list
           $api->post('/nominationLng/getNominationLngList', '\Energy\Api\Controllers\NominationLngController@getNominationLngList');
           //for getting truck details list
@@ -173,7 +176,8 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
           $api->post('nominationLng/getNominationLngDetailsById','\Energy\Api\Controllers\NominationLngController@getNominationLngDetailsById');
           //for delete nomination lng
           $api->post('nominationLng/deleteNominationLngById','\Energy\Api\Controllers\NominationLngController@deleteNominationLngById');
-
+ 
+        
 }); 
 
         

@@ -68,6 +68,13 @@ import invoiceListBuyer from './views/admin/hydro/invoiceListBuyer.vue'
 
 import generateBuyerInvoice from './views/admin/hydro/generate_buyer_invoice.vue'
 
+//Truck dashboard
+import dashboardTruckBuyer from './views/admin/hydro/dashboard_truck_buyer.vue'
+
+
+import dashboardTruckSeller from './views/admin/hydro/dashboard_truck_seller.vue'
+
+
 
 //import nominationLngSupplierByTruckList from './views/admin/hydro/nominationLngSupplierByTruckList.vue'
 
@@ -166,6 +173,19 @@ const routes = [
                 name: 'buyer-dashboard'
             },
             {
+                path: '/buyer-v2-dashboard',
+                component: dashboardTruckBuyer,
+                meta: { requiresAuth: true },
+                name: 'buyer-v2-dashboard'
+            },
+            {
+                path: '/seller-v2-dashboard',
+                component: dashboardTruckSeller,
+                meta: { requiresAuth: true },
+                name: 'seller-v2-dashboard'
+            },
+            
+            {
                 path: '/nomination-form',
                 component: NominationForm,
                 meta: { requiresAuth: true },
@@ -201,7 +221,7 @@ const routes = [
                 meta: { requiresAuth: true },
                 name: 'user/edit'
             },
-            ]
+        ]
     },
 
     {
