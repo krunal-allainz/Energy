@@ -99,13 +99,53 @@
                 );
             },
             editQuantity(){
+                alert('test');
+              let vm = this;
+
+              User.editQuantityOfTruckLoad().then(
+
+                (response) => {
+
+                },
+                (error) => {
+
+                },
+
+                );
 
 
             },
             approveQuantity(){
 
+              let vm=this;
+
+              User.approveQuatityForTruckLoad().then(
+
+                (response) => {
+
+                },
+                (error) => {
+
+                },
+
+                );
+              );
+
             },
             rejectQuantity(){
+
+              let vm=this;
+
+              User.rejectQuatityForTruckLoad().then(
+
+                (response) => {
+
+                },
+                (error) => {
+
+                },
+
+                );
 
             },
             initialState() {
