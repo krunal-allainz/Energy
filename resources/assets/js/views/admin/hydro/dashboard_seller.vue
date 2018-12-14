@@ -203,6 +203,7 @@ export default {
                 'total_request':'',
                 'total_approved':'',
                 'total_supplied':'',
+                'total_lng_quantity' : '',
                 'selectedDashbordDate' : moment().format('DD-MM-YYYY'),
                 'today_date':moment().format('DD-MM-YYYY'),
                 'open_supplied_modal':false,

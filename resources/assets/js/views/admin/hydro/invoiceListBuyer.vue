@@ -71,7 +71,7 @@
                       </td>
                     </tr>
 
-                    <tr v-show="generateInvoice == true" v-if="user_type==7">
+                    <tr v-show="generateInvoice == true" v-if="user_type==3">
                       <td data-v-744e717e="" class="">
                         #
                       </td>
