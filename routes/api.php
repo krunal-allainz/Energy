@@ -80,7 +80,7 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         
         $api->post('nomination/getNominationList', '\Energy\Api\Controllers\NominationController@getNominationList');
 
-        $api->post('nomination/getSuppliedList', '\Energy\Api\Controllers\NominationController@getSuppliedList');
+        $api->post('nomination/getSuppliedList', '\Energy\Api\Controllers\NominationLngController@getSuppliedList');
 
          //for nomination add
         $api->post('nomination/create', '\Energy\Api\Controllers\NominationController@createNomination');
@@ -166,7 +166,7 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         $api->post('gcv/addGcv', '\Energy\Api\Controllers\GcvController@addGcv');
         $api->post('gcv/isAdded', '\Energy\Api\Controllers\GcvController@isGcvAdded');
           // for getting nomination lpg list
-          $api->post('/nominationLng/getNominationLngList', '\Energy\Api\Controllers\NominationLngController@getNominationLngList');
+          $api->post('/nominationLng/getSuppliedLngList', '\Energy\Api\Controllers\NominationLngController@getSuppliedLngList');
           //for getting truck details list
           $api->post('truckDetails/getTruckDetailsList','\Energy\Api\Controllers\TruckDetailsController@getTruckDetailsList');
           //for create nomination lng
@@ -184,6 +184,8 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
           //reject quantity for truck load
           $api->post('nominationLng/reject-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
+
+          $api->post('nominationLng/saveTruckLoading','\Energy\Api\Controllers\NominationLngController@saveTruckLoading');
  
         
 }); 

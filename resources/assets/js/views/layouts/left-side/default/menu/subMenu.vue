@@ -96,7 +96,7 @@
         }
     }
 </script>
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
     .collapse-item {
         .submenu-header {
             cursor: pointer;
@@ -150,3 +150,4 @@
         /*color:#e6e6e6;*/
     }
 </style>
+ -->

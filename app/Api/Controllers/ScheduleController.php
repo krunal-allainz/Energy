@@ -107,7 +107,7 @@ class ScheduleController extends Controller
         }
         else if($result['code']==302)
         {
-             return ['code' => 302 ,'data'=>$result['result'],'message'=>'Approved quantoity not added.'];
+             return ['code' => 302 ,'data'=>$result['result'],'message'=>'Approved quantity not added.'];
         }
         else
         {

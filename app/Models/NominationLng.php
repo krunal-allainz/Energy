@@ -15,9 +15,22 @@ class NominationLng extends Model
       	'lngDate',
       	'lngTime',
       	'quantity',
+        'tare_weight',
+        'gross_weight',
+        'supplied_quantity',
       	'lng_status',
       	'status'
      ];
+    
+    public function truckDetail()
+    {
+        return $this->hasMany('Energy\Models\TruckDetails','id','truck_details_id');
+    }
      	
+    public function buyerDetail()
+    {
+        return $this->hasMany('Energy\Models\User','id','buyer_id');
+    }
+      
      	
 }

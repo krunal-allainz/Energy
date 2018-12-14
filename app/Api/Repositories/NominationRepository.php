@@ -94,6 +94,7 @@ use Auth;
         return $nom_id;
     }
 
+
     /**
      * [getNominationDetailsById description]
      * @param  [type] $id [description]
