@@ -29,7 +29,7 @@ export default {
         let vm=this;
         vm.initData();
         vm.$root.$emit('changeDashbordDate',vm.selectedDate);
-            vm.$root.$emit('setDate',vm.selectedDate);
+        vm.$root.$emit('setDate',vm.selectedDate);
 
     },
     components: {
