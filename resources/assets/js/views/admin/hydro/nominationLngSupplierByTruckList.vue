@@ -3,7 +3,7 @@
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-6">
-				<h2>Lng Suppliy By Truck List</h2>
+				<h2>Lng Supply By Truck List</h2>
 				</div>
 			</div>
 			<div class="row">
@@ -11,12 +11,13 @@
           <previousNextDate></previousNextDate></div>
         </div>
 		</div>
-            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"></lngSupplyBytruckListForSeller>
+            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit'></lngSupplyBytruckListForSeller>
             <form method="post" enctype="multipart/form-data">
               
-                <div  class="text-right">
-                  <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()">Approve</button>
-                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="editQuantity()">Edit</button>
+              <div  class="text-right">
+                  <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()" :disabled="displayApprove">Approve</button>
+                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="editQuantity()" v-if="(edit == false)">Edit</button>
+                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="cancleQuantity()" v-if="(edit == true)">cancle</button>
                   <button type="button" value="Request" class="btn btn-danger" name="btnReject" @click="rejectQuantity()">Reject</button>
               </div>
               
@@ -26,10 +27,10 @@
 
 <script>
 
-	import User from '../../../api/users.js';
+	  import User from '../../../api/users.js';
   	import moment from 'moment';
   	import previousNextDate from './previousNextDate.vue';
-    import lngSupplyBytruckListForSeller from './lngSupplyBytruckListForSeller.vue'; 
+    import lngSupplyBytruckListForSeller from './lngSupplyBytruckListForSeller.vue';
 
     export default {
         data() {
@@ -43,89 +44,89 @@
                     'userType' : this.$store.state.Users.userDetails.user_type,
                     'userId' : this.$store.state.Users.userDetails.id,
                 	},
-                   
-                    'loadList' : true,
+                    'page_add_enabled':false,
+                    'loadList' : false,
                     'selectedDate' : moment().format('DD-MM-YYYY'),
                     'buyer_id': '',
+                    'getNominationLngData' : '',
+                    'gerDataForPaggination':'',
+                    'edit' : false,
+                    'displayApprove' : false,
                 }
         },
         components: {
           lngSupplyBytruckListForSeller,
           previousNextDate
         },
+        created: function() {
+          this.$root.$on('getNominationLngList',this.getNominationLngListData);
+           this.$root.$on('perPageLngNomination',this.perPageLngNomination);
+         },
         mounted() {
             var vm = this;
              if(vm.$store.state.Users.userDetails.user_type != '3'){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
           }
-             vm.loadList = true; 
-            let user_type = [] ;
-            $('.ls-select2').select2({
-                placeholder: "Select"
-            });
-             $('#buyer').change("select2:select", function (e) {
-               
-           		let selectedBuyerId = $(this).val();
-              	vm.invoiceData.buyer_id=selectedBuyerId;
-             	let requestType = vm.invoiceData.noIncludeType;
-             	let typeInclude = 'no';
-                vm.buyer_id = $(this).val();
-                 vm.loadList = false;     
-                
-                setTimeout(function(){
-                 if(vm.buyer_id != ''){
-                     vm.loadList = true;  
-                }
-                },1000) ;
-          });
+            
+             vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
         },
         methods: {
-            getBuyeList()
-            {
-            	 var vm = this;
-                var consult_list=[];
-                User.generateUserDetailsByType(2,'Active').then(
-                     (response) => {
-                        let consult_data  = response.data.data;
-                        $.each(consult_data, function(key, value) {
-                            let name =  value.first_name ;
-                            let id  = value.id ;
-                            consult_list.push({name:name, id:id});
-                        });
-                        vm.invoiceData.buyer_option=consult_list;
-                    },
-                    (error) => {
-                    },
-                );
+          getNominationLngListData(pageData) {
+            let vm =this;
+            vm.getNominationLngList(pageData.page_url,pageData.curDate);
+          },
+          getNominationLngList(page_url,select_date){ 
+             let vm = this;
+              let userId = vm.userData.userId;
+              let userType = vm.userData.userType;
+            
+              let no_of_page = '';
+              vm.getNominationLngData = '';
+              vm.gerDataForPaggination = '';
+
+
+              no_of_page = vm.perPageLngNomination;
+
+              User.getNominationLngList(page_url,userType,no_of_page,userId,select_date).then(
+              (response) => {
+                vm.getNominationLngData = response.data.data.data;
+                vm.gerDataForPaggination = response.data.data;
+                vm.loadList = true;
+                vm.displayApprove = false;
+              },
+              (error) => {
+                     },
+             );
             },
             editQuantity(){
-                alert('test');
+                
               let vm = this;
+              vm.edit = true;
+            },
+            cancleQuantity(){
 
-              User.editQuantityOfTruckLoad().then(
-
-                (response) => {
-
-                },
-                (error) => {
-
-                },
-
-                );
-
-
+               let vm = this;
+                vm.edit = false;
+               vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
             },
             approveQuantity(){
 
               let vm=this;
+               let data = {
+                  'data': vm.getNominationLngData
+                };
 
-              User.approveQuatityForTruckLoad().then(
+              User.approveQuatityForTruckLoad(data).then(
 
                 (response) => {
-
+                    toastr.success('Nomination Approve successfully', 'approve Nomination', {timeOut: 5000});
+                    vm.displayApprove = true;
+                    vm.edit = false;
+                    vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
+                      
                 },
                 (error) => {
-
+                   toastr.error('Something Went wrong.', 'Approve Nomination', {timeOut: 5000});
                 },
 
                 );
@@ -133,9 +134,12 @@
             },
             rejectQuantity(){
 
-              let vm=this;
+               let vm=this;
+               let data = {
+                  'data': vm.getNominationLngData
+                };
 
-              User.rejectQuatityForTruckLoad().then(
+              User.rejectQuatityForTruckLoad(data).then(
 
                 (response) => {
 
@@ -148,10 +152,9 @@
 
             },
             initialState() {
-                this.$data.invoiceData.date = '',
-                this.$data.invoiceData.buyer_id=''
+               
             },
-            
+
             validateBeforeSubmit() {
                
                 this.$validator.validateAll().then(() => {

@@ -28,7 +28,7 @@ use Auth;
  	 */
     public function getNominationLngList($userType,$noOfPage,$userId,$date)
         {
-
+         
         if($userType==2)
         {
              $list= NominationLng::join('truck_details', function ($join) {
@@ -49,8 +49,9 @@ use Auth;
                 $join->on('users.id','=','nomination_lng.buyer_id');
             })
              ->whereDate('nomination_lng.lngDate',$date)
+            // ->where('nomination_lng.lng_status','pending')
              ->select('nomination_lng.*','users.first_name','users.last_name','nomination_lng.id as nId','truck_details.truck_no','truck_details.truck_company')
-             ->orderBy('nomination_lng.created_at','desc')
+             ->orderBy('nomination_lng.lngTime','desc')
              ->paginate($noOfPage);
         }
         
@@ -172,6 +173,50 @@ use Auth;
         $presp_id = NominationLng::find( $id );
         $presp_id ->delete();
         return $id;
+    }
+
+    /**
+    * update approve qty and status in related tabel
+    *
+    *  Auth : Mital Sharma
+    **/
+
+    public function approveNominationLngById($data){
+        $result = 0;
+        if(!empty($data)){
+
+            foreach($data as $key){
+                NominationLng::where('id',$key['id'])->update(array('lng_status' => 'approved','approve_quantity' => $key['quantity']));
+
+                $result = 1;
+            }
+        }
+
+        return $result;
+
+    }
+
+
+    
+
+     /**
+    * reject qty and status in related tabel
+    *
+    *  Auth : Mital Sharma
+    **/
+
+    public function rejectNominationLngById($data){
+        $result = 0;
+        if(!empty($data)){
+
+            foreach($data as $key){
+                NominationLng::where('id',$key['id'])->update(array('lng_status' => 'reject'));
+                $result = 1;
+            }
+        }
+
+        return $result;
+
     }
 
     

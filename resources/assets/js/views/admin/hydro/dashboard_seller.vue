@@ -21,25 +21,6 @@
         </section>
 
         <div class="row">
-            <div class="col-sm-6 col-md-6 col-xl-3">
-                    <div class="flip">
-                         <router-link to="/lng_supply_bytruck_list">
-                        <!-- <a href="/generate_invoice"> -->
-                        <div class="widget-bg-color-icon card-box front">
-                            <div class="bg-icon float-left">
-                           <i class="fa fa-truck"></i>
-                            </div>
-                            <div class="text-right">
-                                <h3><b><a href="/lng_supply_bytruck_list">LNG Suppliy Quantity</a></b></h3>
-                                <h3 class="text-dark"><b><!-- {{total_lng_quantity}} -->0</b></h3>
-                                 <p>For Date:{{selectedDashbordDate}}</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <!-- </a> -->
-                        </router-link>
-                        </div>
-                    </div>
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
                         <a href="#" @click="availibility()" title="Add Availability">
