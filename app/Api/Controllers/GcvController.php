@@ -23,14 +23,15 @@ class GcvController extends Controller
      */
     public function addGcv(Request $request)
     {
-        // dd();
-        $curDate = Carbon::createFromFormat('d-m-Y', $request->all()['curDate']);
-       $GcvRec = AvailabilityGcv::where('gcv_date',date('Y-m-d', strtotime($request->all()['curDate'] )))->count();
-       if($GcvRec > 0){
+        // dd($request->all()['data']);
+        $data = $request->all()['data'];
+        $curDate = Carbon::createFromFormat('d-m-Y', $data['curDate']);
+       $GcvRec = AvailabilityGcv::where('gcv_date',date('Y-m-d', strtotime($data['curDate'] )))->count();
+       if($GcvRec == 0){
 
         AvailabilityGcv::create([
-            'gcv_quantity'=>$request->all()['gcvQuantity'],
-            'gcv_date' => $request->all()['curDate']
+            'gcv_quantity'=>$data['factor'],
+            'gcv_date' =>date('Y-m-d', strtotime($data['curDate'] ))
         ]);
          return ['code' => 200 ,'data'=>'','message'=>'GCV successfully added.'];
        } else {

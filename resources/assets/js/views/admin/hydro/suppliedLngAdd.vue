@@ -5,103 +5,90 @@
 		<div class="card bg-success-card nomination_class">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-12"><h4 class="mt-2" v-if="nominationLngData.pageName=='EDIT'">Nomination Update</h4><h4 class="mt-2" v-else>Nomination LNG Add</h4></div>
+            <div class="col-md-12"><h4 class="mt-2">Truck loading</h4>
+            </div>
           </div>
           <div class="col-md-6 text-right">
-                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{today_date}} Date List.</strong> 
+                    <!-- <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{today_date}} Date List.</strong>  -->
                 </div>
         </div>
-        <div class="card-body">
-            <form method="post"> 
-
-            <div class="row">
-                <div class="col-md-12">
-                        <div class="card-body">
+            <div class="card-body">
+                <form method="post"> 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-body">
                                 <div class="row form-group">
                                     <div class="col-md-3">
                                         <label class="control-label float-right" >Truck: </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <select name="truck_details_id" id="truck_details_id" class="form-control ls-select2" v-model="nominationLngData.truck_details_id" v-validate="'required'">
-                                            <option value="">Select</option>
-                                            <option :disabled="truckDetails.available>0" v-for="truckDetails in truckDetailsOption" :value="truckDetails.id" v-if="">
-                                               {{truckDetails.text}}</option>
-                                        </select>
-                                        <i v-show="errors.has('truck_details_id')" class="fa fa-warning"></i>
-                                        <span class="help is-danger" v-show="errors.has('truck_details_id')">
-                                            Please select truck.
-                                        </span>
-                                    </div>
-                                </div>
-                                 <div class="row form-group">
-                                    <div class="col-md-3">
-                                        <label class="control-label float-right" >Time: </label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" id = "lngTime" class="form-control timepicker1" name="lngTime" v-model="nominationLngData.lngTime" v-validate="'required'">
-                                        <i v-show="errors.has('lngTime')" class="fa fa-warning"></i>
-                                        <span class="help is-danger" v-show="errors.has('lngTime')">
-                                            Please enter time.
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row form-group"  >
-                                    <div class="col-md-3">
-                                        <label for="quantity " class="control-label float-right txt_media1">Quantity :</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class=" input-group">
+                                        <label class="control-label float-left" ><strong>{{nominationLngData.truck_details.truck_company}}({{nominationLngData.truck_details.truck_no}})</strong> </label>
                                        
-
-                                            
-                                            <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationLngData.quantity" name="quantity" >
-
-                                 
-                                             <div class="input-group-append">
-                                                <span class="input-group-text ">MMBTU</span>
-                                            </div>
-                                        </div>
-
-                                            <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
-                                    </div>
+                                    </div> 
                                 </div>
-                                <!-- <div class="row form-group">
-
+                                <div class="row form-group">
                                     <div class="col-md-3">
-                                        <label class="control-label float-right" >Date: </label>
+                                        <label class="control-label float-right" >Tare Weight: </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" id = "date" class="form-control" name="date" v-model="nominationLngData.date.time"  readonly>
-                                        <i v-show="errors.has('date')" class="fa fa-warning"></i>
-                                        <span class="help is-danger" v-show="errors.has('date')">
-                                            Please enter valid date.
-                                        </span>
-                                    </div> 
-                                </div> -->
-                           
-
-
-                                <div class="row form-group mt-5">
-                                    <div class="col-md-3">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <span v-if="nominationLngData.pageName=='EDIT'">
-                                            <button class="btn btn-success" type="button" @click="editValidateBeforeSubmit()">Update</button>
-                                        </span>
-                                        <span v-else>
-                                             <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
+                                        <input type="text" id = "tare_weight" class="form-control " name="tare_weight" v-model="nominationLngData.tare_weight" v-validate="'required|decimal:2'"  :readonly="(updateType == 'gross_weight') ? true : false">
+                                        <i v-show="errors.has('tare_weight')" class="fa fa-warning"></i>
+                                        <span class="help is-danger" v-show="errors.has('tare_weight')">
+                                            Please enter proper tare weight quantity.
                                         </span>
                                     </div>
-                                     <div class="col-md-3">
-                                         <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
-                                     </div>
                                 </div>
+                                    <div class="row form-group" v-if="updateType == 'gross_weight'" >
+                                        <div class="col-md-3">
+                                            <label for="quantity " class="control-label float-right txt_media1">Gross Weight :</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class=" input-group">
+                                                <input type="text" class="form-control" id="gross_weight"  v-validate="'required|decimal:2'" v-model="nominationLngData.gross_weight" name="gross_weight" >
+
+                                     
+                                                 <div class="input-group-append">
+                                                    <span class="input-group-text ">MMBTU</span>
+                                                </div>
+                                            </div>
+
+                                                <span class="help is-danger" v-show="errors.has('gross_weight')">Please enter valid gross weight quantity.</span>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row form-group">
+
+                                        <div class="col-md-3">
+                                            <label class="control-label float-right" >Date: </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id = "date" class="form-control" name="date" v-model="nominationLngData.date.time"  readonly>
+                                            <i v-show="errors.has('date')" class="fa fa-warning"></i>
+                                            <span class="help is-danger" v-show="errors.has('date')">
+                                                Please enter valid date.
+                                            </span>
+                                        </div> 
+                                    </div> -->
+                               
+
+
+                                    <div class="row form-group mt-5">
+                                        <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <span >
+                                                <button class="btn btn-success" type="button" @click="editValidateBeforeSubmit()">Save</button>
+                                            </span>
+                                           
+                                        </div>
+                                         <div class="col-md-3">
+                                             <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
+                                         </div>
+                                    </div>
+                            </div>
                         </div>
-                </div>
+                    </div>
+                </form>
             </div>
-      
-        </form>
-        </div>
 		</div>
     </div>
 	
@@ -132,42 +119,20 @@
                         'lngDate':moment().format('DD-MM-YYYY'),
                         'lngTime':'',
                         'pageName':'',
+                        'tare_weight':'',
+                        'gross_weight':'',
+                        'truck_details':{}, 
                         //'request':'',
                     },
                     'truckDetailsOption':{},
-                    'option': {
-                        type: 'day',
-                        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-                        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                        format: 'DD-MM-YYYY',
-                        placeholder: 'Select Date',
-                        inputStyle: {
-                            'display': 'inline-block',
-                            'padding': '6px',
-                            'line-height': '22px',
-                            'font-size': '16px',
-                            'border': '2px solid #fff',
-                            'box-shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
-                            'border-radius': '2px',
-                            'color': '#5F5F5F',
-                            'width':'100%',
-                        },
-
-                    },
-                    limit: [
-                    {
-                        type: 'fromto',
-                        to: new Date()
-                    }],
-                   
                 }
         },
+        props:['updateType'],
         components: {
             'date-picker': myDatepicker,
         },
         mounted() {
             var vm = this;
-            
             $('.ls-select2').select2({
                 placeholder: "Select"
             });
@@ -227,7 +192,7 @@
                 let vm=this;
                 let truckDetailsList=[];
                 let data={'lngDate':vm.today_date,'buyer_id':vm.nominationLngData.buyer_id};
-                User.getTruckDetailsList(data).then(
+                    User.getTruckDetailsList(data).then(
                      (response) => {
                     $.each(response.data.data, function(key,value) {
 
@@ -257,8 +222,12 @@
                         vm.nominationLngData.lngDate =presp_data.lngDate;
                         vm.nominationLngData.lngTime =presp_data.lngTime;
                         vm.nominationLngData.truck_details_id =presp_data.truck_details_id;
+                        vm.nominationLngData.truck_details =presp_data.truck_detaild;
                         vm.user_id =presp_data.buyer_id;
+                        vm.nominationLngData.truck_details = presp_data.truck_detail[0];
+                        vm.nominationLngData.tare_weight = presp_data.tare_weight;
 
+                        vm.nominationLngData.gross_weight = presp_data.gross_weight
                          setTimeout(function(){
                             $('#truck_details_id').val(presp_data.truck_details_id).trigger('change');
                         },100);
@@ -284,53 +253,57 @@
                 this.$data.nominationLngData.lngTime ='',
                 this.$data.nominationLngData.truck_details_id =''
             },
-            validateBeforeSubmit() {
+            // validateBeforeSubmit() {
                 
 
-               let vm=this;
-                vm.$validator.validateAll().then(() => {
+            //    let vm=this;
+            //     vm.$validator.validateAll().then(() => {
                     
-                    if (!this.errors.any()) {
+            //         if (!this.errors.any()) {
 
-                        User.createNominationLng(vm.nominationLngData).then(
-                          (response)=> {
+            //             User.createNominationLng(vm.nominationLngData).then(
+            //               (response)=> {
                            
-                            if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Add Nomination LNG', {timeOut: 5000});
-                                vm.$root.$emit('nominationLngSuccess',1);
-                                //this.initialState();
+            //                 if(response.data.code == 200){
+            //                     toastr.success(response.data.message, 'Add Nomination LNG', {timeOut: 5000});
+            //                     vm.$root.$emit('nominationLngSuccess',1);
+            //                     //this.initialState();
                                 
-                            }
-                            else if (response.data.code == 300) {
-                                toastr.error(response.data.message, 'Add Nomination', {timeOut: 5000});
-                                //this.initialState(); 
-                            }
-                            else
-                            {
-                                toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
-                            }
+            //                 }
+            //                 else if (response.data.code == 300) {
+            //                     toastr.error(response.data.message, 'Add Nomination', {timeOut: 5000});
+            //                     //this.initialState(); 
+            //                 }
+            //                 else
+            //                 {
+            //                     toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+            //                 }
                             
-                          },
-                          (error)=>{
-                          }
+            //               },
+            //               (error)=>{
+            //               }
 
-                        )
+            //             )
                        
-                    }
-                })
-            },
+            //         }
+            //     })
+            // },
             editValidateBeforeSubmit() {
                 
                let vm=this;
                 vm.$validator.validateAll().then(() => {
                     
                     if (!this.errors.any()) {
-                        User.editNominationLng(vm.nominationLngData).then(
+                        User.saveTruckLoading(vm.nominationLngData).then(
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Update Nomination', {timeOut: 5000});
-                                vm.$root.$emit('nominationLngSuccess',1);
+                                if(vm.updateType == 'tare_weight'){
+                                    toastr.success('Tare weight value has been saved', 'Success ', {timeOut: 5000});
+                                } else {
+                                    toastr.success('Gross weight value has been saved', 'Success ', {timeOut: 5000});               
+                                }
+                                 vm.$root.$emit('suppliedLngSuccess');
                                 //this.initialState();
                                 
                             }

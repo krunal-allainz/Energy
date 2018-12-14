@@ -4,7 +4,7 @@
       <div class="modal-dialog modal-lg" role="document" >
           <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="gcvModalLabel"> Add GCV</h4>
+                <h4 class="modal-title" id="gcvModalLabel"> Add Factor</h4>
                 <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close" @click="getClose()">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <div class="row form-group">
                             <div class="col-md-3">
-                                <label for="quantity " class="control-label float-right txt_media1">Quantity :</label>
+                                <label for="quantity " class="control-label float-right txt_media1">Factor :</label>
                             </div>
                             <div class="col-md-6">
                                <div class=" input-group">
@@ -22,7 +22,9 @@
                                  <div class="input-group-append">
                                     <span class="input-group-text ">MMBTU/Kg</span>
                                 </div>
+
                               </div>
+                               <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
                           </div>
                         </div>
                     </div>
@@ -75,7 +77,11 @@ export default {
         },
         saveGcv(){
           var vm =this;
-          vm.$root.$emit('saveGcv',vm.gcv.quantity);
+            vm.$validator.validateAll().then(() => {
+              if (!this.errors.any()) {
+                vm.$root.$emit('saveGcv',vm.gcv.quantity);
+              }
+            });
         }
     }
 }

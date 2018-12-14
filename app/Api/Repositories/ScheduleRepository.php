@@ -60,11 +60,7 @@ class ScheduleRepository {
    		{
    			return array('result'=>'','code'=>301);
    		}
-   		
 	}
-
-	
-
 }
 
 ?>

@@ -46,6 +46,10 @@ export default {
   getNominationList(page_url,userType,noofRecord,userId,select_date){
      return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
   },
+  getSuppliedLngList(page_url,userType,noofRecord,userId,select_date){
+     return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
+  },
+  
   getNominationListByDate(page_url,data){
      return api.post(page_url,{'nominationData':data});
   },
@@ -171,6 +175,9 @@ export default {
   },
   getAvailableQty(data){
    return api.post('setting/get-availabel-qty',{'data':data}); 
+  },
+  saveTruckLoading(data) {
+    return api.post('nominationLng/saveTruckLoading',{'data':data});
   }
 
 }

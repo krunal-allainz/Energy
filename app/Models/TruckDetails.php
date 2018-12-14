@@ -19,4 +19,7 @@ class TruckDetails extends Model
       'safe_quantity_lng',
       'status'
      ];
+
+
+  
 }

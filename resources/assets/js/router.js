@@ -63,6 +63,7 @@ import dashboardSeller from './views/admin/hydro/dashboard_seller.vue'
 import dashboardBuyer from './views/admin/hydro/dashboard_buyer.vue'
 
 import generateInvoice from './views/admin/hydro/generate_invoice.vue'
+import generateInvoiceLng from './views/admin/hydro/generate_invoice_lng.vue'
 
 import invoiceListBuyer from './views/admin/hydro/invoiceListBuyer.vue'
 
@@ -73,6 +74,8 @@ import dashboardTruckBuyer from './views/admin/hydro/dashboard_truck_buyer.vue'
 
 
 import dashboardTruckSeller from './views/admin/hydro/dashboard_truck_seller.vue'
+
+import suppliedLng from './views/admin/hydro/suppliedLng.vue'
 
 
 
@@ -142,6 +145,14 @@ const routes = [
                 meta: { requiresAuth: true },
                 name: 'generate_invoice'
             },
+
+            {
+                path: '/generate_invoice_lng',
+                component: generateInvoiceLng,
+                meta: { requiresAuth: true },
+                name: 'generate_invoice_lng'
+            },
+            
             {
                 path: '/generate_buyer_invoice',
                 component: generateBuyerInvoice,
@@ -183,6 +194,12 @@ const routes = [
                 component: dashboardTruckSeller,
                 meta: { requiresAuth: true },
                 name: 'seller-v2-dashboard'
+            },
+            {
+                path: '/supply-lng',
+                component: suppliedLng,
+                meta: { requiresAuth: true },
+                name: 'supply-lng'
             },
             
             {

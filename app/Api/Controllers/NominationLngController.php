@@ -44,6 +44,39 @@ class NominationLngController extends Controller
        
     }
 
+    public function getSuppliedLngList(Request $request)
+    { 
+        
+        $userType = $request->userType;
+        $userId = $request->userId ;
+        $noOfPage = $request->noofRecord;
+        $selected_date=$request->selectedDate;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date)->format('Y-m-d');
+
+        $supplied_lng_list=$this->nomLngObj->getSuppliedLngList($userType,$noOfPage,$userId,$date);
+        if($supplied_lng_list)
+        {
+            return ['code' => 200 ,'data'=>$supplied_lng_list,'message'=>'Getting list successfully.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+       
+    }
+
+    public function saveTruckLoading(Request $request)
+    {
+        $truck_loading=$this->nomLngObj->saveTruckLoading($request->all()['data']);
+        if($truck_loading)
+        {
+            return ['code'=> 200 ,'data'=>$truck_loading,'message'=>'Something went wrong'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
     /**
      * [createNominationLng description]
      * @param  Request $request [description]

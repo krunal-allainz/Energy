@@ -63,6 +63,46 @@ use Auth;
         return $list;
     }
 
+
+        public function getSuppliedLngList($userType,$noOfPage,$userId,$date)
+        {
+            // dd($userType,$noOfPage,$userId,$date);
+        if($userType==2)
+        {
+             $list= NominationLng::with('truckDetail')
+             ->whereDate('nomination_lng.lngDate',$date)
+             ->where('nomination_lng.buyer_id',$userId)
+             // ->select('nomination_lng.*','nomination_lng.id as nId','truck_details.truck_no','truck_details.truck_company')
+             ->orderBy('nomination_lng.created_at','desc')
+             ->paginate($noOfPage);
+
+        }
+        else if($userType==3)
+        {
+             $list= NominationLng::with('truckDetail','buyerDetail')
+             ->whereDate('nomination_lng.lngDate',$date)
+             ->orderBy('nomination_lng.lngTime','desc')
+             ->paginate($noOfPage);
+             // ->get();
+        }
+        
+        return $list;
+    }
+
+    public function saveTruckLoading($data)
+    {
+        // dd($data);
+        $tare_weight = $data['tare_weight'] ? $data['tare_weight'] : '';
+        $gross_weight = $data['gross_weight'] ? $data['gross_weight'] : '';
+
+        // return Nomination::where('id',$id)->first();
+        return $truckLoading =NominationLng::where('id', $data['nominationLngId'])->update([
+            'tare_weight' => $tare_weight,
+            'gross_weight' => $gross_weight
+        ]);
+       
+    }
+
     public function createNominationLng($request)
     {
             $formData=$request->nominationLngData;
@@ -86,6 +126,8 @@ use Auth;
             $nominationLng->lngDate=$lngDate;
 
             $nominationLng->quantity=$formData['quantity'];
+            $nominationLng->tare_weight='0.00';
+            $nominationLng->gross_weight='0.00';
             $nominationLng->save();
             if($nominationLng->id!=0)
             {
@@ -169,7 +211,7 @@ use Auth;
      */
     public function getNominationLngDetailsById($id)
     {
-        $details=NominationLng::where('id',$id)->first();
+        $details=NominationLng::with('truckDetail')->where('id',$id)->first();
         return $details;
     }
 
