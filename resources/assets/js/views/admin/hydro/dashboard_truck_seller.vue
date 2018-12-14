@@ -100,7 +100,7 @@
                     </div>
                     <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                         <router-link to="/generate_invoice">
+                         <router-link to="/generate_invoice_lng">
                         <!-- <a href="/generate_invoice"> -->
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
@@ -236,8 +236,29 @@ export default {
         
     },
     methods: {
-        saveGcv(data) {
-            console.log('data');
+        saveGcv(qty) {
+            let vm =this;
+            jQuery('.js-loader').removeClass('d-none')
+            let factorData = {'factor':qty,'curDate': vm.selectedDashbordDate};
+            User.addGcv(factorData).then(
+                (response)=> {
+                    jQuery('.js-loader').addClass('d-none');
+                    if(response.data.code == 200){
+                        $('#gcvAdd').modal('hide');
+                        vm.close_modal();
+                       
+                        toastr.success('Factor is added successfully', 'Success', {timeOut: 5000});
+                    } else {
+                        toastr.error('Factor is already added', 'Error', {timeOut: 5000});
+
+                    }
+
+                },
+                (error) => {
+                    jQuery('.js-loader').addClass('d-none');
+
+                }
+                );
         },
         nomination_page()
         {
@@ -318,7 +339,7 @@ export default {
                         $('#gcvAdd').modal('show');
                         console.log(response.data);
                     } else {
-                        toastr.error('GCV is already added', 'Error', {timeOut: 5000});
+                        toastr.error('Factor is already added', 'Error', {timeOut: 5000});
 
                     }
 
