@@ -173,6 +173,9 @@ export default {
   rejectQuatityForTruckLoad(data){
     return api.post('nominationLng/reject-nomination-lng-qty',{'data':data});
   },
+  getAvailableQty(data){
+   return api.post('setting/get-availabel-qty',{'data':data}); 
+  },
   saveTruckLoading(data) {
     return api.post('nominationLng/saveTruckLoading',{'data':data});
   }

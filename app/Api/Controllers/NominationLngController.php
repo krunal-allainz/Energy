@@ -166,6 +166,8 @@ class NominationLngController extends Controller
         if($approve == 1)
         {
             return ['code' => 200 ,'data'=>$approve,'message'=>'Nomination LNG approved successfully.'];
+        }else if($approve == 0){
+             return ['code' => 250 ,'data'=>'','message'=>'Total approve quantity must be less then total availabel quantity .'];
         }
         else
         {
@@ -180,11 +182,12 @@ class NominationLngController extends Controller
     *
     *  Auth : Mital Sharma
     **/
-    public function rejectNominationLngById(){
+    public function rejectNominationLngById(Request $request){
 
         $data = $request->data['data'];
+        $rid = $request->data['rid'];
 
-        $approve=$this->nomLngObj->rejectNominationLngById($data);
+        $approve=$this->nomLngObj->rejectNominationLngById($data,$rid);
         if($approve == 1)
         {
             return ['code' => 200 ,'data'=>$approve,'message'=>'Nomination LNG reject successfully.'];

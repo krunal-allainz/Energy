@@ -11,14 +11,13 @@
           <previousNextDate></previousNextDate></div>
         </div>
 		</div>
-            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit'></lngSupplyBytruckListForSeller>
+            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :availableQty='availableQty' :totalRequestedQty='totalRequestedQty' :totalApproveQty='totalApproveQty'></lngSupplyBytruckListForSeller>
+
             <form method="post" enctype="multipart/form-data">
-              
               <div  class="text-right">
-                  <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()" :disabled="displayApprove">Approve</button>
-                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="editQuantity()" v-if="(edit == false)">Edit</button>
-                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="cancleQuantity()" v-if="(edit == true)">cancle</button>
-                  <button type="button" value="Request" class="btn btn-danger" name="btnReject" @click="rejectQuantity()">Reject</button>
+                  <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()"  v-show="(displayApprove == false)">Approve</button>
+                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="editQuantity()" v-if="(edit == false && displayApprove == false)">Edit</button >
+                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="cancleQuantity()" v-if="(edit == true && displayApprove == false)">cancle</button>
               </div>
               
 		</form>
@@ -52,6 +51,11 @@
                     'gerDataForPaggination':'',
                     'edit' : false,
                     'displayApprove' : false,
+                    'totalRequestedQty' : 0,
+                    'totalApproveQty' : 0,
+                    'availableQty' : 0,
+                    'canApprove' : 0,
+
                 }
         },
         components: {
@@ -59,18 +63,114 @@
           previousNextDate
         },
         created: function() {
+       
+        this.$root.$on('changeDashbordDate',this.changeDashbordDate);
           this.$root.$on('getNominationLngList',this.getNominationLngListData);
            this.$root.$on('perPageLngNomination',this.perPageLngNomination);
+          this.$root.$on('getTotalQty',this.getTotalQty);
+          this.$root.$on('totalRequestedQty',this.totalRequestedQty);
+          this.$root.$on('totalApproveQty',this.totalApproveQty);
+           this.$root.$on('checkApprovalStatus',this.checkApprovalStatus);
          },
         mounted() {
+          
             var vm = this;
              if(vm.$store.state.Users.userDetails.user_type != '3'){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
           }
-            
+          if(vm.totalApproveQty > 0){
+            vm.displayApprove = true;
+          }
+            vm.getAvailableQty('lng_supply_daily_limit','numeric');
+             
              vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
+          
         },
         methods: {
+          
+           changeDashbordDate(selectDate)
+           {  
+            let vm=this;
+            vm.loadList = false;
+            vm.selectedDate=selectDate;
+           
+            vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
+            },
+            setDate(date){
+             vm.selectedDate=date;
+            },
+            checkApprovalStatus(){
+              let vm = this;
+              if(vm.totalRequestedQty > 0 && vm.totalRequestedQty > vm.availableQty){
+                  vm.$parent.displayApprove == false;
+                  vm.canApprove = 0;
+              }else{
+                vm.$parent.displayApprove == true;
+                vm.canApprove = 1;
+              }
+
+
+            },
+          getAvailableQty($fieldName,$fieldType){
+            let vm= this;
+            let data = {
+                      'fieldName':$fieldName,
+                      'fieldType':$fieldType
+                      }
+            User.getAvailableQty(data).then(
+
+                 (response) => {
+                  
+                    if(response.data.code == 200){
+                       vm.availableQty =response.data.data ;
+                    }else{
+                        toastr.error(response.message, 'Availabel quantity not define ', {timeOut: 5000});
+                    }
+                  },
+                  (error) => {
+                      toastr.error(response.message, 'some thing Wrong', {timeOut: 5000});
+                  }
+              );
+
+
+          },
+          getTotalQty(data){
+            let vm=this;
+            let totalRequest = 0;
+            let totalApprove = 0;
+            vm.totalRequestedQty = 0;
+            vm.totalApproveQty = 0;
+            $.each(data,function(key,value){
+                if(value.status != 'rejected'){
+                    totalRequest = parseInt(totalRequest) + parseInt(value.quantity);
+                    if(value.approve_quantity != null && value.approve_quantity != 0){
+                        totalApprove = parseInt(totalApprove) + parseInt(value.approve_quantity);
+                      }
+                  }
+
+            });
+
+            vm.totalRequestedQty = totalRequest;
+            vm.totalApproveQty = totalApprove;
+
+           return true;
+
+          },
+          setLngDate(ldate)
+        {
+           return moment(String(ldate)).format('DD-MM-YYYY');
+        },
+        nominationLngSuccess()
+      {
+          let vm=this;
+          
+          vm.selectedDate=vm.today_date;
+          vm.page_add_enabled=false;
+          vm.$store.dispatch('SetNominationLngId', ''); 
+          vm.$store.dispatch('SetNominationLngPage','');
+          vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
+
+      },
           getNominationLngListData(pageData) {
             let vm =this;
             vm.getNominationLngList(pageData.page_url,pageData.curDate);
@@ -91,8 +191,13 @@
               (response) => {
                 vm.getNominationLngData = response.data.data.data;
                 vm.gerDataForPaggination = response.data.data;
+                vm.getTotalQty(vm.getNominationLngData);
+                if(vm.totalApproveQty > 0){
+                  vm.displayApprove = true;
+                }
                 vm.loadList = true;
-                vm.displayApprove = false;
+                
+               // vm.displayApprove = false;
               },
               (error) => {
                      },
@@ -110,47 +215,47 @@
                vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
             },
             approveQuantity(){
-
               let vm=this;
                let data = {
                   'data': vm.getNominationLngData
                 };
+                vm.checkApprovalStatus();
+                
+            if(vm.canApprove == 1){ 
 
-              User.approveQuatityForTruckLoad(data).then(
+                
+              if(confirm("After Approve quantity can't change, do you want to approve")){
+                  User.approveQuatityForTruckLoad(data).then(
 
-                (response) => {
-                    toastr.success('Nomination Approve successfully', 'approve Nomination', {timeOut: 5000});
-                    vm.displayApprove = true;
-                    vm.edit = false;
-                    vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
-                      
-                },
-                (error) => {
-                   toastr.error('Something Went wrong.', 'Approve Nomination', {timeOut: 5000});
-                },
+                    (response) => {
+                      if(response.data.code == 200){
+                         vm.displayApprove = false;
+                          vm.edit = false;
+                          toastr.success('Nomination Approve successfully', 'approve Nomination', {timeOut: 5000});
+                         
+                          vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
+                           vm.getTotalQty(vm.getNominationLngData);
 
-                );
+                      }
+                      if(response.data.code == 250){
 
-            },
-            rejectQuantity(){
+                         toastr.error(response.message, 'error  Nomination', {timeOut: 5000});
+                      }
+                          
+                    },
+                    (error) => {
+                       toastr.error('Something Went wrong.', 'Approve Nomination', {timeOut: 5000});
+                    },
 
-               let vm=this;
-               let data = {
-                  'data': vm.getNominationLngData
-                };
-
-              User.rejectQuatityForTruckLoad(data).then(
-
-                (response) => {
-
-                },
-                (error) => {
-
-                },
 
                 );
+                }
+            }else{
+               toastr.error('total quantity require less then available quantity', 'error  Nomination', {timeOut: 5000});
+            }
 
             },
+           
             initialState() {
                
             },

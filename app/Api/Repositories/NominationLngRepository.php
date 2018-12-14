@@ -4,11 +4,14 @@ use Carbon\Carbon;
 use DB;
 use Energy\Models\NominationLng;
 use Energy\Models\TruckDetails;
+use Energy\Models\Setting;
 use Energy\Api\Repositories\NotificationRepository;
 use Excel;
 use File;
 use Energy\Api\Repositories\UserRepository;
+use Energy\Api\Repositories\SettingRepository;
 use Auth;
+
 
 
 
@@ -17,6 +20,7 @@ use Auth;
  {
     public function __construct(){
         $this->userObj = new UserRepository(); 
+        $this->confObj = new SettingRepository(); 
     }
    
  	/**
@@ -49,12 +53,13 @@ use Auth;
                 $join->on('users.id','=','nomination_lng.buyer_id');
             })
              ->whereDate('nomination_lng.lngDate',$date)
-            // ->where('nomination_lng.lng_status','pending')
+             ->whereIn('nomination_lng.lng_status',['pending','approved'])
              ->select('nomination_lng.*','users.first_name','users.last_name','nomination_lng.id as nId','truck_details.truck_no','truck_details.truck_company')
-             ->orderBy('nomination_lng.lngTime','desc')
+
+             ->orderBy('nomination_lng.buyer_id','ASC')
              ->paginate($noOfPage);
         }
-        
+       
         return $list;
     }
 
@@ -225,12 +230,26 @@ use Auth;
 
     public function approveNominationLngById($data){
         $result = 0;
+        $totalApproveQty = 0;
+        $availabelLimit  = '';
+        $availabelLimit = $this->confObj->getFieldValue('lng_supply_daily_limit','numeric');
+
         if(!empty($data)){
 
             foreach($data as $key){
+                 $totalApproveQty = (int)$totalApproveQty + (int)$key['quantity'] ;  
+                NominationLng::where('id',$key['id'])->update(array('lng_status' => 'approved','approve_quantity' => $key['quantity']));
+
+            }
+            if( $totalApproveQty <= $availabelLimit){
+                foreach($data as $key){
+               
                 NominationLng::where('id',$key['id'])->update(array('lng_status' => 'approved','approve_quantity' => $key['quantity']));
 
                 $result = 1;
+                }
+            }else{
+                 $result = 0;
             }
         }
 
@@ -241,20 +260,21 @@ use Auth;
 
     
 
-     /**
+    /**
     * reject qty and status in related tabel
     *
     *  Auth : Mital Sharma
     **/
 
-    public function rejectNominationLngById($data){
-        $result = 0;
-        if(!empty($data)){
+    public function rejectNominationLngById($data,$rid){
 
-            foreach($data as $key){
-                NominationLng::where('id',$key['id'])->update(array('lng_status' => 'reject'));
+        $result = 0;
+        if(!empty($rid)){
+
+           // foreach($data as $key){
+                NominationLng::where('id',$rid)->update(array('lng_status' => 'rejected'));
                 $result = 1;
-            }
+            //}
         }
 
         return $result;

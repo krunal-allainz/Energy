@@ -183,11 +183,13 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
           $api->post('nominationLng/approve-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
 
           //reject quantity for truck load
+          $api->post('nominationLng/reject-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@rejectNominationLngById');
+
+          //get available qty
+          $api->post('setting/get-availabel-qty','\Energy\Api\Controllers\BaseController@getAvailabelQty');
           $api->post('nominationLng/reject-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
 
-          $api->post('nominationLng/saveTruckLoading','\Energy\Api\Controllers\NominationLngController@saveTruckLoading');
- 
-        
+          $api->post('nominationLng/saveTruckLoading','\Energy\Api\Controllers\NominationLngController@saveTruckLoading');        
 }); 
 
         

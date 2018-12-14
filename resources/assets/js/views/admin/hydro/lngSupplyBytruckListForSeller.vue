@@ -22,36 +22,50 @@
                         Quantity (KG) 
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
-                      <th style="width: auto;">
+                      <th style="width: auto;" v-show="(totalApproveQty > 0 )">
                         Appove Quantity (KG) 
+                      <i data-v-744e717e="" class="fa float-right"></i> 
+                    </th>
+                      <th style="width: auto;">
+                        Action
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
                   </tr>
                   </thead>
-                  <tbody data-v-744e717e=""  v-for="nominationLngData in getNominationLngData">
-                  	<tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId">
+                  <tbody data-v-744e717e="" >
+                  	<tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId"  v-for="nominationLngData in getNominationLngData">
                   	<td data-v-744e717e="" class="text-uppercase"  v-text="nominationLngData.first_name">
                     </td>
-                      			
                     <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.truck_no">
                     </td>
                     <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.lngTime">
                     </td>
                     <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.quantity" v-show="(edit==false)">
                     <td data-v-744e717e="" class="text-uppercase"  v-show="(edit==true)">
-                      <input type="text" v-model=nominationLngData.quantity name="quantity" id="quantityId" />
+                      <form>
+                      <input type="text" v-model="nominationLngData.quantity" name="quantity" id="quantityId" @keydown="changeQtyValue()" v-validate="'required|decimal:2'"    />
+                       <i v-show="errors.has('quantityId')" class="fa fa-warning"></i>
+                      <span class="help is-danger" v-show="errors.has('quantityId')">Please enter valid Quantity number.</span>
+                       </form>                 
                     </td>
-                     <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.approve_quantity" >
+                     <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.approve_quantity"  v-show="(totalApproveQty > 0)">
                      </td>
-                  </tr
->                </tbody>
+                     <td>
+                      <form method="post">
+                        <button type="button" value="Request" class="btn btn-danger" name="btnReject" @click="rejectedQuantity(nominationLngData.nId)">Reject</button>
+                      </form>
+                     </td>
+                  </tr>
+                 <tr style="border:none !important;"><td>&nbsp;</td><td>&nbsp;</td><td><strong>Total</strong></td>
+                  <td ><strong>{{totalRequestedQty}}</strong></td>
+                  <td v-show="(totalApproveQty > 0 )" ><strong>{{totalApproveQty}}</strong></td>
+                  <td>&nbsp;</td></tr>
+                </tbody>
               </table>
+              <div> <table class="tabel" data-v-744e717e=""></table></div>
             </div>
             <div data-v-744e717e="" class="table-footer">
             	<div data-v-744e717e="" class="datatable-length float-left pl-3">
-              <div>
-              <div></div>
-              </div>
               <div data-v-744e717e="" class="datatable-info  pb-2 mt-3" v-show="(nominationLngPagination.total > 0)">
                 	<span data-v-744e717e="">Showing </span> {{nominationLngPagination.current_page}} - {{nominationLngPagination.to}} of {{nominationLngPagination.total}}
                   <span data-v-744e717e="">records</span>
@@ -79,6 +93,9 @@
             </div>
           </div>
         </div>
+        <div class="text-right">
+        <span class="red">* Available quantity for LNG supply is {{availableQty}}</span>
+       </div>
 		</div>
 	</div>
 </div>
@@ -87,7 +104,7 @@
 	import User from '../../../api/users.js';
   import previousNextDate from './previousNextDate.vue';
 	export default {
-     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit'],
+     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','totalRequestedQty','totalApproveQty'],
 		 data() {
 
 		 	return {
@@ -105,22 +122,31 @@
         'page_add_enabled':false,
         'load' : false,
         'selectedDashbordDate':moment().format('DD-MM-YYYY'),
+        'totalRequestedQty' : this.$parent.totalRequestedQty,
+        'totalApproveQty': this.$parent.totalApproveQty,
 		 	}
 		 },
     created: function() {
-        this.$root.$on('nominationSuccess',this.nominationSuccess);
-        // this.$root.$on('changeDashbordDate',this.changeDashbordDate);
          this.$root.$on('loadList',false);
-        //this.$root.$emit('getNominationLngList','/nominationLng/getNominationLngList',this.selectedDate);
     },
 		mounted(){
 		 	let vm = this;
+      vm.availableQty = this.$parent.availableQty;
+      vm.changeQtyValue();
       vm.makePagination( vm.getNominationLngData);
 		 },
      components: {
         previousNextDate
     },
-		 methods:{
+		methods:{
+            changeQtyValue(){ 
+
+                let vm = this;
+                this.$root.$emit('getTotalQty',vm.getNominationLngData);
+                vm.totalRequestedQty =  this.$parent.totalRequestedQty;
+                vm.totalApproveQty = this.$parent.totalApproveQty;
+          
+            },
             makePagination: function(data,status){
                 let pagination = {
                     current_page: data.current_page,
@@ -138,17 +164,9 @@
              let data = {
               'page_url': '/nominationLng/getNominationLngList',
               'curDate':this.selectedDate
-            };
-
+            }
               this.$root.$emit('perPageLngNomination',vm.setPerPageNomination);
               this.$root.$emit('getNominationLngList',data);
-            },
-            changeDashbordDate(selectDate)
-            {
-              let vm=this;
-              vm.selectedDashbordDate=selectDate;
-              vm.getNominationCountForBuyer();
-              vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
             },
               setQty(data){
                 // let vm=this;
@@ -167,72 +185,33 @@
                   return '00.00' + ' MMBTU';
                 }
               },
-            nominationSuccess()
-            {
-                let vm=this;
-                
-                vm.selectedDashbordDate=vm.tomorrow_date;
-                vm.page_add_enabled=false;
-                vm.$store.dispatch('SetNominationId', ''); 
-                vm.$store.dispatch('SetNominationPage','');
-                vm.getNominationCountForBuyer();
-                vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
+             rejectedQuantity(rid){
 
-            },
-            getNominationCountForBuyer()
-            {
-                let vm=this;
-                User.getNominationCountForBuyer(vm.user_id,vm.selectedDate).then(
-                  (response)=> {
-                   vm.add_nomination_count=response.data.data;
-                  },
-                  (error)=>{
-                  }
-               )
-            },
-            removeNominationLng(id)
-            {
-                let vm=this;
-                vm.page_add_enabled=false;
-                  User.deleteNomination(id).then(
-                      (response)=> {
-                       
-                        if(response.data.code == 200){
-                          //$('#presp_'+id).remove();
-                           vm.getNominationCountForBuyer();
-                           vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
-                          toastr.success('Nomination deleted successfully', 'Add Nomination', {timeOut: 5000});
-                            //this.initialState();
-                            
-                        } else if (response.data.code == 300) {
-                            toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
-                            //this.initialState(); 
-                        }
-                        else
-                        {
-                            toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
-                        }
-                        
-                      },
-                      (error)=>{
+               let vm=this;
+               let data = {
+                  'data': vm.getNominationLngData,
+                  'rid' : rid
+              };
+              User.rejectQuatityForTruckLoad(data).then(
+
+                 (response) => {
+                    toastr.success('Nomination Rejected successfully', 'Rejected Nomination', {timeOut: 5000});
+                   
+                    let data = {
+                      'page_url': '/nominationLng/getNominationLngList',
+                      'curDate':this.selectedDate
                       }
+                      this.$root.$emit('getTotalQty',vm.getNominationLngData);
+                      this.$root.$emit('getNominationLngList',data);
+                       vm.totalRequestedQty =  this.$parent.totalRequestedQty;
+                    vm.totalApproveQty = this.$parent.totalApproveQty;
+                },
+                (error) => {
+                   toastr.error('Something Went wrong.', 'rejected Nomination', {timeOut: 5000});
+                },
 
-                    )
-            },
-            setNominationId(id)
-            {
-              let vm=this;
-                vm.$store.dispatch('SetNominationId', id); 
-                vm.$store.dispatch('SetNominationPage','EDIT');
-                vm.page_add_enabled=true;
-            },
-            setAddNomination()
-            {
-                let vm=this;
-                vm.$store.dispatch('SetNominationId', ''); 
-                vm.$store.dispatch('SetNominationPage','ADD');
-                vm.$store.dispatch('SetNominationDate',vm.selectedDashbordDate);
-                vm.page_add_enabled=true;
+                );
+
             },
 	},
 		
