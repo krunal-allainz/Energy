@@ -32,6 +32,7 @@ use Auth;
  	 */
     public function getNominationList($userType,$noOfPage,$userId,$date)
     {
+        
         if($userType==2)
         {
              $list= Nomination::join('agreement', function ($join) {

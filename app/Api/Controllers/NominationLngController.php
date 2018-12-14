@@ -24,12 +24,13 @@ class NominationLngController extends Controller
      * @return [type]           [description]
      */
     public function getNominationLngList(Request $request)
-    {
+    { 
+        
         $userType = $request->userType;
         $userId = $request->userId ;
         $noOfPage = $request->noofRecord;
         $selected_date=$request->selectedDate;
-        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d');
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date)->format('Y-m-d');
 
         $nomination_lng_list=$this->nomLngObj->getNominationLngList($userType,$noOfPage,$userId,$date);
         if($nomination_lng_list)
@@ -110,6 +111,50 @@ class NominationLngController extends Controller
         if($delete)
         {
             return ['code' => 200 ,'data'=>$delete,'message'=>'Nomination LNG deleted successfully.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+    /**
+    *  Approve Qty For truck Load
+    *  Description : approve valide qty for truck load
+    *
+    *  Auth : Mital Sharma
+    **/
+
+    public function approveNominationLngById(Request $request){
+
+        $data = $request->data['data'];
+
+        $approve=$this->nomLngObj->approveNominationLngById($data);
+        if($approve == 1)
+        {
+            return ['code' => 200 ,'data'=>$approve,'message'=>'Nomination LNG approved successfully.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+
+    }
+
+     /**
+    *  Reject Qty For truck Load
+    *  Description : reject valide qty for truck load
+    *
+    *  Auth : Mital Sharma
+    **/
+    public function rejectNominationLngById(){
+
+        $data = $request->data['data'];
+
+        $approve=$this->nomLngObj->rejectNominationLngById($data);
+        if($approve == 1)
+        {
+            return ['code' => 200 ,'data'=>$approve,'message'=>'Nomination LNG reject successfully.'];
         }
         else
         {

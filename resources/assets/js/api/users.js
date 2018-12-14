@@ -163,5 +163,11 @@ export default {
   deleteNominationLngById(id){
       return api.post('nominationLng/deleteNominationLngById',{'id':id});
   },
+  approveQuatityForTruckLoad(data){
+    return api.post('nominationLng/approve-nomination-lng-qty',{'data':data});
+  },
+  rejectQuatityForTruckLoad(data){
+    return api.post('nominationLng/reject-nomination-lng-qty',{'data':data});
+  }
 
 }

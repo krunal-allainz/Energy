@@ -178,6 +178,12 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
           $api->post('nominationLng/getNominationLngDetailsById','\Energy\Api\Controllers\NominationLngController@getNominationLngDetailsById');
           //for delete nomination lng
           $api->post('nominationLng/deleteNominationLngById','\Energy\Api\Controllers\NominationLngController@deleteNominationLngById');
+
+          //approve quantity for truck load
+          $api->post('nominationLng/approve-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
+
+          //reject quantity for truck load
+          $api->post('nominationLng/reject-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
  
         
 }); 
