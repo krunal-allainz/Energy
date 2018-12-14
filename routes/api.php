@@ -80,6 +80,8 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         
         $api->post('nomination/getNominationList', '\Energy\Api\Controllers\NominationController@getNominationList');
 
+        $api->post('nomination/getSuppliedList', '\Energy\Api\Controllers\NominationController@getSuppliedList');
+
          //for nomination add
         $api->post('nomination/create', '\Energy\Api\Controllers\NominationController@createNomination');
 
