@@ -43,17 +43,17 @@
 
                                 <thead>
                                 <tr class="bg-primary">
-                                    <th class="text-center" style="width: 150px;">
-                                        <strong>Date</strong>
+                                    <th class="text-center" style="width: 30px;">
+                                        <strong>#</strong>
                                     </th>
-                                    <th class="text-center" colspan="3" style="width: 150px;">
+                                    <th class="text-center" colspan="5" style="width: 250px;">
                                         <strong>
-                                           Allocated Quantity
+                                           particulars
                                         </strong>
                                     </th>
-                                     <th colspan="2" class="text-center" style="width: 100px;">
-                                        <strong>Price</strong>
-                                    </th>
+                                    <!--  <th colspan="2" class="text-center" style="width: 100px;">
+                                        <strong>Gcv </strong>
+                                    </th> -->
                                    <!--  <th>
                                         <strong>Rate</strong>
                                     </th>
@@ -61,7 +61,7 @@
                                         <strong>Tax</strong>
                                     </th> -->
                                    
-                                    <th class="text-center" style="width: 100px;">
+                                    <th class="text-center" style="width: 60px;">
                                         <strong>Total</strong>
                                     </th>
                                     <!-- <th class="text-center" id="add_row"><i class="fa fa-fw ti-plus"></i></th> -->
@@ -70,46 +70,70 @@
                                 <tbody>
 
                                     <tr  v-for="request in requestList[index + 1]">
-                                        <td class="text-center">{{request.date}}</td>
-                                        <td class="text-center" colspan="3">{{request.supplied_Qty}}</td>
+                                        <td class="text-center">{{++index}}</td>
+                                        <td class="text-center" colspan="5">Quantity Of Lng Supplied On {{request.date|dateFormate}}
+                                        <br><small><strong>Description : </strong> Net Quantity {{request.supplied_Qty}} X (M.F.){{request.gcv_value}}</small></td>
                                        
-                                         <td colspan="2" class="text-center">{{agreementData.price}}</td>
-                                        <td class="text-center">{{request.supplied_Qty * agreementData.price}}</td>
+                                         <!-- <td colspan="2" class="text-center">{{request.gcv_value}}</td> -->
+                                        <td class="text-center">{{request.supplied_Qty * request.gcv_value}} MMBTU</td>
                                         
 
                                     </tr>
+                                    <tr><td class="text-center"></td>
+                                        <td class="text-center" colspan="3"><strong>Total Net Quantity</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{invData.supplied_quantity}} </td>
+                                       
+                                         <td colspan="2" class="text-center"></td>
+                                        <td class="text-center"></td></tr>
                                 </tbody>
                                 <tfoot>
+                                    <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                      
+                                    <td class="emptyrow text-center"></td>
+                                    <td class="emptyrow text-center" colspan="2">
+                                        <strong>
+                                            <span >Price per MMBtu</span>: &nbsp;
+
+                                        </strong>
+                                    </td>
+                                    <td class="highrow text-center">
+                                        <strong contenteditable> <i class="fa fa-usd"></i> {{ agreementData.perMMbtu}}</strong>
+                                    </td>
+                                  
+                                </tr>
                                 <tr>
                                     <td class="highrow text-center"></td>
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
-                                     <td></td>
-                                    <td class="highrow text-center">
+                                     
+                                    <td class="highrow text-center" colspan="2">
                                         <strong>
-                                            Sub Total: &nbsp;
+                                           Total Price to customer: &nbsp;
                                         </strong>
                                     </td>
                                     <td class="highrow text-center">
-                                        <strong contenteditable><span class="top tipso_style" title="Sub Total" data-tipso="Here amount total charge."><i class="fa fa-rupee"></i> {{invData.sub_amount}}</span></strong>
+                                        <strong contenteditable><span class="top tipso_style" title="Total Price to customer" data-tipso=""><i class="fa fa-usd"></i> {{invData.sub_amount}}</span></strong>
                                     </td>
                                    
                                 </tr>
+                                 
                                  <tr>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
-                                      <td></td>
+                                      
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-center">
+                                    <td class="emptyrow text-center" colspan="2">
                                         <strong>
-                                            <span >Penalty</span>: &nbsp;
+                                            <span >Exchange Rate</span>: &nbsp;
 
                                         </strong>
                                     </td>
                                     <td class="highrow text-center">
-                                        <strong contenteditable> <span class="top tipso_style" title="Panelty Define In Agreement" data-tipso="Here amount is deducted."> - <i class="fa fa-rupee"></i> {{ agreementData.panelty}}</span></strong>
+                                        <strong contenteditable>  INR {{ agreementData.convertRate}}/USD </strong>
                                     </td>
                                   
                                 </tr>
@@ -117,9 +141,25 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
-                                       <td></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-center" width="50px">
+                                    <td class="emptyrow text-center" colspan="2">
+                                        <strong>
+                                            <span>Total charges to customer</span>: &nbsp;
+
+                                        </strong>
+                                    </td>
+                                    <td class="highrow text-center">
+                                        <strong contenteditable>
+                                        <i class="fa fa-rupee"></i>{{invData.afterConvertCurrencty}}  </strong>
+                                    </td>
+                                  
+                                </tr>
+                                <tr>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"></td>
+                                    <td class="emptyrow text-center" width="50px" colspan="2">
                                         <strong>
                                             {{agreementData.taxType}}( %{{agreementData.taxRate}}):
                                         </strong>
@@ -135,9 +175,9 @@
                                     </td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
-                                    <td></td>
+                                    
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-center">
+                                    <td class="emptyrow text-center" colspan="2">
                                         <strong>
                                             <b>Total: &nbsp;</b>
                                         </strong>
@@ -190,9 +230,8 @@
                 'agreementData' : {
                     'taxType' : '',
                     'taxRate'  : '',
-                    'paneltyType' : '',
-                    'panelty' : '',
-                    'price' : '',
+                    'perMMbtu' : '',
+                    'convertRate' : '',
                 },
                 'invoice1':{},
                 'invoice1_subdata':{},
@@ -240,6 +279,7 @@
                                 let sub_amount  = value.sub_amount ;
                                 let supplied_quantity  = value.supplied_quantity ;
                                 let total_amount  = value.total_amount ;
+                                let afterConvertCurrencty = value.afterConvertCurrentcy;
                                 let date  = value.date ;
                                 let tax_rate_amount_cal = value.tax_rate_amount_cal;
                                invoice_list.push({
@@ -248,6 +288,7 @@
                                  'supplied_quantity':supplied_quantity,
                                  'total_amount': total_amount,
                                  'date' : date,
+                                 'afterConvertCurrencty' : afterConvertCurrencty,
                                  'tax_rate_amount_cal' : tax_rate_amount_cal
                                 });
                             });
@@ -256,6 +297,8 @@
                                 $.each(value, function(index,data) {
                                     let supplied_Qty =  data.supplied_Qty ;
                                     let date  = data.date ;
+                                    let gcvValue  = data.GcvValue ;
+                                    let supply_Qty_with_Gcv  = data.supplu_qty_with_GcvValue ;
                                     let nid  = data.nid ;
                                     let quantityRequired  = data.quantityRequired ;
                                     let approveQuntity  = data.approveQuntity ;
@@ -263,6 +306,8 @@
                                    request_list.push({
                                      'supplied_Qty':supplied_Qty,
                                      'date':date,
+                                     'gcv_value' :gcvValue ,
+                                     'supply_qty_with_gcv' : supply_Qty_with_Gcv,
                                      'quantityRequired':quantityRequired,
                                      'approveQuntity': approveQuntity,
                                      'nid':nid,
@@ -282,9 +327,11 @@
                             vm.buyerData.email = request_data.buyerData.email;
                             vm.agreementData.taxType = request_data.buyerData.tax;
                             vm.agreementData.taxRate = request_data.buyerData.rate;
-                            vm.agreementData.paneltyType = request_data.buyerData.paneltyType;
-                            vm.agreementData.panelty = request_data.buyerData.panelty;
-                            vm.agreementData.price = request_data.buyerData.price;
+                            vm.agreementData.perMMbtu = request_data.buyerData.permmbtu;
+                            vm.agreementData.convertRate = request_data.buyerData.convertRate;
+                            // vm.agreementData.paneltyType = request_data.buyerData.paneltyType;
+                            // vm.agreementData.panelty = request_data.buyerData.panelty;
+                            // vm.agreementData.price = request_data.buyerData.price;
                             
                         }
                     },
