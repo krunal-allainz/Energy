@@ -178,6 +178,11 @@ export default {
   },
   saveTruckLoading(data) {
     return api.post('nominationLng/saveTruckLoading',{'data':data});
+  },
+  getDisabledDates(data) {
+    return api.post('nominationLng/getDisabledDates',{'data':data});
+  },
+  getNominationLngTotals(date){
+    return api.post('nominationLng/getNominationLngTotals',{'date':date});
   }
-
 }

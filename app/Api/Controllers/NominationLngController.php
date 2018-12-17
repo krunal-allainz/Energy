@@ -198,8 +198,30 @@ class NominationLngController extends Controller
         }
     }
 
-   
+    /**
+     * [getDisabledDates description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function getDisabledDates(Request $request)
+    {
+      $data = $request->input('data');
+      $lngData = $this->nomLngObj->getDisabledDates($data);
+      return $lngData;
+    }
 
+    public function getNominationLngTotals(Request $request)
+    {
+        $data = $request->all();
+        $lngData = $this->nomLngObj->getNominationLngTotals($data);
 
-   
+        if($lngData)
+        {
+            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG reject successfully.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }   
 }
