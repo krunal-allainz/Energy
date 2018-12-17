@@ -218,7 +218,7 @@
                 $('#truck_details_id').on("select2:select", function (e) {
                     vm.nominationLngData.truck_details_id =$(this).val();
                 });
-                $('.timepicker1').timepicker().on('changeTime.timepicker', function(e) {
+                $('.timepicker1').on('changeTime.timepicker', function(e) {
                     vm.nominationLngData.lngTime =$('.timepicker1').val();
                 });
             },
