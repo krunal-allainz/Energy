@@ -77,6 +77,8 @@ import dashboardTruckSeller from './views/admin/hydro/dashboard_truck_seller.vue
 
 import suppliedLng from './views/admin/hydro/suppliedLng.vue'
 
+import LngInvoice from './views/admin/hydro/invoicelng.vue'
+
 
 
 import nominationLngSupplierByTruckList from './views/admin/hydro/nominationLngSupplierByTruckList.vue'
@@ -164,6 +166,12 @@ const routes = [
                 component: Invoice,
                 meta: { requiresAuth: true },
                 name: 'invoice'
+            },
+            {
+                path: '/invoicelng/:id',
+                component: LngInvoice,
+                meta: { requiresAuth: true },
+                name: 'invoicelng'
             },
              {
                 path: '/buyer_invoice_list',

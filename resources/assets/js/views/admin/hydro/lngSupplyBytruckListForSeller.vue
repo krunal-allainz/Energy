@@ -121,9 +121,9 @@
         'nominationLngPagination': {},
         'page_add_enabled':false,
         'load' : false,
-        'selectedDashbordDate':moment().format('DD-MM-YYYY'),
-        'totalRequestedQty' : this.$parent.totalRequestedQty,
-        'totalApproveQty': this.$parent.totalApproveQty,
+        'selectedDashbordDate':moment().format('DD-MM-YYYY')
+        //'totalRequestedQty' : this.$parent.totalRequestedQty,
+        //'totalApproveQty': this.$parent.totalApproveQty,
 		 	}
 		 },
     created: function() {
@@ -143,8 +143,8 @@
 
                 let vm = this;
                 this.$root.$emit('getTotalQty',vm.getNominationLngData);
-                vm.totalRequestedQty =  this.$parent.totalRequestedQty;
-                vm.totalApproveQty = this.$parent.totalApproveQty;
+               // vm.totalRequestedQty =  this.$parent.totalRequestedQty;
+                //vm.totalApproveQty = this.$parent.totalApproveQty;
           
             },
             makePagination: function(data,status){
@@ -203,8 +203,8 @@
                       }
                       this.$root.$emit('getTotalQty',vm.getNominationLngData);
                       this.$root.$emit('getNominationLngList',data);
-                       vm.totalRequestedQty =  this.$parent.totalRequestedQty;
-                    vm.totalApproveQty = this.$parent.totalApproveQty;
+                      // vm.totalRequestedQty =  this.$parent.totalRequestedQty;
+                    //vm.totalApproveQty = this.$parent.totalApproveQty;
                 },
                 (error) => {
                    toastr.error('Something Went wrong.', 'rejected Nomination', {timeOut: 5000});

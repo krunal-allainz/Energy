@@ -103,7 +103,7 @@
             {
             	 var vm = this;
                 var consult_list=[];
-                User.generateUserDetailsByType(6,'Active').then(
+                User.generateUserDetailsByType(2,'Active').then(
                      (response) => {
                         let consult_data  = response.data.data;
                         $.each(consult_data, function(key, value) {

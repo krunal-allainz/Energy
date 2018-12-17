@@ -138,6 +138,7 @@
                         </router-link>
                         </div>
                     </div>
+                    
                 </div>
 
                 <div class="row">
