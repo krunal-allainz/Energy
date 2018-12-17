@@ -52,7 +52,7 @@
                                 <i class="fas fa-charging-station"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Nomination</b></h3>
+                                <h3><b>Nomination LNG</b></h3>
                                 <h3 class="text-dark"><b>{{total_request}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -288,7 +288,7 @@ export default {
             vm.$store.dispatch('SetNominationDate',''); 
             vm.$store.dispatch('SetNominationPage','');
             vm.$store.dispatch('SetNominationId','');
-            vm.$router.push({'name':'nomination_list'});
+            vm.$router.push({'name':'nomination_lpg_list'});
         },
         close_modal()
         {

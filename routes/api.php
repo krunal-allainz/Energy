@@ -84,9 +84,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
          //for nomination add
         $api->post('nomination/create', '\Energy\Api\Controllers\NominationController@createNomination');
-
+$api->post('/nominationLng/getNominationLngList', '\Energy\Api\Controllers\NominationLngController@getNominationLngList');
         //for nomination details by id
-        $api->post('nomination/getNominationDetailsById', '\Energy\Api\Controllers\NominationController@getNominationDetailsById');
+        $api->post('nomination/getNominationDetailsById', '\Energy\Api\Controllers\NominationController@getNominationDetailsBytId');
 
          //for nomination edit
         $api->post('nomination/edit', '\Energy\Api\Controllers\NominationController@editNomination');

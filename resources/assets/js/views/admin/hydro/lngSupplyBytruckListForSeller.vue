@@ -122,8 +122,6 @@
         'page_add_enabled':false,
         'load' : false,
         'selectedDashbordDate':moment().format('DD-MM-YYYY')
-        //'totalRequestedQty' : this.$parent.totalRequestedQty,
-        //'totalApproveQty': this.$parent.totalApproveQty,
 		 	}
 		 },
     created: function() {
