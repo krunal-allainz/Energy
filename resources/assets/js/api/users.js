@@ -179,6 +179,12 @@ export default {
   saveTruckLoading(data) {
     return api.post('nominationLng/saveTruckLoading',{'data':data});
   },
+  getDisabledDates(data) {
+    return api.post('nominationLng/getDisabledDates',{'data':data});
+  },
+  getNominationLngTotals(date){
+    return api.post('nominationLng/getNominationLngTotals',{'date':date});
+  },
   getNominationLngList(page_url,userType,noofRecord,userId,select_date){
      return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
   },
@@ -197,7 +203,4 @@ export default {
   generateLngInvoiceByBuyerId(buyerId,sellerId,invoiceData,invoiceDataIndex,invoiceHtml,requestList,agreementData){
      return api.post('invoice/generatelnginvoicebybuyer', { 'buyerId' : buyerId, 'sellerId' : sellerId ,'invoiceData' : invoiceData , 'invoiceDataIndex' : invoiceDataIndex , 'invoiceHtml' : invoiceHtml , 'requestList' : requestList, 'agreementData' : agreementData});
   }
- 
-
-
 }

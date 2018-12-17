@@ -84,9 +84,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
          //for nomination add
         $api->post('nomination/create', '\Energy\Api\Controllers\NominationController@createNomination');
-$api->post('/nominationLng/getNominationLngList', '\Energy\Api\Controllers\NominationLngController@getNominationLngList');
+
         //for nomination details by id
-        $api->post('nomination/getNominationDetailsById', '\Energy\Api\Controllers\NominationController@getNominationDetailsBytId');
+        $api->post('nomination/getNominationDetailsById', '\Energy\Api\Controllers\NominationController@getNominationDetailsById');
 
          //for nomination edit
         $api->post('nomination/edit', '\Energy\Api\Controllers\NominationController@editNomination');
@@ -189,6 +189,11 @@ $api->post('/nominationLng/getNominationLngList', '\Energy\Api\Controllers\Nomin
           $api->post('setting/get-availabel-qty','\Energy\Api\Controllers\BaseController@getAvailabelQty');
           // $api->post('nominationLng/reject-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
 
+          $api->post('nominationLng/saveTruckLoading','\Energy\Api\Controllers\NominationLngController@saveTruckLoading');
+
+          $api->post('nominationLng/getDisabledDates','\Energy\Api\Controllers\NominationLngController@getDisabledDates');
+
+          $api->post('nominationLng/getNominationLngTotals','\Energy\Api\Controllers\NominationLngController@getNominationLngTotals');        
           $api->post('nominationLng/saveTruckLoading','\Energy\Api\Controllers\NominationLngController@saveTruckLoading');        
 
           //  Invoice Lng

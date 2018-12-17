@@ -1,11 +1,13 @@
 <template>
 	<div class="col-lg-12 mb-3">
-
+    <section v-if="page_add_enabled">
+      <nominationLngAdd></nominationLngAdd>
+  </section>
 		<div class="card bg-success-card">
       <div class="card-header  mb-3" >
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination LNG List</h4></div>
-          <div   v-if="user_type==2 && add_nomination_count==0" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+          <div   v-if="user_type==2 && add_nomination_count==0 && today_date==selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
         </div>
       </div>
         <div class="row">
@@ -78,8 +80,8 @@
                             </td>
                             
                       				<td data-v-744e717e="" class="">
-                      					<a href="javascript:void(0)" > <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a>
-                                <a  href="javascript:void(0)" @click="setNominationId(nominationLngData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                      					<a href="javascript:void(0)" v-if="today_date==setLngDate(nominationLngData.lngDate)"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a>
+                                <a  href="javascript:void(0)" v-if="today_date==setLngDate(nominationLngData.lngDate)" @click="setNominationId(nominationLngData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -101,9 +103,6 @@
                       </div>
                  </div>
             </div>
-            <section v-if="page_add_enabled">
-                <nominationLngAdd></nominationLngAdd>
-            </section>
 		</div>
 	</div>
 </template>
@@ -128,7 +127,7 @@
         'perPageLngNomination' : 5,
         'nominationLngPagination': {},
         'page_add_enabled':false,
-        'selectedDashbordDate':this.$store.state.selected_date,
+        'selectedDashbordDate':moment().format('DD-MM-YYYY'),
         
         
 		 	}
@@ -141,7 +140,7 @@
 		mounted(){
 		 	let vm = this;
       //vm.initData();
-      
+      User.getNominationLngTotals(vm.selectedDashbordDate);
       vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
 		 },
      components: {
@@ -155,13 +154,6 @@
             vm.selectedDashbordDate=selectDate;
            
             vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
-            if(vm.page_add_enabled == true){
-              
-              vm.page_add_enabled = false;
-              setTimeout(function(){
-                vm.setAddNomination();
-              },1000)
-            }
         },
         setLngDate(ldate)
         {
@@ -193,7 +185,7 @@
       {
           let vm=this;
           
-          // vm.selectedDashbordDate=vm.today_date;
+          vm.selectedDashbordDate=vm.today_date;
           vm.page_add_enabled=false;
           vm.$store.dispatch('SetNominationLngId', ''); 
           vm.$store.dispatch('SetNominationLngPage','');
@@ -239,7 +231,17 @@
         let vm=this;
           vm.$store.dispatch('SetNominationLngId', id); 
           vm.$store.dispatch('SetNominationLngPage','EDIT');
-          vm.page_add_enabled=true;
+          if(vm.page_add_enabled == true){
+              vm.page_add_enabled=false;
+            
+            setTimeout(function(){
+
+              vm.page_add_enabled=true;
+            },1000)
+          } else {
+            vm.page_add_enabled=true;
+          }
+
       },
       setAddNomination()
       {
