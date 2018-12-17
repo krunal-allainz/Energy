@@ -8,7 +8,7 @@
           <div class="col-md-12"><h4 class="mt-2" v-if="nominationLngData.pageName=='EDIT'">Nomination Update</h4><h4 class="mt-2" v-else>Nomination LNG Add</h4></div>
           </div>
           <div class="col-md-6 text-right">
-                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{today_date}} Date List.</strong> 
+                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{selected_date}} Date List.</strong> 
                 </div>
         </div>
         <div class="card-body">
@@ -120,6 +120,7 @@
                     'today_date':moment().format('DD-MM-YYYY'),
                     'user_id':this.$store.state.Users.userDetails.id,
                     'buyer_id':'',
+                    'selected_date':this.$store.state.selected_date,
                     'user_type':this.$store.state.Users.userDetails.user_type,
                     'nominationLngData' : {
                         'nominationLngId':'',
@@ -129,11 +130,12 @@
                             time:moment().add(1,'days').format('DD-MM-YYYY')
                         },
                         'quantity': '',
-                        'lngDate':moment().format('DD-MM-YYYY'),
+                        'lngDate':this.$store.state.selected_date,
                         'lngTime':'',
                         'pageName':'',
                         //'request':'',
                     },
+                    'selected_date':this.$store.state.selected_date,
                     'truckDetailsOption':{},
                     'option': {
                         type: 'day',
@@ -226,7 +228,7 @@
             {
                 let vm=this;
                 let truckDetailsList=[];
-                let data={'lngDate':vm.today_date,'buyer_id':vm.nominationLngData.buyer_id};
+                let data={'lngDate':vm.selected_date,'buyer_id':vm.nominationLngData.buyer_id};
                 User.getTruckDetailsList(data).then(
                      (response) => {
                     $.each(response.data.data, function(key,value) {

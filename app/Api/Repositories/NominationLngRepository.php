@@ -106,9 +106,9 @@ use Auth;
     public function createNominationLng($request)
     {
             $formData=$request->nominationLngData;
-
-            $lngDate=Carbon::createFromFormat('d-m-Y', $formData['lngDate'])->format('Y-m-d');
-            
+            // dd($request->all());
+            // $lngDate=$request->all()['nominationLngData']['lngDate'];
+            $lngDate=Carbon::createFromFormat('d-m-Y', $request->all()['nominationLngData']['lngDate'])->format('Y-m-d');
             $checkNominationLng=$this->checkNominationLngWithTime($lngDate,$formData['buyer_id'],$formData['lngTime']);
             if($checkNominationLng>0)
             {
@@ -141,6 +141,7 @@ use Auth;
 
     public function checkNominationLngWithTime($lDate,$buyer_id,$time)
     {
+        // dd($lDate,$buyer_id,$time);
         $list=NominationLng::whereDate('lngDate',$lDate)
         ->where('buyer_id',$buyer_id)
         ->where('lngTime',$time)

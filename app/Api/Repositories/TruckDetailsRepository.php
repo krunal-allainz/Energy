@@ -25,9 +25,11 @@ use Energy\Api\Repositories\NominationLngRepository;
  	 */
     public function getTruckDetailsList($data)
     {
+        // dd($data);
         $truckList=TruckDetails::get();
         $truckData=array();
         $lngDate= $lngDate=Carbon::createFromFormat('d-m-Y', $data->lngDate)->format('Y-m-d');
+        // dd($lngDate);
         $buyer_id=$data->buyer_id;
         foreach($truckList as $truck)
         {
