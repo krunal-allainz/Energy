@@ -89,7 +89,7 @@
                             <i class="far fa-caret-square-right"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Allocated Quantity</b></h3>
+                                <h3><b>Supply Quantity</b></h3>
                                 <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -483,44 +483,7 @@ export default {
         supplied_quantity()
         {
             let vm=this;
-            let today=moment().format('DD-MM-YYYY');
-
-            if(vm.selectedDashbordDate!=today) {
-                return false;
-            }
-            User.updateSuppliedQuantity().then(
-              (response)=> {
-               
-                if(response.data.code == 200){
-                   //toastr.success('Supplied quantity changed.', 'Supplied Quantity', {timeOut: 5000});
-                    vm.supplied_table_data=response.data.data;
-                    vm.open_supplied_modal=true;
-                    vm.getTotalApprovedQuantity(vm.selectedDashbordDate);
-                    setTimeout(function(){
-                        $('#suppliedModalId').modal('show');
-                    },100);
-
-                } 
-                else if (response.data.code == 301) {
-
-                    toastr.error('You have alredy updated allocated quantity.', 'Allocated Quantity', {timeOut: 5000});
-                }
-                else if (response.data.code == 302) {
-                    toastr.error('Allocated quantity not added.', 'Allocated Quantity', {timeOut: 5000});
-                }
-                else if (response.data.code == 300) {
-                    toastr.error('No record found.', 'Allocated Quantity', {timeOut: 5000});
-                }
-                else
-                {
-                    toastr.error('Something Went wrong.', 'Allocated Quantity', {timeOut: 5000});
-                }
-                
-              },
-              (error)=>{
-              }
-
-            )
+            vm.$router.push('supply-lng');
         },
         GenerateInvoice(){
 

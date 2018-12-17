@@ -74,11 +74,12 @@
                             <td data-v-744e717e="" class="text-uppercase">
                                {{nominationLngData.approve_quantity}}
                             </td>
-                            <td class="" v-if="today_date==setLngDate(nominationLngData.lngDate)" >
+                            <td class="" v-if="today_date>=setLngDate(nominationLngData.lngDate)" >
                       					<!-- <a href="javascript:void(0)" v-if="today_date==setLngDate(nominationLngData.lngDate)"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a> -->
-                                <a  href="javascript:void(0)"v-if="nominationLngData.tare_weight == '0.00'"  @click="setNominationId(nominationLngData.id,'tare_weight')" title="Add tare weight"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a> <a v-else>{{nominationLngData.tare_weight}} </a>
+                                <a  href="javascript:void(0)"v-if="nominationLngData.tare_weight == '0.00'"  @click="setNominationId(nominationLngData.id,'tare_weight')" title="Add tare weight"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a> 
+                                <a v-else>{{nominationLngData.tare_weight}} </a>
                             </td>
-                            <td v-if="today_date==setLngDate(nominationLngData.lngDate)" >
+                            <td v-if="today_date>=setLngDate(nominationLngData.lngDate)" >
                                 <a  href="javascript:void(0)" v-if="nominationLngData.tare_weight != '0.00' && nominationLngData.gross_weight == '0.00'" @click="setNominationId(nominationLngData.id,'gross_weight')" title="Add gross weight"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                                 <a v-else v-text="setText(nominationLngData.gross_weight)"> </a>
 
@@ -118,7 +119,7 @@
 	export default {
 		 data() {
 		 	return {
-        'today_date':moment().format('DD-MM-YYYY'),
+        'today_date':moment().format('YYYY-MM-DD'),
         'tomorrow_date':moment().add(1,'days').format('DD-MM-YYYY'),
 		 	  'currentYear': (new Date()).getFullYear(),
 		 	  'user':this.$store.state.Users.userDetails.first_name + " "+ this.$store.state.Users.userDetails.last_name,
@@ -167,8 +168,8 @@
         vm.cancelPage();
         
       },
-       changeDashbordDate(selectDate)
-        {
+      changeDashbordDate(selectDate)
+      {
             let vm=this;
             vm.selectedDashbordDate=selectDate;
            

@@ -33,7 +33,7 @@
                   </tr>
                   </thead>
                   <tbody data-v-744e717e="" >
-                  	<tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId"  v-for="nominationLngData in getNominationLngData">
+                  	<tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId"  v-for="nominationLngData in getNominationLngDataUpdated">
                   	<td data-v-744e717e="" class="text-uppercase"  v-text="nominationLngData.first_name">
                     </td>
                     <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.truck_no">
@@ -103,6 +103,8 @@
 <script>
 	import User from '../../../api/users.js';
   import previousNextDate from './previousNextDate.vue';
+  import _ from 'lodash';
+
 	export default {
      props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','totalRequestedQty','totalApproveQty'],
 		 data() {
@@ -121,7 +123,8 @@
         'nominationLngPagination': {},
         'page_add_enabled':false,
         'load' : false,
-        'selectedDashbordDate':moment().format('DD-MM-YYYY')
+        'selectedDashbordDate':moment().format('DD-MM-YYYY'),
+        'getNominationLngDataUpdated':{}
 		 	}
 		 },
     created: function() {
@@ -132,6 +135,12 @@
       vm.availableQty = this.$parent.availableQty;
       vm.changeQtyValue();
       vm.makePagination( vm.getNominationLngData);
+      let DataUpdated = _.forEach(vm.getNominationLngData, function(value, key){
+          console.log(value.lngTime,'uuu');
+          value.mTime = moment(value.lngTime);
+      });
+      vm.getNominationLngDataUpdated = _.sortBy(DataUpdated, [function(o) { return moment(o.quantity); },['desc']]);
+      // console.log(vm.getNominationLngDataUpdated,'hhh');
 		 },
      components: {
         previousNextDate
