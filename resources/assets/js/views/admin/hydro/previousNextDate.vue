@@ -30,7 +30,8 @@ export default {
         vm.initData();
         vm.$root.$emit('changeDashbordDate',vm.selectedDate);
         vm.$root.$emit('setDate',vm.selectedDate);
-
+            vm.$store.dispatch('setSelectedDate',vm.selectedDate);
+        
     },
     components: {
            
@@ -57,6 +58,8 @@ export default {
             toastr.success('Your selected date is : '+vm.selectedDate+'.', 'Dashboard', {timeOut: 1500});
             vm.$root.$emit('changeDashbordDate',vm.selectedDate);
             vm.$root.$emit('setDate',vm.selectedDate);
+            vm.$store.dispatch('setSelectedDate',vm.selectedDate);
+            
 
         },
         getNextDate(){
@@ -66,7 +69,7 @@ export default {
              toastr.success('Your selected date is : '+vm.selectedDate+'.', 'Dashboard', {timeOut: 1500});
             vm.$root.$emit('changeDashbordDate',vm.selectedDate);
             vm.$root.$emit('setDate',vm.selectedDate);
-
+            vm.$store.dispatch('setSelectedDate',vm.selectedDate);
         },
     },
     

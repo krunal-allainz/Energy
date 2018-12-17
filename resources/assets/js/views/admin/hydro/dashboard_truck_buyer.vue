@@ -44,7 +44,7 @@
                      </a>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-xl-3">
+            <!-- <div class="col-sm-6 col-md-6 col-xl-3">
              	<div class="flip">
                      <a href="#" @click="nomination_page()" title="Add Nomination">
                         <div class="widget-bg-color-icon card-box front">
@@ -61,7 +61,7 @@
                         </div>
                      </a>
                 </div>
-            </div>
+            </div> -->
             <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
                     <a >
