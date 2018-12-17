@@ -89,7 +89,7 @@
           </div>
           <div data-v-744e717e="" class="card p-3" v-else>
             <div data-v-744e717e="" class="table-responsive">
-                         <span>No Record Found</span>
+                <span>No Record Found</span>
             </div>
           </div>
         </div>
