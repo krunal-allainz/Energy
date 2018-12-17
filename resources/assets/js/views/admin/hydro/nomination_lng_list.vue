@@ -231,7 +231,17 @@
         let vm=this;
           vm.$store.dispatch('SetNominationLngId', id); 
           vm.$store.dispatch('SetNominationLngPage','EDIT');
-          vm.page_add_enabled=true;
+          if(vm.page_add_enabled == true){
+              vm.page_add_enabled=false;
+            
+            setTimeout(function(){
+
+              vm.page_add_enabled=true;
+            },1000)
+          } else {
+            vm.page_add_enabled=true;
+          }
+
       },
       setAddNomination()
       {

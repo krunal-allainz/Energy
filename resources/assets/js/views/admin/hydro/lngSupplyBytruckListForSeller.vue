@@ -33,7 +33,7 @@
                   </tr>
                   </thead>
                   <tbody data-v-744e717e="" >
-                  	<tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId"  v-for="nominationLngData in getNominationLngData">
+                  	<tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId"  v-for="nominationLngData in getNominationLngDataUpdated">
                   	<td data-v-744e717e="" class="text-uppercase"  v-text="nominationLngData.first_name">
                     </td>
                     <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.truck_no">
@@ -89,7 +89,7 @@
           </div>
           <div data-v-744e717e="" class="card p-3" v-else>
             <div data-v-744e717e="" class="table-responsive">
-                         <span>No Record Found</span>
+                <span>No Record Found</span>
             </div>
           </div>
         </div>
@@ -103,6 +103,8 @@
 <script>
 	import User from '../../../api/users.js';
   import previousNextDate from './previousNextDate.vue';
+  import _ from 'lodash';
+
 	export default {
      props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','totalRequestedQty','totalApproveQty'],
 		 data() {
@@ -122,8 +124,7 @@
         'page_add_enabled':false,
         'load' : false,
         'selectedDashbordDate':moment().format('DD-MM-YYYY'),
-        // 'totalRequestedQty' : this.$parent.totalRequestedQty,
-        // 'totalApproveQty': this.$parent.totalApproveQty,
+        'getNominationLngDataUpdated':{}
 		 	}
 		 },
     created: function() {
@@ -134,6 +135,12 @@
       vm.availableQty = this.$parent.availableQty;
       vm.changeQtyValue();
       vm.makePagination( vm.getNominationLngData);
+      let DataUpdated = _.forEach(vm.getNominationLngData, function(value, key){
+          console.log(value.lngTime,'uuu');
+          value.mTime = moment(value.lngTime);
+      });
+      vm.getNominationLngDataUpdated = _.sortBy(DataUpdated, [function(o) { return moment(o.quantity); },['desc']]);
+      // console.log(vm.getNominationLngDataUpdated,'hhh');
 		 },
      components: {
         previousNextDate
@@ -143,8 +150,8 @@
 
                 let vm = this;
                 this.$root.$emit('getTotalQty',vm.getNominationLngData);
-                vm.totalRequestedQty =  this.$parent.totalRequestedQty;
-                vm.totalApproveQty = this.$parent.totalApproveQty;
+               // vm.totalRequestedQty =  this.$parent.totalRequestedQty;
+                //vm.totalApproveQty = this.$parent.totalApproveQty;
           
             },
             makePagination: function(data,status){
@@ -203,8 +210,8 @@
                       }
                       this.$root.$emit('getTotalQty',vm.getNominationLngData);
                       this.$root.$emit('getNominationLngList',data);
-                       vm.totalRequestedQty =  this.$parent.totalRequestedQty;
-                    vm.totalApproveQty = this.$parent.totalApproveQty;
+                      // vm.totalRequestedQty =  this.$parent.totalRequestedQty;
+                    //vm.totalApproveQty = this.$parent.totalApproveQty;
                 },
                 (error) => {
                    toastr.error('Something Went wrong.', 'rejected Nomination', {timeOut: 5000});

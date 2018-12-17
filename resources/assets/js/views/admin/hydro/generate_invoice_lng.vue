@@ -3,7 +3,7 @@
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-6">
-				<h2>Generate Invoice form</h2>
+				<h2>Generate Lng Invoice form</h2>
 				</div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 				</div>
 				
             </div>
-            <invoiceListBuyer  :buyerId='buyer_id'   v-if="(loadList == true)"></invoiceListBuyer>
+            <lngInvoiceListBuyer  :buyerId='buyer_id'   v-if="(loadList == true)"></lngInvoiceListBuyer>
 
 
            
@@ -44,7 +44,7 @@
 
 	import User from '../../../api/users.js';
   	import moment from 'moment';
-    import invoiceListBuyer from './invoiceListBuyer.vue' ; 
+    import lngInvoiceListBuyer from './lngInvoiceListBuyer.vue' ; 
 
     export default {
         data() {
@@ -63,7 +63,7 @@
                 }
         },
         components: {
-            invoiceListBuyer
+            lngInvoiceListBuyer
         },
         mounted() {
             var vm = this;
@@ -103,7 +103,7 @@
             {
             	 var vm = this;
                 var consult_list=[];
-                User.generateUserDetailsByType(6,'Active').then(
+                User.generateUserDetailsByType(2,'Active').then(
                      (response) => {
                         let consult_data  = response.data.data;
                         $.each(consult_data, function(key, value) {

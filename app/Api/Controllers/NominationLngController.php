@@ -197,7 +197,6 @@ class NominationLngController extends Controller
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
     }
-
     /**
      * [getDisabledDates description]
      * @param  Request $request [description]
@@ -209,7 +208,25 @@ class NominationLngController extends Controller
       $lngData = $this->nomLngObj->getDisabledDates($data);
       return $lngData;
     }
+     public function getLngBuyerRequestList(Request $request){
 
+        // write code for get buyer list
+        $buyerId = $request->buyerId;
+        $requestType = $request->requestType;
+        $typeInclude = $request->typeInclude;
+        
+        $get_details=$this->nomLngObj->getLngBuyerRequestList($buyerId,$requestType,$typeInclude); 
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination list successfully get.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+
+        return true;
+     }
     public function getNominationLngTotals(Request $request)
     {
         $data = $request->all();
