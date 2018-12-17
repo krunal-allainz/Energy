@@ -274,12 +274,58 @@ use Auth;
 
            // foreach($data as $key){
                 NominationLng::where('id',$rid)->update(array('lng_status' => 'rejected'));
+            //        $addedBy  = Auth::user()->id;
+            // $dataId = NominationLng::id;
+            // $qty    = $form_data['quantity'];
+            // $type   = 'add_notification';
+            // $d_format=Carbon::createFromFormat('d-m-Y', $nom->date)->format('jS M Y');
+            // $dataText = ucwords($userName).'  has added nomination to '.number_format($qty,2).' MMBTU for '.$d_format;
+            // $title  = 'Nomination request added';
+            // $dataTable = 'nomination_request';
+            // $new_date=Carbon::createFromFormat('d-m-Y', $nom->date)->format('Y-m-d');
+            // $nomination_date=$new_date;
+            // //echo $nomination_date;exit;
+            // $this->notificationObj = new NotificationRepository();
+            // $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
                 $result = 1;
             //}
         }
 
         return $result;
 
+    }
+
+    /**
+    *
+    *
+    *
+    **/
+
+    public function getLngBuyerRequestList($buyerId,$requestType,$typeInclude){
+
+        if($typeInclude == 'no'){
+
+            $list = NominationLng::select('nomination_lng.id as nId','nomination_lng.*','users.*')->where('nomination_lng.lng_status','!=',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_lng.buyer_id');
+            })->get();
+        }else if($typeInclude == 'yes'){
+
+            $list = NominationLng::select('nomination_lng.id as nId','nomination_lng.*','users.*')->where('nomination_lng.lng_status','=',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_lng.buyer_id');
+            })->get();
+        }else{
+
+            $list = NominationLng::select('nomination_lng.id as nId','nomination_lng.*','users.*')->where('nomination_lng.buyer_id',$buyerId)->join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_lng.buyer_id');
+            })->get();
+        }
+
+        return $list;
+
+    }
+
+    public function updateRequeststatus($requestType,$nid){
+        return NominationLng::where('id',$nid)->update(array('nomination_lng.lng_status' => $requestType));
     }
 
     

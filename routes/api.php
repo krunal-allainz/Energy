@@ -187,9 +187,24 @@ $api->post('/nominationLng/getNominationLngList', '\Energy\Api\Controllers\Nomin
 
           //get available qty
           $api->post('setting/get-availabel-qty','\Energy\Api\Controllers\BaseController@getAvailabelQty');
-          $api->post('nominationLng/reject-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
+          // $api->post('nominationLng/reject-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
 
           $api->post('nominationLng/saveTruckLoading','\Energy\Api\Controllers\NominationLngController@saveTruckLoading');        
+
+          //  Invoice Lng
+           $api->post('nominationLng/getNominationLngList', '\Energy\Api\Controllers\NominationLngController@getNominationLngList');
+
+           $api->post('invoice/lnginvoicelistbybuyerid', '\Energy\Api\Controllers\InvoiceLngController@getLngInvoiceLisyByBuyerId');
+
+        $api->post('invoice/generatelnginvoicebybuyer','\Energy\Api\Controllers\InvoiceLngController@generateLngInvoiceLisyByBuyerId');
+
+        $api->post('invoice/viewlngbybuyer', '\Energy\Api\Controllers\InvoiceLngController@viewbyBuyer');
+
+         $api->post('invoice/invoiceLngView', '\Energy\Api\Controllers\InvoiceLngController@getInvoiceView');
+
+          $api->post('nomination/getlngbuyerrequestlist', '\Energy\Api\Controllers\NominationLngController@getLngBuyerRequestList');
+
+         
 }); 
 
         
