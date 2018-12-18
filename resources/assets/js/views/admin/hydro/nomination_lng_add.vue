@@ -96,6 +96,7 @@
                                          <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
                                      </div>
                                 </div>
+                                <label class="text-danger right">Maximum allowed quantity {{ quantity.allowed_quantity*1.20 }}</label> 
                         </div>
                 </div>
             </div>
@@ -160,6 +161,7 @@
                         type: 'fromto',
                         to: new Date()
                     }],
+                    'quantity': ''
                    
                 }
         },
@@ -173,6 +175,14 @@
                 placeholder: "Select"
             });
             vm.initData();
+            User.getBuyerAllowedQuantity(vm.nominationLngData.buyer_id).then(
+                (response) => {
+                    this.quantity = response.data.data;
+                },
+                (error) => {
+
+                }
+            )
         },
         methods: {
             initData()
@@ -373,5 +383,9 @@
     .text-danger
     {
         color: #00ff00;
+    }
+    .right
+    {
+        float: right;
     }
 </style>

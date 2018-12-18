@@ -90,15 +90,20 @@
                 </form>
             </div>
 		</div>
+        <div class="background-overlay"></div>
+        <div v-if="open_gcv_modal">
+            <gcvAddModel></gcvAddModel>
+        </div>
     </div>
-	
-    </section>
+	</section>
 </template>
 
 <script>
 
 	import User from '../../../api/users.js';
     import myDatepicker from 'vue-datepicker';
+    import gcvAddModel from './gcvAddModel.vue';
+
     export default {
         data() {
             return {
@@ -125,11 +130,18 @@
                         //'request':'',
                     },
                     'truckDetailsOption':{},
+                    'open_gcv_modal': true,
+                    'isValid': true
                 }
         },
         props:['updateType'],
         components: {
             'date-picker': myDatepicker,
+            gcvAddModel
+        },
+        created() {
+            this.$root.$on('close_modal', this.close_modal);
+            this.$root.$on('saveGcv', this.saveGcv);
         },
         mounted() {
             var vm = this;
@@ -288,44 +300,103 @@
             //         }
             //     })
             // },
-            editValidateBeforeSubmit() {
-                
-               let vm=this;
-                vm.$validator.validateAll().then(() => {
-                    
-                    if (!this.errors.any()) {
-                        User.saveTruckLoading(vm.nominationLngData).then(
-                          (response)=> {
-                           
-                            if(response.data.code == 200){
-                                if(vm.updateType == 'tare_weight'){
-                                    toastr.success('Tare weight value has been saved', 'Success ', {timeOut: 5000});
-                                } else {
-                                    toastr.success('Gross weight value has been saved', 'Success ', {timeOut: 5000});               
-                                }
-                                 vm.$root.$emit('suppliedLngSuccess');
-                                //this.initialState();
-                                
-                            }
-                            else if (response.data.code == 300) {
-                                toastr.error(response.data.message, 'Update Nomination', {timeOut: 5000});
-                                //this.initialState(); 
-                            }
-                            else
-                            {
-                                toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
-                            }
-                            
-                          },
-                          (error)=>{
-                          }
+            addGcv() {
+                let vm =this;
+                let cur_date = this.$store.state.selected_date;
+                jQuery('.js-loader').removeClass('d-none');
 
-                        )
-                       
+                User.isGcvAdded(cur_date).then(
+                    (response)=> {
+                        jQuery('.js-loader').addClass('d-none');
+                        if(response.data.code == 200){
+                            vm.open_gcv_modal=true;
+                            $('#gcvAdd').modal('show');
+                            vm.isValid = false;
+
+                        } else {
+                            vm.isValid = true;
+                        }
+                    },
+                    (error) => {
+                        jQuery('.js-loader').addClass('d-none');
                     }
-                })
+                );
+            },   
+            editValidateBeforeSubmit() {
+                let vm = this;
+                this.addGcv();
+                setTimeout(function(){
+                    if(vm.isValid == true) {
+                        // let vm=this;
+                        vm.$validator.validateAll().then(() => {
+                            if (!vm.errors.any()) {
+                                User.saveTruckLoading(vm.nominationLngData).then(
+                                  (response)=> {
+                                   
+                                    if(response.data.code == 200){
+                                        if(vm.updateType == 'tare_weight'){
+                                            toastr.success('Tare weight value has been saved', 'Success ', {timeOut: 5000});
+                                        } else {
+                                            toastr.success('Gross weight value has been saved', 'Success ', {timeOut: 5000});               
+                                        }
+                                         vm.$root.$emit('suppliedLngSuccess');
+                                        //this.initialState();
+                                        
+                                    }
+                                    else if (response.data.code == 300) {
+                                        toastr.error(response.data.message, 'Update Nomination', {timeOut: 5000});
+                                        //this.initialState(); 
+                                    }
+                                    else
+                                    {
+                                        toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
+                                    }
+                                    
+                                  },
+                                  (error)=>{
+                                  }
+
+                                )
+                               
+                            }
+                        })
+                        vm.isValid = false;
+                    }
+
+                },1500)
+            },
+            close_modal()
+            {
+                let vm=this;
+                vm.supplied_table_data={};
+                vm.open_supplied_modal=false;
+                vm.open_gcv_modal=false;
+            },
+            saveGcv(qty) {
+                let vm =this;
+                let selected_date = this.$store.state.selected_date;
+                jQuery('.js-loader').removeClass('d-none')
+                let factorData = {'factor':qty,'curDate': selected_date};
+                User.addGcv(factorData).then(
+                    (response)=> {
+                        jQuery('.js-loader').addClass('d-none');
+                        if(response.data.code == 200){
+                            $('#gcvAdd').modal('hide');
+                            vm.close_modal();
+                           
+                            toastr.success('Factor is added successfully', 'Success', {timeOut: 5000});
+                        } else {
+                            toastr.error('Factor is already added', 'Error', {timeOut: 5000});
+
+                        }
+                    },
+                    (error) => {
+                        jQuery('.js-loader').addClass('d-none');
+
+                    }
+                    );
+                },
             }
-        }
     }
 </script>
 <style>
