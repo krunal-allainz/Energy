@@ -5,6 +5,7 @@ use DB;
 use Energy\Models\LngInvoice;
 use Energy\Api\Repositories\UserRepository;
 use Energy\Api\Repositories\NominationLngRepository;
+use Energy\Api\Repositories\LngNotificationRepository;
 use Energy\Api\Repositories\AgreementRepository;
 use Energy\Api\Controllers\GcvController;
 use Excel;
@@ -18,6 +19,7 @@ use Auth;
     public function __construct(){
         $this->userObj = new UserRepository();
         $this->nominationLngRepoObj = new NominationLngRepository();
+        $this->lngNotificationRepoObj = new LngNotificationRepository();
     }
 
  	/**
@@ -148,7 +150,7 @@ use Auth;
         foreach($requestList as $request){ 
             $count++;
             $getsupplyQty = $request->supplied_quantity;
-            if($getsupplyQty != null || $getsupplyQty != 0){
+            if($getsupplyQty != null && $getsupplyQty != 0.00){
                 $total_supplied_qty = $total_supplied_qty +  $getsupplyQty;
                     $lngDate = $request->lngDate;
                     $gcvValue = 1;
@@ -216,7 +218,7 @@ use Auth;
     }
 
     public function generateLngInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata,$invoiceHtml,$requestList,$agreementData){
-        LngInvoice::create([
+        $invoice = LngInvoice::create([
             'buyer_id' => $buyerId, 
             'seller_id' => $sellerId,
             'date' => $invoicedata['date'],
@@ -230,10 +232,29 @@ use Auth;
             'invoice_no' => $invoicedata['invoice_no'],
             'invoiceView' => $invoiceHtml
         ]);
+
+            $dataUserId = $buyerId;
+            $userName = $this->userObj->getUserNameById( $dataUserId);
+            $addedBy  = Auth::user()->id;
+            $dataId = $invoice->id;
+            $qty    = $invoicedata['supplied_quantity'];
+            $type   = 'generate_lng_invoice';
+            //dd($invoice->date);
+            $d_format=Carbon::createFromFormat('Y-m-d',$invoice->date)->format('jS M Y');
+            $dataText ='seller has created invoice of '.number_format($qty,2).'  on '.$d_format.' for '. ucwords($userName);
+            $title  = 'Invoice Created';
+            $dataTable = 'invoice_lng';
+
+            $new_date=Carbon::createFromFormat('Y-m-d', $invoice->date)->format('Y-m-d');
+            $nomination_date=$new_date;
+            
+            $this->lngNotificationRepoObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
         
         foreach($requestList as $request){
             $this->nominationLngRepoObj->updateRequeststatus('invoice',$request['nid']);
         }
+
+
         return true;
     }
 
