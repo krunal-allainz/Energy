@@ -57,6 +57,10 @@
                                    Gross weight
                                   <i data-v-744e717e="" class="fa float-right"></i>
                                </th>
+                               <th data-v-744e717e="" class="sortable" style="width: auto;" >
+                                   Net Weight
+                                  <i data-v-744e717e="" class="fa float-right"></i>
+                               </th>
                         		</tr>
                   			</thead>
                   			<tbody data-v-744e717e=""  v-for="nominationLngData in getSuppliedLngData">
@@ -84,6 +88,11 @@
                                 <a v-else v-text="setText(nominationLngData.gross_weight)"> </a>
 
                       			</td>
+                            <td v-if="today_date>=setLngDate(nominationLngData.lngDate)" >
+                                
+                                <a  v-text="setText(nominationLngData.supplied_quantity)"> </a>
+
+                            </td>
                   				 </tr>
                   			</tbody>
                 		</table>

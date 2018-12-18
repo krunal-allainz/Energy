@@ -241,4 +241,34 @@ class NominationLngController extends Controller
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
     }   
+
+    public function getBuyerNominationLngTotals(Request $request)
+    {   
+        $data = $request->all();
+        $lngData = $this->nomLngObj->getBuyerNominationLngTotals($data);
+
+        if($lngData)
+        {
+            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG reject successfully.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
+
+    public function getBuyerAllowedQuantity(Request $request)
+    {
+        $buyerId = $request->input('buyerId');
+        $allowedQuantity = $this->nomLngObj->getBuyerAllowedQuantity($buyerId);
+        
+        if($allowedQuantity)
+        {
+            return ['code' => 200 ,'data'=>$allowedQuantity,'message'=>'Nomination LNG reject successfully.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
 }

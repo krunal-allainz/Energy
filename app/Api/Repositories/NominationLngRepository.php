@@ -6,6 +6,8 @@ use Energy\Models\NominationLng;
 use Energy\Models\TruckDetails;
 use Energy\Models\Setting;
 use Energy\Models\AvailabilityGcv;
+
+use Energy\Models\Agreement;
 use Energy\Api\Repositories\LngNotificationRepository;
 use Excel;
 use File;
@@ -398,7 +400,6 @@ use Auth;
     public function updateRequeststatus($requestType,$nid){
         return NominationLng::where('id',$nid)->update(array('nomination_lng.lng_status' => $requestType));
     }
-
     
     public function getNominationLngTotals($data){
         $date = date('Y-m-d', strtotime($data['date']));
@@ -409,6 +410,24 @@ use Auth;
         $lng['SuppliedQuantity'] = NominationLng::where('lngDate', $date)->where('lng_status', 'approved')->sum("supplied_quantity");
         
         return $lng;
+    }
+
+    public function getBuyerNominationLngTotals($data){
+        $date = date('Y-m-d', strtotime($data['date']));
+        
+        $lng['AvailabilityGcv'] = AvailabilityGcv::where('gcv_date', $date)->sum('gcv_quantity');
+        $lng['LngTotal'] = NominationLng::where('lngDate', $date)->where('buyer_id', $data['buyerId'])->sum("quantity");
+        $lng['ApprovedLngTotal'] = NominationLng::where('lngDate', $date)->where('buyer_id', $data['buyerId'])->where('lng_status', 'approved')->sum("approve_quantity");
+        $lng['SuppliedQuantity'] = NominationLng::where('lngDate', $date)->where('buyer_id', $data['buyerId'])->where('lng_status', 'approved')->sum("supplied_quantity");
+        
+        return $lng;
+    }
+
+    public function getBuyerAllowedQuantity($buyerId)
+    {
+        $allowedQuantity = Agreement::select('allowed_quantity')->where('buyer_id',$buyerId)->get()->toArray();
+        
+        return $allowedQuantity[0];
     }
  }
 ?>

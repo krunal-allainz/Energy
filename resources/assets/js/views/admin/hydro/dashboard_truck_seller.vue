@@ -195,7 +195,7 @@ export default {
                 'selectedDashbordDate' : moment().format('DD-MM-YYYY'),
                 'today_date':moment().format('DD-MM-YYYY'),
                 'open_supplied_modal':false,
-                'open_gcv_modal':true,
+                'open_gcv_modal':false,
                 'supplied_table_data':{},
                 'sellerDashboadData': ''
         }

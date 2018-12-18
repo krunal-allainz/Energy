@@ -11,8 +11,10 @@
         </div>
       </div>
         <div class="row">
-            <div class="col-md-12"><previousNextDate></previousNextDate></div>
+          <div class="col-md-12">
+            <previousNextDate></previousNextDate>
           </div>
+        </div>
             <div class="card-body">
             	<div data-v-744e717e="" class="px-3"  v-if="(nominationLngPagination.total > 0)">
               		<div data-v-744e717e="" class="table-header">
@@ -80,8 +82,8 @@
                             </td>
                             
                       				<td data-v-744e717e="" class="">
-                      					<a href="javascript:void(0)" v-if="today_date==setLngDate(nominationLngData.lngDate)"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a>
-                                <a  href="javascript:void(0)" v-if="today_date==setLngDate(nominationLngData.lngDate)" @click="setNominationId(nominationLngData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                      					<a href="javascript:void(0)" v-if="nominationLngData.lng_status == 'pending'"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a>
+                                <a  href="javascript:void(0)" v-if="nominationLngData.lng_status == 'pending'"  @click="setNominationId(nominationLngData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -155,7 +157,7 @@
            
             vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
             if(vm.page_add_enabled == true){
-              
+
               vm.page_add_enabled =false
               setTimeout(function(){
               vm.page_add_enabled =true

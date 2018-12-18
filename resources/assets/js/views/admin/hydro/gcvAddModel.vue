@@ -4,7 +4,7 @@
       <div class="modal-dialog modal-lg" role="document" >
           <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="gcvModalLabel"> Add Factor</h4>
+                <h4 class="modal-title" id="gcvModalLabel"> Add Multiplication Factor</h4>
                 <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close" @click="getClose()">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <div class="row form-group">
                             <div class="col-md-3">
-                                <label for="quantity " class="control-label float-right txt_media1">Factor :</label>
+                                <label for="quantity " class="control-label float-right txt_media1"> Multiplication Factor :</label>
                             </div>
                             <div class="col-md-6">
                                <div class=" input-group">

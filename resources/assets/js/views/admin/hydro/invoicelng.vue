@@ -110,7 +110,7 @@
                                      
                                     <td class="highrow text-right" colspan="2">
                                         <strong>
-                                           Total Price to customer: &nbsp;
+                                           SubTotal: &nbsp;
                                         </strong>
                                     </td>
                                     <td class="highrow text-center">
@@ -143,7 +143,7 @@
                                     <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-right" colspan="2">
                                         <strong>
-                                            <span>Total charges to customer</span>: &nbsp;
+                                            <span>Total</span>: &nbsp;
 
                                         </strong>
                                     </td>
@@ -178,7 +178,7 @@
                                     <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-right" colspan="2">
                                         <strong>
-                                            <b>Total: &nbsp;</b>
+                                            <b>Total price to custome: &nbsp;</b>
                                         </strong>
                                     </td>
                                     <td class="highrow text-center">

@@ -35,9 +35,9 @@
                             
                             </div>
                             <div class="text-right">
-                            <h3><b>Nomination LNG</b></h3>
-                            <!-- <h3 class="text-dark"><b>{{total_request}}</b></h3>
-                            <p>For Date:{{selectedDashbordDate}}</p> -->
+                            <h3><b>Nomination Request LNG</b></h3>
+                            <h3 class="text-dark"><b>{{ buyerDashboardData.LngTotal }}</b></h3>
+                            <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -70,8 +70,8 @@
                            <i class="fas fa-clipboard-list"></i> 
                         </div>
                         <div class="text-right">
-                            <h3><b>Scheduled Quantity</b></h3>
-                            <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
+                            <h3><b>Approved Quantity</b></h3>
+                            <h3 class="text-dark"><b id="widget_count3">{{ buyerDashboardData.ApprovedLngTotal }}</b></h3>
                             <p>For Date:{{selectedDashbordDate}}</p>
                         </div>
                         <div class="clearfix"></div>
@@ -89,9 +89,10 @@
                           <i class="far fa-caret-square-right"></i>
                         </div>
                         <div class="text-right">
-                            <h3><b>Allocated Quantity</b></h3>
-                            <h3 class="text-dark"><b id="widget_count3">{{total_supplied}}</b></h3>
-                            <p>For Date:{{selectedDashbordDate}}</p>
+                            <h3><b>Supply Quantity</b></h3>
+                            <h3 class="text-dark"><b id="widget_count3">
+                                {{buyerDashboardData.SuppliedQuantity}} </b></h3>
+                            <p>For Date:{{ selectedDashbordDate }}</p>
 
                         </div>
                         <div class="clearfix"></div>
@@ -109,7 +110,7 @@
                     </div>
                     <div class="text-right">
 
-                        <h3><b><a href="/generate_buyer_invoice">Invoice</a></b></h3>
+                        <h3><b><a href="/generate_buyer_invoice_lng">Invoice</a></b></h3>
                         <!-- <p>Generate Invoice</p> -->
 
                     </div>
@@ -188,6 +189,7 @@ export default {
             'nominationData' : [], 
             'selected_date' :'',
             'selectedDashbordDate' : moment().format('DD-MM-YYYY'),
+            'buyerDashboardData': ''
         }
     },
     created: function(){
@@ -199,10 +201,20 @@ export default {
     },
     mounted: function() {
         let vm=this;
+        vm.selectedDashbordDate = this.$store.state.selected_date;
        if(vm.$store.state.Users.userDetails.user_type != '2'){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
           }
         vm.chartData();
+
+        User.getBuyerNominationLngTotals(vm.userData.userId,vm.selectedDashbordDate).then(
+            (response) => {
+                this.buyerDashboardData = response.data.data;
+            },
+            (error) => {
+
+            }
+        );
     },
     methods: {
         nomination_lpg()
@@ -230,6 +242,14 @@ export default {
             vm.getTotalApprovedQuantityByBuyer(vm.selectedDashbordDate,vm.userData.userId);
             vm.getBuyerDetailsById(vm.selectedDashbordDate,vm.userData.userId);
             
+            User.getBuyerNominationLngTotals(vm.userData.userId,vm.selectedDashbordDate).then(
+                (response) => {
+                    this.buyerDashboardData = response.data.data;
+                },
+                (error) => {
+
+                }
+            );  
         },
         getPrevoiusDay(){
             let vm=this;
