@@ -38,7 +38,10 @@
                                         <label class="control-label float-right" >Time: </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" id = "lngTime" class="form-control timepicker1" name="lngTime" v-model="nominationLngData.lngTime" v-validate="'required'">
+                                        <!-- <input type="text" id = "lngTime" class="form-control timepicker1" name="lngTime" v-model="nominationLngData.lngTime" v-validate="'required'" > -->
+                                        <select id="lngTime" class="form-control ls-select2" name="lngTime" v-model="nominationLngData.lngTime" v-validate="'required'">
+                                            <option v-for="time in times">{{ time }}</option>
+                                        </select>
                                         <i v-show="errors.has('lngTime')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('lngTime')">
                                             Please enter time.
@@ -96,7 +99,7 @@
                                          <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
                                      </div>
                                 </div>
-                                <label class="text-danger right">Maximum allowed quantity {{ quantity.allowed_quantity*1.20 }}</label> 
+                                <label class="text-danger right">Maximum allowed quantity {{ quantity.allowed_quantity*1.20 ? quantity.allowed_quantity*1.20 : 0 }}</label> 
                         </div>
                 </div>
             </div>
@@ -132,7 +135,7 @@
                             time:moment().add(1,'days').format('DD-MM-YYYY')
                         },
                         'quantity': '',
-                        'lngDate':moment().format('DD-MM-YYYY'),
+                        'lngDate':this.$store.state.selected_date,
                         'lngTime':'',
                         'pageName':'',
                         //'request':'',
@@ -162,7 +165,8 @@
                         type: 'fromto',
                         to: new Date()
                     }],
-                    'quantity': ''
+                    'quantity': 0,
+                    'times':['12:00 AM','1:00 AM','2:00 AM','3:00 AM','4:00 AM','5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM','11:00 PM']
                    
                 }
         },
@@ -183,14 +187,20 @@
                 (error) => {
 
                 }
-            )
+            );
+
+            $('#lngTime').on('select2:select', function (e) {
+                //
+                vm.nominationLngData.lngTime = e.params.data.text;
+                
+            });
         },
         methods: {
             initData()
             {
                 $('.timepicker1').timepicker({
                     minuteStep: 1,
-                    step:60
+                    step:60,
                 });
                 let vm=this;
                 vm.getTruckDetailsList();
@@ -238,7 +248,7 @@
             {
                 let vm=this;
                 let truckDetailsList=[];
-                let data={'lngDate':vm.today_date,'buyer_id':vm.nominationLngData.buyer_id};
+                let data={'lngDate':vm.selected_date,'buyer_id':vm.nominationLngData.buyer_id};
 
                 User.getDisabledDates(data).then(
                     (response) => {
@@ -372,7 +382,7 @@
                        
                     }
                 })
-            }
+            },
         }
     }
 </script>

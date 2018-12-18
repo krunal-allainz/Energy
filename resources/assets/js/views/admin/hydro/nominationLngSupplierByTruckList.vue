@@ -234,7 +234,7 @@
                       if(response.data.code == 200){
                          vm.displayApprove = false;
                           vm.edit = false;
-                          toastr.success('Nomination Approve successfully', 'approve Nomination', {timeOut: 5000});
+                          toastr.success('Nomination Approved successfully', 'Nomination', {timeOut: 5000});
                          
                           vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
                            vm.getTotalQty(vm.getNominationLngData);
@@ -242,7 +242,7 @@
                       }
                       if(response.data.code == 250){
 
-                         toastr.error(response.message, 'error  Nomination', {timeOut: 5000});
+                         toastr.error(response.message, 'Nomination', {timeOut: 5000});
                       }
                           
                     },
@@ -254,7 +254,7 @@
                 );
                 }
             }else{
-               toastr.error('total quantity require less then available quantity', 'error  Nomination', {timeOut: 5000});
+               toastr.error('Total quantity must less than available quantity.', 'Nomination', {timeOut: 5000});
             }
 
             },
