@@ -85,7 +85,7 @@ use Auth;
              ->paginate($noOfPage);
              // ->get();
         }
-        
+        // dd($list);
         return $list;
     }
 

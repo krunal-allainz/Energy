@@ -11,16 +11,14 @@
           <previousNextDate></previousNextDate></div>
         </div>
 		</div>
-            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :availableQty='availableQty' :totalRequestedQty='totalRequestedQty' :totalApproveQty='totalApproveQty'></lngSupplyBytruckListForSeller>
+            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :availableQty='availableQty' ></lngSupplyBytruckListForSeller>
 
-            <form method="post" enctype="multipart/form-data">
-              <div  class="text-right">
+               <div  class="text-right">
                   <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()"  v-show="(displayApprove == false)">Approve</button>
                   <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="editQuantity()" v-if="(edit == false && displayApprove == false)">Edit</button >
                   <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="cancleQuantity()" v-if="(edit == true && displayApprove == false)">cancle</button>
               </div>
-              
-		</form>
+
 	</div>
 </template>
 
@@ -68,8 +66,8 @@
           this.$root.$on('getNominationLngList',this.getNominationLngListData);
            this.$root.$on('perPageLngNomination',this.perPageLngNomination);
           this.$root.$on('getTotalQty',this.getTotalQty);
-          this.$root.$on('totalRequestedQty',this.totalRequestedQty);
-          this.$root.$on('totalApproveQty',this.totalApproveQty);
+          this.$root.$on('totalRequestedQuantity',this.totalRequestedQuantity);
+          this.$root.$on('totalApproveQty',this.totalApprovedQuantity);
            this.$root.$on('checkApprovalStatus',this.checkApprovalStatus);
          },
         mounted() {
@@ -87,7 +85,14 @@
           
         },
         methods: {
-          
+          totalApprovedQuantity(qty) {
+            let vm =this;
+            vm.totalApproveQty = qty;
+          },
+          totalRequestedQuantity(qty) {
+           let vm =this;
+            vm.totalRequestedQty = qty;
+          },
            changeDashbordDate(selectDate)
            {  
             let vm=this;
@@ -108,8 +113,6 @@
                 vm.$parent.displayApprove == true;
                 vm.canApprove = 1;
               }
-
-
             },
           getAvailableQty($fieldName,$fieldType){
             let vm= this;
