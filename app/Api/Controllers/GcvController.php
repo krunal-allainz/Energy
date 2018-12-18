@@ -48,5 +48,16 @@ class GcvController extends Controller
                     return ['code' => 300 ,'data'=>'','message'=>'GCV already added.'];
                }
     }
+
+    public static function getGcvByDate($date){
+
+        $gcvValue = 0;
+       $GcvRec = AvailabilityGcv::where('gcv_date',date('Y-m-d', strtotime($date)))->first();
+       if($GcvRec != null){
+        $gcvValue = $GcvRec->gcv_quantity; 
+       }
+
+       return $gcvValue;
+    }
     
 }
