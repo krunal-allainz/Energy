@@ -95,11 +95,21 @@ use Auth;
         // dd($data);
         $tare_weight = $data['tare_weight'] ? $data['tare_weight'] : '';
         $gross_weight = $data['gross_weight'] ? $data['gross_weight'] : '';
-
+        if($gross_weight == '' || $tare_weight == ''){
+            $net_weight = 0.00;    
+        } else {
+            $net_weight = intval($gross_weight)- intval($tare_weight);
+        }
+        
+        // dd($net_weight);
+        if($net_weight < 0){
+         $net_weight = 0.00;   
+        }
         // return Nomination::where('id',$id)->first();
         return $truckLoading =NominationLng::where('id', $data['nominationLngId'])->update([
             'tare_weight' => $tare_weight,
-            'gross_weight' => $gross_weight
+            'gross_weight' => $gross_weight,
+            'supplied_quantity' => $net_weight
         ]);
        
     }

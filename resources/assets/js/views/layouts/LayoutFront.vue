@@ -92,7 +92,7 @@ export default {
         },
         methods:{
           setDate(setDate){
-              this.curDateTime = setDate;
+            this.curDateTime = setDate;
           },
           checkTime(i){
             if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10

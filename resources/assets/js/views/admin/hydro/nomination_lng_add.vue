@@ -8,7 +8,7 @@
           <div class="col-md-12"><h4 class="mt-2" v-if="nominationLngData.pageName=='EDIT'">Nomination Update</h4><h4 class="mt-2" v-else>Nomination LNG Add</h4></div>
           </div>
           <div class="col-md-6 text-right">
-                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{today_date}} Date List.</strong> 
+                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{selected_date}} Date List.</strong> 
                 </div>
         </div>
         <div class="card-body">
@@ -58,7 +58,7 @@
 
                                  
                                              <div class="input-group-append">
-                                                <span class="input-group-text ">MMBTU</span>
+                                                <span class="input-group-text ">Kg</span>
                                             </div>
                                         </div>
 
@@ -119,6 +119,7 @@
                     'mdcq':'',
                     'currentYear': new Date().getFullYear(),
                     'today_date':moment().format('DD-MM-YYYY'),
+                    'selected_date':this.$store.state.selected_date,
                     'user_id':this.$store.state.Users.userDetails.id,
                     'buyer_id':'',
                     'user_type':this.$store.state.Users.userDetails.user_type,

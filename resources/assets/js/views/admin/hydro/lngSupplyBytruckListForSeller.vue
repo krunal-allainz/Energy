@@ -26,7 +26,7 @@
                         Appove Quantity (KG) 
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
-                      <th style="width: auto;">
+                      <th style="width: auto;" v-show="(displayApprove == false)">
                         Action
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
@@ -49,16 +49,14 @@
                     </td>
                      <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.approve_quantity"  v-show="(totalApproveQty > 0)">
                      </td>
-                     <td>
-                      <form method="post">
+                     <td v-show="(displayApprove == false)" >
                         <button type="button" value="Request" class="btn btn-danger" name="btnReject" @click="rejectedQuantity(nominationLngData.nId)">Reject</button>
-                      </form>
-                     </td>
+                      </td>
                   </tr>
                  <tr style="border:none !important;"><td>&nbsp;</td><td>&nbsp;</td><td><strong>Total</strong></td>
                   <td ><strong>{{totalRequestedQty}}</strong></td>
                   <td v-show="(totalApproveQty > 0 )" ><strong>{{totalApproveQty}}</strong></td>
-                  <td>&nbsp;</td></tr>
+                  <td v-show="(displayApprove == false)" >&nbsp;</td></tr>
                 </tbody>
               </table>
               <div> <table class="tabel" data-v-744e717e=""></table></div>
@@ -106,7 +104,7 @@
   import _ from 'lodash';
 
 	export default {
-     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty'],
+     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','displayApprove'],
 		 data() {
 
 		 	return {
@@ -144,10 +142,17 @@
       vm.availableQty = this.$parent.availableQty;
       vm.changeQtyValue();
       vm.makePagination( vm.getNominationLngData);
-      let DataUpdated = _.forEach(vm.getNominationLngData, function(value, key){
-          // console.log(value.lngTime,'uuu');
-          value.mTime = moment(value.lngTime);
+      // vm.getNominationLngData;
+      // let DataUpdated = _.forEach(vm.getNominationLngData, function(value, key){
+      //     // console.log(value.lngTime,'uuu');
+      //     value.mTime = moment(value.lngTime);
+      // });
+      let times = vm.getNominationLngData.sort(function (a, b) {
+        if(a.buyer_id == b.buyer_id){
+          return new Date('1970/01/01 ' + a.lngTime) - new Date('1970/01/01 ' + b.lngTime);
+        }
       });
+
       // vm.getNominationLngDataUpdated = _.sortBy(DataUpdated, [function(o) { return moment(o.quantity); },['desc']]);
       // console.log(vm.getNominationLngDataUpdated,'hhh');
 		 },

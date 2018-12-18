@@ -7,7 +7,7 @@
       <div class="card-header  mb-3" >
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination LNG List</h4></div>
-          <div   v-if="user_type==2 && add_nomination_count==0 && today_date==selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+          <div   v-if="user_type==2 && add_nomination_count==0" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
         </div>
       </div>
         <div class="row">
@@ -154,6 +154,14 @@
             vm.selectedDashbordDate=selectDate;
            
             vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
+            if(vm.page_add_enabled == true){
+              
+              vm.page_add_enabled =false
+              setTimeout(function(){
+              vm.page_add_enabled =true
+
+              },1000)
+            }
         },
         setLngDate(ldate)
         {

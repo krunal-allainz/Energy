@@ -11,7 +11,7 @@
           <previousNextDate></previousNextDate></div>
         </div>
 		</div>
-            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :availableQty='availableQty' ></lngSupplyBytruckListForSeller>
+            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :displayApprove="displayApprove" :availableQty='availableQty' ></lngSupplyBytruckListForSeller>
 
                <div  class="text-right">
                   <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()"  v-show="(displayApprove == false)">Approve</button>

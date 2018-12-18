@@ -48,7 +48,7 @@
 
                                      
                                                  <div class="input-group-append">
-                                                    <span class="input-group-text ">MMBTU</span>
+                                                    <span class="input-group-text ">Kg</span>
                                                 </div>
                                             </div>
 

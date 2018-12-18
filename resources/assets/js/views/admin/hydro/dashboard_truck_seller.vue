@@ -21,24 +21,7 @@
         </section>
 
         <div class="row">
-                <div class="col-sm-6 col-md-6 col-xl-3">
-                    <div class="flip">
-                        <a href="#" @click="addGcv()" title="Add GCV">
-                        <div class="widget-bg-color-icon card-box front">
-                            <div class="bg-icon float-left">
-                                <!-- <i class="fa fa-truck text-warning"></i> -->
-                                <i class="fas fa-coins"></i>
-                            </div>
-                            <div class="text-right">
-                                <h3><b>Add GCV</b></h3>
-                                <p>For Date:{{selectedDashbordDate}}</p>
-                            </div>
-                            <div class="clearfix"></div>
-        
-                        </div>
-                        </a>
-                    </div>
-                </div>
+               
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
 
@@ -52,7 +35,7 @@
                                 <i class="fas fa-charging-station"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Nomination LNG</b></h3>
+                                <h3><b>Nomination RequestLNG</b></h3>
                                 <h3 class="text-dark"><b>{{sellerDashboadData.LngTotal}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -63,24 +46,25 @@
                        </a> 
                     </div>
                 </div>
-               
-                <!-- <div class="col-sm-6 col-md-6 col-xl-3">
+               <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
-                        <a href="#">
+                         <router-link to="/lng_supply_bytruck_list">
+                        <!-- <a href="/generate_invoice"> -->
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                                <i class="fa fa-certificate text-success"></i>
+                           <i class="fa fa-truck"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Approved Quantity</b></h3>
-                                <h3 class="text-dark"><b id="widget_count3">{{total_approved}}</b></h3>
+                                <h3><b><a href="/lng_supply_bytruck_list">LNG Approve Quantity</a></b></h3>
+                                <h3 class="text-dark"><b>{{sellerDashboadData.ApprovedLngTotal}}</b></h3>
+                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        </a>
+                        <!-- </a> -->
+                        </router-link>
+                    </div>
                 </div>
-            </div> -->
-          
                 <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
                         <a href="#" @click="supplied_quantity()" title="Add Allocated">
@@ -98,7 +82,7 @@
                         </a>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-xl-3">
+                <div class="col-sm-6 col-md-6 col-xl-3">
                     <div class="flip">
                          <router-link to="/generate_invoice_lng">
                         <!-- <a href="/generate_invoice"> -->
@@ -117,29 +101,9 @@
                         </router-link>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xl-3">
-                    <div class="flip">
-                         <router-link to="/lng_supply_bytruck_list">
-                        <!-- <a href="/generate_invoice"> -->
-                        <div class="widget-bg-color-icon card-box front">
-                            <div class="bg-icon float-left">
-                           <i class="fa fa-truck"></i>
-                            </div>
-                            <div class="text-right">
-                                <h3><b><a href="/lng_supply_bytruck_list">LNG Supply Quantity</a></b></h3>
-                                <h3 class="text-dark"><b>{{sellerDashboadData.ApprovedLngTotal}}</b></h3>
-                                 <p>For Date:{{selectedDashbordDate}}</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <!-- </a> -->
-                        </router-link>
-                        </div>
-                    </div>
-                    
-                </div>
+                
+            </div>        
+               
 
                 <div class="row">
                     <div class="col-xl-8 col-12">
@@ -250,17 +214,18 @@ export default {
     },
     mounted: function() {
         let vm =this;
-        
-        User.getNominationLngTotals(vm.selectedDashbordDate).then(
-            (response) => {
-                this.sellerDashboadData = response.data.data;
-                console.log(this.sellerDashboadData);
-            },
-            (error) => {
+        // vm.setTotalDashboard();
+                    User.getNominationLngTotals(vm.selectedDashbordDate).then(
+                (response) => {
+                    this.sellerDashboadData = response.data.data;
+                    vm.total_request = this.sellerDashboadData.LngTotal;
+                    vm.total_approved = this.sellerDashboadData.ApprovedLngTotal;
+                    vm.total_supplied = this.sellerDashboadData.SuppliedQuantity;
+                },
+                (error) => {
 
-            }
-        );
-
+                }
+            );
         if(vm.$store.state.Users.userDetails.user_type != '3'){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
           }
@@ -270,6 +235,10 @@ export default {
         
     },
     methods: {
+        setTotalDashboard(){
+
+
+        },
         saveGcv(qty) {
             let vm =this;
             jQuery('.js-loader').removeClass('d-none')
@@ -314,17 +283,29 @@ export default {
             let vm=this;
             vm.selectedDashbordDate=selectDate;
             vm.getBuyerDetails(vm.selectedDashbordDate);
-            vm.getAvailability(vm.selectedDashbordDate);
-            vm.getTotalRequestedQuantityForSeller(vm.selectedDashbordDate);
-            vm.getTotalApprovedQuantity(vm.selectedDashbordDate);
-            vm.getTotalSuppliedQuantity(vm.selectedDashbordDate);
-            if( window.myPie1) {
+            // vm.getAvailability(vm.selectedDashbordDate);
+            // vm.getTotalRequestedQuantityForSeller(vm.selectedDashbordDate);
+            // vm.getTotalApprovedQuantity(vm.selectedDashbordDate);
+            // vm.getTotalSuppliedQuantity(vm.selectedDashbordDate);
+            // if( window.myPie1) {
                 
-                window.myPie1.destroy();
-                 window.myPie2.destroy();
-            } 
-            vm.chart1Data();
-            vm.chart2Data();
+            //     window.myPie1.destroy();
+            //      window.myPie2.destroy();
+            // } 
+            // vm.chart1Data();
+            // vm.chart2Data();
+             User.getNominationLngTotals(vm.selectedDashbordDate).then(
+                (response) => {
+                    this.sellerDashboadData = response.data.data;
+                    // console.log(this.sellerDashboadData);
+                    vm.total_request = this.sellerDashboadData.LngTotal;
+                    vm.total_approved = this.sellerDashboadData.ApprovedLngTotal;
+                    vm.total_supplied = this.sellerDashboadData.SuppliedQuantity;
+                },
+                (error) => {
+
+                }
+            );
         },
          availibility()
         {
@@ -371,7 +352,6 @@ export default {
                     if(response.data.code == 200){
                         vm.open_gcv_modal=true;
                         $('#gcvAdd').modal('show');
-                        console.log(response.data);
                     } else {
                         toastr.error('Factor is already added', 'Error', {timeOut: 5000});
 
