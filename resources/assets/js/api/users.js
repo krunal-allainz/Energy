@@ -208,7 +208,7 @@ export default {
   },
   getBuyerAllowedQuantity(buyerId){
     return api.post('nomination/getBuyerAllowedQuantity', { 'buyerId' : buyerId});
-  }
+  },
   generateLngInvoice(){
     return api.post('invoice/generatelnginvoice');
   },
