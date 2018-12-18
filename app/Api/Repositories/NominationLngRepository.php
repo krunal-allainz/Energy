@@ -5,6 +5,7 @@ use DB;
 use Energy\Models\NominationLng;
 use Energy\Models\TruckDetails;
 use Energy\Models\Setting;
+use Energy\Models\AvailabilityGcv;
 use Energy\Api\Repositories\NotificationRepository;
 use Excel;
 use File;
@@ -295,6 +296,11 @@ use Auth;
 
     }
 
+    public function getDisabledDates($data){
+       $date = date('Y-m-d', strtotime($data['lngDate']));
+       $list = NominationLng::select('lngTime')->where('buyer_id',$data['buyer_id'])->where('lngDate', $date)->get()->toArray();
+       return $list;
+    }
     /**
     *
     *
@@ -329,6 +335,15 @@ use Auth;
     }
 
     
-    
+    public function getNominationLngTotals($data){
+        $date = date('Y-m-d', strtotime($data['date']));
+        
+        $lng['AvailabilityGcv'] = AvailabilityGcv::where('gcv_date', $date)->sum('gcv_quantity');
+        $lng['LngTotal'] = NominationLng::where('lngDate', $date)->sum("quantity");
+        $lng['ApprovedLngTotal'] = NominationLng::where('lngDate', $date)->where('lng_status', 'approved')->sum("approve_quantity");
+        $lng['SuppliedQuantity'] = NominationLng::where('lngDate', $date)->where('lng_status', 'approved')->sum("supplied_quantity");
+        
+        return $lng;
+    }
  }
 ?>

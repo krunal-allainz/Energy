@@ -53,7 +53,7 @@
                             </div>
                             <div class="text-right">
                                 <h3><b>Nomination LNG</b></h3>
-                                <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                                <h3 class="text-dark"><b>{{sellerDashboadData.LngTotal}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
@@ -90,7 +90,7 @@
                             </div>
                             <div class="text-right">
                                 <h3><b>Supply Quantity</b></h3>
-                                <h3 class="text-dark"><b>{{total_supplied}}</b></h3>
+                                <h3 class="text-dark"><b>{{sellerDashboadData.SuppliedQuantity}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
@@ -128,8 +128,8 @@
                            <i class="fa fa-truck"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b><a href="/lng_supply_bytruck_list">LNG Suppliy Quantity</a></b></h3>
-                                <h3 class="text-dark"><b><!-- {{total_lng_quantity}} -->0</b></h3>
+                                <h3><b><a href="/lng_supply_bytruck_list">LNG Supply Quantity</a></b></h3>
+                                <h3 class="text-dark"><b>{{sellerDashboadData.ApprovedLngTotal}}</b></h3>
                                  <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
@@ -232,7 +232,8 @@ export default {
                 'today_date':moment().format('DD-MM-YYYY'),
                 'open_supplied_modal':false,
                 'open_gcv_modal':true,
-                'supplied_table_data':{}
+                'supplied_table_data':{},
+                'sellerDashboadData': ''
         }
     },
     components: {
@@ -249,6 +250,17 @@ export default {
     },
     mounted: function() {
         let vm =this;
+        
+        User.getNominationLngTotals(vm.selectedDashbordDate).then(
+            (response) => {
+                this.sellerDashboadData = response.data.data;
+                console.log(this.sellerDashboadData);
+            },
+            (error) => {
+
+            }
+        );
+
         if(vm.$store.state.Users.userDetails.user_type != '3'){
               vm.$root.$emit('logout','You are not authorise to access this page'); 
           }
