@@ -59,9 +59,9 @@ class InvoiceLngController extends Controller
        
     }
 
-    public function generateInvoice(){
+    public function generateLngInvoice(){
 
-        $invoice=$this->invLngObj->generateInvoice();
+        $invoice=$this->invLngObj->generateLngInvoice();
         if($invoice)
         {
             return ['code' => 200 ,'data'=>$invoice,'message'=>'Invoce generate successfully'];
@@ -95,7 +95,7 @@ class InvoiceLngController extends Controller
     **/
 
     public function generateLngInvoiceLisyByBuyerId(Request $request){
-        
+      
         $invoicedata = $request->all()['invoiceData'];
         $invoiceGenerateNo = $request->invoiceDataIndex;
         $invoiceHtml =  $request->invoiceHtml;
@@ -103,6 +103,7 @@ class InvoiceLngController extends Controller
         $agreementData = $request->all()['agreementData'];
         $buyerId = $request->buyerId;
         $sellerId = $request->sellerId;
+         
         $invoice=$this->invLngObj->generateLngInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata[$invoiceGenerateNo],$invoiceHtml,$requestList[$invoiceGenerateNo+1],$agreementData);
         if($invoice)
         {

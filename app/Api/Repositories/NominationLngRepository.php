@@ -87,7 +87,7 @@ use Auth;
              ->paginate($noOfPage);
              // ->get();
         }
-        
+        // dd($list);
         return $list;
     }
 
@@ -96,11 +96,21 @@ use Auth;
         // dd($data);
         $tare_weight = $data['tare_weight'] ? $data['tare_weight'] : '';
         $gross_weight = $data['gross_weight'] ? $data['gross_weight'] : '';
-
+        if($gross_weight == '' || $tare_weight == ''){
+            $net_weight = 0.00;    
+        } else {
+            $net_weight = intval($gross_weight)- intval($tare_weight);
+        }
+        
+        // dd($net_weight);
+        if($net_weight < 0){
+         $net_weight = 0.00;   
+        }
         // return Nomination::where('id',$id)->first();
         return $truckLoading =NominationLng::where('id', $data['nominationLngId'])->update([
             'tare_weight' => $tare_weight,
-            'gross_weight' => $gross_weight
+            'gross_weight' => $gross_weight,
+            'supplied_quantity' => $net_weight
         ]);
        
     }
@@ -308,13 +318,21 @@ use Auth;
     *
     **/
 
-    public function getLngBuyerRequestList($buyerId,$requestType,$typeInclude){
+    public function getLngBuyerRequestList($buyerId,$requestType,$typeInclude,$multipleType='no'){
 
         if($typeInclude == 'no'){
+                if($multipleType == 'no'){
+                    $list = NominationLng::select('nomination_lng.id as nId','nomination_lng.*','users.*')->where('nomination_lng.lng_status','!=',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
+                    $join->on('users.id', '=', 'nomination_lng.buyer_id');
+                            })->get();
 
-            $list = NominationLng::select('nomination_lng.id as nId','nomination_lng.*','users.*')->where('nomination_lng.lng_status','!=',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
-                $join->on('users.id', '=', 'nomination_lng.buyer_id');
-            })->get();
+                }
+                if($multipleType == 'yes'){
+                   $list = NominationLng::select('nomination_lng.id as nId','nomination_lng.*','users.*')->whereNotIn('nomination_lng.lng_status',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
+                    $join->on('users.id', '=', 'nomination_lng.buyer_id');
+                            })->get();  
+                }
+           
         }else if($typeInclude == 'yes'){
 
             $list = NominationLng::select('nomination_lng.id as nId','nomination_lng.*','users.*')->where('nomination_lng.lng_status','=',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {

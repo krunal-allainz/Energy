@@ -197,7 +197,7 @@ export default {
   getLngInvoiceHtml(id){
      return api.post('invoice/lnginvoiceView',{ 'id' : id });
   },
-  getBuyerRequestList(buyerId,requestType,typeInclude){
+  getBuyerLngRequestList(buyerId,requestType,typeInclude){
     return api.post('nomination/getlngbuyerrequestlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
   },
   generateLngInvoiceViewByBuyerId(buyerId){
@@ -209,4 +209,7 @@ export default {
   getBuyerAllowedQuantity(buyerId){
     return api.post('nomination/getBuyerAllowedQuantity', { 'buyerId' : buyerId});
   }
+  generateLngInvoice(){
+    return api.post('invoice/generatelnginvoice');
+  },
 }

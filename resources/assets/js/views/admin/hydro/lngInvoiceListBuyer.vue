@@ -80,7 +80,7 @@
                       </td>
 
                       <td class="text-center">
-                      	<a  :href="'/invoice/'+buyerId" class="btn btn-info">Generate Invoice</a>
+                      	<a  :href="'/invoicelng/'+buyerId" class="btn btn-info">Generate Invoice</a>
                       </td>
 
                     </tr>
@@ -170,13 +170,13 @@
             
             },1000);
             vm.invoiceId = '';
+
             vm.getLngInvoiceDataByBuyerId(vm.buyerId,noOfPage,pageUrl);
-            vm.getBuyerRequestList(vm.buyerId,requestType,typeInclude);
+            vm.getBuyerLngRequestList(vm.buyerId,requestType,typeInclude);
             vm.checkGenerateInvoiceRequest();
         },
         components: {
            dispalyInvoiceView
-            
         },
         methods: {
           viewHtmlShow(vid){
@@ -184,18 +184,16 @@
             vm.invoiceId = '';
             vm.viewHtml = true;
              vm.getInvoiceHtml(vid);
-
           },
           invoiceFormat(date){
             return moment(date).format('DD-MM-YYYY');
-            
           },
            getInvoiceHtml(id){
                 let vm  =this;
                 vm.html = '';
-                User.getInvoiceHtml(id).then(
+                User.getLngInvoiceHtml(id).then(
                      (response) => {
-                        vm.html = response.data.data.invoiceView;
+                      vm.html = response.data.data.invoiceView;
                      },
                      (error) => {
                     },
@@ -208,12 +206,12 @@
         		vm.generateInvoice = status;
 
         	},
-        	getBuyerRequestList(buyerId,requestType,typeInclude)
+        	getBuyerLngRequestList(buyerId,requestType,typeInclude)
             {  
                 var vm = this;
             	var request_list = [];
             	var request_data = '';
-            	User.getBuyerRequestList(buyerId,requestType,typeInclude).then(
+            	User.getBuyerLngRequestList(buyerId,requestType,typeInclude).then(
                      (response) => {
                      //var coundListForInvoice = response.data.data.length; 
 
@@ -227,7 +225,7 @@
                        }
                      }); 
 
-            	        if(requestCount  >= 5){
+            	        if(requestCount  >= 4){
             	        	vm.checkGenerateInvoiceRequest(requestCount,true);
             	        }else{
             	        	vm.checkGenerateInvoiceRequest(requestCount,false);
@@ -307,7 +305,7 @@
             let vm =this;
             let pageUrl = 'invoice/lnginvoicelistbybuyerid';
             let noOfPage = vm.perPage;
-             vm.getInvoiceDataByBuyerId(vm.buyerId,vm.perPage,pageUrl);
+             vm.getLngInvoiceDataByBuyerId(vm.buyerId,vm.perPage,pageUrl);
             
             }
         }

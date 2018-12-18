@@ -26,14 +26,14 @@
                         Appove Quantity (KG) 
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
-                      <th style="width: auto;">
+                      <th style="width: auto;" v-show="(displayApprove == false)">
                         Action
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
                   </tr>
                   </thead>
                   <tbody data-v-744e717e="" >
-                  	<tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId"  v-for="nominationLngData in getNominationLngDataUpdated">
+                  	<tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId"  v-for="nominationLngData in getNominationLngData">
                   	<td data-v-744e717e="" class="text-uppercase"  v-text="nominationLngData.first_name">
                     </td>
                     <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.truck_no">
@@ -42,24 +42,21 @@
                     </td>
                     <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.quantity" v-show="(edit==false)">
                     <td data-v-744e717e="" class="text-uppercase"  v-show="(edit==true)">
-                      <form>
-                      <input type="text" v-model="nominationLngData.quantity" name="quantity" id="quantityId" @keydown="changeQtyValue()" v-validate="'required|decimal:2'"    />
-                       <i v-show="errors.has('quantityId')" class="fa fa-warning"></i>
-                      <span class="help is-danger" v-show="errors.has('quantityId')">Please enter valid Quantity number.</span>
-                       </form>                 
+                      <input type="text" v-model="nominationLngData.quantity" :name="'quantity_'+nominationLngData.nId" class="req_qty" :id="'quantityId_'+nominationLngData.nId" @keyup="changeQtyValue()" v-validate="'required|decimal:2'"    />
+                       <i v-show="errors.has('quantity_'+nominationLngData.nId)" class="fa fa-warning"></i>
+                      <span class="help is-danger" v-show="errors.has('quantity_'+nominationLngData.nId)">Please enter valid Quantity number.</span>
+                      
                     </td>
                      <td data-v-744e717e="" class="text-uppercase" v-text="nominationLngData.approve_quantity"  v-show="(totalApproveQty > 0)">
                      </td>
-                     <td>
-                      <form method="post">
+                     <td v-show="(displayApprove == false)" >
                         <button type="button" value="Request" class="btn btn-danger" name="btnReject" @click="rejectedQuantity(nominationLngData.nId)">Reject</button>
-                      </form>
-                     </td>
+                      </td>
                   </tr>
                  <tr style="border:none !important;"><td>&nbsp;</td><td>&nbsp;</td><td><strong>Total</strong></td>
                   <td ><strong>{{totalRequestedQty}}</strong></td>
                   <td v-show="(totalApproveQty > 0 )" ><strong>{{totalApproveQty}}</strong></td>
-                  <td>&nbsp;</td></tr>
+                  <td v-show="(displayApprove == false)" >&nbsp;</td></tr>
                 </tbody>
               </table>
               <div> <table class="tabel" data-v-744e717e=""></table></div>
@@ -79,7 +76,7 @@
                                 <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageLngNomination">
                                     <option data-v-744e717e="" value="2">2</option>
                                     <option data-v-744e717e="" value="5">5</option>
-                                    <option data-v-744e717e="" value="10">10</option>
+       `                             <option data-v-744e717e="" value="10">10</option>
                                     <option data-v-744e717e="" value="20">20</option>
                                     <option data-v-744e717e="" value="50">50</option>
                                 </select>
@@ -94,8 +91,9 @@
           </div>
         </div>
         <div class="text-right">
-        <span class="red">* Available quantity for LNG supply is {{availableQty}}</span>
+          <span class="red">* Available quantity for LNG supply is {{availableQty}}</span>
        </div>
+
 		</div>
 	</div>
 </div>
@@ -106,7 +104,7 @@
   import _ from 'lodash';
 
 	export default {
-     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','totalRequestedQty','totalApproveQty'],
+     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','displayApprove'],
 		 data() {
 
 		 	return {
@@ -124,22 +122,38 @@
         'page_add_enabled':false,
         'load' : false,
         'selectedDashbordDate':moment().format('DD-MM-YYYY'),
-        'getNominationLngDataUpdated':{}
+        'getNominationLngDataUpdated':{},
+        'totalRequestedQty':'',
+        'totalApproveQty':''
 		 	}
 		 },
     created: function() {
          this.$root.$on('loadList',false);
     },
+  //   computed: {
+  //   // a computed getter
+  //   totalQuantity: function () {
+  //     // `this` points to the vm instance
+  //     return this.message.split('').reverse().join('')
+  //   }
+  // },
 		mounted(){
 		 	let vm = this;
       vm.availableQty = this.$parent.availableQty;
       vm.changeQtyValue();
       vm.makePagination( vm.getNominationLngData);
-      let DataUpdated = _.forEach(vm.getNominationLngData, function(value, key){
-          console.log(value.lngTime,'uuu');
-          value.mTime = moment(value.lngTime);
+      // vm.getNominationLngData;
+      // let DataUpdated = _.forEach(vm.getNominationLngData, function(value, key){
+      //     // console.log(value.lngTime,'uuu');
+      //     value.mTime = moment(value.lngTime);
+      // });
+      let times = vm.getNominationLngData.sort(function (a, b) {
+        if(a.buyer_id == b.buyer_id){
+          return new Date('1970/01/01 ' + a.lngTime) - new Date('1970/01/01 ' + b.lngTime);
+        }
       });
-      vm.getNominationLngDataUpdated = _.sortBy(DataUpdated, [function(o) { return moment(o.quantity); },['desc']]);
+
+      // vm.getNominationLngDataUpdated = _.sortBy(DataUpdated, [function(o) { return moment(o.quantity); },['desc']]);
       // console.log(vm.getNominationLngDataUpdated,'hhh');
 		 },
      components: {
@@ -149,11 +163,41 @@
             changeQtyValue(){ 
 
                 let vm = this;
-                this.$root.$emit('getTotalQty',vm.getNominationLngData);
+                vm.getTotalQty(vm.getNominationLngData);
+                // console.log('test');
                // vm.totalRequestedQty =  this.$parent.totalRequestedQty;
                 //vm.totalApproveQty = this.$parent.totalApproveQty;
           
             },
+            getTotalQty(data){
+
+            let vm=this;
+            let totalRequest = 0;
+            let totalApprove = 0;
+            vm.totalRequestedQty = 0;
+            vm.totalApproveQty = 0;
+            $( ".req_qty" ).each(function( index ) {
+               totalRequest = parseInt(totalRequest) + parseInt($( this ).val());
+            });
+            $.each(data,function(value){
+                if(value.status != 'rejected'){
+                    // totalRequest = parseInt(totalRequest) + parseInt(value.quantity);
+                    if(value.approve_quantity != null && value.approve_quantity != 0){
+                        totalApprove = parseInt(totalApprove) + parseInt(value.approve_quantity);
+                      }
+                  }
+
+            });
+            
+            vm.totalRequestedQty = totalRequest;
+            vm.totalApproveQty = totalApprove;
+            vm.$root.$emit('totalRequestedQuantity',vm.totalRequestedQty);
+            vm.$root.$emit('totalApproveQty',vm.totalApproveQty);
+            
+          return true;
+
+          },
+
             makePagination: function(data,status){
                 let pagination = {
                     current_page: data.current_page,
