@@ -324,8 +324,12 @@
             },   
             editValidateBeforeSubmit() {
                 let vm = this;
+                jQuery('.js-loader').removeClass('d-none');
+
                 this.addGcv();
                 setTimeout(function(){
+                jQuery('.js-loader').addClass('d-none');
+
                     if(vm.isValid == true) {
                         // let vm=this;
                         vm.$validator.validateAll().then(() => {
