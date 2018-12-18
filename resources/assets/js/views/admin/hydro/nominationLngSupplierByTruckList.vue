@@ -62,13 +62,13 @@
         },
         created: function() {
        
-        this.$root.$on('changeDashbordDate',this.changeDashbordDate);
+          this.$root.$on('changeDashbordDate',this.changeDashbordDate);
           this.$root.$on('getNominationLngList',this.getNominationLngListData);
-           this.$root.$on('perPageLngNomination',this.perPageLngNomination);
+          this.$root.$on('perPageLngNomination',this.perPageLngNomination);
           this.$root.$on('getTotalQty',this.getTotalQty);
           this.$root.$on('totalRequestedQuantity',this.totalRequestedQuantity);
           this.$root.$on('totalApproveQty',this.totalApprovedQuantity);
-           this.$root.$on('checkApprovalStatus',this.checkApprovalStatus);
+          this.$root.$on('checkApprovalStatus',this.checkApprovalStatus);
          },
         mounted() {
           

@@ -110,7 +110,7 @@
                     </div>
                     <div class="text-right">
 
-                        <h3><b><a href="/generate_buyer_invoice">Invoice</a></b></h3>
+                        <h3><b><a href="/generate_buyer_invoice_lng">Invoice</a></b></h3>
                         <!-- <p>Generate Invoice</p> -->
 
                     </div>

@@ -11,8 +11,10 @@
         </div>
       </div>
         <div class="row">
-            <div class="col-md-12"><previousNextDate></previousNextDate></div>
+          <div class="col-md-12">
+            <previousNextDate></previousNextDate>
           </div>
+        </div>
             <div class="card-body">
             	<div data-v-744e717e="" class="px-3"  v-if="(nominationLngPagination.total > 0)">
               		<div data-v-744e717e="" class="table-header">
@@ -155,7 +157,7 @@
            
             vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
             if(vm.page_add_enabled == true){
-              
+
               vm.page_add_enabled =false
               setTimeout(function(){
               vm.page_add_enabled =true

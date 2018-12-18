@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-md-12"><h4 class="mt-2" v-if="nominationLngData.pageName=='EDIT'">Nomination Update</h4><h4 class="mt-2" v-else>Nomination LNG Add</h4></div>
           </div>
-          <div class="col-md-6 text-right">
+          <div class="col-md-12 text-right">
                     <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{selected_date}} Date List.</strong> 
                 </div>
         </div>
@@ -51,9 +51,6 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class=" input-group">
-                                       
-
-                                            
                                             <input type="text" class="form-control" id="quantity"  v-validate="'required|decimal:2'" v-model="nominationLngData.quantity" name="quantity" >
 
                                  
@@ -132,7 +129,7 @@
                             time:moment().add(1,'days').format('DD-MM-YYYY')
                         },
                         'quantity': '',
-                        'lngDate':moment().format('DD-MM-YYYY'),
+                        'lngDate':this.$store.state.selected_date,
                         'lngTime':'',
                         'pageName':'',
                         //'request':'',
