@@ -11,7 +11,7 @@
                         <i class="fa fa-fw ti-close removecard"></i>
                     </span> 
                 </div>
-                <div class="card-body" id="invoiceViewGet">
+                <div class="card-body" id="invoiceLngViewGet">
                     <div class="row">
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg">
                                 <h4><img src="/assets/img/h_energylogo.png" alt="clear"/></h4>
@@ -61,7 +61,7 @@
                                         <strong>Tax</strong>
                                     </th> -->
                                    
-                                    <th class="text-center" style="width: 60px;">
+                                    <th class="text-center" style="width: 90px;">
                                         <strong>Total</strong>
                                     </th>
                                     <!-- <th class="text-center" id="add_row"><i class="fa fa-fw ti-plus"></i></th> -->
@@ -69,21 +69,20 @@
                                 </thead>
                                 <tbody>
 
-                                    <tr  v-for="request in requestList[index + 1]">
-                                        <td class="text-center">{{++index}}</td>
+                                    <tr  v-for="request,indexsr in requestList[index + 1]">
+                                        <td class="text-center">{{++indexsr}}</td>
                                         <td class="text-center" colspan="5">Quantity Of Lng Supplied On {{request.date|dateFormate}}
                                         <br><small><strong>Description : </strong> Net Quantity {{request.supplied_Qty}} X (M.F.){{request.gcv_value}}</small></td>
                                        
                                          <!-- <td colspan="2" class="text-center">{{request.gcv_value}}</td> -->
                                         <td class="text-center">{{request.supplied_Qty * request.gcv_value}} MMBTU</td>
-                                        
-
                                     </tr>
-                                    <tr><td class="text-center"></td>
-                                        <td class="text-center" colspan="3"><strong>Total Net Quantity</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{invData.supplied_quantity}} </td>
+                                    <tr><td class="text-center"><strong>Total</strong></td>
+                                        <td class="text-center" colspan="5"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td>
                                        
-                                         <td colspan="2" class="text-center"></td>
-                                        <td class="text-center"></td></tr>
+                                         <!-- <td colspan="2" class="text-center"></td> -->
+                                        <td class="text-center">
+                                        {{invData.total_supply_qty_with_gcv}} MMBTU</td></tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -92,9 +91,9 @@
                                     <td class="emptyrow"></td>
                                       
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-center" colspan="2">
+                                    <td class="emptyrow text-right" colspan="2">
                                         <strong>
-                                            <span >Price per MMBtu</span>: &nbsp;
+                                            <span >Price Per MMBTU</span>: &nbsp;
 
                                         </strong>
                                     </td>
@@ -109,7 +108,7 @@
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
                                      
-                                    <td class="highrow text-center" colspan="2">
+                                    <td class="highrow text-right" colspan="2">
                                         <strong>
                                            Total Price to customer: &nbsp;
                                         </strong>
@@ -126,7 +125,7 @@
                                     <td class="emptyrow"></td>
                                       
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-center" colspan="2">
+                                    <td class="emptyrow text-right" colspan="2">
                                         <strong>
                                             <span >Exchange Rate</span>: &nbsp;
 
@@ -142,7 +141,7 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-center" colspan="2">
+                                    <td class="emptyrow text-right" colspan="2">
                                         <strong>
                                             <span>Total charges to customer</span>: &nbsp;
 
@@ -159,7 +158,7 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-center" width="50px" colspan="2">
+                                    <td class="emptyrow text-right" width="50px" colspan="2">
                                         <strong>
                                             {{agreementData.taxType}}( %{{agreementData.taxRate}}):
                                         </strong>
@@ -177,7 +176,7 @@
                                     <td class="emptyrow"></td>
                                     
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-center" colspan="2">
+                                    <td class="emptyrow text-right" colspan="2">
                                         <strong>
                                             <b>Total: &nbsp;</b>
                                         </strong>
@@ -191,7 +190,7 @@
                         </div>
                     </div>
             </div>
-              <form><div class="text-right"><button type="button" class="btn btn-info" @click="generateInvoice(index,buyerId)">Approve</button></div></form>
+              <form><div class="text-right"><button type="button" class="btn btn-info" @click="generateLngInvoice(index,buyerId)">Approve</button></div></form>
         </div>
 
     </section>
@@ -282,6 +281,7 @@
                                 let afterConvertCurrencty = value.afterConvertCurrentcy;
                                 let date  = value.date ;
                                 let tax_rate_amount_cal = value.tax_rate_amount_cal;
+                                let total_supply_qty_with_gcv = value.supply_qty_with_gcv;
                                invoice_list.push({
                                  'invoice_no':invoice_no,
                                  'sub_amount':sub_amount,
@@ -289,7 +289,8 @@
                                  'total_amount': total_amount,
                                  'date' : date,
                                  'afterConvertCurrencty' : afterConvertCurrencty,
-                                 'tax_rate_amount_cal' : tax_rate_amount_cal
+                                 'tax_rate_amount_cal' : tax_rate_amount_cal,
+                                 'total_supply_qty_with_gcv' : total_supply_qty_with_gcv,
                                 });
                             });
                             $.each(request_data.requestList, function(key,value) {
@@ -339,15 +340,18 @@
                     },
                 );
             },
-            generateInvoice(invoiceDataIndex,buyerId){
+            setNumberFormat(data){
+                return data.toFixed(2);
+            },
+            generateLngInvoice(invoiceDataIndex,buyerId){
                  let vm=this;
-                 var invoiceHtml = $("#invoiceViewGet").html();
-                 User.generateInvoiceByBuyerId(vm.buyerId,vm.user_id,vm.invoiceData,invoiceDataIndex,invoiceHtml,vm.requestList,vm.agreementData).then(
+                 var invoiceHtml = $("#invoiceLngViewGet").html();
+                 User.generateLngInvoiceByBuyerId(vm.buyerId,vm.user_id,vm.invoiceData,invoiceDataIndex,invoiceHtml,vm.requestList,vm.agreementData).then(
                      (response) => {
                         if(response.data.code == 200){
                             if(response.data.data == true){
                                  toastr.success('Invoice has been generated successfully', 'Generate Invoice', {timeOut: 5000});
-                                  this.$router.push({name: 'generate_invoice'})
+                                  this.$router.push({name: 'generate_invoice_lng'})
                             }
                         }else{
                              toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});

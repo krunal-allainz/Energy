@@ -194,7 +194,7 @@ export default {
   getLngInvoiceHtml(id){
      return api.post('invoice/lnginvoiceView',{ 'id' : id });
   },
-  getBuyerRequestList(buyerId,requestType,typeInclude){
+  getBuyerLngRequestList(buyerId,requestType,typeInclude){
     return api.post('nomination/getlngbuyerrequestlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
   },
   generateLngInvoiceViewByBuyerId(buyerId){
@@ -202,5 +202,8 @@ export default {
   },
   generateLngInvoiceByBuyerId(buyerId,sellerId,invoiceData,invoiceDataIndex,invoiceHtml,requestList,agreementData){
      return api.post('invoice/generatelnginvoicebybuyer', { 'buyerId' : buyerId, 'sellerId' : sellerId ,'invoiceData' : invoiceData , 'invoiceDataIndex' : invoiceDataIndex , 'invoiceHtml' : invoiceHtml , 'requestList' : requestList, 'agreementData' : agreementData});
-  }
+  },
+  generateLngInvoice(){
+    return api.post('invoice/generatelnginvoice');
+  },
 }

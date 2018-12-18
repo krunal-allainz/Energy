@@ -76,7 +76,7 @@ use Auth;
         return $result_array;
     }
     
-    public function generateInvoice(){
+    public function generateLngInvoice(){
 
        // $nominationList = $this->nominationRepoObj->getNominationRequestList();
        
@@ -97,10 +97,13 @@ use Auth;
             $res_arr['vid']=$inv->id;
             $res_arr['buyer_name']=$this->userObj->getUserNameInfoById($inv->buyer_id);
             $res_arr['seller_name']=$this->userObj->getUserNameInfoById($inv->seller_id);
-            $res_arr['supplied_quantity']=$inv->supplied_quantity;
+            $res_arr['supplied_quantity']=$inv->total_supplied_quantity;
+            $res_arr['total_supplied_quantity_withGCV']=$inv->total_supplied_quantity_withGCV;
             $res_arr['rate']=$inv->rate;
             $res_arr['status']=$inv->status;
             $res_arr['tax']=$inv->tax;
+            $res_arr['per_mmbtu']=$inv->per_mmbtu;
+            $res_arr['convert_currency_rate']=$inv->convert_currency_rate;
             $res_arr['total_amount']=$inv->total_amount;
             $res_arr['invoiceHtml']=$inv->invoiceView;
             $total=$total+$inv->total_amount;
@@ -136,16 +139,16 @@ use Auth;
        
         $result = array();
         $invoiceNo = $lastId; 
-        $max_loop=5;
+        $max_loop=4;
         $count = 0;
         $total_supplied_qty = 0;
         $getRequestList = 1;
-        $getsupplyQty = '';
+        $getsupplyQty = 0;
         $total_supply_qty_with_gcv = 0;
         foreach($requestList as $request){ 
             $count++;
             $getsupplyQty = $request->supplied_quantity;
-            if($getsupplyQty != null || $getsupplyQty != ''){
+            if($getsupplyQty != null || $getsupplyQty != 0){
                 $total_supplied_qty = $total_supplied_qty +  $getsupplyQty;
                     $lngDate = $request->lngDate;
                     $gcvValue = 1;
@@ -164,7 +167,7 @@ use Auth;
                 $result['requestList'][$getRequestList][$request->nId]['date'] =$lngDate;
                 $result['requestList'][$getRequestList][$request->nId]['quantityRequired'] =$request->quantity; 
                 $result['requestList'][$getRequestList][$request->nId]['approveQuntity'] =$request->approve_quantity;
-                 if(($count%5) == 0){
+                 if(($count%4) == 0){
                     $getRequestList = $getRequestList + 1;
                     $supplidQty = $total_supplied_qty;
                     $getsupplyQty = 0;
@@ -177,6 +180,7 @@ use Auth;
                     $new_date=Carbon::now()->format('Y-m-d');
                     $result[$invoiceNo]['date']  = $new_date;
                     $result[$invoiceNo]['status']  = 0;
+                    $result[$invoiceNo]['supply_qty_with_gcv']  = $total_supply_qty_with_gcv;
                     $subAmount = $result[$invoiceNo]['sub_amount'];
                     // $amountAfterPanelty= $subAmount - $external_fuel_type_rate;
                     $AmountAfterConvertrt = $result[$invoiceNo]['sub_amount'] * $convertCurrency;
@@ -186,6 +190,10 @@ use Auth;
                     $result[$invoiceNo]['total_amount'] = $AmountAfterConvertrt +  $taxRateAmount;
                     $result[$invoiceNo]['supplied_quantity']  = $supplidQty;
                     $result['generateInvociedata'][$invoiceNo]= $result[$invoiceNo];
+                    $supplidQty = 0;
+                    $total_supply_qty_with_gcv = 0;
+                    $total_supplied_qty = 0;
+
                  } 
              }
         }
@@ -207,23 +215,24 @@ use Auth;
 
     }
 
-    public function generateInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata,$invoiceHtml,$requestList,$agreementData){
+    public function generateLngInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata,$invoiceHtml,$requestList,$agreementData){
         LngInvoice::create([
             'buyer_id' => $buyerId, 
             'seller_id' => $sellerId,
             'date' => $invoicedata['date'],
-            'supplied_quantity' => $invoicedata['supplied_quantity'],
+            'total_supplied_quantity' => $invoicedata['supplied_quantity'],
+            'total_supplied_quantity_withGCV' => $invoicedata['total_supply_qty_with_gcv'],
             'status' => 0,
-            'rate' => $agreementData['price'],
             'tax' => $invoicedata['tax_rate_amount_cal'],
-            'panelty' => $agreementData['panelty'],
+            'per_mmbtu' => $agreementData['perMMbtu'],
+            'convert_currency_rate' => $agreementData['convertRate'],
             'total_amount' =>  $invoicedata['total_amount'],
             'invoice_no' => $invoicedata['invoice_no'],
             'invoiceView' => $invoiceHtml
         ]);
         
         foreach($requestList as $request){
-            $this->nominationRepoObj->updateRequeststatus('Invoice',$request['nid']);
+            $this->nominationLngRepoObj->updateRequeststatus('invoice',$request['nid']);
         }
         return true;
     }
