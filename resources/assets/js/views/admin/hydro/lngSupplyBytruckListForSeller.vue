@@ -79,7 +79,7 @@
                                 <select data-v-744e717e="" class="custom-select" id="perPageNoNomination"  @change="setPerPageNomination" v-model="perPageLngNomination">
                                     <option data-v-744e717e="" value="2">2</option>
                                     <option data-v-744e717e="" value="5">5</option>
-                                    <option data-v-744e717e="" value="10">10</option>
+       `                             <option data-v-744e717e="" value="10">10</option>
                                     <option data-v-744e717e="" value="20">20</option>
                                     <option data-v-744e717e="" value="50">50</option>
                                 </select>

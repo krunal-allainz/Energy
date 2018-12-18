@@ -227,7 +227,7 @@
                        }
                      }); 
 
-            	        if(requestCount  >= 5){
+            	        if(requestCount  >= 4){
             	        	vm.checkGenerateInvoiceRequest(requestCount,true);
             	        }else{
             	        	vm.checkGenerateInvoiceRequest(requestCount,false);
