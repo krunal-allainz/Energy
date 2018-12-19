@@ -154,7 +154,7 @@
                     </div>
 
                     <!-- <div class="col-xl-6 col-12"> -->
-                        <timeline :userData=userData> </timeline>
+                        <timelineLng :userData=userData> </timelineLng>
                     <!-- </div> -->
 
                 </div>
