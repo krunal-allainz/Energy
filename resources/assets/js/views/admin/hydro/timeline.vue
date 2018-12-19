@@ -1,5 +1,5 @@
 <template>
-  <div class="col-xl-4  col-12">
+  <div class="col-xl-6  col-12">
                 	<div class="row">
                         <div class="col-xl-12 col-sm-6 col-lg-6">
                             <div class="card">
@@ -60,7 +60,7 @@
                  vm.getTimelineData();
                 $('.timeline-update').newsTicker({
                     row_height: 90,
-                    max_rows: 3,
+                    max_rows: 6,
                     speed: 2000,
                     direction: 'up',
                     duration: 3500,

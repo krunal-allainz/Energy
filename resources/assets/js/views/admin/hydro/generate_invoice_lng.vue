@@ -1,43 +1,47 @@
 <template>
-	<div class="container">
-		<div class="page-header">
-			<div class="row">
-				<div class="col-md-6">
-				<h2>Generate Lng Invoice form</h2>
-				</div>
-			</div>
-		</div>
-		<form method="post" enctype="multipart/form-data">
-			
-            <div class="row form-group">
-            	<div class="col-md-3">
-		      		<label class="control-label float-right" for="buyer" > Select Buyer: </label>
-				</div>
-				<div class="col-md-6">
-		      		<select class="form-control ls-select2"  id="buyer" name="buyer" v-validate="'required'">
-		      			<option value="">Select</option>
-						 <option :value="buyer.id" v-for="buyer in invoiceData.buyer_option">{{buyer.name}}</option>
-		      		</select>
-		      		<i v-show="errors.has('buyer')" class="fa fa-warning"></i>
-		      		<span class="help is-danger" v-show="errors.has('buyer')">
-	                	Please select buyer.
-	                </span>
-				</div>
-				
-            </div>
-            <lngInvoiceListBuyer  :buyerId='buyer_id'   v-if="(loadList == true)"></lngInvoiceListBuyer>
+  <div class="col-lg-12 mb-3">
+  	<div class="card">
+      <div class="card-header  mb-3">
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Lng Invoice Generate</h4>
+          </div> <!---->
+        </div>
+      </div>
+      <div class="card-body">
+    		<form method="post" enctype="multipart/form-data">
+    			
+                <div class="row form-group align-items-center">
+                	<div class="col-md-3">
+    		      		<label class="control-label float-right mb-0" for="buyer" > Select Buyer: </label>
+    				</div>
+    				<div class="col-md-6">
+    		      		<select class="form-control ls-select2"  id="buyer" name="buyer" v-validate="'required'">
+    		      			<option value="">Select</option>
+    						 <option :value="buyer.id" v-for="buyer in invoiceData.buyer_option">{{buyer.name}}</option>
+    		      		</select>
+    		      		<i v-show="errors.has('buyer')" class="fa fa-warning"></i>
+    		      		<span class="help is-danger" v-show="errors.has('buyer')">
+    	                	Please select buyer.
+    	                </span>
+    				</div>
+    				
+                </div>
+                <lngInvoiceListBuyer  :buyerId='buyer_id'   v-if="(loadList == true)"></lngInvoiceListBuyer>
 
 
-           
-           <!--  <div class="row form-group">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-9">
-                    <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
-                </div>
-            </div> -->
-		</form>
-	</div>
+               
+               <!--  <div class="row form-group">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-9">
+                        <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
+                    </div>
+                </div> -->
+    		</form>
+      </div>
+  	</div>
+  </div>
 </template>
 
 <script>
@@ -68,7 +72,7 @@
         mounted() {
             var vm = this;
              if(vm.$store.state.Users.userDetails.user_type != '3'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+              vm.$root.$emit('logout','You are not authorize to access this page'); 
           }
              vm.loadList = false; 
             let user_type = [] ;
@@ -133,13 +137,13 @@
                                   (response)=> {
                                     //console.log(response);
                                     if(response.data.status_code == 200){
-                                        toastr.success('User added successfully', 'Create User', {timeOut: 5000});
+                                        toastr.success('User added successfully', 'User', {timeOut: 5000});
                                         this.initialState();
                                         //localStorage.setItem("user_add",1)
                                        // window.location.reload();
                                     } else if (response.data.status_code == 301) {
                                         //this.initialState();
-                                        toastr.error('User already exist.', 'Add User', {timeOut: 5000});
+                                        toastr.error('User already exist.', 'User', {timeOut: 5000});
 
                                     }
                                     // this.$router.push('dashboard');

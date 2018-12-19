@@ -29,9 +29,9 @@
                                                         Field is required
                                                     </span>
                                                 
-                                            <div class="col-sm-12 mt-3">
-                                                    <input name="landing_page" v-model="loginData.landing_page" id="rlng_dashboard"  value="rlng_dashboard" type="radio" :checked="loginData.landing_page == 'rlng_dashboard'"   />&nbsp; R-Lng 
-                                                    <input name="landing_page" v-model="loginData.landing_page" id="truck_dashboard"  value="truck_dashboard"  :checked="loginData.landing_page == 'truck_dashboard'"   type="radio"  />&nbsp; Truck loading 
+                                            <div class="mt-3">
+                                                    <input name="landing_page" v-model="loginData.landing_page" id="rlng_dashboard"  value="rlng_dashboard" type="radio" :checked="loginData.landing_page == 'rlng_dashboard'"/>&nbsp; R-Lng 
+                                                    <input name="landing_page" v-model="loginData.landing_page" id="truck_dashboard"  value="truck_dashboard"  :checked="loginData.landing_page == 'truck_dashboard'"   type="radio" class="ml-2"  />&nbsp; Truck loading 
                                             </div>        
                                                 
                                             </div>
@@ -138,9 +138,10 @@ export default {
 
     },
     mounted: function() {
-        Auth.logout().then(() => {
-            this.$router.replace('/login')
-        })
+        // Auth.logout().then(() => {
+        //     this.$router.replace('/login');
+            
+        // })
         
 
     },

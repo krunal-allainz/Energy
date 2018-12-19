@@ -130,7 +130,9 @@ use Auth;
             //dd($invoice->date);
             $truckCompapnyName =$nominationTruckDetail->truck_company; 
             $d_format=Carbon::createFromFormat('Y-m-d',$nominationDataFornotification->lngDate)->format('jS M Y');
-             $dataText = 'seller has added net quantity of '. ucwords($userName).' requested '.$truckCompapnyName.' to '.number_format($qty,2).' KG for nomination request on '.$d_format.' '.$reqTime;
+             /*$dataText = 'Seller added net weight quantity of '. ucwords($userName).' requested '.$truckCompapnyName.' to '.number_format($qty,2).' KG for nomination request on '.$d_format.' '.$reqTime.'.';*/
+             $dataText = 'Net '.$truckCompapnyName.'[ '.number_format($qty,2).' Kg ] quantity added for nomination request of'.ucwords($userName);
+
             $title  = 'Net quantity added';
             $dataTable = 'nomination_lng';
 
@@ -186,9 +188,10 @@ use Auth;
                 //dd($invoice->date);
                 $truckCompapnyName =$nominationTruckDetail->truck_company; 
                 $d_format=Carbon::createFromFormat('Y-m-d',$nominationLng->lngDate)->format('jS M Y');
-                 $dataText = ucwords($userName).'  has added lng nomination request of '.$truckCompapnyName.' to '.number_format($qty,2).' KG for '.$d_format.' on '.$reqTime;
+                /*$dataText = ucwords($userName).'  added LNG nomination request of '.$truckCompapnyName.' to '.number_format($qty,2).' KG for '.$d_format.' on '.$reqTime;*/
+                $dataText = ucwords($userName).' requests '.$truckCompapnyName.'[ '.number_format($qty,2).'Kg ] LNG Nomination for '.$d_format.' on '.$reqTime;
                 
-                $title  = 'Lng Nomination request added';
+                $title  = 'New LNG Nomination request';
                 $dataTable = 'nomination_lng';
 
                 $new_date=Carbon::createFromFormat('Y-m-d', $nominationLng->lngDate)->format('Y-m-d');
@@ -275,10 +278,10 @@ use Auth;
               $truckCompapnyName =$nominationTruckDetail->truck_company; 
             //dd($invoice->date);
             $d_format=Carbon::createFromFormat('Y-m-d',$nominationLng->lngDate)->format('jS M Y');
-            $dataText = ucwords($userName).'  has updated lng nomination request of '.$truckCompapnyName.'  to  '.number_format($qty,2).' KG for '.$d_format.' on'. $reqTime;
+            $dataText = ucwords($userName).' updated LNG nomination request of '.$truckCompapnyName.'  to  '.number_format($qty,2).' KG for '.$d_format.' on '. $reqTime;
             //$dataText =  $userName.' update notification for '.$qty;
             
-            $title  = 'Lng Nomination request updated';
+            $title  = 'LNG Nomination request updated';
             $dataTable = 'nomination_lng';
 
             $new_date=Carbon::createFromFormat('Y-m-d', $nominationLng->lngDate)->format('Y-m-d');
@@ -291,6 +294,20 @@ use Auth;
             {
                 return ['code'=> 300 ,'data'=>'','message'=>'Record not updated.'];
             }
+    }
+    /**
+     * [getNominationDetailsByDate description]
+     * @param  [type] $date [description]
+     * @return [type]       [description]
+     */
+    public function getNominationDetailsByDate($date)
+    {
+        $new_date=Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
+        $list= NominationLng::join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_lng.buyer_id');
+            })->whereDate('lngDate',$new_date)->get();
+        return $list;
+
     }
 
     /**
@@ -322,7 +339,7 @@ use Auth;
         $totalApproveQty = 0;
         $availabelLimit  = '';
         $availabelLimit = $this->confObj->getFieldValue('lng_supply_daily_limit','numeric');
-
+        $availabelLimit = (int)$availabelLimit*450;
         if(!empty($data)){
 
             foreach($data as $key){
@@ -350,8 +367,9 @@ use Auth;
             
                 $truckCompapnyName =$nominationTruckDetail->truck_company; 
                 $d_format=Carbon::createFromFormat('Y-m-d',$nominationDataFornotification->lngDate)->format('jS M Y');
-             $dataText = 'seller has approved quantity of '. ucwords($userName).' requested '.$truckCompapnyName.' to '.number_format($qty,2).' KG for nomination request on '.$d_format.' '.$reqTime;
-            $title  = 'Lng Nomination requested quantity approved';
+             /*$dataText = 'Seller approved quantity of '. ucwords($userName).' requested '.$truckCompapnyName.' to '.number_format($qty,2).' KG for nomination request on '.$d_format.' '.$reqTime;*/
+             $dataText = 'Nomination request of '.ucwords($userName).' for '.$truckCompapnyName .'[ '.number_format($qty,2).' Kg]'.' has been approved by seller.';
+            $title  = 'LNG Nomination request approved';
             $dataTable = 'nomination_lng';
 
             $new_date=Carbon::createFromFormat('Y-m-d', $nominationDataFornotification->lngDate)->format('Y-m-d');
@@ -385,19 +403,6 @@ use Auth;
 
            // foreach($data as $key){
                 NominationLng::where('id',$rid)->update(array('lng_status' => 'rejected'));
-            //        $addedBy  = Auth::user()->id;
-            // $dataId = NominationLng::id;
-            // $qty    = $form_data['quantity'];
-            // $type   = 'add_notification';
-            // $d_format=Carbon::createFromFormat('d-m-Y', $nom->date)->format('jS M Y');
-            // $dataText = ucwords($userName).'  has added nomination to '.number_format($qty,2).' MMBTU for '.$d_format;
-            // $title  = 'Nomination request added';
-            // $dataTable = 'nomination_request';
-            // $new_date=Carbon::createFromFormat('d-m-Y', $nom->date)->format('Y-m-d');
-            // $nomination_date=$new_date;
-            // //echo $nomination_date;exit;
-            // $this->notificationObj = new NotificationRepository();
-            // $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
                 $result = 1;
             //}
         }
@@ -462,7 +467,7 @@ use Auth;
         $lng['LngTotal'] = NominationLng::where('lngDate', $date)->sum("quantity");
         $lng['ApprovedLngTotal'] = NominationLng::where('lngDate', $date)->where('lng_status', 'approved')->sum("approve_quantity");
         $lng['SuppliedQuantity'] = NominationLng::where('lngDate', $date)->where('lng_status', 'approved')->sum("supplied_quantity");
-        
+        // dd($lng);
         return $lng;
     }
 

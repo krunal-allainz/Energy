@@ -35,7 +35,7 @@
                                 <i class="fas fa-charging-station"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Nomination RequestLNG</b></h3>
+                                <h3><b>LNG Nomination</b></h3>
                                 <h3 class="text-dark"><b>{{sellerDashboadData.LngTotal}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -52,10 +52,10 @@
                         <!-- <a href="/generate_invoice"> -->
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                           <i class="fa fa-truck"></i>
+                           <i class="fa fa-calendar-plus-o"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b><a href="/lng_supply_bytruck_list">LNG Approve Quantity</a></b></h3>
+                                <h3><b><a href="/lng_supply_bytruck_list">Scheduled Quantity</a></b></h3>
                                 <h3 class="text-dark"><b>{{sellerDashboadData.ApprovedLngTotal}}</b></h3>
                                  <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -70,10 +70,10 @@
                         <a href="#" @click="supplied_quantity()" title="Add Allocated">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                            <i class="far fa-caret-square-right"></i>
+                            <i class="fas fa-truck"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Supply Quantity</b></h3>
+                                <h3><b>Truck Loading</b></h3>
                                 <h3 class="text-dark"><b>{{sellerDashboadData.SuppliedQuantity}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -106,9 +106,9 @@
                
 
                 <div class="row">
-                    <div class="col-xl-8 col-12">
+                    <div class="col-xl-6 col-12">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <!-- <div class="col-sm-6">
                                 <div class="card main-chart">
                                     <div class="card-header panel-tabs">
                                         
@@ -126,14 +126,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
+                            </div> -->
+                            <div class="col-sm-12">
                                 <div class="card main-chart">
                                     <div class="card-header panel-tabs">
                                         <!-- <ul class="nav nav-tabs nav-float" role="tablist"> -->
                                             
                                             <!-- <li class="text-center nav-item"> -->
-                                                <a><span class="d-none d-sm-block">Current Allocate</span>
+                                                <a><span class="d-none d-sm-block">LNG Allocation</span>
                                                     </a>
                                             <!-- </li> -->
                                         <!-- </ul> -->
@@ -152,9 +152,11 @@
                             </div>
                         </div>
                     </div>
-                    <timelineLng :userData=userData> </timelineLng>
-                    <div class="col-xl-4  col-12">
-                    </div>
+
+                    <!-- <div class="col-xl-6 col-12"> -->
+                        <timelineLng :userData=userData> </timelineLng>
+                    <!-- </div> -->
+
                 </div>
 
                 <!-- /#right -->
@@ -227,7 +229,7 @@ export default {
                 }
             );
         if(vm.$store.state.Users.userDetails.user_type != '3'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+              vm.$root.$emit('logout','You are not authorize to access this page.'); 
           }
         
         vm.chart1Data();
@@ -250,9 +252,9 @@ export default {
                         $('#gcvAdd').modal('hide');
                         vm.close_modal();
                        
-                        toastr.success('Factor is added successfully', 'Success', {timeOut: 5000});
+                        toastr.success('Factor added successfully.', 'Success', {timeOut: 5000});
                     } else {
-                        toastr.error('Factor is already added', 'Error', {timeOut: 5000});
+                        toastr.error('Factor already added.', 'Error', {timeOut: 5000});
 
                     }
 
@@ -293,7 +295,7 @@ export default {
             //      window.myPie2.destroy();
             // } 
             // vm.chart1Data();
-            // vm.chart2Data();
+            vm.chart2Data();
              User.getNominationLngTotals(vm.selectedDashbordDate).then(
                 (response) => {
                     this.sellerDashboadData = response.data.data;
@@ -353,7 +355,7 @@ export default {
                         vm.open_gcv_modal=true;
                         $('#gcvAdd').modal('show');
                     } else {
-                        toastr.error('Factor is already added', 'Error', {timeOut: 5000});
+                        toastr.error('Factor is already added.', 'Error', {timeOut: 5000});
 
                     }
 
@@ -449,9 +451,8 @@ export default {
             let curDate = selected_date;
             let nData = {'date':curDate};
             let vm =this;
-            User.getNominationDetailsByDate(curDate).then(
+            User.getNominationLngDetailsByDate(curDate).then(
                  (response) => {
-                    
                     // return false;
                     let nominationData  = [];
                     $.each(response.data.data, function(key, value) {
@@ -485,13 +486,13 @@ export default {
                  (response)=> {
                
                 if(response.data.code == 200){
-                   toastr.success('Generate Invoice Successfully.', 'Generate Invoice', {timeOut: 5000});
+                   toastr.success('Invoice generated successfully.', 'Invoice', {timeOut: 5000});
                 } else if (response.data.code == 300) {
-                    toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                    toastr.error('Something went wrong.', 'Invoice', {timeOut: 5000});
                 }
                 elses
                 {
-                    toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                    toastr.error('Something went wrong.', 'Invoice', {timeOut: 5000});
                 }
                 
               },
@@ -503,30 +504,123 @@ export default {
         chart1Data()
         {
 
+            // // let vm=this;
+            
+            // // var ctx1 = document.getElementById("myChart").getContext('2d'); 
+            // // // var color = Chart.helpers.color;
+
+            // // var config1Data = {
+            // //         datasets: [{
+            // //             data: [0,100],
+            // //             backgroundColor: [
+            // //                 '#004696',
+            // //                 '#82be00',
+                            
+            // //             ],
+            // //             label: 'Dataset 1'
+            // //         }],
+            // //         labels: [
+            // //             'Requested',
+            // //             'Scheduled',
+            // //             'Allocated',
+            // //         ]
+            // //     };
+            // // var config1 = {
+            // //     type: 'bar',
+            // //     data: config1Data,
+            // //     options: {
+            // //         responsive: true,
+            // //         legend: {
+            // //                 position: 'top',
+            // //             },
+            // //         scales: {
+            // //             yAxes: [{
+            // //                 ticks: {
+            // //                     beginAtZero:true
+            // //                 }
+            // //             }]
+            // //         }
+            // //     }
+            // // };
+            // // var newDataset = {};
+            // // setTimeout(function(){
+            // //     config1Data.datasets.pop();
+            // //     // _.forEach(vm.nominationData,function(value,key){
+                   
+            // //          var letters = '0123456789ABCDEF';
+            // //           var color = '#';
+            // //           for (var i = 0; i < 6; i++) {
+            // //             color += letters[Math.floor(Math.random() * 16)];
+            // //           }
+            // //         var newDataset = {
+            // //             label: 'LNG',
+            // //             backgroundColor: color,
+            // //             borderWidth: 1,
+            // //             // data: [
+            // //             //     vm.sellerDashboadData.LngTotal,
+            // //             //     vm.sellerDashboadData.ApprovedLngTotal,
+            // //             //     vm.sellerDashboadData.SuppliedQuantity
+                           
+            // //             // ]
+            // //             data: [
+            // //                 vm.sellerDashboadData.LngTotal,
+            // //                 vm.sellerDashboadData.ApprovedLngTotal,
+            // //                 vm.sellerDashboadData.SuppliedQuantity
+                           
+            // //             ]
+            // //         };
+            // //         config1Data.datasets.push(newDataset);
+
+            // //         // check_list_data.push(value.reportListId);
+            // //     // });
+                
+            // //      // window.myPie1.update();
+            // //      window.myPie1 = new Chart(ctx1, config1);
+               
+
+            // },1000)
+        },
+        chart2Data()
+        {
             let vm=this;
             
-            var ctx1 = document.getElementById("myChart").getContext('2d'); 
-            // var color = Chart.helpers.color;
+            var randomScalingFactor = function() {
+                return Math.round(Math.random() * 100);
+            };                    
+            var ctx2 = document.getElementById("cSupply").getContext('2d');
+            
+            // window.myPie1 = new Chart(ctx1, config1);
+            jQuery('.js-loader').removeClass('d-none')
 
-            var config1Data = {
-                    datasets: [{
-                        data: [0,100],
+            setTimeout(function(){
+                var config2 = {
+                type: 'bar',
+                data: {
+                    datasets: [
+                    {
+                        // data: [
+                        //     100,200,300
+                        // ],
+                        data: [
+                            vm.sellerDashboadData.LngTotal,
+                            vm.sellerDashboadData.ApprovedLngTotal,
+                            vm.sellerDashboadData.SuppliedQuantity
+                        ],
                         backgroundColor: [
-                            '#004696',
                             '#82be00',
+                            '#004696',
+                            '#173f6d',
                             
                         ],
-                        label: 'Dataset 1'
-                    }],
+                        label: 'LNG Allocation'
+                    }
+                    ],
                     labels: [
                         'Requested',
                         'Scheduled',
-                        'Allocated',
+                        'Supplied',
                     ]
-                };
-            var config1 = {
-                type: 'bar',
-                data: config1Data,
+                },
                 options: {
                     responsive: true,
                     legend: {
@@ -541,104 +635,10 @@ export default {
                     }
                 }
             };
-            var newDataset = {};
-            setTimeout(function(){
-                config1Data.datasets.pop();
-                _.forEach(vm.nominationData,function(value,key){
-                   
-                     var letters = '0123456789ABCDEF';
-                      var color = '#';
-                      for (var i = 0; i < 6; i++) {
-                        color += letters[Math.floor(Math.random() * 16)];
-                      }
-                    var newDataset = {
-                        label: value.buyer_name,
-                        backgroundColor: color,
-                        borderWidth: 1,
-                        data: [
-                            value.quantity_required,
-                            value.approved_quantity,
-                            value.supplied_quantity
-                        ]
-                    };
-                    config1Data.datasets.push(newDataset);
+                window.myPie2 = new Chart(ctx2, config2);
+            jQuery('.js-loader').addClass('d-none')
 
-                    // check_list_data.push(value.reportListId);
-                });
-                
-                 // window.myPie1.update();
-                 window.myPie1 = new Chart(ctx1, config1);
-               
-
-            },1000)
-        },
-        chart2Data()
-        {
-            let vm=this;
-            
-            var randomScalingFactor = function() {
-                return Math.round(Math.random() * 100);
-            };                    
-           
-            var ctx2 = document.getElementById("cSupply").getContext('2d');
-            var config2 = {
-                type: 'pie',
-                data: {
-                    datasets: [
-                    {
-                        data: [0,vm.total_availability],
-                        backgroundColor: [
-                            '#82be00',
-                            '#004696',
-                            
-                        ],
-                        label: 'Dataset 1'
-                    }
-                    ],
-                    labels: [
-                        'Available',
-                        'Allocated',
-                    ]
-                },
-                options: {
-                    responsive: true
-                }
-            };
-            // window.myPie1 = new Chart(ctx1, config1);
-            window.myPie2 = new Chart(ctx2, config2);
-
-            //setInterval(function(){
-               
-                let next_date=moment().add(1,'days').format('DD-MM-YYYY');
-                let today=moment().format('DD-MM-YYYY');
-                if(vm.selectedDashbordDate==next_date)
-                {
-                    config2.data.datasets[0].data[0]=vm.total_availability;
-                    // config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    config2.data.datasets[0].data[1] = 0; 
-                }
-
-                else if(vm.selectedDashbordDate<today)
-                {
-                    // config2.data.datasets[0].data[1]=1000;
-                    config2.data.datasets[0].data[0] = 0;
-                    config2.data.datasets[0].data[1] = vm.total_availability; 
-                }
-                else
-                {
-                    if(config2.data.datasets[0].data[0] <vm.total_availability){
-                     config2.data.datasets[0].data[0] = vm.total_availability -config2.data.datasets[0].data[0]; 
-                     config2.data.datasets[0].data[1] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    }
-                }
-                /*if(config2.data.datasets[0].data[0] <vm.total_availability){
-                 config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                 config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
-                }*/
-                // window.myPie1.update();
-                window.myPie2.update();
-           // },2000)
-            
+            },3000);
         },
 
     }, 

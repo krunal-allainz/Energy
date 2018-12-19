@@ -26,7 +26,7 @@
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg text-right">
                                 <div class="float-right">
                                     <h4><strong>{{invData.invoice_no}} / <span id="dateFeildId">{{invData.date | dateFormate}}</span></strong></h4>
-                                    <h4><strong>Invoice Info:</strong></h4>
+                                    <h4 class="mt-5"><strong>Invoice Info:</strong></h4>
                                     <address>
                                         {{buyerData.name}}
                                         <br/>  {{buyerData.address}}
@@ -37,18 +37,18 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="col-md-12">
+                    <div class="">
                         <div class="table-responsive">
                             <table class="invoice-table table table-striped table-condensed" id="customtable"  width="100%">
 
                                 <thead>
                                 <tr class="bg-primary">
-                                    <th class="text-center" style="width: 30px;">
+                                    <th class="text-center w-8">
                                         <strong>#</strong>
                                     </th>
-                                    <th class="text-center" colspan="5" style="width: 250px;">
+                                    <th class="text-center w-65" colspan="4">
                                         <strong>
-                                           particulars
+                                           PARTICULARS
                                         </strong>
                                     </th>
                                     <!--  <th colspan="2" class="text-center" style="width: 100px;">
@@ -61,8 +61,8 @@
                                         <strong>Tax</strong>
                                     </th> -->
                                    
-                                    <th class="text-center" style="width: 90px;">
-                                        <strong>Total</strong>
+                                    <th class="text-right w-27">
+                                        <strong>TOTAL</strong>
                                     </th>
                                     <!-- <th class="text-center" id="add_row"><i class="fa fa-fw ti-plus"></i></th> -->
                                 </tr>
@@ -70,22 +70,23 @@
                                 <tbody>
                                     <tr  v-for="request,indexsr in requestList[index + 1]">
                                         <td class="text-center">{{++indexsr}}</td>
-                                        <td class="text-center" colspan="5">Quantity Of Lng Supplied On {{request.date|dateFormate}}
-                                        <br><small><strong>Description : </strong> Net Quantity {{request.total_date_supplied_Qty}} X (M.F.){{request.gcv_value}}</small></td>
+
+                                        <td class="text-left" colspan="4">Quantity Of Lng Supplied On {{request.date|dateFormate}}
+                                        <br><small><strong> </strong> Net Weight {{request.total_date_supplied_Qty}} Kg X (M.F.){{request.gcv_value}}</small></td>
                                        
                                          <!-- <td colspan="2" class="text-center">{{request.gcv_value}}</td> -->
-                                        <td class="text-center">{{request.total_date_supplied_Qty * request.gcv_value}} MMBTU</td>
+                                        <td class="text-right">{{request.total_date_supplied_Qty * request.gcv_value}} MMBTU</td>
+
                                     </tr>
                                     <tr><td class="text-center"><strong>Total</strong></td>
-                                        <td class="text-center" colspan="5"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td>
+                                        <td class="text-left" colspan="4"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td>
                                        
                                          <!-- <td colspan="2" class="text-center"></td> -->
-                                        <td class="text-center">
+                                        <td class="text-right">
                                         {{invData.total_supply_qty_with_gcv}} MMBTU</td></tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                    <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                       
@@ -96,7 +97,7 @@
 
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable> <i class="fa fa-usd"></i> {{ agreementData.perMMbtu}}</strong>
                                     </td>
                                   
@@ -105,21 +106,19 @@
                                     <td class="highrow text-center"></td>
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
-                                    <td class="highrow"></td>
                                      
                                     <td class="highrow text-right" colspan="2">
                                         <strong>
                                            SubTotal: &nbsp;
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable><span class="top tipso_style" title="Total Price to customer" data-tipso=""><i class="fa fa-usd"></i> {{invData.sub_amount}}</span></strong>
                                     </td>
                                    
                                 </tr>
                                  
                                  <tr>
-                                    <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                       
@@ -130,7 +129,7 @@
 
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable>  INR {{ agreementData.convertRate}}/USD </strong>
                                     </td>
                                   
@@ -140,13 +139,13 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-right" colspan="2">
+                                    <td class="emptyrow text-right">
                                         <strong>
                                             <span>Total</span>: &nbsp;
 
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable>
                                         <i class="fa fa-rupee"></i>{{invData.afterConvertCurrencty}}  </strong>
                                     </td>
@@ -157,12 +156,12 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-right" width="50px" colspan="2">
+                                    <td class="emptyrow text-right" width="50px" >
                                         <strong>
                                             {{agreementData.taxType}}( %{{agreementData.taxRate}}):
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable>  +  <i class="fa fa-rupee"></i> {{invData.tax_rate_amount_cal}}</strong>
                                     </td>
                                  
@@ -174,13 +173,16 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     
-                                    <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-right" colspan="2">
                                         <strong>
+<<<<<<< HEAD
                                             <b>Total Price To Custome: &nbsp;</b>
+=======
+                                            <b>Total price to customer: &nbsp;</b>
+>>>>>>> c273f86b0d3d552efb89fdfc482539d7c928044b
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable><b><i class="fa fa-rupee"></i> {{invData.total_amount}}</b></strong>
                                     </td>
                                 </tr>
@@ -188,8 +190,11 @@
                             </table>
                         </div>
                     </div>
+                    
             </div>
-              <form><div class="text-right"><button type="button" class="btn btn-info" @click="generateLngInvoice(index,buyerId)">Approve</button></div></form>
+            <div class="card-body">
+              <form class="col-md-12"><div class="text-right"><button type="button" class="btn btn-info" @click="generateLngInvoice(index,buyerId)">Approve</button></div></form>
+            </div>
         </div>
 
     </section>
@@ -272,7 +277,7 @@
                             let request_data  = response.data.data;
                             // return false;
                              var invoice_list = [];
-                             
+                             // console.log(request_data,'sdfsdf');
                             $.each(request_data.generateInvociedata, function(key, value) {
                                 let invoice_no =  value.invoice_no ;
                                 let sub_amount  = value.sub_amount ;
@@ -367,15 +372,15 @@
                      (response) => {
                         if(response.data.code == 200){
                             if(response.data.data == true){
-                                 toastr.success('Invoice has been generated successfully', 'Generate Invoice', {timeOut: 5000});
+                                 toastr.success('Invoice has been generated successfully', 'Invoice', {timeOut: 5000});
                                   this.$router.push({name: 'generate_invoice_lng'})
                             }
                         }else{
-                             toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                             toastr.error('Something Went wrong.', 'Invoice', {timeOut: 5000});
                         }
                     },
                     (error) => {
-                          toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                          toastr.error('Something Went wrong.', 'Invoice', {timeOut: 5000});
                     },
                 );
                  

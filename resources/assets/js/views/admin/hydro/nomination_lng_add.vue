@@ -5,13 +5,11 @@
 		<div class="card bg-success-card nomination_class">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-12"><h4 class="mt-2" v-if="nominationLngData.pageName=='EDIT'">Nomination Update</h4><h4 class="mt-2" v-else>Nomination LNG Add</h4></div>
+          <div class="col-md-12"><h4 class="mt-2" v-if="nominationLngData.pageName=='EDIT'">Nomination Update</h4><h4 class="" v-else>Nomination LNG Add</h4></div>
           </div>
-          <div class="col-md-12 text-right">
-                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{selected_date}} Date List.</strong> 
-                </div>
         </div>
         <div class="card-body">
+
             <form method="post"> 
 
             <div class="row">
@@ -84,21 +82,20 @@
                            
 
 
-                                <div class="row form-group mt-5">
-                                    <div class="col-md-3">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <span v-if="nominationLngData.pageName=='EDIT'">
-                                            <button class="btn btn-success" type="button" @click="editValidateBeforeSubmit()">Update</button>
-                                        </span>
-                                        <span v-else>
-                                             <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
-                                        </span>
-                                    </div>
-                                     <div class="col-md-3">
-                                         <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
-                                     </div>
+                                <div class="form-group mt-5 text-center">
+                                    <span v-if="nominationLngData.pageName=='EDIT'">
+                                        <button class="btn btn-success mr-2" type="button" @click="editValidateBeforeSubmit()">Update</button>
+                                    </span>
+                                    <span v-else>
+                                         <button class="btn btn-success mr-2" type="button" @click="validateBeforeSubmit()">Add</button>
+                                    </span>
+
+                                    <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
+                         
                                 </div>
+                                <div class="text-right text-danger">
+                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{selected_date}} Date List.</strong> 
+                </div>
                                 <label class="text-danger right">Maximum allowed quantity {{ totalAllowedQuantity ? totalAllowedQuantity : 0 }}</label> 
                         </div>
                 </div>
@@ -307,11 +304,11 @@
                         },100);
                     
                     } else if (response.data.code == 300) {
-                        toastr.error('No Nomination LNG Found.', 'Update Nomination LNG', {timeOut: 5000});
+                        toastr.error('Nomination LNG not found.', 'Nomination LNG', {timeOut: 5000});
                     }
                     else
                     {
-                        toastr.error('Something Went wrong.', 'Update Nomination LNG', {timeOut: 5000});
+                        toastr.error('Something went wrong.', 'Nomination LNG', {timeOut: 5000});
                     }
                     
                   },
@@ -334,7 +331,7 @@
                let remainingQuantity = parseFloat( vm.totalAllowedQuantity) -parseFloat(vm.totalUsedQuantity);
                
                if(parseFloat(currentRequestQuantity) > parseFloat(vm.totalAllowedQuantity)){
-                    toastr.error('You have only '+remainingQuantity+' quantity remains to request', 'Nomination', {timeOut: 5000});
+                    toastr.error('You have '+remainingQuantity+' quantity remains to request', 'Nomination', {timeOut: 5000});
                     return false;
                }
 
@@ -346,18 +343,18 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Add Nomination LNG', {timeOut: 5000});
+                                toastr.success(response.data.message, ' Nomination LNG', {timeOut: 5000});
                                 vm.$root.$emit('nominationLngSuccess',1);
                                 //this.initialState();
                                 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error(response.data.message, 'Add Nomination', {timeOut: 5000});
+                                toastr.error(response.data.message, 'Nomination LNG', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Nomination LNG', {timeOut: 5000});
                             }
                             
                           },
@@ -379,18 +376,18 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Update Nomination', {timeOut: 5000});
+                                toastr.success(response.data.message, 'Nomination LNG', {timeOut: 5000});
                                 vm.$root.$emit('nominationLngSuccess',1);
                                 //this.initialState();
                                 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error(response.data.message, 'Update Nomination', {timeOut: 5000});
+                                toastr.error(response.data.message, 'Nomination LNG', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', ' Nomination LNG', {timeOut: 5000});
                             }
                             
                           },

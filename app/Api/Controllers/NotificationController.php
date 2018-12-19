@@ -56,10 +56,10 @@ class NotificationController extends Controller
         $result =  $this->notificationOBJ->getTimelineData($usertype,$userId);
 
         if($result) {
-            return ['code' => '200','data'=>$result, 'message' => 'Timeline generate successfully'];
+            return ['code' => '200','data'=>$result, 'message' => 'Timeline generated successfully.'];
         } else {
              //return ['code' => '300','patientData'=>'', 'message' => 'Record not found'];
-            return ['code' => '300','data'=>'', 'message' => 'Something went wrong'];
+            return ['code' => '300','data'=>'', 'message' => 'Something went wrong.'];
         }
 
     }

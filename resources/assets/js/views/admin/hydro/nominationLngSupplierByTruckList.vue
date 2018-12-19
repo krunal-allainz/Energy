@@ -1,25 +1,30 @@
 <template>
-	<div class="container">
-		<div class="page-header">
-			<div class="row">
-				<div class="col-md-6">
-				<h2>Lng Supply By Truck List</h2>
-				</div>
-			</div>
-			<div class="row">
-        <div class="col-md-12">
-          <previousNextDate></previousNextDate></div>
+  <div class="col-lg-12 mb-3">
+  	<div class="card bg-success-card">
+  		
+  			<div class="card-header  mb-3">
+          <div class="row"><div class="col-md-6">
+            <h4>Lng Supply By Truck List</h4>
+          </div> <!---->
         </div>
-		</div>
-            <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :displayApprove="displayApprove" :availableQty='availableQty' ></lngSupplyBytruckListForSeller>
+      </div>
+  			<div class="row">
+          <div class="col-md-12">
+            <previousNextDate></previousNextDate>
+          </div>
+        </div>
+  		
 
-               <div  class="text-right">
-                  <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()"  v-show="(displayApprove == false)">Approve</button>
-                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="editQuantity()" v-if="(edit == false && displayApprove == false)">Edit</button >
-                  <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="cancleQuantity()" v-if="(edit == true && displayApprove == false)">cancle</button>
-              </div>
+              <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :displayApprove="displayApprove" :availableQty='availableQty' ></lngSupplyBytruckListForSeller>
 
-	</div>
+                 <div  class="text-right">
+                    <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()"  v-show="(displayApprove == false)">Approve</button>
+                    <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="editQuantity()" v-if="(edit == false && displayApprove == false)">Edit</button >
+                    <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="cancleQuantity()" v-if="(edit == true && displayApprove == false)">cancle</button>
+                </div>
+
+  	</div>
+  </div>
 </template>
 
 <script>
@@ -74,7 +79,7 @@
           
             var vm = this;
              if(vm.$store.state.Users.userDetails.user_type != '3'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+              vm.$root.$emit('logout','You are not authorize to access this page'); 
           }
           if(vm.totalApproveQty > 0){
             vm.displayApprove = true;
@@ -125,13 +130,13 @@
                  (response) => {
                   
                     if(response.data.code == 200){
-                       vm.availableQty =response.data.data ;
+                       vm.availableQty =parseInt((response.data.data)*450) ;
                     }else{
-                        toastr.error(response.message, 'Availabel quantity not define ', {timeOut: 5000});
+                        toastr.error(response.message, 'Availabel quantity not defined. ', {timeOut: 5000});
                     }
                   },
                   (error) => {
-                      toastr.error(response.message, 'some thing Wrong', {timeOut: 5000});
+                      toastr.error(response.message, 'Something went wrong.', {timeOut: 5000});
                   }
               );
 
@@ -227,14 +232,14 @@
             if(vm.canApprove == 1){ 
 
                 
-              if(confirm("After Approve quantity can't change, do you want to approve")){
+              if(confirm("You can't change quantity after approve. Do you want to approve?")){
                   User.approveQuatityForTruckLoad(data).then(
 
                     (response) => {
                       if(response.data.code == 200){
                          vm.displayApprove = false;
                           vm.edit = false;
-                          toastr.success('Nomination Approved successfully', 'Nomination', {timeOut: 5000});
+                          toastr.success('Nomination approved successfully.', 'Nomination', {timeOut: 5000});
                          
                           vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
                            vm.getTotalQty(vm.getNominationLngData);
@@ -247,7 +252,7 @@
                           
                     },
                     (error) => {
-                       toastr.error('Something Went wrong.', 'Approve Nomination', {timeOut: 5000});
+                       toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                     },
 
 
