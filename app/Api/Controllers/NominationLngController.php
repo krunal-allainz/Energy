@@ -252,7 +252,7 @@ class NominationLngController extends Controller
         $lngData = $this->nomLngObj->getNominationLngTotals($data);
 
         if($lngData) {
-            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG rejected successfully.'];
+            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG total listed successfully.'];
         } else {
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
@@ -264,7 +264,7 @@ class NominationLngController extends Controller
         $lngData = $this->nomLngObj->getBuyerNominationLngTotals($data);
 
         if($lngData) {
-            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG rejected successfully.'];
+            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG listed successfully.'];
         } else {
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
