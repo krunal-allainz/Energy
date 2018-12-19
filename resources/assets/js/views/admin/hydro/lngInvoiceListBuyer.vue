@@ -217,11 +217,17 @@
 
                      let requestCount = 0;
                      let  request_data  = response.data.data;
-
+                     let sameDate = '';
                      $.each(request_data, function(key, value){
                        let supplied_quantity  = value.supplied_quantity ;
+                      
+
                        if(supplied_quantity != null && supplied_quantity != 0.00){
+                           let lngDate = value.lngDate;
+                          if(sameDate != lngDate){
+                            sameDate = lngDate;
                           requestCount =  requestCount+1;
+                        }
                        }
                      }); 
 

@@ -203,8 +203,8 @@ export default {
   generateLngInvoiceViewByBuyerId(buyerId){
     return api.post('invoice/viewlngbybuyer', { 'buyerId' : buyerId});
   },
-  generateLngInvoiceByBuyerId(buyerId,sellerId,invoiceData,invoiceDataIndex,invoiceHtml,requestList,agreementData){
-     return api.post('invoice/generatelnginvoicebybuyer', { 'buyerId' : buyerId, 'sellerId' : sellerId ,'invoiceData' : invoiceData , 'invoiceDataIndex' : invoiceDataIndex , 'invoiceHtml' : invoiceHtml , 'requestList' : requestList, 'agreementData' : agreementData});
+  generateLngInvoiceByBuyerId(buyerId,sellerId,invoiceData,invoiceDataIndex,invoiceHtml,requestList,agreementData,updaterequestList){
+     return api.post('invoice/generatelnginvoicebybuyer', { 'buyerId' : buyerId, 'sellerId' : sellerId ,'invoiceData' : invoiceData , 'invoiceDataIndex' : invoiceDataIndex , 'invoiceHtml' : invoiceHtml , 'requestList' : requestList, 'agreementData' : agreementData,'updaterequestList':updaterequestList});
   },
   getBuyerAllowedQuantity(buyerId){
     return api.post('nomination/getBuyerAllowedQuantity', { 'buyerId' : buyerId});

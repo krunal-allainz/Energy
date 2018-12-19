@@ -411,6 +411,8 @@ use Auth;
        $list = NominationLng::select('lngTime')->where('buyer_id',$data['buyer_id'])->where('lngDate', $date)->get()->toArray();
        return $list;
     }
+
+
     /**
     *
     *
@@ -429,7 +431,7 @@ use Auth;
                 if($multipleType == 'yes'){
                    $list = NominationLng::select('nomination_lng.id as nId','nomination_lng.*','users.*')->whereNotIn('nomination_lng.lng_status',$requestType)->where('buyer_id',$buyerId)->join('users', function ($join) {
                     $join->on('users.id', '=', 'nomination_lng.buyer_id');
-                            })->get();  
+                            })->orderBy('nomination_lng.lngDate','ASC')->get();  
                 }
            
         }else if($typeInclude == 'yes'){
@@ -449,7 +451,8 @@ use Auth;
     }
 
     public function updateRequeststatus($requestType,$nid){
-        return NominationLng::where('id',$nid)->update(array('nomination_lng.lng_status' => $requestType));
+        // dd($nid);
+        return NominationLng::where('id',$nid)->update(['lng_status' =>$requestType]);
     }
     
     public function getNominationLngTotals($data){
