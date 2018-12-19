@@ -156,7 +156,7 @@
                         </div>
                     </div>
                 </div>
-                <timeline :userData=userData> </timeline>
+                <timelineLng :userData=userData> </timelineLng>
             </div>
 
             <!-- /#right -->
@@ -169,7 +169,7 @@
     import User from '../../../api/users.js';
     import moment from 'moment';
     import Chart from 'chart.js';
-    import timeline from './timeline.vue';
+    import timelineLng from './timelineLng.vue';
     import previousNextDate from './previousNextDate.vue';
 
 export default {
@@ -196,7 +196,7 @@ export default {
         this.$root.$on('changeDashbordDate',this.changeDashbordDate);
     },
     components: {
-            timeline,
+            timelineLng,
             previousNextDate
     },
     mounted: function() {

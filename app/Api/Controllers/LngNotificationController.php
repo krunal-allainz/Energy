@@ -53,7 +53,7 @@ class LngNotificationController extends Controller
         //
         $usertype = $request->userType;
         $userId = $request->userId;
-        $result =  $this->lngnotificationOBJ->getTimelineData($usertype,$userId);
+        $result =  $this->lngnotificationOBJ->getTimelineLngData($usertype,$userId);
 
         if($result) {
             return ['code' => '200','data'=>$result, 'message' => 'Timeline generate successfully'];

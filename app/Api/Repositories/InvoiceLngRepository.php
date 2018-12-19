@@ -239,9 +239,10 @@ use Auth;
             $dataId = $invoice->id;
             $qty    = $invoicedata['supplied_quantity'];
             $type   = 'generate_lng_invoice';
+            $invoiceNo = $invoicedata['invoice_no'];
             //dd($invoice->date);
             $d_format=Carbon::createFromFormat('Y-m-d',$invoice->date)->format('jS M Y');
-            $dataText ='seller has created invoice of '.number_format($qty,2).'  on '.$d_format.' for '. ucwords($userName);
+            $dataText ='seller has created invoice  '.$invoiceNo.' of total net quantity '.number_format($qty,2).'  on '.$d_format.' for '. ucwords($userName);
             $title  = 'Invoice Created';
             $dataTable = 'invoice_lng';
 

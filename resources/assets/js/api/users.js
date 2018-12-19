@@ -212,4 +212,7 @@ export default {
   generateLngInvoice(){
     return api.post('invoice/generatelnginvoice');
   },
+  getTimelineLngData(userType,userId){
+      return api.post('dashboard/gettimelinelngdata',{'userType' :userType,'userId' : userId});
+  },
 }

@@ -325,7 +325,7 @@
             editValidateBeforeSubmit() {
                 let vm = this;
                 
-                if (vm.nominationLngData.gross_weight <= vm.nominationLngData.tare_weight ) {
+                if ((vm.nominationLngData.gross_weight != 0.00) && (vm.nominationLngData.gross_weight <= vm.nominationLngData.tare_weight )) {
                     toastr.error('Gross weight must not less than Tare weight', 'Update Nomination', {timeOut: 5000});
                     return false;
                 }
