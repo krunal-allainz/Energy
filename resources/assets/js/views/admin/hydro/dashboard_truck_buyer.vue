@@ -155,7 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <timeline :userData=userData> </timeline>
+                <timelineLng :userData=userData> </timelineLng>
             </div>
 
             <!-- /#right -->
@@ -168,7 +168,7 @@
     import User from '../../../api/users.js';
     import moment from 'moment';
     import Chart from 'chart.js';
-    import timeline from './timeline.vue';
+    import timelineLng from './timelineLng.vue';
     import previousNextDate from './previousNextDate.vue';
 
 export default {
@@ -195,14 +195,14 @@ export default {
         this.$root.$on('changeDashbordDate',this.changeDashbordDate);
     },
     components: {
-            timeline,
+            timelineLng,
             previousNextDate
     },
     mounted: function() {
         let vm=this;
         vm.selectedDashbordDate = this.$store.state.selected_date;
        if(vm.$store.state.Users.userDetails.user_type != '2'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+              vm.$root.$emit('logout','You are not authorize to access this page'); 
           }
         vm.chartData();
 

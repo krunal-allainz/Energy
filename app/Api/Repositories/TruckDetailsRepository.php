@@ -42,6 +42,12 @@ use Energy\Api\Repositories\NominationLngRepository;
         return $truckData;
     }
 
+    public function getTruckDetailById($id){
+        $result = TruckDetails::where('id',$id)->first();
+
+        return $result;
+    }
+
    
     
     

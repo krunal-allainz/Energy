@@ -111,8 +111,8 @@
                                
                             </td>
                       				<td data-v-744e717e="" class="">
-                      					<a v-if="today_date<=nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Nomination Delete"></i></a>
-                                <a  v-if="today_date<=nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                      					<a v-if="today_date<=nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Delete Nomination"></i></a>
+                                <a  v-if="today_date<=nominationData.date" @click="setNominationId(nominationData.nId)" title="Edit Nomination"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -242,7 +242,7 @@
           }
           else
           {
-            toastr.error('Please Add Files.', 'Add Nomination', {timeOut: 5000});
+            toastr.error('Please add files.', 'Nomination', {timeOut: 5000});
             event.preventDefault();
           }
            
@@ -258,16 +258,16 @@
                     //$('#presp_'+id).remove();
                      vm.getNominationCountForBuyer();
                      vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
-                    toastr.success('Nomination deleted successfully', 'Add Nomination', {timeOut: 5000});
+                    toastr.success('Nomination deleted successfully.', 'Nomination', {timeOut: 5000});
                       //this.initialState();
                       
                   } else if (response.data.code == 300) {
-                      toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                      toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                       //this.initialState(); 
                   }
                   else
                   {
-                      toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                      toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                   }
                   
                 },

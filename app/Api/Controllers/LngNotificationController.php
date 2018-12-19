@@ -2,15 +2,15 @@
 
 namespace Energy\Api\Controllers;
 
-use Energy\Models\Notification;
+use Energy\Models\LngNotification;
 use Illuminate\Http\Request;
-use Energy\Api\Repositories\NotificationRepository;
+use Energy\Api\Repositories\LngNotificationRepository;
 
-class NotificationController extends Controller
+class LngNotificationController extends Controller
 {
 
     public function __construct(){
-        $this->notificationOBJ = new NotificationRepository();
+        $this->lngnotificationOBJ = new LngNotificationRepository();
     }
     /**
      * Display a listing of the resource.
@@ -53,13 +53,13 @@ class NotificationController extends Controller
         //
         $usertype = $request->userType;
         $userId = $request->userId;
-        $result =  $this->notificationOBJ->getTimelineData($usertype,$userId);
+        $result =  $this->lngnotificationOBJ->getTimelineLngData($usertype,$userId);
 
         if($result) {
-            return ['code' => '200','data'=>$result, 'message' => 'Timeline generated successfully.'];
+            return ['code' => '200','data'=>$result, 'message' => 'Timeline generate successfully'];
         } else {
              //return ['code' => '300','patientData'=>'', 'message' => 'Record not found'];
-            return ['code' => '300','data'=>'', 'message' => 'Something went wrong.'];
+            return ['code' => '300','data'=>'', 'message' => 'Something went wrong'];
         }
 
     }

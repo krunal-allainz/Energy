@@ -245,11 +245,11 @@
                         },100);
                     
                     } else if (response.data.code == 300) {
-                        toastr.error('No Nomination LNG Found.', 'Update Nomination LNG', {timeOut: 5000});
+                        toastr.error('Nomination LNG not found.', 'Nomination LNG', {timeOut: 5000});
                     }
                     else
                     {
-                        toastr.error('Something Went wrong.', 'Update Nomination LNG', {timeOut: 5000});
+                        toastr.error('Something went wrong.', 'Nomination LNG', {timeOut: 5000});
                     }
                     
                   },
@@ -325,8 +325,9 @@
             editValidateBeforeSubmit() {
                 let vm = this;
                 
-                if (vm.nominationLngData.gross_weight <= vm.nominationLngData.tare_weight ) {
+                if ((vm.nominationLngData.gross_weight != 0.00) && (vm.nominationLngData.gross_weight <= vm.nominationLngData.tare_weight )) {
                     toastr.error('Gross weight must not less than Tare weight', 'Update Nomination', {timeOut: 5000});
+
                     return false;
                 }
                 jQuery('.js-loader').removeClass('d-none');
@@ -344,21 +345,21 @@
                                    
                                     if(response.data.code == 200){
                                         if(vm.updateType == 'tare_weight'){
-                                            toastr.success('Tare weight value has been saved', 'Success ', {timeOut: 5000});
+                                            toastr.success('Tare weight has been saved.', 'Success ', {timeOut: 5000});
                                         } else {
-                                            toastr.success('Gross weight value has been saved', 'Success ', {timeOut: 5000});               
+                                            toastr.success('Gross weight has been saved.', 'Success ', {timeOut: 5000});               
                                         }
                                          vm.$root.$emit('suppliedLngSuccess');
                                         //this.initialState();
                                         
                                     }
                                     else if (response.data.code == 300) {
-                                        toastr.error(response.data.message, 'Update Nomination', {timeOut: 5000});
+                                        toastr.error(response.data.message, 'Nomination', {timeOut: 5000});
                                         //this.initialState(); 
                                     }
                                     else
                                     {
-                                        toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
+                                        toastr.error('Something went wrong.', 'Update Nomination', {timeOut: 5000});
                                     }
                                     
                                   },
@@ -393,9 +394,9 @@
                             $('#gcvAdd').modal('hide');
                             vm.close_modal();
                            
-                            toastr.success('Factor is added successfully', 'Success', {timeOut: 5000});
+                            toastr.success('Factor is added successfully.', 'Success', {timeOut: 5000});
                         } else {
-                            toastr.error('Factor is already added', 'Error', {timeOut: 5000});
+                            toastr.error('Factor is already added.', 'Error', {timeOut: 5000});
 
                         }
                     },
