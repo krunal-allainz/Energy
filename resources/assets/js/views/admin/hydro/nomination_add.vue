@@ -269,12 +269,12 @@
                         },200);
                         //$('#request').val(presp_data.request).trigger('change');
                     } else if (response.data.code == 300) {
-                        toastr.error('No Nomination Found.', 'Add Nomination', {timeOut: 5000});
+                        toastr.error('No nomination found.', 'Nomination', {timeOut: 5000});
                         //this.initialState(); 
                     }
                     else
                     {
-                        toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                        toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                     }
                     
                   },
@@ -303,7 +303,7 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Add Nomination', {timeOut: 5000});
+                                toastr.success(response.data.message, 'Nomination', {timeOut: 5000});
                                 vm.$root.$emit('nominationSuccess',1);
                                 //this.initialState();
                                 
@@ -313,12 +313,12 @@
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Add Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Add Nomination', {timeOut: 5000});
                             }
                             
                           },
@@ -340,26 +340,26 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Update Nomination', {timeOut: 5000});
+                                toastr.success(response.data.message, 'Nomination', {timeOut: 5000});
                                 vm.$root.$emit('nominationSuccess',1);
                                 //this.initialState();
                                 
                             } 
                             else if (response.data.code == 301) {
-                                toastr.error('Quantity higher than MDCQ.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Quantity must not greater than MDCQ.', 'Update Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 302) {
-                                toastr.error('Availability is not available.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Availability not available.', 'Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                             }
                             
                           },

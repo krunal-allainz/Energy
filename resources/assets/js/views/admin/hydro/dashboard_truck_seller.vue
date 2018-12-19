@@ -227,7 +227,7 @@ export default {
                 }
             );
         if(vm.$store.state.Users.userDetails.user_type != '3'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+              vm.$root.$emit('logout','You are not authorize to access this page.'); 
           }
         
         vm.chart1Data();
@@ -250,9 +250,9 @@ export default {
                         $('#gcvAdd').modal('hide');
                         vm.close_modal();
                        
-                        toastr.success('Factor is added successfully', 'Success', {timeOut: 5000});
+                        toastr.success('Factor added successfully.', 'Success', {timeOut: 5000});
                     } else {
-                        toastr.error('Factor is already added', 'Error', {timeOut: 5000});
+                        toastr.error('Factor already added.', 'Error', {timeOut: 5000});
 
                     }
 
@@ -353,7 +353,7 @@ export default {
                         vm.open_gcv_modal=true;
                         $('#gcvAdd').modal('show');
                     } else {
-                        toastr.error('Factor is already added', 'Error', {timeOut: 5000});
+                        toastr.error('Factor is already added.', 'Error', {timeOut: 5000});
 
                     }
 
@@ -485,13 +485,13 @@ export default {
                  (response)=> {
                
                 if(response.data.code == 200){
-                   toastr.success('Generate Invoice Successfully.', 'Generate Invoice', {timeOut: 5000});
+                   toastr.success('Invoice generated successfully.', 'Invoice', {timeOut: 5000});
                 } else if (response.data.code == 300) {
-                    toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                    toastr.error('Something went wrong.', 'Invoice', {timeOut: 5000});
                 }
                 elses
                 {
-                    toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                    toastr.error('Something went wrong.', 'Invoice', {timeOut: 5000});
                 }
                 
               },

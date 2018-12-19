@@ -199,7 +199,7 @@ export default {
     mounted: function() {
         let vm=this;
        if(vm.$store.state.Users.userDetails.user_type != '2'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+              vm.$root.$emit('logout','You are not authorize to access this page'); 
           }
         vm.chartData();
     },
