@@ -215,4 +215,7 @@ export default {
   getTimelineLngData(userType,userId){
       return api.post('dashboard/gettimelinelngdata',{'userType' :userType,'userId' : userId});
   },
+  getBuyerUsedQuantity(requestDate,buyerId){
+    return api.post('nomination/getBuyerUsedQuantity', { 'requestDate': requestDate,'buyerId' : buyerId});
+  }
 }

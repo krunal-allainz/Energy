@@ -465,12 +465,20 @@ use Auth;
 
     public function getBuyerNominationLngTotals($data){
         $date = date('Y-m-d', strtotime($data['date']));
+        $requestDate = date('Y-m-d', strtotime($data['date'].'+ 1 days'));
+        $approvedDate = date('Y-m-d', strtotime($data['date']));
+        $supplyDate = date('Y-m-d', strtotime($data['date'].'- 1 days'));
         
         $lng['AvailabilityGcv'] = AvailabilityGcv::where('gcv_date', $date)->sum('gcv_quantity');
-        $lng['LngTotal'] = NominationLng::where('lngDate', $date)->where('buyer_id', $data['buyerId'])->sum("quantity");
-        $lng['ApprovedLngTotal'] = NominationLng::where('lngDate', $date)->where('buyer_id', $data['buyerId'])->where('lng_status', 'approved')->sum("approve_quantity");
-        $lng['SuppliedQuantity'] = NominationLng::where('lngDate', $date)->where('buyer_id', $data['buyerId'])->where('lng_status', 'approved')->sum("supplied_quantity");
+        $lng['LngTotal'] = NominationLng::where('lngDate', $requestDate)->where('buyer_id', $data['buyerId'])->sum("quantity");
+        $lng['ApprovedLngTotal'] = NominationLng::where('lngDate', $approvedDate)->where('buyer_id', $data['buyerId'])->where('lng_status', 'approved')->sum("approve_quantity");
+        $lng['SuppliedQuantity'] = NominationLng::where('lngDate', $supplyDate)->where('buyer_id', $data['buyerId'])->where('lng_status', 'approved')->sum("supplied_quantity");
         
+        $lng['date'] = date('d-m-Y',strtotime($date));
+        $lng['requestDate'] = date('d-m-Y',strtotime($requestDate));
+        $lng['approvedDate'] = date('d-m-Y',strtotime($approvedDate));
+        $lng['supplyDate'] = date('d-m-Y',strtotime($supplyDate));
+
         return $lng;
     }
 
@@ -479,6 +487,14 @@ use Auth;
         $allowedQuantity = Agreement::select('allowed_quantity')->where('buyer_id',$buyerId)->get()->toArray();
         
         return $allowedQuantity[0];
+    }
+
+    public function getBuyerUsedQuantity($requestDate, $buyerId)
+    {
+        $requestDate = date('Y-m-d', strtotime($requestDate));
+        $usedQuantity = NominationLng::where('buyer_id',$buyerId)->where('lngDate', $requestDate)->sum('quantity');
+
+        return $usedQuantity;
     }
  }
 ?>
