@@ -232,12 +232,9 @@ class NominationLngController extends Controller
         $data = $request->all();
         $lngData = $this->nomLngObj->getNominationLngTotals($data);
 
-        if($lngData)
-        {
+        if($lngData) {
             return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG reject successfully.'];
-        }
-        else
-        {
+        } else {
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
     }   
@@ -247,12 +244,9 @@ class NominationLngController extends Controller
         $data = $request->all();
         $lngData = $this->nomLngObj->getBuyerNominationLngTotals($data);
 
-        if($lngData)
-        {
+        if($lngData) {
             return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG reject successfully.'];
-        }
-        else
-        {
+        } else {
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
     }
@@ -262,12 +256,22 @@ class NominationLngController extends Controller
         $buyerId = $request->input('buyerId');
         $allowedQuantity = $this->nomLngObj->getBuyerAllowedQuantity($buyerId);
         
-        if($allowedQuantity)
-        {
+        if($allowedQuantity) {
             return ['code' => 200 ,'data'=>$allowedQuantity,'message'=>'Nomination LNG reject successfully.'];
+        } else {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
-        else
-        {
+    }
+
+    public function getBuyerUsedQuantity(Request $request)
+    {
+        $requestDate = $request->input('requestDate');
+        $buyerId = $request->input('buyerId');
+        $usedQuantity = $this->nomLngObj->getBuyerUsedQuantity($requestDate,$buyerId);
+        
+        if($usedQuantity) {
+            return ['code' => 200 ,'data'=>$usedQuantity,'message'=>'Nomination LNG reject successfully.'];
+        } else {
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
     }

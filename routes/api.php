@@ -209,13 +209,14 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
          $api->post('invoice/invoiceLngView', '\Energy\Api\Controllers\InvoiceLngController@getInvoiceView');
 
-          $api->post('nomination/getlngbuyerrequestlist', '\Energy\Api\Controllers\NominationLngController@getLngBuyerRequestList');
+        $api->post('nomination/getlngbuyerrequestlist', '\Energy\Api\Controllers\NominationLngController@getLngBuyerRequestList');
         $api->post('nomination/getBuyerAllowedQuantity', '\Energy\Api\Controllers\NominationLngController@getBuyerAllowedQuantity');  
         $api->post('nomination/getlngbuyerrequestlist', '\Energy\Api\Controllers\NominationLngController@getLngBuyerRequestList');
 
         $api->post('invoice/generatelnginvoice', '\Energy\Api\Controllers\InvoiceLngController@generateLngInvoice');
 
         $api->post('invoice/lnginvoiceView', '\Energy\Api\Controllers\InvoiceLngController@getInvoiceView');
+        $api->post('nomination/getBuyerUsedQuantity', '\Energy\Api\Controllers\NominationLngController@getBuyerUsedQuantity');  
 }); 
 
         
