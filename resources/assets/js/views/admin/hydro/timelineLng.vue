@@ -20,7 +20,7 @@
                                                     <div class="timeline-heading">
                                                         <!-- <span v-if="data.dataTable=='nomination_request'"> -->
                                                         <span>
-                                                          <a class="text-info point" @click="nomination_link(data.nDate)"><h4 class="timeline-title">{{data.title}}</h4></a>
+                                                          <a class="text-info point"><h4 class="timeline-title">{{data.title}}</h4></a>
                                                         </span>
                                                         
                                                         <p>
