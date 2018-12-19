@@ -46,9 +46,9 @@
                                     <th class="text-center" style="width: 30px;">
                                         <strong>#</strong>
                                     </th>
-                                    <th class="text-center" colspan="5" style="width: 250px;">
+                                    <th class="text-center" colspan="4" style="width: 250px;">
                                         <strong>
-                                           particulars
+                                           PARTICULARS
                                         </strong>
                                     </th>
                                     <!--  <th colspan="2" class="text-center" style="width: 100px;">
@@ -62,7 +62,7 @@
                                     </th> -->
                                    
                                     <th class="text-center" style="width: 90px;">
-                                        <strong>Total</strong>
+                                        <strong>TOTAL</strong>
                                     </th>
                                     <!-- <th class="text-center" id="add_row"><i class="fa fa-fw ti-plus"></i></th> -->
                                 </tr>
@@ -71,22 +71,21 @@
 
                                     <tr  v-for="request,indexsr in requestList[index + 1]">
                                         <td class="text-center">{{++indexsr}}</td>
-                                        <td class="text-center" colspan="5">Quantity Of Lng Supplied On {{request.date|dateFormate}}
-                                        <br><small><strong>Description : </strong> Net Quantity {{request.supplied_Qty}} X (M.F.){{request.gcv_value}}</small></td>
+                                        <td class="text-left" colspan="4">Quantity Of Lng Supplied On {{request.date|dateFormate}}
+                                        <br><small><strong> </strong> Net Weight {{request.supplied_Qty}} Kg X (M.F.){{request.gcv_value}}</small></td>
                                        
                                          <!-- <td colspan="2" class="text-center">{{request.gcv_value}}</td> -->
-                                        <td class="text-center">{{request.supplied_Qty * request.gcv_value}} MMBTU</td>
+                                        <td class="text-right">{{request.supplied_Qty * request.gcv_value}} MMBTU</td>
                                     </tr>
                                     <tr><td class="text-center"><strong>Total</strong></td>
-                                        <td class="text-center" colspan="5"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td>
+                                        <td class="text-center" colspan="4"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td>
                                        
                                          <!-- <td colspan="2" class="text-center"></td> -->
-                                        <td class="text-center">
+                                        <td class="text-right">
                                         {{invData.total_supply_qty_with_gcv}} MMBTU</td></tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                    <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                       
@@ -97,7 +96,7 @@
 
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable> <i class="fa fa-usd"></i> {{ agreementData.perMMbtu}}</strong>
                                     </td>
                                   
@@ -106,21 +105,19 @@
                                     <td class="highrow text-center"></td>
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
-                                    <td class="highrow"></td>
                                      
                                     <td class="highrow text-right" colspan="2">
                                         <strong>
                                            SubTotal: &nbsp;
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable><span class="top tipso_style" title="Total Price to customer" data-tipso=""><i class="fa fa-usd"></i> {{invData.sub_amount}}</span></strong>
                                     </td>
                                    
                                 </tr>
                                  
                                  <tr>
-                                    <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                       
@@ -131,7 +128,7 @@
 
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable>  INR {{ agreementData.convertRate}}/USD </strong>
                                     </td>
                                   
@@ -141,13 +138,13 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-right" colspan="2">
+                                    <td class="emptyrow text-right">
                                         <strong>
                                             <span>Total</span>: &nbsp;
 
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable>
                                         <i class="fa fa-rupee"></i>{{invData.afterConvertCurrencty}}  </strong>
                                     </td>
@@ -158,12 +155,12 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"></td>
-                                    <td class="emptyrow text-right" width="50px" colspan="2">
+                                    <td class="emptyrow text-right" width="50px" >
                                         <strong>
                                             {{agreementData.taxType}}( %{{agreementData.taxRate}}):
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable>  +  <i class="fa fa-rupee"></i> {{invData.tax_rate_amount_cal}}</strong>
                                     </td>
                                  
@@ -175,13 +172,12 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     
-                                    <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-right" colspan="2">
                                         <strong>
-                                            <b>Total price to custome: &nbsp;</b>
+                                            <b>Total price to customer: &nbsp;</b>
                                         </strong>
                                     </td>
-                                    <td class="highrow text-center">
+                                    <td class="highrow text-right">
                                         <strong contenteditable><b><i class="fa fa-rupee"></i> {{invData.total_amount}}</b></strong>
                                     </td>
                                 </tr>
@@ -272,7 +268,7 @@
                             let  request_data  = response.data.data;
                             // return false;
                              var invoice_list = [];
-                             
+                             // console.log(request_data,'sdfsdf');
                             $.each(request_data.generateInvociedata, function(key, value) {
                                 let invoice_no =  value.invoice_no ;
                                 let sub_amount  = value.sub_amount ;

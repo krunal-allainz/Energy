@@ -81,6 +81,9 @@ export default {
   getNominationDetailsByDate(date){
      return api.post('nomination/getNominationDetailsByDate',{'date':date});
   },
+  getNominationLngDetailsByDate(date){
+     return api.post('nomination/getNominationLngDetailsByDate',{'date':date});
+  },
   generateInvoice(){
     return api.post('invoice/generateinvoice');
   },

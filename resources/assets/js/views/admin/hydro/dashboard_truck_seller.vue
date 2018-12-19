@@ -106,9 +106,9 @@
                
 
                 <div class="row">
-                    <div class="col-xl-8 col-12">
+                    <div class="col-xl-6 col-12">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <!-- <div class="col-sm-6">
                                 <div class="card main-chart">
                                     <div class="card-header panel-tabs">
                                         
@@ -126,14 +126,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
+                            </div> -->
+                            <div class="col-sm-12">
                                 <div class="card main-chart">
                                     <div class="card-header panel-tabs">
                                         <!-- <ul class="nav nav-tabs nav-float" role="tablist"> -->
                                             
                                             <!-- <li class="text-center nav-item"> -->
-                                                <a><span class="d-none d-sm-block">Current Allocate</span>
+                                                <a><span class="d-none d-sm-block">LNG Allocation</span>
                                                     </a>
                                             <!-- </li> -->
                                         <!-- </ul> -->
@@ -152,9 +152,9 @@
                             </div>
                         </div>
                     </div>
-                    <timeline :userData=userData> </timeline>
-                    <div class="col-xl-4  col-12">
-                    </div>
+                    <!-- <div class="col-xl-6 col-12"> -->
+                        <timeline :userData=userData> </timeline>
+                    <!-- </div> -->
                 </div>
 
                 <!-- /#right -->
@@ -293,7 +293,7 @@ export default {
             //      window.myPie2.destroy();
             // } 
             // vm.chart1Data();
-            // vm.chart2Data();
+            vm.chart2Data();
              User.getNominationLngTotals(vm.selectedDashbordDate).then(
                 (response) => {
                     this.sellerDashboadData = response.data.data;
@@ -449,9 +449,8 @@ export default {
             let curDate = selected_date;
             let nData = {'date':curDate};
             let vm =this;
-            User.getNominationDetailsByDate(curDate).then(
+            User.getNominationLngDetailsByDate(curDate).then(
                  (response) => {
-                    
                     // return false;
                     let nominationData  = [];
                     $.each(response.data.data, function(key, value) {
@@ -544,7 +543,7 @@ export default {
             var newDataset = {};
             setTimeout(function(){
                 config1Data.datasets.pop();
-                _.forEach(vm.nominationData,function(value,key){
+                // _.forEach(vm.nominationData,function(value,key){
                    
                      var letters = '0123456789ABCDEF';
                       var color = '#';
@@ -552,19 +551,26 @@ export default {
                         color += letters[Math.floor(Math.random() * 16)];
                       }
                     var newDataset = {
-                        label: value.buyer_name,
+                        label: 'LNG',
                         backgroundColor: color,
                         borderWidth: 1,
+                        // data: [
+                        //     vm.sellerDashboadData.LngTotal,
+                        //     vm.sellerDashboadData.ApprovedLngTotal,
+                        //     vm.sellerDashboadData.SuppliedQuantity
+                           
+                        // ]
                         data: [
-                            value.quantity_required,
-                            value.approved_quantity,
-                            value.supplied_quantity
+                            vm.sellerDashboadData.LngTotal,
+                            vm.sellerDashboadData.ApprovedLngTotal,
+                            vm.sellerDashboadData.SuppliedQuantity
+                           
                         ]
                     };
                     config1Data.datasets.push(newDataset);
 
                     // check_list_data.push(value.reportListId);
-                });
+                // });
                 
                  // window.myPie1.update();
                  window.myPie1 = new Chart(ctx1, config1);
@@ -579,64 +585,86 @@ export default {
             var randomScalingFactor = function() {
                 return Math.round(Math.random() * 100);
             };                    
-           
+           console.log(vm.sellerDashboadData.LngTotal,vm.sellerDashboadData,vm.sellerDashboadData.SuppliedQuantity);
             var ctx2 = document.getElementById("cSupply").getContext('2d');
-            var config2 = {
-                type: 'pie',
+            
+            // window.myPie1 = new Chart(ctx1, config1);
+            setTimeout(function(){
+                var config2 = {
+                type: 'bar',
                 data: {
                     datasets: [
                     {
-                        data: [0,vm.total_availability],
+                        // data: [
+                        //     100,200,300
+                        // ],
+                        data: [
+                            vm.sellerDashboadData.LngTotal,
+                            vm.sellerDashboadData.ApprovedLngTotal,
+                            vm.sellerDashboadData.SuppliedQuantity
+                        ],
                         backgroundColor: [
                             '#82be00',
                             '#004696',
+                            '#cc9900',
                             
                         ],
-                        label: 'Dataset 1'
+                        label: 'LNG Allocation'
                     }
                     ],
                     labels: [
-                        'Available',
-                        'Allocated',
+                        'Requested',
+                        'Scheduled',
+                        'Supplied',
                     ]
                 },
                 options: {
-                    responsive: true
+                    responsive: true,
+                    legend: {
+                            position: 'top',
+                        },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
                 }
             };
-            // window.myPie1 = new Chart(ctx1, config1);
             window.myPie2 = new Chart(ctx2, config2);
+            },1000);
 
             //setInterval(function(){
                
-                let next_date=moment().add(1,'days').format('DD-MM-YYYY');
-                let today=moment().format('DD-MM-YYYY');
-                if(vm.selectedDashbordDate==next_date)
-                {
-                    config2.data.datasets[0].data[0]=vm.total_availability;
-                    // config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    config2.data.datasets[0].data[1] = 0; 
-                }
+                // let next_date=moment().add(1,'days').format('DD-MM-YYYY');
+                // let today=moment().format('DD-MM-YYYY');
+                // if(vm.selectedDashbordDate==next_date)
+                // {
+                //     config2.data.datasets[0].data[0]=vm.total_availability;
+                //     // config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+                //     config2.data.datasets[0].data[1] = 0; 
+                // }
 
-                else if(vm.selectedDashbordDate<today)
-                {
-                    // config2.data.datasets[0].data[1]=1000;
-                    config2.data.datasets[0].data[0] = 0;
-                    config2.data.datasets[0].data[1] = vm.total_availability; 
-                }
-                else
-                {
-                    if(config2.data.datasets[0].data[0] <vm.total_availability){
-                     config2.data.datasets[0].data[0] = vm.total_availability -config2.data.datasets[0].data[0]; 
-                     config2.data.datasets[0].data[1] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                    }
-                }
+                // else if(vm.selectedDashbordDate<today)
+                // {
+                //     // config2.data.datasets[0].data[1]=1000;
+                //     config2.data.datasets[0].data[0] = 0;
+                //     config2.data.datasets[0].data[1] = vm.total_availability; 
+                // }
+                // else
+                // {
+                //     if(config2.data.datasets[0].data[0] <vm.total_availability){
+                //      config2.data.datasets[0].data[0] = vm.total_availability -config2.data.datasets[0].data[0]; 
+                //      config2.data.datasets[0].data[1] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
+                //     }
+                // }
                 /*if(config2.data.datasets[0].data[0] <vm.total_availability){
                  config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
                  config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
                 }*/
                 // window.myPie1.update();
-                window.myPie2.update();
+                // window.myPie2.update();
            // },2000)
             
         },

@@ -216,6 +216,20 @@ use Auth;
                 return ['code'=> 300 ,'data'=>'','message'=>'Record not updated.'];
             }
     }
+    /**
+     * [getNominationDetailsByDate description]
+     * @param  [type] $date [description]
+     * @return [type]       [description]
+     */
+    public function getNominationDetailsByDate($date)
+    {
+        $new_date=Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
+        $list= NominationLng::join('users', function ($join) {
+                $join->on('users.id', '=', 'nomination_lng.buyer_id');
+            })->whereDate('lngDate',$new_date)->get();
+        return $list;
+
+    }
 
     /**
      * [getNominationLngDetailsById description]
@@ -286,19 +300,6 @@ use Auth;
 
            // foreach($data as $key){
                 NominationLng::where('id',$rid)->update(array('lng_status' => 'rejected'));
-            //        $addedBy  = Auth::user()->id;
-            // $dataId = NominationLng::id;
-            // $qty    = $form_data['quantity'];
-            // $type   = 'add_notification';
-            // $d_format=Carbon::createFromFormat('d-m-Y', $nom->date)->format('jS M Y');
-            // $dataText = ucwords($userName).'  has added nomination to '.number_format($qty,2).' MMBTU for '.$d_format;
-            // $title  = 'Nomination request added';
-            // $dataTable = 'nomination_request';
-            // $new_date=Carbon::createFromFormat('d-m-Y', $nom->date)->format('Y-m-d');
-            // $nomination_date=$new_date;
-            // //echo $nomination_date;exit;
-            // $this->notificationObj = new NotificationRepository();
-            // $this->notificationObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
                 $result = 1;
             //}
         }

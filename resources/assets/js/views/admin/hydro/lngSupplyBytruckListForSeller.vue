@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="text-right">
-          <span class="red">* Available quantity for LNG supply is {{availableQty}}</span>
+          <span class="red">* Available quantity for LNG supply is {{availableQty}} Kg</span>
        </div>
 
 		</div>
@@ -254,6 +254,7 @@
                       }
                       this.$root.$emit('getTotalQty',vm.getNominationLngData);
                       this.$root.$emit('getNominationLngList',data);
+                      vm.getTotalQty();
                       // vm.totalRequestedQty =  this.$parent.totalRequestedQty;
                     //vm.totalApproveQty = this.$parent.totalApproveQty;
                 },

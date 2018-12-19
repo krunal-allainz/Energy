@@ -43,6 +43,25 @@ class NominationLngController extends Controller
         }
        
     }
+    /**
+     * [getNominationDetailsByDate description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+     public function getNominationDetailsByDate(Request $request)
+    {
+       
+        $date = $request->date;
+        $get_details=$this->nomLngObj->getNominationDetailsByDate($date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
 
     public function getSuppliedLngList(Request $request)
     { 
