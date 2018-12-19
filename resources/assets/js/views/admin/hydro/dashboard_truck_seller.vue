@@ -152,9 +152,11 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- <div class="col-xl-6 col-12"> -->
                         <timeline :userData=userData> </timeline>
                     <!-- </div> -->
+
                 </div>
 
                 <!-- /#right -->
@@ -168,11 +170,11 @@
         </section>
 </template>
 	
-<script >
+<script>
     import User from '../../../api/users.js';
     import moment from 'moment';
     import Chart from 'chart.js';
-    import timeline from './timeline.vue';
+    import timelineLng from './timelineLng.vue';
     import _ from 'lodash';
     import previousNextDate from './previousNextDate.vue';
     import suppliedModal from './suppliedModal.vue';
@@ -201,7 +203,7 @@ export default {
         }
     },
     components: {
-            timeline,
+            timelineLng,
             previousNextDate,
             suppliedModal,
             gcvAddModel

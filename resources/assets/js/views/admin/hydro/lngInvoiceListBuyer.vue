@@ -224,7 +224,7 @@
 
                      $.each(request_data, function(key, value){
                        let supplied_quantity  = value.supplied_quantity ;
-                       if(supplied_quantity != null){
+                       if(supplied_quantity != null && supplied_quantity != 0.00){
                           requestCount =  requestCount+1;
                        }
                      }); 

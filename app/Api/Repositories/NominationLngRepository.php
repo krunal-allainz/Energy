@@ -6,12 +6,14 @@ use Energy\Models\NominationLng;
 use Energy\Models\TruckDetails;
 use Energy\Models\Setting;
 use Energy\Models\AvailabilityGcv;
+
 use Energy\Models\Agreement;
-use Energy\Api\Repositories\NotificationRepository;
+use Energy\Api\Repositories\LngNotificationRepository;
 use Excel;
 use File;
 use Energy\Api\Repositories\UserRepository;
 use Energy\Api\Repositories\SettingRepository;
+use Energy\Api\Repositories\TruckDetailsRepository;
 use Auth;
 
 
@@ -23,6 +25,7 @@ use Auth;
     public function __construct(){
         $this->userObj = new UserRepository(); 
         $this->confObj = new SettingRepository(); 
+        $this->lngNotificationRepoObj = new LngNotificationRepository();
     }
    
  	/**
@@ -106,12 +109,40 @@ use Auth;
         if($net_weight < 0){
          $net_weight = 0.00;   
         }
-        // return Nomination::where('id',$id)->first();
-        return $truckLoading =NominationLng::where('id', $data['nominationLngId'])->update([
+
+         $truckLoading =NominationLng::where('id', $data['nominationLngId'])->update([
             'tare_weight' => $tare_weight,
             'gross_weight' => $gross_weight,
             'supplied_quantity' => $net_weight
         ]);
+        
+        if($truckLoading == 1){
+            $nominationDataFornotification = NominationLng::where('id', $data['nominationLngId'])->first();
+         $dataUserId = $nominationDataFornotification->buyer_id;
+            $userName = $this->userObj->getUserNameById( $dataUserId);
+            $addedBy  = Auth::user()->id;
+            $dataId = $nominationDataFornotification->id;
+            $qty    = $net_weight;
+            $type   = 'net_quantity_add';
+             $reqTime = $nominationDataFornotification->lngTime;
+              $this->truckDetailObj = new TruckDetailsRepository(); 
+            $nominationTruckDetail = $this->truckDetailObj->getTruckDetailById($nominationDataFornotification->truck_details_id);
+            //dd($invoice->date);
+            $truckCompapnyName =$nominationTruckDetail->truck_company; 
+            $d_format=Carbon::createFromFormat('Y-m-d',$nominationDataFornotification->lngDate)->format('jS M Y');
+             $dataText = 'seller has added net quantity of '. ucwords($userName).' requested '.$truckCompapnyName.' to '.number_format($qty,2).' KG for nomination request on '.$d_format.' '.$reqTime;
+            $title  = 'Net quantity added';
+            $dataTable = 'nomination_lng';
+
+            $new_date=Carbon::createFromFormat('Y-m-d', $nominationDataFornotification->lngDate)->format('Y-m-d');
+            $nomination_date=$new_date;
+            
+            $this->lngNotificationRepoObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
+        }
+
+
+        // return Nomination::where('id',$id)->first();
+        return $truckLoading;
        
     }
 
@@ -143,6 +174,27 @@ use Auth;
             $nominationLng->save();
             if($nominationLng->id!=0)
             {
+                $dataUserId = $formData['buyer_id'];
+                $userName = $this->userObj->getUserNameById( $dataUserId);
+                $addedBy  = Auth::user()->id;
+                $dataId = $nominationLng->id;
+                $qty    = $formData['quantity'];
+                $type   = 'add_lng_nomination';
+                 $reqTime = $nominationLng->lngTime;
+                  $this->truckDetailObj = new TruckDetailsRepository(); 
+                $nominationTruckDetail = $this->truckDetailObj->getTruckDetailById($formData['truck_details_id']);
+                //dd($invoice->date);
+                $truckCompapnyName =$nominationTruckDetail->truck_company; 
+                $d_format=Carbon::createFromFormat('Y-m-d',$nominationLng->lngDate)->format('jS M Y');
+                 $dataText = ucwords($userName).'  has added lng nomination request of '.$truckCompapnyName.' to '.number_format($qty,2).' KG for '.$d_format.' on '.$reqTime;
+                
+                $title  = 'Lng Nomination request added';
+                $dataTable = 'nomination_lng';
+
+                $new_date=Carbon::createFromFormat('Y-m-d', $nominationLng->lngDate)->format('Y-m-d');
+                $nomination_date=$new_date;
+                
+                $this->lngNotificationRepoObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
                 return ['code'=> 200 ,'data'=>$nominationLng->id,'message'=>'Record successfully added.'];
             }
             else
@@ -209,6 +261,30 @@ use Auth;
             $nominationLng->save();
             if($nominationLng->id!=0)
             {
+
+                $dataUserId = $formData['buyer_id'];
+            $userName = $this->userObj->getUserNameById( $dataUserId);
+            $addedBy  = Auth::user()->id;
+            $dataId = $nominationLng->id;
+            $qty    = $formData['quantity'];
+            $type   = 'update_lng_nomination';
+            $reqTime = $nominationLng->lngTime;
+             $this->truckDetailObj = new TruckDetailsRepository(); 
+
+            $nominationTruckDetail = $this->truckDetailObj->getTruckDetailById($formData['truck_details_id']);
+              $truckCompapnyName =$nominationTruckDetail->truck_company; 
+            //dd($invoice->date);
+            $d_format=Carbon::createFromFormat('Y-m-d',$nominationLng->lngDate)->format('jS M Y');
+            $dataText = ucwords($userName).'  has updated lng nomination request of '.$truckCompapnyName.'  to  '.number_format($qty,2).' KG for '.$d_format.' on'. $reqTime;
+            //$dataText =  $userName.' update notification for '.$qty;
+            
+            $title  = 'Lng Nomination request updated';
+            $dataTable = 'nomination_lng';
+
+            $new_date=Carbon::createFromFormat('Y-m-d', $nominationLng->lngDate)->format('Y-m-d');
+            $nomination_date=$new_date;
+            
+            $this->lngNotificationRepoObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
                 return ['code'=> 200 ,'data'=>$nominationLng->id,'message'=>'Record successfully updated.'];
             }
             else
@@ -264,15 +340,38 @@ use Auth;
         if(!empty($data)){
 
             foreach($data as $key){
-                 $totalApproveQty = (int)$totalApproveQty + (int)$key['quantity'] ;  
-                NominationLng::where('id',$key['id'])->update(array('lng_status' => 'approved','approve_quantity' => $key['quantity']));
+                 $totalApproveQty = (int)$totalApproveQty + (int)$key['quantity'] ; 
+             } 
+                // NominationLng::where('id',$key['id'])->update(array('lng_status' => 'approved','approve_quantity' => $key['quantity']));
 
-            }
+           
             if( $totalApproveQty <= $availabelLimit){
                 foreach($data as $key){
                
                 NominationLng::where('id',$key['id'])->update(array('lng_status' => 'approved','approve_quantity' => $key['quantity']));
+                $nominationDataFornotification = NominationLng::where('id', $key['id'])->first();
 
+                $dataUserId = $nominationDataFornotification->buyer_id;
+
+                $userName = $this->userObj->getUserNameById( $dataUserId);
+                $addedBy  = Auth::user()->id;
+                $dataId = $nominationDataFornotification->id;
+                $qty    = $key['quantity'];
+                $type   = 'lng_nomination_qty_approve';
+                $reqTime = $nominationDataFornotification->lngTime;
+                $this->truckDetailObj = new TruckDetailsRepository(); 
+                 $nominationTruckDetail = $this->truckDetailObj->getTruckDetailById($nominationDataFornotification->truck_details_id);
+            
+                $truckCompapnyName =$nominationTruckDetail->truck_company; 
+                $d_format=Carbon::createFromFormat('Y-m-d',$nominationDataFornotification->lngDate)->format('jS M Y');
+             $dataText = 'seller has approved quantity of '. ucwords($userName).' requested '.$truckCompapnyName.' to '.number_format($qty,2).' KG for nomination request on '.$d_format.' '.$reqTime;
+            $title  = 'Lng Nomination requested quantity approved';
+            $dataTable = 'nomination_lng';
+
+            $new_date=Carbon::createFromFormat('Y-m-d', $nominationDataFornotification->lngDate)->format('Y-m-d');
+            $nomination_date=$new_date;
+            
+            $this->lngNotificationRepoObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
                 $result = 1;
                 }
             }else{
