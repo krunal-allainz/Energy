@@ -125,7 +125,7 @@
                  (response) => {
                   
                     if(response.data.code == 200){
-                       vm.availableQty =response.data.data ;
+                       vm.availableQty =parseInt((response.data.data)*450) ;
                     }else{
                         toastr.error(response.message, 'Availabel quantity not define ', {timeOut: 5000});
                     }
