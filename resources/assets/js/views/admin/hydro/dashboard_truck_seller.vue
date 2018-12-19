@@ -35,7 +35,7 @@
                                 <i class="fas fa-charging-station"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Nomination RequestLNG</b></h3>
+                                <h3><b>LNG Nomination</b></h3>
                                 <h3 class="text-dark"><b>{{sellerDashboadData.LngTotal}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -52,10 +52,10 @@
                         <!-- <a href="/generate_invoice"> -->
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                           <i class="fa fa-truck"></i>
+                           <i class="fa fa-calendar-plus-o"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b><a href="/lng_supply_bytruck_list">LNG Approve Quantity</a></b></h3>
+                                <h3><b><a href="/lng_supply_bytruck_list">Scheduled Quantity</a></b></h3>
                                 <h3 class="text-dark"><b>{{sellerDashboadData.ApprovedLngTotal}}</b></h3>
                                  <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -70,10 +70,10 @@
                         <a href="#" @click="supplied_quantity()" title="Add Allocated">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                            <i class="far fa-caret-square-right"></i>
+                            <i class="fas fa-truck"></i>
                             </div>
                             <div class="text-right">
-                                <h3><b>Supply Quantity</b></h3>
+                                <h3><b>Truck Loading</b></h3>
                                 <h3 class="text-dark"><b>{{sellerDashboadData.SuppliedQuantity}}</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
@@ -504,81 +504,81 @@ export default {
         chart1Data()
         {
 
-            let vm=this;
+            // // let vm=this;
             
-            var ctx1 = document.getElementById("myChart").getContext('2d'); 
-            // var color = Chart.helpers.color;
+            // // var ctx1 = document.getElementById("myChart").getContext('2d'); 
+            // // // var color = Chart.helpers.color;
 
-            var config1Data = {
-                    datasets: [{
-                        data: [0,100],
-                        backgroundColor: [
-                            '#004696',
-                            '#82be00',
+            // // var config1Data = {
+            // //         datasets: [{
+            // //             data: [0,100],
+            // //             backgroundColor: [
+            // //                 '#004696',
+            // //                 '#82be00',
                             
-                        ],
-                        label: 'Dataset 1'
-                    }],
-                    labels: [
-                        'Requested',
-                        'Scheduled',
-                        'Allocated',
-                    ]
-                };
-            var config1 = {
-                type: 'bar',
-                data: config1Data,
-                options: {
-                    responsive: true,
-                    legend: {
-                            position: 'top',
-                        },
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            };
-            var newDataset = {};
-            setTimeout(function(){
-                config1Data.datasets.pop();
-                // _.forEach(vm.nominationData,function(value,key){
+            // //             ],
+            // //             label: 'Dataset 1'
+            // //         }],
+            // //         labels: [
+            // //             'Requested',
+            // //             'Scheduled',
+            // //             'Allocated',
+            // //         ]
+            // //     };
+            // // var config1 = {
+            // //     type: 'bar',
+            // //     data: config1Data,
+            // //     options: {
+            // //         responsive: true,
+            // //         legend: {
+            // //                 position: 'top',
+            // //             },
+            // //         scales: {
+            // //             yAxes: [{
+            // //                 ticks: {
+            // //                     beginAtZero:true
+            // //                 }
+            // //             }]
+            // //         }
+            // //     }
+            // // };
+            // // var newDataset = {};
+            // // setTimeout(function(){
+            // //     config1Data.datasets.pop();
+            // //     // _.forEach(vm.nominationData,function(value,key){
                    
-                     var letters = '0123456789ABCDEF';
-                      var color = '#';
-                      for (var i = 0; i < 6; i++) {
-                        color += letters[Math.floor(Math.random() * 16)];
-                      }
-                    var newDataset = {
-                        label: 'LNG',
-                        backgroundColor: color,
-                        borderWidth: 1,
-                        // data: [
-                        //     vm.sellerDashboadData.LngTotal,
-                        //     vm.sellerDashboadData.ApprovedLngTotal,
-                        //     vm.sellerDashboadData.SuppliedQuantity
+            // //          var letters = '0123456789ABCDEF';
+            // //           var color = '#';
+            // //           for (var i = 0; i < 6; i++) {
+            // //             color += letters[Math.floor(Math.random() * 16)];
+            // //           }
+            // //         var newDataset = {
+            // //             label: 'LNG',
+            // //             backgroundColor: color,
+            // //             borderWidth: 1,
+            // //             // data: [
+            // //             //     vm.sellerDashboadData.LngTotal,
+            // //             //     vm.sellerDashboadData.ApprovedLngTotal,
+            // //             //     vm.sellerDashboadData.SuppliedQuantity
                            
-                        // ]
-                        data: [
-                            vm.sellerDashboadData.LngTotal,
-                            vm.sellerDashboadData.ApprovedLngTotal,
-                            vm.sellerDashboadData.SuppliedQuantity
+            // //             // ]
+            // //             data: [
+            // //                 vm.sellerDashboadData.LngTotal,
+            // //                 vm.sellerDashboadData.ApprovedLngTotal,
+            // //                 vm.sellerDashboadData.SuppliedQuantity
                            
-                        ]
-                    };
-                    config1Data.datasets.push(newDataset);
+            // //             ]
+            // //         };
+            // //         config1Data.datasets.push(newDataset);
 
-                    // check_list_data.push(value.reportListId);
-                // });
+            // //         // check_list_data.push(value.reportListId);
+            // //     // });
                 
-                 // window.myPie1.update();
-                 window.myPie1 = new Chart(ctx1, config1);
+            // //      // window.myPie1.update();
+            // //      window.myPie1 = new Chart(ctx1, config1);
                
 
-            },1000)
+            // },1000)
         },
         chart2Data()
         {
@@ -587,10 +587,11 @@ export default {
             var randomScalingFactor = function() {
                 return Math.round(Math.random() * 100);
             };                    
-           console.log(vm.sellerDashboadData.LngTotal,vm.sellerDashboadData,vm.sellerDashboadData.SuppliedQuantity);
             var ctx2 = document.getElementById("cSupply").getContext('2d');
             
             // window.myPie1 = new Chart(ctx1, config1);
+            jQuery('.js-loader').removeClass('d-none')
+
             setTimeout(function(){
                 var config2 = {
                 type: 'bar',
@@ -608,7 +609,7 @@ export default {
                         backgroundColor: [
                             '#82be00',
                             '#004696',
-                            '#cc9900',
+                            '#173f6d',
                             
                         ],
                         label: 'LNG Allocation'
@@ -634,41 +635,10 @@ export default {
                     }
                 }
             };
-            window.myPie2 = new Chart(ctx2, config2);
-            },1000);
+                window.myPie2 = new Chart(ctx2, config2);
+            jQuery('.js-loader').addClass('d-none')
 
-            //setInterval(function(){
-               
-                // let next_date=moment().add(1,'days').format('DD-MM-YYYY');
-                // let today=moment().format('DD-MM-YYYY');
-                // if(vm.selectedDashbordDate==next_date)
-                // {
-                //     config2.data.datasets[0].data[0]=vm.total_availability;
-                //     // config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                //     config2.data.datasets[0].data[1] = 0; 
-                // }
-
-                // else if(vm.selectedDashbordDate<today)
-                // {
-                //     // config2.data.datasets[0].data[1]=1000;
-                //     config2.data.datasets[0].data[0] = 0;
-                //     config2.data.datasets[0].data[1] = vm.total_availability; 
-                // }
-                // else
-                // {
-                //     if(config2.data.datasets[0].data[0] <vm.total_availability){
-                //      config2.data.datasets[0].data[0] = vm.total_availability -config2.data.datasets[0].data[0]; 
-                //      config2.data.datasets[0].data[1] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                //     }
-                // }
-                /*if(config2.data.datasets[0].data[0] <vm.total_availability){
-                 config2.data.datasets[0].data[0] = config2.data.datasets[0].data[0] +( config2.data.datasets[0].data[0]*1/100);
-                 config2.data.datasets[0].data[1] = vm.total_availability -config2.data.datasets[0].data[0]; 
-                }*/
-                // window.myPie1.update();
-                // window.myPie2.update();
-           // },2000)
-            
+            },3000);
         },
 
     }, 

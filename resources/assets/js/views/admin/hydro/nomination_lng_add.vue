@@ -5,13 +5,11 @@
 		<div class="card bg-success-card nomination_class">
       <div class="card-header">
         <div class="row">
-          <div class="col-md-12"><h4 class="mt-2" v-if="nominationLngData.pageName=='EDIT'">Nomination Update</h4><h4 class="mt-2" v-else>Nomination LNG Add</h4></div>
+          <div class="col-md-12"><h4 class="mt-2" v-if="nominationLngData.pageName=='EDIT'">Nomination Update</h4><h4 class="" v-else>Nomination LNG Add</h4></div>
           </div>
-          <div class="col-md-12 text-right">
-                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{selected_date}} Date List.</strong> 
-                </div>
         </div>
         <div class="card-body">
+
             <form method="post"> 
 
             <div class="row">
@@ -84,21 +82,20 @@
                            
 
 
-                                <div class="row form-group mt-5">
-                                    <div class="col-md-3">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <span v-if="nominationLngData.pageName=='EDIT'">
-                                            <button class="btn btn-success" type="button" @click="editValidateBeforeSubmit()">Update</button>
-                                        </span>
-                                        <span v-else>
-                                             <button class="btn btn-success" type="button" @click="validateBeforeSubmit()">Add</button>
-                                        </span>
-                                    </div>
-                                     <div class="col-md-3">
-                                         <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
-                                     </div>
+                                <div class="form-group mt-5 text-center">
+                                    <span v-if="nominationLngData.pageName=='EDIT'">
+                                        <button class="btn btn-success mr-2" type="button" @click="editValidateBeforeSubmit()">Update</button>
+                                    </span>
+                                    <span v-else>
+                                         <button class="btn btn-success mr-2" type="button" @click="validateBeforeSubmit()">Add</button>
+                                    </span>
+
+                                    <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
+                         
                                 </div>
+                                <div class="text-right text-danger">
+                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{selected_date}} Date List.</strong> 
+                </div>
                                 <label class="text-danger right">Maximum allowed quantity {{ totalAllowedQuantity ? totalAllowedQuantity : 0 }}</label> 
                         </div>
                 </div>

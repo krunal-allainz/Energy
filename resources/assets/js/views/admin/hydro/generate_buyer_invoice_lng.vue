@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="col-md-12">
 	
 		<form method="post" enctype="multipart/form-data">
             <lngInvoiceListBuyer  :buyerId='buyer_id'></lngInvoiceListBuyer>

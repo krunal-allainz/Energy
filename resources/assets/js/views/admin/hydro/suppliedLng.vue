@@ -80,6 +80,7 @@
                             </td>
                             <td class="" v-if="today_date>=setLngDate(nominationLngData.lngDate)" >
                       					<!-- <a href="javascript:void(0)" v-if="today_date==setLngDate(nominationLngData.lngDate)"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a> -->
+
                                 <a  href="javascript:void(0)"v-if="nominationLngData.tare_weight == '0.00'"  @click="setNominationId(nominationLngData.id,'tare_weight')" title="Add Tare Weight"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a> 
                                 <a v-else>{{nominationLngData.tare_weight}} </a>
                             </td>

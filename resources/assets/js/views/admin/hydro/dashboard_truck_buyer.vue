@@ -31,11 +31,11 @@
                      <a  @click="nomination_lpg()" title="Add Nomination LPGS">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
-                               <i class="fas fa-truck"></i>
+                               <i class="fas fa-charging-station"></i>
                             
                             </div>
                             <div class="text-right">
-                            <h3><b>Nomination Request LNG</b></h3>
+                            <h3><b>LNG Nomination</b></h3>
                             <h3 class="text-dark"><b>{{ buyerDashboardData.LngTotal }}</b></h3>
                             <p>For Date:{{buyerDashboardData.requestDate}}</p>
                             </div>
@@ -67,10 +67,10 @@
                     <a >
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                           <i class="fas fa-clipboard-list"></i> 
+                           <i class="fa fa-calendar-plus-o"></i> 
                         </div>
                         <div class="text-right">
-                            <h3><b>Approved Quantity</b></h3>
+                            <h3><b>Scheduled Quantity</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">{{ buyerDashboardData.ApprovedLngTotal }}</b></h3>
                             <p>For Date:{{buyerDashboardData.approvedDate}}</p>
                         </div>
@@ -81,15 +81,15 @@
 
             </div>
         </div>
-           <div class="col-sm-6 col-md-6 col-xl-3">
+        <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
                     <a >
                     <div class="widget-bg-color-icon card-box front">
                         <div class="bg-icon float-left">
-                          <i class="far fa-caret-square-right"></i>
+                          <i class="fas fa-truck"></i>
                         </div>
                         <div class="text-right">
-                            <h3><b>Supply Quantity</b></h3>
+                            <h3><b>Truck Loading</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">
                                 {{buyerDashboardData.SuppliedQuantity}} </b></h3>
                             <p>For Date:{{ buyerDashboardData.supplyDate }}</p>
@@ -102,7 +102,7 @@
                 </div>
         <div class="col-sm-6 col-md-6 col-xl-3">
             <div class="flip">
-                <a href="#">
+                <a >
                 <div class="widget-bg-color-icon card-box front">
                     <div class="bg-icon float-left">
                         <!-- <i class="fa fa-credit-card text-blue"></i> -->
@@ -111,7 +111,7 @@
                     <div class="text-right">
 
                         <h3><b><a href="/generate_buyer_invoice_lng">Invoice</a></b></h3>
-                        <!-- <p>Generate Invoice</p> -->
+                        <p>View Invoice</p>
 
                     </div>
                     <div class="clearfix"></div>
@@ -122,16 +122,15 @@
          
             </div>
             <div class="row">
-                <div class="col-xl-8 col-12">
+                <div class="col-xl-6 col-12">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="card main-chart">
+                            <div class="card">
                                 <div class="card-header panel-tabs buyer_chart1">
-                                     <div class="card-header">
-                                        Nomination
-                                    </div>
+                                     <h3 class="card-title">Nomination</h3>
                                 </div>
-                                <div class="card-body">
+                                
+                                 <div class="card-body">
                                     <div class="tab-content">
                                         <div class="tab-pane  active" id="allocation">
                                             <div style="width: 50%;  margin: 20px auto 0 auto;">
@@ -173,7 +172,7 @@
     import previousNextDate from './previousNextDate.vue';
 
 export default {
-    name: "dashboardSeller",
+    name: "dashboardBuyer",
     data() {
         return {
             formstate: {},
@@ -363,72 +362,60 @@ export default {
             };
              var ctx1 = document.getElementById("myplotArea").getContext("2d");
            
+               // window.myPie1 = new Chart(ctx1, config1);
+            jQuery('.js-loader').removeClass('d-none')
 
-              var config1Data = {
-                            datasets: [{
-                                data: [0,100],
-                                backgroundColor: [
-                                    '#ff0000',
-                                    '#00ff40',
-                                    
-
-                                ],
-                                label: 'Dataset 1'
-                            }],
-                            labels: [
-                                'Request Quantity',
-                                'Scheduled Quantity',
-                                'Allocated Quantity',
-                            ]
-                        };           
-                  var config1 = {
-                        type: 'bar',
-                        data: config1Data,
-                        options: {
-                            responsive: true,
-                            legend: {
-                                    position: 'top',
-                                },
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero:true
-                                    }
-                                }]
+            setTimeout(function(){
+                var config1 = {
+                type: 'bar',
+                data: {
+                    datasets: [
+                    {
+                        // data: [
+                        //     100,200,300
+                        // ],
+                        data: [
+                            vm.buyerDashboardData.LngTotal,
+                            vm.buyerDashboardData.ApprovedLngTotal,
+                            vm.buyerDashboardData.SuppliedQuantity
+                        ],
+                        // data: [
+                        //     100,200,300
+                        // ],
+                        backgroundColor: [
+                            '#82be00',
+                            '#004696',
+                            '#173f6d',
+                            
+                        ],
+                        label: 'LNG Allocation'
+                    }
+                    ],
+                    labels: [
+                        'Requested',
+                        'Scheduled',
+                        'Supplied',
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                            position: 'top',
+                        },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
                             }
-                        }
-                    };
-               var newDataset = {};
-                setTimeout(function(){
-                    config1Data.datasets.pop();
-                    _.forEach(vm.nominationData,function(value,key){
-                       
-                         var letters = '0123456789ABCDEF';
-                          var color = '#';
-                          for (var i = 0; i < 6; i++) {
-                            color += letters[Math.floor(Math.random() * 16)];
-                          }
-                        var newDataset = {
-                            label: value.buyer_name,
-                            backgroundColor: color,
-                            borderWidth: 1,
-                            data: [
-                                value.quantity_required,
-                                value.approved_quantity,
-                                value.supplied_quantity,
-                            ]
-                        };
-                        config1Data.datasets.push(newDataset);
+                        }]
+                    }
+                }
+            };
+                window.myPie1 = new Chart(ctx1, config1);
+            jQuery('.js-loader').addClass('d-none')
 
-                        // check_list_data.push(value.reportListId);
-                    });
-                    
-                     // window.myPie1.update();
-                     window.myPie1 = new Chart(ctx1, config1);
-                    // config1.datasets.push(newDataset);
+            },3000);       }
 
-                },1500)
-       }
     }, 
 }
 

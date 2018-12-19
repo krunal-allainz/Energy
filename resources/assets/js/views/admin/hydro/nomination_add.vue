@@ -292,8 +292,7 @@
                 
             },
             validateBeforeSubmit() {
-                console.log('test2');
-
+                
                let vm=this;
                 vm.$validator.validateAll().then(() => {
                     
