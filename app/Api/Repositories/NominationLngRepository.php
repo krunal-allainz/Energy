@@ -339,7 +339,7 @@ use Auth;
         $totalApproveQty = 0;
         $availabelLimit  = '';
         $availabelLimit = $this->confObj->getFieldValue('lng_supply_daily_limit','numeric');
-
+        $availabelLimit = (int)$availabelLimit*450;
         if(!empty($data)){
 
             foreach($data as $key){
