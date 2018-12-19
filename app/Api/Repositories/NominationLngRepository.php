@@ -130,7 +130,8 @@ use Auth;
             //dd($invoice->date);
             $truckCompapnyName =$nominationTruckDetail->truck_company; 
             $d_format=Carbon::createFromFormat('Y-m-d',$nominationDataFornotification->lngDate)->format('jS M Y');
-             $dataText = 'Seller added net weight quantity of '. ucwords($userName).' requested '.$truckCompapnyName.' to '.number_format($qty,2).' KG for nomination request on '.$d_format.' '.$reqTime.'.';
+             /*$dataText = 'Seller added net weight quantity of '. ucwords($userName).' requested '.$truckCompapnyName.' to '.number_format($qty,2).' KG for nomination request on '.$d_format.' '.$reqTime.'.';*/
+             $dataText = 'Net '.$truckCompapnyName.'[ '.number_format($qty,2).' Kg ] quantity added for nomination request of'.ucwords($userName);
 
             $title  = 'Net quantity added';
             $dataTable = 'nomination_lng';
@@ -187,9 +188,10 @@ use Auth;
                 //dd($invoice->date);
                 $truckCompapnyName =$nominationTruckDetail->truck_company; 
                 $d_format=Carbon::createFromFormat('Y-m-d',$nominationLng->lngDate)->format('jS M Y');
-                 $dataText = ucwords($userName).'  added LNG nomination request of '.$truckCompapnyName.' to '.number_format($qty,2).' KG for '.$d_format.' on '.$reqTime;
+                /*$dataText = ucwords($userName).'  added LNG nomination request of '.$truckCompapnyName.' to '.number_format($qty,2).' KG for '.$d_format.' on '.$reqTime;*/
+                $dataText = ucwords($userName).' requests '.$truckCompapnyName.'[ '.number_format($qty,2).' ] LNG Nomination'.
                 
-                $title  = 'LNG Nomination request added';
+                $title  = 'New LNG Nomination request';
                 $dataTable = 'nomination_lng';
 
                 $new_date=Carbon::createFromFormat('Y-m-d', $nominationLng->lngDate)->format('Y-m-d');
