@@ -68,14 +68,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
                                     <tr  v-for="request,indexsr in requestList[index + 1]">
                                         <td class="text-center">{{++indexsr}}</td>
+
                                         <td class="text-left" colspan="4">Quantity Of Lng Supplied On {{request.date|dateFormate}}
-                                        <br><small><strong> </strong> Net Weight {{request.supplied_Qty}} Kg X (M.F.){{request.gcv_value}}</small></td>
+                                        <br><small><strong> </strong> Net Weight {{request.total_date_supplied_Qty}} Kg X (M.F.){{request.gcv_value}}</small></td>
                                        
                                          <!-- <td colspan="2" class="text-center">{{request.gcv_value}}</td> -->
-                                        <td class="text-right">{{request.supplied_Qty * request.gcv_value}} MMBTU</td>
+                                        <td class="text-right">{{request.total_date_supplied_Qty * request.gcv_value}} MMBTU</td>
+
                                     </tr>
                                     <tr><td class="text-center"><strong>Total</strong></td>
                                         <td class="text-left" colspan="4"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td>
@@ -174,7 +175,11 @@
                                     
                                     <td class="emptyrow text-right" colspan="2">
                                         <strong>
+<<<<<<< HEAD
+                                            <b>Total Price To Custome: &nbsp;</b>
+=======
                                             <b>Total price to customer: &nbsp;</b>
+>>>>>>> c273f86b0d3d552efb89fdfc482539d7c928044b
                                         </strong>
                                     </td>
                                     <td class="highrow text-right">
@@ -219,6 +224,7 @@
                 'user_type':this.$store.state.Users.userDetails.user_type,
                 'invoiceData' : '',
                 'requestList' : [],
+                'updaterequestList':[],
                 'buyerData' : {
                     'name' : '',
                     'address' : '',
@@ -268,7 +274,7 @@
                 User.generateLngInvoiceViewByBuyerId(buyerId).then(
                     (response) => {
                         if(response.data.code == 200){
-                            let  request_data  = response.data.data;
+                            let request_data  = response.data.data;
                             // return false;
                              var invoice_list = [];
                              // console.log(request_data,'sdfsdf');
@@ -291,28 +297,45 @@
                                  'tax_rate_amount_cal' : tax_rate_amount_cal,
                                  'total_supply_qty_with_gcv' : total_supply_qty_with_gcv,
                                 });
-                            });
+                            }); 
+                            $.each(request_data.updatedstatusreuestlist, function(key,value) {
+                                  var update_request_list = [];
+                                  $.each(value, function(index,data) {
+                                    let uNID = data.nid ;
+                                    update_request_list.push({
+                                     'nid':uNID,
+                                    
+                                    });
+                                
+                                 });
+                               vm.updaterequestList[key] = update_request_list;
+
+                                 });
                             $.each(request_data.requestList, function(key,value) {
+                            // console.log(value,'data');
+
                                 var request_list = [];
                                 $.each(value, function(index,data) {
+                                    
                                     let supplied_Qty =  data.supplied_Qty ;
                                     let date  = data.date ;
                                     let gcvValue  = data.GcvValue ;
                                     let supply_Qty_with_Gcv  = data.supplu_qty_with_GcvValue ;
                                     let nid  = data.nid ;
-                                    let quantityRequired  = data.quantityRequired ;
-                                    let approveQuntity  = data.approveQuntity ;
+                                    let total_date_supplied_Qty  = data.total_date_supplied_Qty ;
+
                                     
                                    request_list.push({
                                      'supplied_Qty':supplied_Qty,
                                      'date':date,
                                      'gcv_value' :gcvValue ,
                                      'supply_qty_with_gcv' : supply_Qty_with_Gcv,
-                                     'quantityRequired':quantityRequired,
-                                     'approveQuntity': approveQuntity,
+                                     'total_date_supplied_Qty':total_date_supplied_Qty,
+                                    
                                      'nid':nid,
                                     });
-                                });
+                                
+                                 });
                                vm.requestList[key] = request_list;
                             });
                             
@@ -345,7 +368,7 @@
             generateLngInvoice(invoiceDataIndex,buyerId){
                  let vm=this;
                  var invoiceHtml = $("#invoiceLngViewGet").html();
-                 User.generateLngInvoiceByBuyerId(vm.buyerId,vm.user_id,vm.invoiceData,invoiceDataIndex,invoiceHtml,vm.requestList,vm.agreementData).then(
+                 User.generateLngInvoiceByBuyerId(vm.buyerId,vm.user_id,vm.invoiceData,invoiceDataIndex,invoiceHtml,vm.requestList,vm.agreementData,vm.updaterequestList).then(
                      (response) => {
                         if(response.data.code == 200){
                             if(response.data.data == true){

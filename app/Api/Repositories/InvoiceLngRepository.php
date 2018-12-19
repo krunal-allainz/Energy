@@ -138,7 +138,7 @@ use Auth;
         $convertCurrency = 72;
         $requestTypeNot = array('invoice','pending','rejected');
         $requestList = $this->nominationLngRepoObj->getLngBuyerRequestList($buyerId,$requestTypeNot,'no','yes');
-       
+      
         $result = array();
         $invoiceNo = $lastId; 
         $max_loop=4;
@@ -147,28 +147,52 @@ use Auth;
         $getRequestList = 1;
         $getsupplyQty = 0;
         $total_supply_qty_with_gcv = 0;
-        foreach($requestList as $request){ 
-            $count++;
+        $dateWiseQtyTotal = 0;
+        $sameDate = '';
+        $cnt =0;
+        // dd($requestList);
+        foreach($requestList as $request){
+           $cnt++;
             $getsupplyQty = $request->supplied_quantity;
             if($getsupplyQty != null && $getsupplyQty != 0.00){
-                $total_supplied_qty = $total_supplied_qty +  $getsupplyQty;
-                    $lngDate = $request->lngDate;
+                $lngDate = $request->lngDate;
+                if($sameDate != $lngDate){
+                    // echo $sameDate."<br>".$lngDate;
+                    $sameDate = $lngDate;
+                    $dateWiseQtyTotal =0;
+                     $supply_qty_with_gcv = 0;
                     $gcvValue = 1;
-                   $gvcValueByDate = GcvController::getGcvByDate($lngDate);
-                   if($gvcValueByDate != 0){
+                    $gvcValueByDate = GcvController::getGcvByDate($lngDate);
+                    if($gvcValueByDate != 0){
                       $gcvValue =  $gvcValueByDate; 
-                   }
+                    }
                     
-                $result['requestList'][$getRequestList][$request->nId]['supplied_Qty'] =$getsupplyQty; 
-                $result['requestList'][$getRequestList][$request->nId]['GcvValue'] =$gcvValue; 
-                $supply_qty_with_gcv = 0;
-                $supply_qty_with_gcv =  ($getsupplyQty * $gcvValue); 
-                $total_supply_qty_with_gcv = $total_supply_qty_with_gcv + $supply_qty_with_gcv ;
-                $result['requestList'][$getRequestList][$request->nId]['supplu_qty_with_GcvValue'] =$supply_qty_with_gcv;
-                 $result['requestList'][$getRequestList][$request->nId]['nid'] =$request->nId; 
-                $result['requestList'][$getRequestList][$request->nId]['date'] =$lngDate;
-                $result['requestList'][$getRequestList][$request->nId]['quantityRequired'] =$request->quantity; 
-                $result['requestList'][$getRequestList][$request->nId]['approveQuntity'] =$request->approve_quantity;
+                      $dateWiseQtyTotal = $dateWiseQtyTotal +  $request->supplied_quantity;
+                     
+                      $count++;
+                }else{
+                    $dateWiseQtyTotal = $dateWiseQtyTotal +  $request->supplied_quantity;
+                    // echo "<pre>";print_r($request->nId);echo"</pre>";
+                }
+
+                 $supply_qty_with_gcv =  ($request->supplied_quantity * $gcvValue);
+                
+                    $total_supplied_qty = $total_supplied_qty +   $request->supplied_quantity;
+                   $total_supply_qty_with_gcv = $total_supply_qty_with_gcv + $supply_qty_with_gcv;
+                    $result['updatedstatusreuestlist'][$getRequestList][$request->nId]['nid'] =$request->nId;
+                //add date
+                 //$result['requestList'][$getRequestList][$request->nId]['date'] =$lngDate;
+                $result['requestList'][$getRequestList][$lngDate]['GcvValue'] =$gcvValue;
+                $result['requestList'][$getRequestList][$lngDate]['cnt'] =$count;
+                 
+                     $result['requestList'][$getRequestList][$lngDate]['date'] =$lngDate;
+                $result['requestList'][$getRequestList][$lngDate]['supplied_Qty'] =$getsupplyQty;
+                   $result['requestList'][$getRequestList][$lngDate]['total_date_supplied_Qty'] =$dateWiseQtyTotal;
+                $result['requestList'][$getRequestList][$lngDate]['supplu_qty_with_GcvValue'] =$dateWiseQtyTotal*$gcvValue;
+                 $result['requestList'][$getRequestList][$lngDate]['nid'] =$request->nId; 
+               
+                $result['requestList'][$getRequestList][$lngDate]['quantityRequired'] =$request->quantity; 
+                $result['requestList'][$getRequestList][$lngDate]['approveQuntity'] =$request->approve_quantity;
                  if(($count%4) == 0){
                     $getRequestList = $getRequestList + 1;
                     $supplidQty = $total_supplied_qty;
@@ -217,7 +241,7 @@ use Auth;
 
     }
 
-    public function generateLngInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata,$invoiceHtml,$requestList,$agreementData){
+    public function generateLngInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata,$invoiceHtml,$requestList,$agreementData,$updateRequestList){
         $invoice = LngInvoice::create([
             'buyer_id' => $buyerId, 
             'seller_id' => $sellerId,
@@ -250,10 +274,20 @@ use Auth;
             $nomination_date=$new_date;
             
             $this->lngNotificationRepoObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
-        
-        foreach($requestList as $request){
-            $this->nominationLngRepoObj->updateRequeststatus('invoice',$request['nid']);
+        // dd($updateRequestList);
+        foreach($updateRequestList as $req){
+            $nid = 0;
+                if($req!='' ||$req!=NULL ) {
+
+                    foreach($req as $val){
+                        $nid =  $val['nid'];
+                      $this->nominationLngRepoObj->updateRequeststatus('invoice', $nid); 
+                    }
+                }
+            // echo $key['nid'];
         }
+         
+        // dd('test');
 
 
         return true;
