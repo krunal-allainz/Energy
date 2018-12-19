@@ -68,7 +68,7 @@
         mounted() {
             var vm = this;
              if(vm.$store.state.Users.userDetails.user_type != '3'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+              vm.$root.$emit('logout','You are not authorize to access this page'); 
           }
              vm.loadList = false; 
             let user_type = [] ;
@@ -133,13 +133,13 @@
                                   (response)=> {
                                     //console.log(response);
                                     if(response.data.status_code == 200){
-                                        toastr.success('User added successfully', 'Create User', {timeOut: 5000});
+                                        toastr.success('User added successfully', 'User', {timeOut: 5000});
                                         this.initialState();
                                         //localStorage.setItem("user_add",1)
                                        // window.location.reload();
                                     } else if (response.data.status_code == 301) {
                                         //this.initialState();
-                                        toastr.error('User already exist.', 'Add User', {timeOut: 5000});
+                                        toastr.error('User already exist.', 'User', {timeOut: 5000});
 
                                     }
                                     // this.$router.push('dashboard');

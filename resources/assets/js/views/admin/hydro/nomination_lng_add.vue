@@ -307,11 +307,11 @@
                         },100);
                     
                     } else if (response.data.code == 300) {
-                        toastr.error('No Nomination LNG Found.', 'Update Nomination LNG', {timeOut: 5000});
+                        toastr.error('Nomination LNG not found.', 'Nomination LNG', {timeOut: 5000});
                     }
                     else
                     {
-                        toastr.error('Something Went wrong.', 'Update Nomination LNG', {timeOut: 5000});
+                        toastr.error('Something went wrong.', 'Nomination LNG', {timeOut: 5000});
                     }
                     
                   },
@@ -334,7 +334,7 @@
                let remainingQuantity = parseFloat( vm.totalAllowedQuantity) -parseFloat(vm.totalUsedQuantity);
                
                if(parseFloat(currentRequestQuantity) > parseFloat(vm.totalAllowedQuantity)){
-                    toastr.error('You have only '+remainingQuantity+' quantity remains to request', 'Nomination', {timeOut: 5000});
+                    toastr.error('You have '+remainingQuantity+' quantity remains to request', 'Nomination', {timeOut: 5000});
                     return false;
                }
 
@@ -346,18 +346,18 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Add Nomination LNG', {timeOut: 5000});
+                                toastr.success(response.data.message, ' Nomination LNG', {timeOut: 5000});
                                 vm.$root.$emit('nominationLngSuccess',1);
                                 //this.initialState();
                                 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error(response.data.message, 'Add Nomination', {timeOut: 5000});
+                                toastr.error(response.data.message, 'Nomination LNG', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Nomination LNG', {timeOut: 5000});
                             }
                             
                           },
@@ -379,18 +379,18 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Update Nomination', {timeOut: 5000});
+                                toastr.success(response.data.message, 'Nomination LNG', {timeOut: 5000});
                                 vm.$root.$emit('nominationLngSuccess',1);
                                 //this.initialState();
                                 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error(response.data.message, 'Update Nomination', {timeOut: 5000});
+                                toastr.error(response.data.message, 'Nomination LNG', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', ' Nomination LNG', {timeOut: 5000});
                             }
                             
                           },

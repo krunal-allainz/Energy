@@ -43,6 +43,25 @@ class NominationLngController extends Controller
         }
        
     }
+    /**
+     * [getNominationDetailsByDate description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+     public function getNominationDetailsByDate(Request $request)
+    {
+       
+        $date = $request->date;
+        $get_details=$this->nomLngObj->getNominationDetailsByDate($date);
+        if($get_details)
+        {
+            return ['code' => 200 ,'data'=>$get_details,'message'=>'Nomination successfully edited.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+    }
 
     public function getSuppliedLngList(Request $request)
     { 
@@ -190,7 +209,7 @@ class NominationLngController extends Controller
         $approve=$this->nomLngObj->rejectNominationLngById($data,$rid);
         if($approve == 1)
         {
-            return ['code' => 200 ,'data'=>$approve,'message'=>'Nomination LNG reject successfully.'];
+            return ['code' => 200 ,'data'=>$approve,'message'=>'Nomination LNG rejected successfully.'];
         }
         else
         {
@@ -233,7 +252,7 @@ class NominationLngController extends Controller
         $lngData = $this->nomLngObj->getNominationLngTotals($data);
 
         if($lngData) {
-            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG reject successfully.'];
+            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG rejected successfully.'];
         } else {
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
@@ -245,7 +264,7 @@ class NominationLngController extends Controller
         $lngData = $this->nomLngObj->getBuyerNominationLngTotals($data);
 
         if($lngData) {
-            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG reject successfully.'];
+            return ['code' => 200 ,'data'=>$lngData,'message'=>'Nomination LNG rejected successfully.'];
         } else {
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
@@ -257,7 +276,7 @@ class NominationLngController extends Controller
         $allowedQuantity = $this->nomLngObj->getBuyerAllowedQuantity($buyerId);
         
         if($allowedQuantity) {
-            return ['code' => 200 ,'data'=>$allowedQuantity,'message'=>'Nomination LNG reject successfully.'];
+            return ['code' => 200 ,'data'=>$allowedQuantity,'message'=>'Maximum allowed quantity listed successfully'];
         } else {
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }
@@ -270,7 +289,7 @@ class NominationLngController extends Controller
         $usedQuantity = $this->nomLngObj->getBuyerUsedQuantity($requestDate,$buyerId);
         
         if($usedQuantity) {
-            return ['code' => 200 ,'data'=>$usedQuantity,'message'=>'Nomination LNG reject successfully.'];
+            return ['code' => 200 ,'data'=>$usedQuantity,'message'=>'Buyer used quality listed successfully'];
         } else {
             return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
         }

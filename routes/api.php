@@ -109,6 +109,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         //for getting nomination details by date
          $api->post('nomination/getNominationDetailsByDate', '\Energy\Api\Controllers\NominationController@getNominationDetailsByDate');
 
+        //for getting nomination details by date
+         $api->post('nomination/getNominationLngDetailsByDate', '\Energy\Api\Controllers\NominationLngController@getNominationDetailsByDate');
+
          //get invoice list 2
         $api->post('invoice/generateinvoice', '\Energy\Api\Controllers\InvoiceController@generateInvoice');
 

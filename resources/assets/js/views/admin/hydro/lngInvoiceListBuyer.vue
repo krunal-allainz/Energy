@@ -80,7 +80,7 @@
                       </td>
 
                       <td class="text-center">
-                      	<a  :href="'/invoicelng/'+buyerId" class="btn btn-info">Generate Invoice</a>
+                      	<a @click="generateInvoiceDetail(buyerId)"  class="btn btn-info">Generate Invoice</a>
                       </td>
 
                     </tr>
@@ -120,7 +120,7 @@
                       </td>
 
                       <td class="text-center">
-                        <a  :href="'/invoicelng/'+buyerId" class="btn btn-info">Generate Invoice</a>
+                        <a href="" @click="generateInvoiceDetail(buyerId)" class="btn btn-info">qweqwqew  Generate Invoice</a>
                       </td>
 
                     </tr>
@@ -179,6 +179,10 @@
            dispalyInvoiceView
         },
         methods: {
+          generateInvoiceDetail(buyerId){
+            let vm =this;
+            vm.$router.push({ path: 'invoicelng/'+buyerId});
+          },
           viewHtmlShow(vid){
             var vm = this;
             vm.invoiceId = '';

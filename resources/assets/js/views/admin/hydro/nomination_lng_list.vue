@@ -82,8 +82,8 @@
                             </td>
                             
                       				<td data-v-744e717e="" class="">
-                      					<a href="javascript:void(0)" v-if="nominationLngData.lng_status == 'pending'"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a>
-                                <a  href="javascript:void(0)" v-if="nominationLngData.lng_status == 'pending'"  @click="setNominationId(nominationLngData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                      					<a href="javascript:void(0)" v-if="nominationLngData.lng_status == 'pending'"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Delete Nomination"></i></a>
+                                <a  href="javascript:void(0)" v-if="nominationLngData.lng_status == 'pending'"  @click="setNominationId(nominationLngData.nId)" title="Edit Nomination"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -223,11 +223,11 @@
                      vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDashbordDate);
                     toastr.success('Nomination LNG deleted successfully', 'Delete Nomination', {timeOut: 5000});
                   } else if (response.data.code == 300) {
-                      toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                      toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                   }
                   else
                   {
-                      toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                      toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                   }
                   
                 },

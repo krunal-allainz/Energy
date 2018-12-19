@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="text-right">
-          <span class="red">* Available quantity for LNG supply is {{availableQty}}</span>
+          <span class="red">* Available quantity for LNG supply is {{availableQty}} Kg</span>
        </div>
 
 		</div>
@@ -246,7 +246,7 @@
               User.rejectQuatityForTruckLoad(data).then(
 
                  (response) => {
-                    toastr.success('Nomination Rejected successfully', 'Rejected Nomination', {timeOut: 5000});
+                    toastr.success('Nomination rejected successfully', 'Nomination.', {timeOut: 5000});
                    
                     let data = {
                       'page_url': '/nominationLng/getNominationLngList',
@@ -254,11 +254,12 @@
                       }
                       this.$root.$emit('getTotalQty',vm.getNominationLngData);
                       this.$root.$emit('getNominationLngList',data);
+                      vm.getTotalQty();
                       // vm.totalRequestedQty =  this.$parent.totalRequestedQty;
                     //vm.totalApproveQty = this.$parent.totalApproveQty;
                 },
                 (error) => {
-                   toastr.error('Something Went wrong.', 'rejected Nomination', {timeOut: 5000});
+                   toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                 },
 
                 );
