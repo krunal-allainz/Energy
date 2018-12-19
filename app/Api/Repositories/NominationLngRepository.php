@@ -361,7 +361,7 @@ use Auth;
         $lng['LngTotal'] = NominationLng::where('lngDate', $date)->sum("quantity");
         $lng['ApprovedLngTotal'] = NominationLng::where('lngDate', $date)->where('lng_status', 'approved')->sum("approve_quantity");
         $lng['SuppliedQuantity'] = NominationLng::where('lngDate', $date)->where('lng_status', 'approved')->sum("supplied_quantity");
-        
+        // dd($lng);
         return $lng;
     }
 

@@ -60,7 +60,7 @@
                  vm.getTimelineData();
                 $('.timeline-update').newsTicker({
                     row_height: 90,
-                    max_rows: 3,
+                    max_rows: 6,
                     speed: 2000,
                     direction: 'up',
                     duration: 3500,

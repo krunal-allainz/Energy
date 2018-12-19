@@ -34,6 +34,7 @@ export default {
             Ls.remove('userData')
             Ls.remove('userID')
             // here we have to reload the page
+           window.location.reload();
         }).catch(error => {
         });
         // Reload

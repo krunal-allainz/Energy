@@ -1,19 +1,19 @@
 <template>
-	<div class="container">
+	<div>
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-6">
-				<h2>Invoice List</h2>
+				<h2 class="mb-0">Invoice List</h2>
 				</div>
 			</div>
 		</div>
-		 <div class="card-body">
-            <div data-v-744e717e="" class="card p-3" v-if="invoiceList != '' || invoiceList.length > 0">
-              <div data-v-744e717e="" class="table-header">
+		 <div class="">
+            <div class="" v-if="invoiceList != '' || invoiceList.length > 0">
+              <div class="table-header">
                   <h4 data-v-744e717e="" class="table-title text-center mt-3"></h4>
               </div>
-              <div data-v-744e717e="" class="table-responsive">
-                <table data-v-744e717e="" class="table">
+              <div class="table-responsive">
+                <table class="table">
                   <thead data-v-744e717e="">
                     <tr data-v-744e717e="">
                         <th data-v-744e717e="" class="sortable" style="width: auto;">
@@ -120,12 +120,12 @@
                       </td>
 
                       <td class="text-center">
-                        <a href="" @click="generateInvoiceDetail(buyerId)" class="btn btn-info">qweqwqew  Generate Invoice</a>
+                        <a href="" @click="generateInvoiceDetail(buyerId)" class="btn btn-info">Generate Invoice</a>
                       </td>
 
                     </tr>
                     </table>
-                      <h6 class="card-header"  v-show="generateInvoice == false">
+                      <h6 class="card-header mt-3"  v-show="generateInvoice == false">
                <div>No records available</div>
             </h6>
                </div>

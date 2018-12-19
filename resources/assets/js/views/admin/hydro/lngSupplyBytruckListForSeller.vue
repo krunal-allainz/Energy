@@ -1,8 +1,8 @@
 <template>
   <div>
-	   <div class="col-lg-12 mb-3">
+	   <div class="mb-3">
         <div class="card-body">
-        	<div data-v-744e717e="" class="px-3"  v-if="(gerDataForPaggination.total > 0)">
+        	<div data-v-744e717e="" class=""  v-if="(gerDataForPaggination.total > 0)">
           	<div data-v-744e717e="" class="table-responsive">
             	<table data-v-744e717e="" class="table">
               	<thead data-v-744e717e="">
@@ -89,11 +89,10 @@
                 <span>No Record Found</span>
             </div>
           </div>
+          <div class="text-right">
+            <span class="red">* Available quantity for LNG supply is {{availableQty}} Kg</span>
+          </div>
         </div>
-        <div class="text-right">
-          <span class="red">* Available quantity for LNG supply is {{availableQty}} Kg</span>
-       </div>
-
 		</div>
 	</div>
 </div>
