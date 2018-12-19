@@ -215,4 +215,7 @@ export default {
   generateLngInvoice(){
     return api.post('invoice/generatelnginvoice');
   },
+  getBuyerUsedQuantity(requestDate,buyerId){
+    return api.post('nomination/getBuyerUsedQuantity', { 'requestDate': requestDate,'buyerId' : buyerId});
+  }
 }

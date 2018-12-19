@@ -46,6 +46,9 @@
                                         <span class="help is-danger" v-show="errors.has('lngTime')">
                                             Please enter time.
                                         </span>
+                                        <span class="help is-danger right">
+                                            *Request will generate for {{ nextRequestDate }}
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="row form-group"  >
@@ -96,7 +99,7 @@
                                          <button class="btn btn-danger" type="button" @click="cancelPage()">Cancel</button>
                                      </div>
                                 </div>
-                                <label class="text-danger right">Maximum allowed quantity {{ quantity.allowed_quantity*1.20 ? quantity.allowed_quantity*1.20 : 0 }}</label> 
+                                <label class="text-danger right">Maximum allowed quantity {{ totalAllowedQuantity ? totalAllowedQuantity : 0 }}</label> 
                         </div>
                 </div>
             </div>
@@ -132,7 +135,7 @@
                             time:moment().add(1,'days').format('DD-MM-YYYY')
                         },
                         'quantity': '',
-                        'lngDate':this.$store.state.selected_date,
+                        'lngDate': moment(this.$store.state.selected_date, "DD-MM-YYYY").add(1, 'days').format('DD-MM-YYYY'),
                         'lngTime':'',
                         'pageName':'',
                         //'request':'',
@@ -163,8 +166,10 @@
                         to: new Date()
                     }],
                     'quantity': 0,
-                    'times':['12:00 AM','1:00 AM','2:00 AM','3:00 AM','4:00 AM','5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM','11:00 PM']
-                   
+                    'times':['12:00 AM','1:00 AM','2:00 AM','3:00 AM','4:00 AM','5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM','11:00 PM'],
+                    'nextRequestDate': moment(this.$store.state.selected_date, "DD-MM-YYYY").add(1, 'days').format('DD-MM-YYYY'),
+                    'totalUsedQuantity': 0,
+                    'totalAllowedQuantity': 0
                 }
         },
         components: {
@@ -172,20 +177,30 @@
         },
         mounted() {
             var vm = this;
-            
+            vm.selected_date = vm.nextRequestDate;
+
             $('.ls-select2').select2({
                 placeholder: "Select"
             });
             vm.initData();
             User.getBuyerAllowedQuantity(vm.nominationLngData.buyer_id).then(
                 (response) => {
-                    this.quantity = response.data.data;
+                    vm.quantity = response.data.data.allowed_quantity;
+                    vm.totalAllowedQuantity = vm.quantity*1.20;
                 },
                 (error) => {
 
                 }
             );
 
+            User.getBuyerUsedQuantity(vm.selected_date,vm.nominationLngData.buyer_id).then(
+                (response) => {
+                    vm.totalUsedQuantity = response.data.data;
+                },
+                (error) => {
+
+                }
+            );
             $('#lngTime').on('select2:select', function (e) {
                 //
                 vm.nominationLngData.lngTime = e.params.data.text;
@@ -313,13 +328,20 @@
                 this.$data.nominationLngData.truck_details_id =''
             },
             validateBeforeSubmit() {
-                
-
+               
                let vm=this;
+               let currentRequestQuantity = parseFloat(vm.nominationLngData.quantity) + parseFloat( vm.totalUsedQuantity);
+               let remainingQuantity = parseFloat( vm.totalAllowedQuantity) -parseFloat(vm.totalUsedQuantity);
+               
+               if(parseFloat(currentRequestQuantity) > parseFloat(vm.totalAllowedQuantity)){
+                    toastr.error('You have only '+remainingQuantity+' quantity remains to request', 'Nomination', {timeOut: 5000});
+                    return false;
+               }
+
                 vm.$validator.validateAll().then(() => {
                     
                     if (!this.errors.any()) {
-
+                        vm.nominationLngData.da
                         User.createNominationLng(vm.nominationLngData).then(
                           (response)=> {
                            
@@ -395,5 +417,6 @@
     .right
     {
         float: right;
+        font-weight: bold;
     }
 </style>
