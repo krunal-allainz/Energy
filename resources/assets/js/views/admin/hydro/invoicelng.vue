@@ -26,7 +26,7 @@
                             <div class="col-md-6 col-sm-12 col-12 col-lg-6 col-xl-6 invoice_bg text-right">
                                 <div class="float-right">
                                     <h4><strong>{{invData.invoice_no}} / <span id="dateFeildId">{{invData.date | dateFormate}}</span></strong></h4>
-                                    <h4><strong>Invoice Info:</strong></h4>
+                                    <h4 class="mt-5"><strong>Invoice Info:</strong></h4>
                                     <address>
                                         {{buyerData.name}}
                                         <br/>  {{buyerData.address}}
@@ -37,16 +37,16 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="col-md-12">
+                    <div class="">
                         <div class="table-responsive">
                             <table class="invoice-table table table-striped table-condensed" id="customtable"  width="100%">
 
                                 <thead>
                                 <tr class="bg-primary">
-                                    <th class="text-center" style="width: 30px;">
+                                    <th class="text-center w-8">
                                         <strong>#</strong>
                                     </th>
-                                    <th class="text-center" colspan="4" style="width: 250px;">
+                                    <th class="text-center w-65" colspan="4">
                                         <strong>
                                            PARTICULARS
                                         </strong>
@@ -61,7 +61,7 @@
                                         <strong>Tax</strong>
                                     </th> -->
                                    
-                                    <th class="text-center" style="width: 90px;">
+                                    <th class="text-right w-27">
                                         <strong>TOTAL</strong>
                                     </th>
                                     <!-- <th class="text-center" id="add_row"><i class="fa fa-fw ti-plus"></i></th> -->
@@ -78,7 +78,7 @@
                                         <td class="text-right">{{request.supplied_Qty * request.gcv_value}} MMBTU</td>
                                     </tr>
                                     <tr><td class="text-center"><strong>Total</strong></td>
-                                        <td class="text-center" colspan="4"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td>
+                                        <td class="text-left" colspan="4"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td>
                                        
                                          <!-- <td colspan="2" class="text-center"></td> -->
                                         <td class="text-right">
@@ -185,8 +185,11 @@
                             </table>
                         </div>
                     </div>
+                    
             </div>
-              <form><div class="text-right"><button type="button" class="btn btn-info" @click="generateLngInvoice(index,buyerId)">Approve</button></div></form>
+            <div class="card-body">
+              <form class="col-md-12"><div class="text-right"><button type="button" class="btn btn-info" @click="generateLngInvoice(index,buyerId)">Approve</button></div></form>
+            </div>
         </div>
 
     </section>

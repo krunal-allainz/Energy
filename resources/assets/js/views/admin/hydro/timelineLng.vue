@@ -1,6 +1,6 @@
 <template>
-  <div class="col-xl-4  col-12">
-                	<div class="row">
+  <div class="col-xl-6  col-12">
+                  <div class="row">
                         <div class="col-xl-12 col-sm-6 col-lg-6">
                             <div class="card">
                                 <div class="card-header">
@@ -18,8 +18,11 @@
                                                  <div class="timeline-card wow slideInLeft"
                                                      style="display:inline-block;">
                                                     <div class="timeline-heading">
-                                                        <span v-if="data.dataTable=='nomination_request'">
-                                                          <a class="text-info point" @click="nomination_link(data.nDate)"><h4 class="timeline-title">{{data.title}}</h4></a>
+
+                                                        <!-- <span v-if="data.dataTable=='nomination_request'"> -->
+                                                        <span>
+                                                          <a class="text-info point"><h4 class="timeline-title">{{data.title}}</h4></a>
+                                                          <a class="text-info point"><h4 class="timeline-title">{{data.title}}</h4></a>
                                                         </span>
                                                         
                                                         <p>
@@ -55,12 +58,12 @@
         },
          mounted(){
               let vm = this;
-              vm.getTimelineLngData();
+              vm.getTimelineData();
              if ($('.timeline-update').length > 0) {
-                 vm.getTimelineLngData();
+                 vm.getTimelineData();
                 $('.timeline-update').newsTicker({
                     row_height: 90,
-                    max_rows: 3,
+                    max_rows: 6,
                     speed: 2000,
                     direction: 'up',
                     duration: 3500,
@@ -71,7 +74,7 @@
              }
              $('.force-overflow').css({overflow : 'auto'});
             setTimeout(function(){
-                 vm.getTimelineLngData();
+                 vm.getTimelineData();
             },8000) ;
               
          },
@@ -85,10 +88,11 @@
                   vm.$store.dispatch('SetNominationDate',new_date ); 
                   vm.$store.dispatch('SetNominationPage','LIST');
                   vm.$router.push({'name':'nomination_list'});
+
               },
-              getTimelineLngData(){
+              getTimelineData(){
                     let vm = this;
-                    User.getTimelineLngData(vm.userData.userType,vm.userData.userId).then(
+                    User.getTimelineData(vm.userData.userType,vm.userData.userId).then(
                              (response)=>{
                                     if(response.data.code == 200){
                                       vm.timelineData = response.data.data;
