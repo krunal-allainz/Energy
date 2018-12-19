@@ -1,5 +1,4 @@
 <template>
-
 <section>
     <section class="content-header mb-3">
             <div class="row">
@@ -26,24 +25,42 @@
         <br/> -->
         
 	<div class="row">
-            <div class="col-sm-6 col-md-6 col-xl-3">
-             	<div class="flip">
-                     <a href="#" @click="nomination_page()" title="Add Nomination">
-                        <div class="widget-bg-color-icon card-box front">
-                            <div class="bg-icon float-left">
-                               <i class="fas fa-charging-station"></i>
-                            
-                            </div>
-                            <div class="text-right">
-                            <h3><b>Nomination</b></h3>
-                            <h3 class="text-dark"><b>{{total_request}}</b></h3>
-                            <p>For Date:{{selectedDashbordDate}}</p>
-                            </div>
-                            <div class="clearfix"></div>
+        <div class="col-sm-6 col-md-6 col-xl-3">
+            <div class="flip">
+                 <a href="#" @click="nomination_lpg()" title="Add Nomination LPGS">
+                    <div class="widget-bg-color-icon card-box front">
+                        <div class="bg-icon float-left">
+                           <i class="fas fa-truck"></i>
+                        
                         </div>
-                     </a>
-                </div>
+                        <div class="text-right">
+                        <h3><b>Nomination LNG</b></h3>
+                        <!-- <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                        <p>For Date:{{selectedDashbordDate}}</p> -->
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                 </a>
             </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-xl-3">
+         	<div class="flip">
+                 <a href="#" @click="nomination_page()" title="Add Nomination">
+                    <div class="widget-bg-color-icon card-box front">
+                        <div class="bg-icon float-left">
+                           <i class="fas fa-charging-station"></i>
+                        
+                        </div>
+                        <div class="text-right">
+                        <h3><b>Nomination</b></h3>
+                        <h3 class="text-dark"><b>{{total_request}}</b></h3>
+                        <p>For Date:{{selectedDashbordDate}}</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                 </a>
+            </div>
+        </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
                     <a >
@@ -181,12 +198,20 @@ export default {
     },
     mounted: function() {
         let vm=this;
-       if(vm.$store.state.Users.userDetails.user_type != '6'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+       if(vm.$store.state.Users.userDetails.user_type != '2'){
+              vm.$root.$emit('logout','You are not authorize to access this page'); 
           }
         vm.chartData();
     },
     methods: {
+        nomination_lpg()
+        {
+            let vm=this;
+            /*vm.$store.dispatch('SetNominationDate',''); 
+            vm.$store.dispatch('SetNominationPage','');
+            vm.$store.dispatch('SetNominationId','');*/
+            vm.$router.push({'name':'nomination_lpg_list'});
+        },
         nomination_page()
         {
             let vm=this;
@@ -357,10 +382,6 @@ export default {
                     config1Data.datasets.pop();
                     _.forEach(vm.nominationData,function(value,key){
                        
-                        // config1.data.datasets[key].data[0] = value.quantity_required;
-                        // config1.data.datasets[key].data[1] = value.approved_quantity;
-                        // config1.data.datasets[key].label = value.buyer_name;
-                        // config1.data[key] = value.buyer_name;
                          var letters = '0123456789ABCDEF';
                           var color = '#';
                           for (var i = 0; i < 6; i++) {
@@ -388,9 +409,6 @@ export default {
                 },1500)
        }
     }, 
-    destroyed: function() {
-
-    }
 }
 
 </script>

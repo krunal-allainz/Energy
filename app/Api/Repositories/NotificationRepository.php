@@ -14,13 +14,13 @@ class NotificationRepository {
 	}
 
 	public function getTimelineData($usertype,$userId){
-		
-		if($usertype == 6){
+		$result =array();
+		if($usertype == 2){
 				$typeList = ['add_notification','update_notification','update_request_qty_status'];
 
 				$result = Notification::select('title as title','type as type','data_table as dataTable','data_id as dataId','data_user_id as dataUserId','data_date as Datadate','data_text as text','status as status','nomination_date as nDate')->whereIn('type',$typeList)->where('data_user_id',$userId)->groupBy('type')->orderBy('created_at','desc')->get();
 		}
-		if($usertype == 7){
+		if($usertype == 3){
 
 			$typeList = ['add_notification','update_notification','update_request_qty_status'];
 

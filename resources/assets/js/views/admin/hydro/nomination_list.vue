@@ -7,7 +7,8 @@
       <div class="card-header  mb-3" >
         <div class="row">
           <div class="col-md-6"><h4 class="mt-2">Nomination List</h4></div>
-          <div   v-if="user_type==6 && add_nomination_count==0 && tomorrow_date==selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+          <div   v-if="user_type==6 && add_nomination_count==0 && tomorrow_date<=selectedDashbordDate" class="col-md-6  text-right"><button type="button" class="btn btn-primary" @click="setAddNomination()">Add</button></div>
+
         </div>
       </div>
         <div class="row">
@@ -38,7 +39,7 @@
               			<table data-v-744e717e="" class="table">
                   			<thead data-v-744e717e="">
                     			<tr data-v-744e717e="">
-                    				 <th data-v-744e717e="" class="sortable sorting-asc " style="" v-if="user_type==7">
+                    				 <th data-v-744e717e="" class="sortable sorting-asc " style="" v-if="user_type==3">
                                 		Buyer
                         			 </th>
                         			
@@ -78,7 +79,7 @@
                   			</thead>
                   			<tbody data-v-744e717e=""  v-for="nominationData in getNominationData">
                   				 <tr data-v-744e717e="" :id="'presp_'+nominationData.nId">
-                  				 	<td data-v-744e717e="" class="text-uppercase"  v-if="user_type==7">
+                  				 	<td data-v-744e717e="" class="text-uppercase"  v-if="user_type==3">
                        					{{ nominationData.buyer_name}}
                       			</td>
                       			
@@ -110,8 +111,8 @@
                                
                             </td>
                       				<td data-v-744e717e="" class="">
-                      					<a v-if="today_date==nominationData.date || tomorrow_date==nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Nomination Delete"></i></a>
-                                <a  v-if="today_date==nominationData.date || tomorrow_date==nominationData.date" @click="setNominationId(nominationData.nId)" title="Nomination Update"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
+                      					<a v-if="today_date<=nominationData.date"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNomination(nominationData.nId)" title="Delete Nomination"></i></a>
+                                <a  v-if="today_date<=nominationData.date" @click="setNominationId(nominationData.nId)" title="Edit Nomination"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
                       				</td>
                   				 </tr>
                   			</tbody>
@@ -174,12 +175,11 @@
         this.$root.$on('nominationSuccess',this.nominationSuccess);
         this.$root.$on('changeDashbordDate',this.changeDashbordDate);
     },
-		  mounted(){
+		mounted(){
 		 	let vm = this;
       //vm.initData();
       vm.getNominationCountForBuyer();
       vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
-      
 		 },
      components: {
         nominationAdd,
@@ -190,6 +190,7 @@
         {
             let vm=this;
             vm.selectedDashbordDate=selectDate;
+            vm.getNominationCountForBuyer();
             vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
         },
         setQty(data){
@@ -224,7 +225,7 @@
       getNominationCountForBuyer()
       {
           let vm=this;
-          User.getNominationCountForBuyer(vm.user_id).then(
+          User.getNominationCountForBuyer(vm.user_id,vm.selectedDashbordDate).then(
             (response)=> {
              vm.add_nomination_count=response.data.data;
             },
@@ -241,7 +242,7 @@
           }
           else
           {
-            toastr.error('Please Add Files.', 'Add Nomination', {timeOut: 5000});
+            toastr.error('Please add files.', 'Nomination', {timeOut: 5000});
             event.preventDefault();
           }
            
@@ -257,16 +258,16 @@
                     //$('#presp_'+id).remove();
                      vm.getNominationCountForBuyer();
                      vm.getNominationList('/nomination/getNominationList',vm.selectedDashbordDate);
-                    toastr.success('Nomination deleted successfully', 'Add Nomination', {timeOut: 5000});
+                    toastr.success('Nomination deleted successfully.', 'Nomination', {timeOut: 5000});
                       //this.initialState();
                       
                   } else if (response.data.code == 300) {
-                      toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                      toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                       //this.initialState(); 
                   }
                   else
                   {
-                      toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                      toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                   }
                   
                 },
@@ -287,6 +288,7 @@
           let vm=this;
           vm.$store.dispatch('SetNominationId', ''); 
           vm.$store.dispatch('SetNominationPage','ADD');
+          vm.$store.dispatch('SetNominationDate',vm.selectedDashbordDate);
           vm.page_add_enabled=true;
       },
 		 	getNominationList(page_url,select_date){
@@ -296,13 +298,18 @@
 		 	
         let no_of_page = '';
         no_of_page = vm.perPageNomination;
+        $("body .js-loader").removeClass('d-none');
 
 		 		User.getNominationList(page_url,userType,no_of_page,userId,select_date).then(
 		 			 (response) => {
+                   $("body .js-loader").addClass('d-none');
+
               vm.getNominationData = response.data.data.data;
 		 			 	  vm.makePagination( response.data.data);
 		 			 },
 		 			 (error) => {
+                   $("body .js-loader").addClass('d-none');
+
                   	 },
 		 		);
 		 	},

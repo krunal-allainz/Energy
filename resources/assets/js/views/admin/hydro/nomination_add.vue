@@ -34,7 +34,7 @@
                                             <span class="help is-danger" v-show="errors.has('quantity')">Please enter valid quantity.</span>
                                     </div>
                                 </div>
-                                 <div class="row form-group"  v-if="nominationData.pageName=='EDIT' && user_type==7">
+                                 <div class="row form-group"  v-if="nominationData.pageName=='EDIT' && user_type==3">
                                     <div class="col-md-3">
                                         <label for="approved_quantity " class="control-label float-right txt_media1">Scheduled Quantity :</label>
                                     </div>
@@ -63,7 +63,7 @@
                                         </span>
                                     </div>
                                 </div>
-                           <!--      <div class="row form-group" v-if="nominationData.pageName=='EDIT' && user_type==7">
+                           <!--      <div class="row form-group" v-if="nominationData.pageName=='EDIT' && user_type==3">
                                <div class="col-md-3">
                                    <label class="control-label float-right" >Status: </label>
                                </div>
@@ -238,6 +238,14 @@
 
                     }
                 }
+                else  if(nomination_page=='ADD')
+                {
+                    let nDate=vm.$store.state.Nomination.nominationDate;
+                      if(nDate!="" && nDate!=null)
+                      {
+                          vm.nominationData.date.time=nDate;
+                      }
+                }
             },
             setNominationData(id)
             {
@@ -253,7 +261,7 @@
                         //vm.nominationData.request =presp_data.request;
                         vm.user_id =presp_data.buyer_id;
                         vm.getAllowedQuantityByBuyerId();
-                        if(vm.nominationData.pageName=='EDIT' && vm.user_type==7){
+                        if(vm.nominationData.pageName=='EDIT' && vm.user_type==3){
                             vm.checkAvaibilityForQuantityForApprove();
                         }
                         setTimeout(function(){
@@ -261,12 +269,12 @@
                         },200);
                         //$('#request').val(presp_data.request).trigger('change');
                     } else if (response.data.code == 300) {
-                        toastr.error('No Nomination Found.', 'Add Nomination', {timeOut: 5000});
+                        toastr.error('No nomination found.', 'Nomination', {timeOut: 5000});
                         //this.initialState(); 
                     }
                     else
                     {
-                        toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                        toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                     }
                     
                   },
@@ -295,7 +303,7 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Add Nomination', {timeOut: 5000});
+                                toastr.success(response.data.message, 'Nomination', {timeOut: 5000});
                                 vm.$root.$emit('nominationSuccess',1);
                                 //this.initialState();
                                 
@@ -305,12 +313,12 @@
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Add Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Add Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Add Nomination', {timeOut: 5000});
                             }
                             
                           },
@@ -332,26 +340,26 @@
                           (response)=> {
                            
                             if(response.data.code == 200){
-                                toastr.success(response.data.message, 'Update Nomination', {timeOut: 5000});
+                                toastr.success(response.data.message, 'Nomination', {timeOut: 5000});
                                 vm.$root.$emit('nominationSuccess',1);
                                 //this.initialState();
                                 
                             } 
                             else if (response.data.code == 301) {
-                                toastr.error('Quantity higher than MDCQ.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Quantity must not greater than MDCQ.', 'Update Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 302) {
-                                toastr.error('Availability is not available.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Availability not available.', 'Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else if (response.data.code == 300) {
-                                toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                                 //this.initialState(); 
                             }
                             else
                             {
-                                toastr.error('Something Went wrong.', 'Update Nomination', {timeOut: 5000});
+                                toastr.error('Something went wrong.', 'Nomination', {timeOut: 5000});
                             }
                             
                           },

@@ -58,7 +58,30 @@ class NominationController extends Controller
         }
        
     }
+    public function getSuppliedList(Request $request)
+    {
 
+        $userType = $request->userType;
+        $userId = $request->userId ;
+        $noOfPage = $request->noofRecord;
+        //$date =Carbon::now()->format('Y-m-d'); 
+        //if(isset($request->selectedDate))
+        //{
+            $selected_date=$request->selectedDate;
+            $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
+        //}
+        
+        $supplied_list=$this->nomObj->getSuppliedLngList($userType,$noOfPage,$userId,$date);
+        if($supplied_list)
+        {
+            return ['code' => 200 ,'data'=>$supplied_list,'message'=>'Getting case type successfully.'];
+        }
+        else
+        {
+            return ['code'=> 300 ,'data'=>'','message'=>'Something went wrong'];
+        }
+       
+    }
     /**
      * [createNomination description]
      * @param  Request $request [description]
@@ -316,7 +339,8 @@ class NominationController extends Controller
      */
     public function getNominationCountForBuyer(Request $request)
     {
-        $date=Carbon::now()->addDays(1)->format('Y-m-d');
+        $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d'); 
         $userId = $request->userId;
         $get_details=$this->nomObj->getNominationCountForBuyer($userId,$date);
         if($get_details)

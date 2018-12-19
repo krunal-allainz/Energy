@@ -5,10 +5,10 @@
 
               <nav class="navbar navbar-expand-lg navbar-light bg-white">
 
-                <router-link :to="dashboardLink()" class="brand-main">
+                <a href="javascript:void(0)" @click="dashboardLink" class="brand-main">
                       <img src="/assets/img/h_energylogo.png" id="logo-desk" alt="Hydrocarbon Accounting" class="hidden-sm-down">
                       <img src="/assets/img/h_energylogo.png" id="logo-mobile" alt="Hydrocarbon Accounting" class="hidden-md-up">
-                  </router-link>
+                  </a>
                   
                  
                   
@@ -92,7 +92,7 @@ export default {
         },
         methods:{
           setDate(setDate){
-              this.curDateTime = setDate;
+            this.curDateTime = setDate;
           },
           checkTime(i){
             if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
@@ -106,11 +106,22 @@ export default {
                 }
           },
           dashboardLink(){
-            if(this.userType == '7'){
-              return '/seller-dashboard';
+            let vm =this;
+            if(this.userType == '3'){
+              if(this.$store.state.dashboard_type == 'truck_dashboard'){
+
+                vm.$router.push({'name':'seller-v2-dashboard'});
+              } else {
+                vm.$router.push({'name':'seller-dashboard'});
+              }
             } 
-            else if(this.userType == '6') {
-              return '/buyer-dashboard';
+            else if(this.userType == '2') {
+              if(this.$store.state.dashboard_type == 'truck_dashboard'){
+
+                vm.$router.push({'name':'buyer-v2-dashboard'});
+              } else {
+                vm.$router.push({'name':'buyer-dashboard'});
+              }
             }
           },
           logout(msg=''){

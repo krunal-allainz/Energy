@@ -299,15 +299,15 @@
                      (response) => {
                         if(response.data.code == 200){
                             if(response.data.data == true){
-                                 toastr.success('Invoice has been generated successfully', 'Generate Invoice', {timeOut: 5000});
+                                 toastr.success('Invoice has been generated successfully.', 'Invoice', {timeOut: 5000});
                                   this.$router.push({name: 'generate_invoice'})
                             }
                         }else{
-                             toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                             toastr.error('Something went wrong.', 'Invoice', {timeOut: 5000});
                         }
                     },
                     (error) => {
-                          toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                          toastr.error('Something went wrong.', 'Invoice', {timeOut: 5000});
                     },
                 );
                  

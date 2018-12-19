@@ -80,6 +80,8 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
         
         $api->post('nomination/getNominationList', '\Energy\Api\Controllers\NominationController@getNominationList');
 
+        $api->post('nomination/getSuppliedList', '\Energy\Api\Controllers\NominationLngController@getSuppliedList');
+
          //for nomination add
         $api->post('nomination/create', '\Energy\Api\Controllers\NominationController@createNomination');
 
@@ -106,6 +108,9 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
         //for getting nomination details by date
          $api->post('nomination/getNominationDetailsByDate', '\Energy\Api\Controllers\NominationController@getNominationDetailsByDate');
+
+        //for getting nomination details by date
+         $api->post('nomination/getNominationLngDetailsByDate', '\Energy\Api\Controllers\NominationLngController@getNominationDetailsByDate');
 
          //get invoice list 2
         $api->post('invoice/generateinvoice', '\Energy\Api\Controllers\InvoiceController@generateInvoice');
@@ -160,6 +165,65 @@ $api->version('v1',['middleware' => 'jwt.auth'], function ($api) {
 
           $api->post('availability/getCheckAvaibilityForQuantity', '\Energy\Api\Controllers\AvailabilityController@checkAvaibilityForQuantityForApprove');
 
+          //Add GCV
+        $api->post('gcv/addGcv', '\Energy\Api\Controllers\GcvController@addGcv');
+        $api->post('gcv/isAdded', '\Energy\Api\Controllers\GcvController@isGcvAdded');
+          // for getting nomination lpg list
+          $api->post('/nominationLng/getSuppliedLngList', '\Energy\Api\Controllers\NominationLngController@getSuppliedLngList');
+          //for getting truck details list
+          $api->post('truckDetails/getTruckDetailsList','\Energy\Api\Controllers\TruckDetailsController@getTruckDetailsList');
+          //for create nomination lng
+          $api->post('nominationLng/createNominationLng','\Energy\Api\Controllers\NominationLngController@createNominationLng');
+
+          //for edit nomination lng
+          $api->post('nominationLng/editNominationLng','\Energy\Api\Controllers\NominationLngController@editNominationLng');
+          //for getting details of lng by id
+          $api->post('nominationLng/getNominationLngDetailsById','\Energy\Api\Controllers\NominationLngController@getNominationLngDetailsById');
+          //for delete nomination lng
+          $api->post('nominationLng/deleteNominationLngById','\Energy\Api\Controllers\NominationLngController@deleteNominationLngById');
+
+          //approve quantity for truck load
+          $api->post('nominationLng/approve-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
+
+          //reject quantity for truck load
+          $api->post('nominationLng/reject-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@rejectNominationLngById');
+
+          //get available qty
+          $api->post('setting/get-availabel-qty','\Energy\Api\Controllers\BaseController@getAvailabelQty');
+          // $api->post('nominationLng/reject-nomination-lng-qty','\Energy\Api\Controllers\NominationLngController@approveNominationLngById');
+
+          $api->post('nominationLng/saveTruckLoading','\Energy\Api\Controllers\NominationLngController@saveTruckLoading');
+
+          $api->post('nominationLng/getDisabledDates','\Energy\Api\Controllers\NominationLngController@getDisabledDates');
+
+          $api->post('nominationLng/getNominationLngTotals','\Energy\Api\Controllers\NominationLngController@getNominationLngTotals');  
+          $api->post('nominationLng/getBuyerNominationLngTotals','\Energy\Api\Controllers\NominationLngController@getBuyerNominationLngTotals');  
+          
+          $api->post('nominationLng/saveTruckLoading','\Energy\Api\Controllers\NominationLngController@saveTruckLoading');        
+
+          //  Invoice Lng
+
+        $api->post('nominationLng/getNominationLngList','\Energy\Api\Controllers\NominationLngController@getNominationLngList');
+
+        $api->post('invoice/lnginvoicelistbybuyerid', '\Energy\Api\Controllers\InvoiceLngController@getLngInvoiceLisyByBuyerId');
+
+        $api->post('invoice/generatelnginvoicebybuyer','\Energy\Api\Controllers\InvoiceLngController@generateLngInvoiceLisyByBuyerId');
+
+        $api->post('invoice/viewlngbybuyer', '\Energy\Api\Controllers\InvoiceLngController@viewbyBuyer');
+
+         $api->post('invoice/invoiceLngView', '\Energy\Api\Controllers\InvoiceLngController@getInvoiceView');
+
+        $api->post('nomination/getlngbuyerrequestlist', '\Energy\Api\Controllers\NominationLngController@getLngBuyerRequestList');
+        $api->post('nomination/getBuyerAllowedQuantity', '\Energy\Api\Controllers\NominationLngController@getBuyerAllowedQuantity');  
+        $api->post('nomination/getlngbuyerrequestlist', '\Energy\Api\Controllers\NominationLngController@getLngBuyerRequestList');
+
+        $api->post('invoice/generatelnginvoice', '\Energy\Api\Controllers\InvoiceLngController@generateLngInvoice');
+
+        $api->post('invoice/lnginvoiceView', '\Energy\Api\Controllers\InvoiceLngController@getInvoiceView');
+
+        $api->post('dashboard/gettimelinelngdata', '\Energy\Api\Controllers\LngNotificationController@show');
+
+        $api->post('nomination/getBuyerUsedQuantity', '\Energy\Api\Controllers\NominationLngController@getBuyerUsedQuantity');  
 }); 
 
         

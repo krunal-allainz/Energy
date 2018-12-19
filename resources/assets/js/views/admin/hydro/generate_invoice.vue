@@ -67,8 +67,8 @@
         },
         mounted() {
             var vm = this;
-             if(vm.$store.state.Users.userDetails.user_type != '7'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+             if(vm.$store.state.Users.userDetails.user_type != '3'){
+              vm.$root.$emit('logout','You are not authorize to access this page'); 
           }
              vm.loadList = false; 
             let user_type = [] ;
@@ -103,7 +103,7 @@
             {
             	 var vm = this;
                 var consult_list=[];
-                User.generateUserDetailsByType(6,'Active').then(
+                User.generateUserDetailsByType(2,'Active').then(
                      (response) => {
                         let consult_data  = response.data.data;
                         $.each(consult_data, function(key, value) {
@@ -133,7 +133,7 @@
                                   (response)=> {
                                     //console.log(response);
                                     if(response.data.status_code == 200){
-                                        toastr.success('User added successfully', 'Create User', {timeOut: 5000});
+                                        toastr.success('User added successfully', 'User', {timeOut: 5000});
                                         this.initialState();
                                         //localStorage.setItem("user_add",1)
                                        // window.location.reload();

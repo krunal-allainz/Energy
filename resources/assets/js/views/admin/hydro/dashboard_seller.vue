@@ -203,7 +203,9 @@ export default {
                 'total_request':'',
                 'total_approved':'',
                 'total_supplied':'',
+                'total_lng_quantity' : '',
                 'selectedDashbordDate' : moment().format('DD-MM-YYYY'),
+                'today_date':moment().format('DD-MM-YYYY'),
                 'open_supplied_modal':false,
                 'supplied_table_data':{}
         }
@@ -219,8 +221,8 @@ export default {
     },
     mounted: function() {
         let vm =this;
-        if(vm.$store.state.Users.userDetails.user_type != '7'){
-              vm.$root.$emit('logout','You are not authorise to access this page'); 
+        if(vm.$store.state.Users.userDetails.user_type != '3'){
+              vm.$root.$emit('logout','You are not authorize to access this page'); 
           }
         
         vm.chart1Data();
@@ -262,28 +264,47 @@ export default {
          availibility()
         {
             let vm=this;
-            User.createAvailability().then(
-              (response)=> {
-               
-                if(response.data.code == 200){
-                   toastr.success('Availability  added successfully.', 'Availability', {timeOut: 5000});
-                } 
-                else if (response.data.code == 301) {
-                    toastr.error('Availability has been added already.', 'Availability', {timeOut: 5000});
-                }
-                else if (response.data.code == 300) {
-                    toastr.error('Something Went wrong.', 'Availability', {timeOut: 5000});
-                }
-                else
-                {
-                    toastr.error('Something Went wrong.', 'Availability', {timeOut: 5000});
-                }
-                
-              },
-              (error)=>{
-              }
-             )
+            if(vm.today_date<vm.selectedDashbordDate)
+            {
+                User.createAvailability(vm.selectedDashbordDate).then(
+                  (response)=> {
+                   
+                    if(response.data.code == 200){
+                       toastr.success('Availability has been added successfully.', 'Availability', {timeOut: 5000});
+                    } 
+                    else if (response.data.code == 301) {
+                        toastr.error('Already added .', 'Availability', {timeOut: 5000});
+                    }
+                    else if (response.data.code == 300) {
+                        toastr.error('Something went wrong.', 'Availability', {timeOut: 5000});
+                    }
+                    else
+                    {
+                        toastr.error('Something went wrong.', 'Availability', {timeOut: 5000});
+                    }
+                    
+                  },
+                  (error)=>{
+                  }
+                )
+            }
+            else
+            {
+                toastr.error('Wrong date selected', 'Availability', {timeOut: 5000});
+            }
+            
         },
+     // Add GCV for specific date
+        addGcv() {
+            let vm =this;
+            let cur_date = vm.selectedDashbordDate;
+
+             User.addGcv(cur_date).then(
+                (response)=> {
+                    
+                }
+                );
+        },   
        getAvailability(selected_date)
        {
             let vm=this;
@@ -415,7 +436,7 @@ export default {
                 } 
                 else if (response.data.code == 301) {
 
-                    toastr.error('You have alredy updated allocated quantity.', 'Allocated Quantity', {timeOut: 5000});
+                    toastr.error('Allocated quantity already updated.', 'Allocated Quantity', {timeOut: 5000});
                 }
                 else if (response.data.code == 302) {
                     toastr.error('Allocated quantity not added.', 'Allocated Quantity', {timeOut: 5000});
@@ -425,7 +446,7 @@ export default {
                 }
                 else
                 {
-                    toastr.error('Something Went wrong.', 'Allocated Quantity', {timeOut: 5000});
+                    toastr.error('Something went wrong.', 'Allocated Quantity', {timeOut: 5000});
                 }
                 
               },
@@ -442,13 +463,13 @@ export default {
                  (response)=> {
                
                 if(response.data.code == 200){
-                   toastr.success('Generate Invoice Successfully.', 'Generate Invoice', {timeOut: 5000});
+                   toastr.success('Invoice generated successfully.', 'Invoice', {timeOut: 5000});
                 } else if (response.data.code == 300) {
-                    toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                    toastr.error('Something went wrong.', 'Invoice', {timeOut: 5000});
                 }
                 elses
                 {
-                    toastr.error('Something Went wrong.', 'Generate Invoice', {timeOut: 5000});
+                    toastr.error('Something went wrong.', 'Invoice', {timeOut: 5000});
                 }
                 
               },
@@ -599,9 +620,7 @@ export default {
         },
 
     }, 
-    destroyed: function() {
 
-    }
 }
 
 </script>

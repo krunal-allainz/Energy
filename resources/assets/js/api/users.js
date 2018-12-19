@@ -46,6 +46,10 @@ export default {
   getNominationList(page_url,userType,noofRecord,userId,select_date){
      return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
   },
+  getSuppliedLngList(page_url,userType,noofRecord,userId,select_date){
+     return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
+  },
+  
   getNominationListByDate(page_url,data){
      return api.post(page_url,{'nominationData':data});
   },
@@ -77,6 +81,9 @@ export default {
   getNominationDetailsByDate(date){
      return api.post('nomination/getNominationDetailsByDate',{'date':date});
   },
+  getNominationLngDetailsByDate(date){
+     return api.post('nomination/getNominationLngDetailsByDate',{'date':date});
+  },
   generateInvoice(){
     return api.post('invoice/generateinvoice');
   },
@@ -86,8 +93,8 @@ export default {
   generateInvoiceViewByBuyerId(buyerId){
     return api.post('invoice/viewbybuyer', { 'buyerId' : buyerId});
   },
-  createAvailability(){
-     return api.post('availability/createAvailability');
+  createAvailability(selected_date){
+     return api.post('availability/createAvailability',{'selected_date':selected_date});
   },
   getBuyerRequestList(buyerId,requestType,typeInclude){
     return api.post('nomination/getbuyerrequestlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
@@ -119,8 +126,8 @@ export default {
   getNominationDetailsByDateAndId(date,buyerId){
      return api.post('nomination/getNominationDetailsByDateById',{'date':date , 'buyerId' : buyerId});
   },
-  getNominationCountForBuyer(userId){
-     return api.post('nomination/getNominationCountForBuyer',{'userId':userId});
+  getNominationCountForBuyer(userId,selected_date){
+     return api.post('nomination/getNominationCountForBuyer',{'userId':userId,'selected_date':selected_date});
   },
   getAllowedQuantityByBuyerId(userId){
      return api.post('agreement/getAllowedQuantityByBuyerId',{'userId':userId});
@@ -133,5 +140,85 @@ export default {
   },
   checkAvaibilityForQuantityForApprove(nominationDate,nomnationId,nominationQty){
     return api.post('availability/getCheckAvaibilityForQuantity',{ 'currrentDate' : currrentDate ,'nominationDate':nominationDate,'nomnationId' : nomnationId,'nominationQty' : nominationQty});
+  },
+  addGcv(data) {
+    return api.post('gcv/addGcv',{'data':data});
+
+  },
+  isGcvAdded(curDate) {
+    return api.post('gcv/isAdded',{'curDate':curDate});
+  },
+  
+  getNominationLngList(page_url,userType,noofRecord,userId,select_date){
+     return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
+  },
+  getTruckDetailsList(data)
+  {
+      return api.post('truckDetails/getTruckDetailsList',data);
+  },
+  createNominationLng(nominationLngData)
+  {
+      return api.post('nominationLng/createNominationLng',{'nominationLngData':nominationLngData});
+  },
+  editNominationLng(nominationLngData)
+  {
+      return api.post('nominationLng/editNominationLng',{'nominationLngData':nominationLngData});
+  },
+  getNominationLngDetailsById(id) {
+      return api.post('nominationLng/getNominationLngDetailsById',{'id':id})
+  },
+  deleteNominationLngById(id){
+      return api.post('nominationLng/deleteNominationLngById',{'id':id});
+  },
+  approveQuatityForTruckLoad(data){
+    return api.post('nominationLng/approve-nomination-lng-qty',{'data':data});
+  },
+  rejectQuatityForTruckLoad(data){
+    return api.post('nominationLng/reject-nomination-lng-qty',{'data':data});
+  },
+  getAvailableQty(data){
+   return api.post('setting/get-availabel-qty',{'data':data}); 
+  },
+  saveTruckLoading(data) {
+    return api.post('nominationLng/saveTruckLoading',{'data':data});
+  },
+  getDisabledDates(data) {
+    return api.post('nominationLng/getDisabledDates',{'data':data});
+  },
+  getNominationLngTotals(date){
+    return api.post('nominationLng/getNominationLngTotals',{'date':date});
+  },
+  getBuyerNominationLngTotals(buyerId,date){
+    return api.post('nominationLng/getBuyerNominationLngTotals',{'buyerId' : buyerId,'date':date});
+  },
+  getNominationLngList(page_url,userType,noofRecord,userId,select_date){
+     return api.post(page_url,{'userType':userType,'noofRecord':noofRecord,'userId':userId,'selectedDate':select_date});
+  },
+  getLngInvoiceDataByBuyerId(buyerId,noOfpage,pageUrl){
+     return api.post(pageUrl,{'buyerId':buyerId ,'noOfpage' : noOfpage});
+  },
+  getLngInvoiceHtml(id){
+     return api.post('invoice/lnginvoiceView',{ 'id' : id });
+  },
+  getBuyerLngRequestList(buyerId,requestType,typeInclude){
+    return api.post('nomination/getlngbuyerrequestlist',{'buyerId' : buyerId,'requestType' : requestType,'typeInclude' : typeInclude});
+  },
+  generateLngInvoiceViewByBuyerId(buyerId){
+    return api.post('invoice/viewlngbybuyer', { 'buyerId' : buyerId});
+  },
+  generateLngInvoiceByBuyerId(buyerId,sellerId,invoiceData,invoiceDataIndex,invoiceHtml,requestList,agreementData){
+     return api.post('invoice/generatelnginvoicebybuyer', { 'buyerId' : buyerId, 'sellerId' : sellerId ,'invoiceData' : invoiceData , 'invoiceDataIndex' : invoiceDataIndex , 'invoiceHtml' : invoiceHtml , 'requestList' : requestList, 'agreementData' : agreementData});
+  },
+  getBuyerAllowedQuantity(buyerId){
+    return api.post('nomination/getBuyerAllowedQuantity', { 'buyerId' : buyerId});
+  },
+  generateLngInvoice(){
+    return api.post('invoice/generatelnginvoice');
+  },
+  getTimelineLngData(userType,userId){
+      return api.post('dashboard/gettimelinelngdata',{'userType' :userType,'userId' : userId});
+  },
+  getBuyerUsedQuantity(requestDate,buyerId){
+    return api.post('nomination/getBuyerUsedQuantity', { 'requestDate': requestDate,'buyerId' : buyerId});
   }
 }

@@ -11,6 +11,7 @@ import Users from './modules/users'
 
 //for nomination
 import Nomination from './modules/nomination'
+import NominationLng from './modules/nominationLng'
 
 import createPersistedState from 'vuex-persistedstate'
 // import VuexPersist from 'vuex-persist';
@@ -21,6 +22,8 @@ const debug = process.env.NODE_ENV !== 'production'
 
 const state = {
   isAdmin:'',
+  'dashboard_type':'',
+  'selected_date':moment().format('DD-MM-YYYY')
 }
 
 // const vuexLocalStorage = new VuexPersist({
@@ -34,6 +37,13 @@ const state = {
 
 
 const mutations = {
+  [types.SET_DASHBOARD_TYPE] (state, dashboardType) {
+      state.dashboard_type = dashboardType;
+  },
+  [types.SET_SELECTED_DATE] (state, selectedDate) {
+      state.selected_date = selectedDate;
+  }
+
 }
 export default new Vuex.Store({
   state,
@@ -45,6 +55,8 @@ export default new Vuex.Store({
   modules: {
     Users,
     Nomination,
+    NominationLng,
+
     // Pitch,
     // Users
   },

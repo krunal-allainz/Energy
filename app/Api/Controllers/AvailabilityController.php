@@ -24,10 +24,11 @@ class AvailabilityController extends Controller
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function createAvailability()
+    public function createAvailability(Request $request)
     {
-        
-        $add_Availability=$this->avlObj->create();
+        $selected_date=$request->selected_date;
+        $date =Carbon::createFromFormat('d-m-Y',$selected_date )->format('Y-m-d');
+        $add_Availability=$this->avlObj->create($date);
         if($add_Availability['code']==200)
         {
             return ['code' => 200 ,'data'=>$add_Availability,'message'=>'Availability successfully added.'];

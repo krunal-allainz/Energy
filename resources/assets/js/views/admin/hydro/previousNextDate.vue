@@ -4,12 +4,12 @@
         <div class="">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <button class="btn btn-info" @click="getPrevoiusDate()">Previous Day</button> <button class="btn btn-info" :disabled="selectedDate==disabledDate" @click="getNextDate()">Next Day</button>
+                    <button class="btn btn-info" @click="getPrevoiusDate()">Previous Day</button> <button class="btn btn-info"  @click="getNextDate()">Next Day</button>
                 </div>
             </div>
         </div>
         <br/>
-		
+		  
 	</section>
 </template>
 	
@@ -29,8 +29,9 @@ export default {
         let vm=this;
         vm.initData();
         vm.$root.$emit('changeDashbordDate',vm.selectedDate);
-            vm.$root.$emit('setDate',vm.selectedDate);
-
+        vm.$root.$emit('setDate',vm.selectedDate);
+            vm.$store.dispatch('setSelectedDate',vm.selectedDate);
+        
     },
     components: {
            
@@ -57,6 +58,8 @@ export default {
             toastr.success('Your selected date is : '+vm.selectedDate+'.', 'Dashboard', {timeOut: 1500});
             vm.$root.$emit('changeDashbordDate',vm.selectedDate);
             vm.$root.$emit('setDate',vm.selectedDate);
+            vm.$store.dispatch('setSelectedDate',vm.selectedDate);
+            
 
         },
         getNextDate(){
@@ -66,7 +69,7 @@ export default {
              toastr.success('Your selected date is : '+vm.selectedDate+'.', 'Dashboard', {timeOut: 1500});
             vm.$root.$emit('changeDashbordDate',vm.selectedDate);
             vm.$root.$emit('setDate',vm.selectedDate);
-
+            vm.$store.dispatch('setSelectedDate',vm.selectedDate);
         },
     },
     
