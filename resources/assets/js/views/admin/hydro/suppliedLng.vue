@@ -64,7 +64,7 @@
                         		</tr>
                   			</thead>
                   			<tbody data-v-744e717e=""  v-for="nominationLngData in getSuppliedLngData">
-                  				 <tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId">
+                  				 <tr data-v-744e717e="" :id="'presp_'+nominationLngData.nId" v-show="(nominationLngData.lng_status != 'rejected')">
                   				 	<td data-v-744e717e="" class="text-uppercase">
                        					{{ nominationLngData.truck_detail[0].truck_company }} ({{ nominationLngData.truck_detail[0].truck_no }})
                       			</td>
