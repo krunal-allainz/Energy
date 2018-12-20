@@ -151,6 +151,11 @@
           return new Date('1970/01/01 ' + a.lngTime) - new Date('1970/01/01 ' + b.lngTime);
         }
       });
+      setTimeout(function(){
+        console.log('gg')
+        vm.getTotalQty(vm.getNominationLngData);
+      },1000);
+        
 
       // vm.getNominationLngDataUpdated = _.sortBy(DataUpdated, [function(o) { return moment(o.quantity); },['desc']]);
       // console.log(vm.getNominationLngDataUpdated,'hhh');
@@ -253,7 +258,7 @@
                       }
                       this.$root.$emit('getTotalQty',vm.getNominationLngData);
                       this.$root.$emit('getNominationLngList',data);
-                      vm.getTotalQty();
+                      vm.getTotalQty(vm.getNominationLngData);
                       // vm.totalRequestedQty =  this.$parent.totalRequestedQty;
                     //vm.totalApproveQty = this.$parent.totalApproveQty;
                 },

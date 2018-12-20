@@ -200,8 +200,12 @@
                 vm.getNominationLngData = response.data.data.data;
                 vm.gerDataForPaggination = response.data.data;
                 vm.getTotalQty(vm.getNominationLngData);
-                if(vm.totalApproveQty > 0){
+                console.log(vm.totalApproveQty,vm.getNominationLngData.length,'kk');
+                if(vm.totalApproveQty > 0 || vm.getNominationLngData.length == 0){
                   vm.displayApprove = true;
+                } else {
+                  vm.displayApprove = false;
+
                 }
                 vm.loadList = true;
                 
