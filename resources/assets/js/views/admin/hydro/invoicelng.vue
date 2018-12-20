@@ -175,11 +175,7 @@
                                     
                                     <td class="emptyrow text-right" colspan="2">
                                         <strong>
-<<<<<<< HEAD
                                             <b>Total Price To Custome: &nbsp;</b>
-=======
-                                            <b>Total price to customer: &nbsp;</b>
->>>>>>> c273f86b0d3d552efb89fdfc482539d7c928044b
                                         </strong>
                                     </td>
                                     <td class="highrow text-right">
@@ -298,17 +294,18 @@
                                  'total_supply_qty_with_gcv' : total_supply_qty_with_gcv,
                                 });
                             }); 
-                            $.each(request_data.updatedstatusreuestlist, function(key,value) {
-                                  var update_request_list = [];
-                                  $.each(value, function(index,data) {
-                                    let uNID = data.nid ;
+                            var update_request_list = [];
+                            $.each(request_data.updateList, function(key,value) {
+                                  
+                                  // $.each(value, function(index,data) {
+                                    let uNID = value.nid ;
                                     update_request_list.push({
                                      'nid':uNID,
                                     
-                                    });
+                                   //});
                                 
                                  });
-                               vm.updaterequestList[key] = update_request_list;
+                               vm.updaterequestList= update_request_list;
 
                                  });
                             $.each(request_data.requestList, function(key,value) {

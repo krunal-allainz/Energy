@@ -194,6 +194,7 @@ use Auth;
                 $result['requestList'][$getRequestList][$lngDate]['quantityRequired'] =$request->quantity; 
                 $result['requestList'][$getRequestList][$lngDate]['approveQuntity'] =$request->approve_quantity;
                  if(($count%4) == 0){
+                    $result['updateList'] = $result['updatedstatusreuestlist'][$getRequestList];
                     $getRequestList = $getRequestList + 1;
                     $supplidQty = $total_supplied_qty;
                     $getsupplyQty = 0;
@@ -276,14 +277,19 @@ use Auth;
             $this->lngNotificationRepoObj->insert($dataId,$type,$dataUserId,$dataText,$title,$dataTable,$addedBy,$nomination_date);
         // dd($updateRequestList);
         foreach($updateRequestList as $req){
-            $nid = 0;
-                if($req!='' ||$req!=NULL ) {
+             $nid = 0;
+            $nid =  $req['nid'];
+           $this->nominationLngRepoObj->updateRequeststatus('invoice', $nid); 
+             // $nid = 0;
+             //    if($req!='' ||$req!=NULL ) {
 
-                    foreach($req as $val){
-                        $nid =  $val['nid'];
-                      $this->nominationLngRepoObj->updateRequeststatus('invoice', $nid); 
-                    }
-                }
+             //        foreach($req as $val){
+                      
+                     
+             //        }
+                    
+             //    }
+
             // echo $key['nid'];
         }
          
