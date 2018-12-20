@@ -101,10 +101,11 @@ class InvoiceLngController extends Controller
         $invoiceHtml =  $request->invoiceHtml;
         $requestList = $request->all()['requestList'];
         $agreementData = $request->all()['agreementData'];
+        $updateRequestList = $request->all()['updaterequestList'];
         $buyerId = $request->buyerId;
         $sellerId = $request->sellerId;
          
-        $invoice=$this->invLngObj->generateLngInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata[$invoiceGenerateNo],$invoiceHtml,$requestList[$invoiceGenerateNo+1],$agreementData);
+        $invoice=$this->invLngObj->generateLngInvoiceLisyByBuyerId($buyerId,$sellerId,$invoicedata[$invoiceGenerateNo],$invoiceHtml,$requestList[$invoiceGenerateNo+1],$agreementData,$updateRequestList);
         if($invoice)
         {
             return ['code' => 200 ,'data'=>$invoice,'message'=>'Invoce generate successfully'];
