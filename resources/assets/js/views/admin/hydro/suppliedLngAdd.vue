@@ -324,11 +324,17 @@
             },   
             editValidateBeforeSubmit() {
                 let vm = this;
-                if ((vm.nominationLngData.gross_weight == 0.00) || (parseInt(vm.nominationLngData.gross_weight) <= parseInt(vm.nominationLngData.tare_weight ))) {
-                    toastr.error('Gross weight must not less than Tare weight.', 'Update Nomination', {timeOut: 5000});
+                if (vm.nominationLngData.gross_weight == 0.00 ||vm.nominationLngData.gross_weight == null) {
 
+                } else {
+                    if(parseInt(vm.nominationLngData.gross_weight) <= parseInt(vm.nominationLngData.tare_weight )) {
+                          toastr.error('Gross weight must not less than Tare weight.', 'Update Nomination', {timeOut: 5000});
                     return false;
+
+                    }
                 }
+
+
                 jQuery('.js-loader').removeClass('d-none');
 
                 this.addGcv();
