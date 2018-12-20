@@ -120,7 +120,7 @@
                       </td>
 
                       <td class="text-center">
-                        <a href="" @click="generateInvoiceDetail(buyerId)" class="btn btn-info">Generate Invoice</a>
+                        <a @click="generateInvoiceDetail(buyerId)" class="btn btn-info">Generate Invoice</a>
                       </td>
 
                     </tr>
