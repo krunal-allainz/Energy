@@ -23,7 +23,7 @@
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
                       <th style="width: auto;" v-show="(totalApproveQty > 0)">
-                        Appove Quantity (KG) 
+                        Approve Quantity (KG) 
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
                       <th style="width: auto;" v-show="(displayApprove == false)">
@@ -103,7 +103,7 @@
   import _ from 'lodash';
 
 	export default {
-     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','displayApprove'],
+     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','displayApprove','totalApproveQty1'],
 		 data() {
 
 		 	return {
@@ -152,8 +152,8 @@
         }
       });
       setTimeout(function(){
-        console.log('gg')
-        vm.getTotalQty(vm.getNominationLngData);
+        vm.totalApproveQty = vm.totalApproveQty1;
+        // vm.getTotalQty(vm.getNominationLngData);
       },1000);
         
 
