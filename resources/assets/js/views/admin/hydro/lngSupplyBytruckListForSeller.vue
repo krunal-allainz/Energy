@@ -22,7 +22,7 @@
                         Quantity (KG) 
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
-                      <th style="width: auto;" v-show="(totalApproveQty > 0 )">
+                      <th style="width: auto;" v-show="(totalApproveQty > 0)">
                         Appove Quantity (KG) 
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
