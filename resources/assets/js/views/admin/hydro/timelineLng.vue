@@ -22,7 +22,6 @@
                                                         <!-- <span v-if="data.dataTable=='nomination_request'"> -->
                                                         <span>
                                                           <a class="text-info point"><h4 class="timeline-title">{{data.title}}</h4></a>
-                                                        
                                                         </span>
                                                         
                                                         <p>
