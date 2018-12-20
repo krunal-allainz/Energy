@@ -271,7 +271,7 @@ export default {
             vm.$store.dispatch('SetNominationDate',''); 
             vm.$store.dispatch('SetNominationPage','');
             vm.$store.dispatch('SetNominationId','');
-            vm.$router.push({'name':'nomination_lpg_list'});
+            vm.$router.push({'name':'nomination_lng_list'});
         },
         close_modal()
         {
