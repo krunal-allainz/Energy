@@ -78,8 +78,8 @@
                                         <td class="text-right">{{request.total_date_supplied_Qty * request.gcv_value}} MMBTU</td>
 
                                     </tr>
-                                    <tr><td class="text-center"><strong>Total</strong></td>
-                                        <td class="text-left" colspan="4"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td>
+                                    <tr><td class="text-center" colspan="5"><strong>Total</strong></td>
+                                       <!--  <td class="text-left" colspan="4"><strong>Net Quantity</strong> &nbsp;&nbsp;&nbsp;<span v-text="setNumberFormat(invData.supplied_quantity)"></span> </td> -->
                                        
                                          <!-- <td colspan="2" class="text-center"></td> -->
                                         <td class="text-right">
