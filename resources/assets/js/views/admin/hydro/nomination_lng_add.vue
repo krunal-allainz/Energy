@@ -94,9 +94,9 @@
                          
                                 </div>
                                 <div class="text-right text-danger">
-                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{selected_date}} Date List.</strong> 
+                    <strong>Notice:</strong> <strong>Disable selection Of truck Suggest the truck is already added for {{selected_date}}.</strong> 
                 </div>
-                                <label class="text-danger right">Maximum allowed quantity {{ totalAllowedQuantity ? totalAllowedQuantity : 0 }}</label> 
+                                <label class="text-danger right">Maximum allowed quantity {{ totalAllowedQuantity ? totalAllowedQuantity : 0 }} Kg.</label> 
                         </div>
                 </div>
             </div>

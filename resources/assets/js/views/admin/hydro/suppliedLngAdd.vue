@@ -324,12 +324,17 @@
             },   
             editValidateBeforeSubmit() {
                 let vm = this;
-                
-                if ((vm.nominationLngData.gross_weight != 0.00) && (vm.nominationLngData.gross_weight <= vm.nominationLngData.tare_weight )) {
-                    toastr.error('Gross weight must not less than Tare weight', 'Update Nomination', {timeOut: 5000});
+                if (vm.nominationLngData.gross_weight == 0.00 ||vm.nominationLngData.gross_weight == null) {
 
+                } else {
+                    if(parseInt(vm.nominationLngData.gross_weight) <= parseInt(vm.nominationLngData.tare_weight )) {
+                          toastr.error('Please add proper gross weight.', 'Truck loading', {timeOut: 5000});
                     return false;
+
+                    }
                 }
+
+
                 jQuery('.js-loader').removeClass('d-none');
 
                 this.addGcv();
@@ -351,7 +356,6 @@
                                         }
                                          vm.$root.$emit('suppliedLngSuccess');
                                         //this.initialState();
-                                        
                                     }
                                     else if (response.data.code == 300) {
                                         toastr.error(response.data.message, 'Nomination', {timeOut: 5000});
@@ -359,7 +363,7 @@
                                     }
                                     else
                                     {
-                                        toastr.error('Something went wrong.', 'Update Nomination', {timeOut: 5000});
+                                        toastr.error('Something went wrong.', 'Truck loading', {timeOut: 5000});
                                     }
                                     
                                   },

@@ -15,7 +15,7 @@
         </div>
   		
 
-              <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :displayApprove="displayApprove" :availableQty='availableQty' ></lngSupplyBytruckListForSeller>
+              <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :displayApprove="displayApprove" :availableQty='availableQty' :totalApproveQty1="totalApproveQty" ></lngSupplyBytruckListForSeller>
 
                  <div  class="text-right">
                     <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()"  v-show="(displayApprove == false)">Approve</button>
@@ -92,7 +92,7 @@
         methods: {
           totalApprovedQuantity(qty) {
             let vm =this;
-            vm.totalApproveQty = qty;
+            // vm.totalApproveQty = qty;
           },
           totalRequestedQuantity(qty) {
            let vm =this;
@@ -151,12 +151,13 @@
             $.each(data,function(key,value){
                 if(value.status != 'rejected'){
                     totalRequest = parseInt(totalRequest) + parseInt(value.quantity);
-                    if(value.approve_quantity != null && value.approve_quantity != 0){
+                    if(value.approve_quantity != null && value.approve_quantity != 0.00){
                         totalApprove = parseInt(totalApprove) + parseInt(value.approve_quantity);
                       }
                   }
 
             });
+                      console.log(totalApprove,'ta');
 
             vm.totalRequestedQty = totalRequest;
             vm.totalApproveQty = totalApprove;
@@ -200,8 +201,12 @@
                 vm.getNominationLngData = response.data.data.data;
                 vm.gerDataForPaggination = response.data.data;
                 vm.getTotalQty(vm.getNominationLngData);
-                if(vm.totalApproveQty > 0){
+                console.log(vm.totalApproveQty,vm.getNominationLngData.length,'kk');
+                if(vm.totalApproveQty > 0 || vm.getNominationLngData.length == 0){
                   vm.displayApprove = true;
+                } else {
+                  vm.displayApprove = false;
+
                 }
                 vm.loadList = true;
                 
@@ -243,7 +248,11 @@
                          
                           vm.getNominationLngList('/nominationLng/getNominationLngList',vm.selectedDate);
                            vm.getTotalQty(vm.getNominationLngData);
+                            vm.loadList = false;
 
+                           setTimeout(function(){
+                            vm.loadList = true;
+                           },1500)
                       }
                       if(response.data.code == 250){
 

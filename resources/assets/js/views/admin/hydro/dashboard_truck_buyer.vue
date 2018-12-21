@@ -28,7 +28,7 @@
 	<div class="row">
          <div class="col-sm-6 col-md-6 col-xl-3">
                 <div class="flip">
-                     <a  @click="nomination_lpg()" title="Add Nomination LPGS">
+                     <a  @click="nomination_lng()" title="Add Nomination LNG">
                         <div class="widget-bg-color-icon card-box front">
                             <div class="bg-icon float-left">
                                <i class="fas fa-charging-station"></i>
@@ -216,13 +216,13 @@ export default {
         );
     },
     methods: {
-        nomination_lpg()
+        nomination_lng()
         {
             let vm=this;
             /*vm.$store.dispatch('SetNominationDate',''); 
             vm.$store.dispatch('SetNominationPage','');
             vm.$store.dispatch('SetNominationId','');*/
-            vm.$router.push({'name':'nomination_lpg_list'});
+            vm.$router.push({'name':'nomination_lng_list'});
         },
         nomination_page()
         {

@@ -22,8 +22,8 @@
                         Quantity (KG) 
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
-                      <th style="width: auto;" v-show="(totalApproveQty > 0 )">
-                        Appove Quantity (KG) 
+                      <th style="width: auto;" v-show="(totalApproveQty > 0)">
+                        Approve Quantity (KG) 
                       <i data-v-744e717e="" class="fa float-right"></i> 
                     </th>
                       <th style="width: auto;" v-show="(displayApprove == false)">
@@ -103,7 +103,7 @@
   import _ from 'lodash';
 
 	export default {
-     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','displayApprove'],
+     props : ['gerDataForPaggination','getNominationLngData','selectedDate','edit','availableQty','displayApprove','totalApproveQty1'],
 		 data() {
 
 		 	return {
@@ -151,6 +151,11 @@
           return new Date('1970/01/01 ' + a.lngTime) - new Date('1970/01/01 ' + b.lngTime);
         }
       });
+      setTimeout(function(){
+        vm.totalApproveQty = vm.totalApproveQty1;
+        // vm.getTotalQty(vm.getNominationLngData);
+      },1000);
+        
 
       // vm.getNominationLngDataUpdated = _.sortBy(DataUpdated, [function(o) { return moment(o.quantity); },['desc']]);
       // console.log(vm.getNominationLngDataUpdated,'hhh');
@@ -253,7 +258,7 @@
                       }
                       this.$root.$emit('getTotalQty',vm.getNominationLngData);
                       this.$root.$emit('getNominationLngList',data);
-                      vm.getTotalQty();
+                      vm.getTotalQty(vm.getNominationLngData);
                       // vm.totalRequestedQty =  this.$parent.totalRequestedQty;
                     //vm.totalApproveQty = this.$parent.totalApproveQty;
                 },
