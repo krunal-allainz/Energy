@@ -134,8 +134,12 @@ use Auth;
         $tax_rate = $agreementData->tax_rate;
         // $external_fuel_type = $agreementData->external_fuel_type;
         // $external_fuel_type_rate = $agreementData->external_fuel_type_rate;
-        $perMMbt = 20;
-        $convertCurrency = 72;
+        if($buyerId == 2){
+            $perMMbt = 20;
+        }else if($buyerId == 3){
+            $perMMbt = 15;    
+        }
+         $convertCurrency = 72;
         $requestTypeNot = array('invoice','pending','rejected');
         $requestList = $this->nominationLngRepoObj->getLngBuyerRequestList($buyerId,$requestTypeNot,'no','yes');
       
