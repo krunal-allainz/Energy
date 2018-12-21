@@ -13,16 +13,14 @@
             <previousNextDate></previousNextDate>
           </div>
         </div>
-  		
 
               <lngSupplyBytruckListForSeller  :selectedDate='selectedDate'  v-if="(loadList == true)"  :getNominationLngData='getNominationLngData'  :gerDataForPaggination='gerDataForPaggination' :edit='edit' :displayApprove="displayApprove" :availableQty='availableQty' ></lngSupplyBytruckListForSeller>
 
-                 <div  class="text-right">
+                <div  class="text-right">
                     <button type="button" value="Approve" class="btn btn-success" name="btnApprove" @click="approveQuantity()"  v-show="(displayApprove == false)">Approve</button>
                     <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="editQuantity()" v-if="(edit == false && displayApprove == false)">Edit</button >
                     <button type="button" value="Edit" class="btn btn-default" name="btnEdit" @click="cancleQuantity()" v-if="(edit == true && displayApprove == false)">cancle</button>
                 </div>
-
   	</div>
   </div>
 </template>

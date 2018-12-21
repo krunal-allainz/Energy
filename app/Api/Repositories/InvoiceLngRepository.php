@@ -168,8 +168,8 @@ use Auth;
                     }
                     
                       $dateWiseQtyTotal = $dateWiseQtyTotal +  $request->supplied_quantity;
-                     
                       $count++;
+                    
                 }else{
                     $dateWiseQtyTotal = $dateWiseQtyTotal +  $request->supplied_quantity;
                     // echo "<pre>";print_r($request->nId);echo"</pre>";
@@ -193,8 +193,10 @@ use Auth;
                
                 $result['requestList'][$getRequestList][$lngDate]['quantityRequired'] =$request->quantity; 
                 $result['requestList'][$getRequestList][$lngDate]['approveQuntity'] =$request->approve_quantity;
+
                  if(($count%4) == 0){
                     $result['updateList'] = $result['updatedstatusreuestlist'][$getRequestList];
+
                     $getRequestList = $getRequestList + 1;
                     $supplidQty = $total_supplied_qty;
                     $getsupplyQty = 0;
@@ -222,6 +224,8 @@ use Auth;
                     $total_supplied_qty = 0;
 
                  } 
+                 
+                  
              }
         }
           

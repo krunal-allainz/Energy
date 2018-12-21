@@ -250,7 +250,6 @@
         },
         mounted() {
             var vm = this;
-           
            jQuery('.tipso_style').tipso({
                 position: 'top',
                 background: '#2574A9',
