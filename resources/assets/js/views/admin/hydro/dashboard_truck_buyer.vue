@@ -36,7 +36,7 @@
                             </div>
                             <div class="text-right">
                             <h3><b>LNG Nomination</b></h3>
-                            <h3 class="text-dark"><b>{{ buyerDashboardData.LngTotal }}</b></h3>
+                            <h3 class="text-dark"><b>{{ buyerDashboardData.LngTotal }} Kg</b></h3>
                             <p>For Date:{{buyerDashboardData.requestDate}}</p>
                             </div>
                             <div class="clearfix"></div>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="text-right">
                             <h3><b>Scheduled Quantity</b></h3>
-                            <h3 class="text-dark"><b id="widget_count3">{{ buyerDashboardData.ApprovedLngTotal }}</b></h3>
+                            <h3 class="text-dark"><b id="widget_count3">{{ buyerDashboardData.ApprovedLngTotal }} Kg</b></h3>
                             <p>For Date:{{buyerDashboardData.approvedDate}}</p>
                         </div>
                         <div class="clearfix"></div>
@@ -91,7 +91,7 @@
                         <div class="text-right">
                             <h3><b>Truck Loading</b></h3>
                             <h3 class="text-dark"><b id="widget_count3">
-                                {{buyerDashboardData.SuppliedQuantity}} </b></h3>
+                                {{buyerDashboardData.SuppliedQuantity}} Kg</b></h3>
                             <p>For Date:{{ buyerDashboardData.supplyDate }}</p>
 
                         </div>
