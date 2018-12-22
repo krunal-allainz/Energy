@@ -76,13 +76,13 @@
                               {{nominationLngData.lngTime}}
                             </td>
                             <td data-v-744e717e="" class="text-uppercase">
-                               {{nominationLngData.approve_quantity}}
+                               {{nominationLngData.approve_quantity}} Kg
                             </td>
-                            <td class="" >
+                            <td class="" > 
                       					<!-- <a href="javascript:void(0)" v-if="today_date==setLngDate(nominationLngData.lngDate)"> <i class="fa fa-remove text-danger mr-3 text-info mr-3" @click="removeNominationLng(nominationLngData.nId)" title="Nomination Delete"></i></a> -->
 
                                 <a  href="javascript:void(0)"v-if="nominationLngData.tare_weight == '0.00'"  @click="setNominationId(nominationLngData.id,'tare_weight')" title="Add Tare Weight"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a> 
-                                <a v-else>{{nominationLngData.tare_weight}} </a>
+                                <a v-else>{{nominationLngData.tare_weight}} Kg </a>
                             </td>
                             <td >
                                 <a  href="javascript:void(0)" v-if="nominationLngData.tare_weight != '0.00' && nominationLngData.gross_weight == '0.00'" @click="setNominationId(nominationLngData.id,'gross_weight')" title="Add Gross Weight"> <i class="fa fa-pencil text-info mr-3 text-info mr-3" ></i></a>
@@ -166,10 +166,10 @@
     },
 		 methods:{
       setText(data){
-        if(data == '0.00'){
+        if(data == '0.00' || data == null  ){
           return 'Awaiting data';
         }
-        return data;
+        return data+' Kg';
       },
        suppliedLng() {
        let vm = this;
