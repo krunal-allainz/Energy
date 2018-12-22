@@ -36,7 +36,7 @@
                             </div>
                             <div class="text-right">
                                 <h3><b>LNG Nomination</b></h3>
-                                <h3 class="text-dark"><b>{{sellerDashboadData.LngTotal}}</b></h3>
+                                <h3 class="text-dark"><b>{{sellerDashboadData.LngTotal}} Kg</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="text-right">
                                 <h3><b><a href="/lng_supply_bytruck_list">Scheduled Quantity</a></b></h3>
-                                <h3 class="text-dark"><b>{{sellerDashboadData.ApprovedLngTotal}}</b></h3>
+                                <h3 class="text-dark"><b>{{sellerDashboadData.ApprovedLngTotal}} Kg</b></h3>
                                  <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="text-right">
                                 <h3><b>Truck Loading</b></h3>
-                                <h3 class="text-dark"><b>{{sellerDashboadData.SuppliedQuantity}}</b></h3>
+                                <h3 class="text-dark"><b>{{sellerDashboadData.SuppliedQuantity}} Kg</b></h3>
                                 <p>For Date:{{selectedDashbordDate}}</p>
                             </div>
                             <div class="clearfix"></div>
@@ -612,7 +612,7 @@ export default {
                             '#173f6d',
                             
                         ],
-                        label: 'LNG Allocation'
+                        label: 'LNG Allocation (In Kg)'
                     }
                     ],
                     labels: [
