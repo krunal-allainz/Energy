@@ -78,11 +78,11 @@
                       <td data-v-744e717e="" class="text-right" colspan="3">
                       	Pending
                       </td>
-
-                      <td class="text-center">
-                      	<a @click="generateInvoiceDetail(buyerId)"  class="btn btn-info">Generate Invoice</a>
+                    </tr>
+                    <tr v-show="generateInvoice == true" v-if="user_type==3">
+                      <td class="text-right" colspan="5">
+                        <a @click="generateInvoiceDetail(buyerId)"  class="btn btn-info">Generate Invoice</a>
                       </td>
-
                     </tr>
                   </tbody>
                 </table>	
@@ -107,23 +107,28 @@
                 </div>
                </div>
             </div>
-            <div v-else>
+            <div v-else class="table-responsive">
             
 
-                <table>
+                <table class="table">
+                  <thead>
                  <tr  v-show="generateInvoice == true" v-if="user_type==3">
-                      <td data-v-744e717e="" class="">
+                      <th data-v-744e717e="" class="">
                         #
-                      </td>
-                      <td data-v-744e717e="" class="text-right" colspan="3">
+                      </th>
+                      <th data-v-744e717e="" class="text-right" colspan="3">
                         Pending
-                      </td>
+                      </th>
+                    </tr>
+                    </thead>
 
-                      <td class="text-center">
+                    <tbody>
+                    <tr v-show="generateInvoice == true" v-if="user_type==3">
+                       <td class="text-right" colspan="5">
                         <a @click="generateInvoiceDetail(buyerId)" class="btn btn-info">Generate Invoice</a>
                       </td>
-
                     </tr>
+                    </tbody>
                     </table>
                       <h6 class="card-header mt-3"  v-show="generateInvoice == false">
                <div>No records available</div>

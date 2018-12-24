@@ -24,7 +24,6 @@
                                     <option data-v-744e717e="" value="20">20</option>
                                     <option data-v-744e717e="" value="50">50</option>
                                 </select>
-                           
                         </div>
               		</div>
               		<div data-v-744e717e="" class="table-responsive">
@@ -47,8 +46,6 @@
                                   Approved Quantity
                                   <i data-v-744e717e="" class="fa float-right"></i> 
                                 </th>
-                                
-                               
                         			 <th data-v-744e717e="" class="sortable" style="width: auto;" >
                            				 Tare weight
                             			<i data-v-744e717e="" class="fa float-right"></i>

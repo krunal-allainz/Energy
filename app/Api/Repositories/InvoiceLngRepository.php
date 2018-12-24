@@ -134,8 +134,12 @@ use Auth;
         $tax_rate = $agreementData->tax_rate;
         // $external_fuel_type = $agreementData->external_fuel_type;
         // $external_fuel_type_rate = $agreementData->external_fuel_type_rate;
-        $perMMbt = 20;
-        $convertCurrency = 72;
+        if($buyerId == 2){
+            $perMMbt = 20;
+        }else if($buyerId == 3){
+            $perMMbt = 15;    
+        }
+         $convertCurrency = 72;
         $requestTypeNot = array('invoice','pending','rejected');
         $requestList = $this->nominationLngRepoObj->getLngBuyerRequestList($buyerId,$requestTypeNot,'no','yes');
       
@@ -145,34 +149,79 @@ use Auth;
         $count = 0;
         $total_supplied_qty = 0;
         $getRequestList = 1;
-        $getsupplyQty = 0;
+        $getsupplyQty = 1;
         $total_supply_qty_with_gcv = 0;
         $dateWiseQtyTotal = 0;
         $sameDate = '';
         $cnt =0;
+        $genrateInvoice = 0;
+        $nextRecordCnt = 0;
+       
+        $totallngRequest = count($requestList);
         // dd($requestList);
-        foreach($requestList as $request){
+        foreach($requestList as $key=> $request){
            $cnt++;
+            
+         //  echo $key;
+           // dd($requestList );
+           $nextRecordCnt = $count;
             $getsupplyQty = $request->supplied_quantity;
             if($getsupplyQty != null && $getsupplyQty != 0.00){
                 $lngDate = $request->lngDate;
+                
                 if($sameDate != $lngDate){
                     // echo $sameDate."<br>".$lngDate;
-                    $sameDate = $lngDate;
+                  
                     $dateWiseQtyTotal =0;
                      $supply_qty_with_gcv = 0;
                     $gcvValue = 1;
+                    $genrateInvoice = 1;
                     $gvcValueByDate = GcvController::getGcvByDate($lngDate);
                     if($gvcValueByDate != 0){
                       $gcvValue =  $gvcValueByDate; 
                     }
                     
                       $dateWiseQtyTotal = $dateWiseQtyTotal +  $request->supplied_quantity;
-                     
                       $count++;
+
+                    
                 }else{
+                    $genrateInvoice = 0;
                     $dateWiseQtyTotal = $dateWiseQtyTotal +  $request->supplied_quantity;
                     // echo "<pre>";print_r($request->nId);echo"</pre>";
+                }
+                
+                 if(($count%4) == 0){
+                   $genrateInvoice = count($result['requestList'][$getRequestList]);
+                     if($nextRecordCnt  == $count && $sameDate == $lngDate && $genrateInvoice <= 4){
+                       // echo ' 1 !!$sameDate '.$sameDate.' ==  $lngDate'.$lngDate;
+                             $getRequestList = $getRequestList;
+                             $invoiceNo = $invoiceNo;
+                    }else if($sameDate != $lngDate && $nextRecordCnt  != $count  && $genrateInvoice <= 4){
+                     
+     
+                          
+                                $getRequestList = $getRequestList  ;
+                                $invoiceNo = $invoiceNo;
+                          
+                        
+                    }
+                    else{
+                          $getRequestList = $getRequestList + 1 ;
+                             $invoiceNo = $invoiceNo + 1;
+                    }
+                }else{
+                    
+                    if(isset($result['requestList'][$getRequestList])){
+                         $genrateInvoice = count($result['requestList'][$getRequestList]);
+                         if($genrateInvoice == 4){
+                             $getRequestList = $getRequestList + 1 ;
+                             $invoiceNo = $invoiceNo + 1;
+                         }
+                    }else{
+                           $getRequestList = $getRequestList  ;
+                                $invoiceNo = $invoiceNo;
+                    }
                 }
 
                  $supply_qty_with_gcv =  ($request->supplied_quantity * $gcvValue);
@@ -193,12 +242,66 @@ use Auth;
                
                 $result['requestList'][$getRequestList][$lngDate]['quantityRequired'] =$request->quantity; 
                 $result['requestList'][$getRequestList][$lngDate]['approveQuntity'] =$request->approve_quantity;
+                
+                
                  if(($count%4) == 0){
+                    
+                //  echo 'sameDate'. $sameDate.' == lngDate'.$lngDate.'&& $nextRecordCnt'.$nextRecordCnt.'== $count'.$count;
                     $result['updateList'] = $result['updatedstatusreuestlist'][$getRequestList];
-                    $getRequestList = $getRequestList + 1;
+                    
+                    
+                   // if($sameDate != $lngDate &&  $nextRecordCnt  == $count){
+                   //    $getRequestList = $getRequestList;
+                   //    $invoiceNo = $invoiceNo;
+                   // }elseif($sameDate == $lngDate &&  $nextRecordCnt  == $count){
+                   //       $getRequestList = $getRequestList;
+                   //       $invoiceNo = $invoiceNo;
+                   // }else{
+                   //   $getRequestList = $getRequestList + 1;
+                   //              $invoiceNo = $invoiceNo + 1;
+                   // }
+                  
+                   // echo '$cnt'.$cnt.'== $nextRecordCnt'.$nextRecordCnt.' &&  $sameDate'. $sameDate.'!= $lngDate'.$lngDate;
+                    // if($cnt <= $totallngRequest){
+
+                       
+                    //     if($nextRecordCnt <= $totallngRequest){
+                                
+                            
+                            
+                    //         if($cnt != $nextRecordCnt &&  $sameDate != $lngDate){
+                    //         //    echo ' if 1st $sameDate'    . $sameDate.' == '.$lngDate;
+                    //             $getRequestList = $getRequestList + 1;
+                    //             $invoiceNo = $invoiceNo + 1;
+                    //         }else if($cnt == $nextRecordCnt &&  $sameDate != $lngDate){
+                    //              $getRequestList = $getRequestList;
+                    //             $invoiceNo = $invoiceNo;
+                    //          //   echo ' else 1st $sameDate'. $sameDate.' == '.$lngDate;
+                    //         }else if($cnt == $nextRecordCnt &&  $sameDate == $lngDate){
+
+                    //              $getRequestList = $getRequestList;
+                    //             $invoiceNo = $invoiceNo;
+                    //          //   echo ' else 1st $sameDate'. $sameDate.' == '.$lngDate;
+                    //         }
+                    //         else{
+                                
+                    //             $getRequestList = $getRequestList + 1;
+                    //             $invoiceNo = $invoiceNo + 1 ;
+                    //         }
+                    //         continue;
+                    //     } 
+                        
+                    // }else{
+                    //    //  echo ' 3rd $sameDate'    . $sameDate.' == '.$lngDate;
+                    //     $getRequestList = $getRequestList + 1;
+                    //     $invoiceNo = $invoiceNo + 1;  
+                    // }
+                     
+                       
+                      
                     $supplidQty = $total_supplied_qty;
                     $getsupplyQty = 0;
-                    $invoiceNo = $invoiceNo + 1;
+                   
                     $dt = Carbon::now()->format('Ymd').$invoiceNo;
                     $result[$invoiceNo]['invoice_no'] = '#'.$dt;
                     $result[$invoiceNo]['sub_amount']  = $total_supply_qty_with_gcv * $perMMbt ;
@@ -220,11 +323,18 @@ use Auth;
                     $supplidQty = 0;
                     $total_supply_qty_with_gcv = 0;
                     $total_supplied_qty = 0;
+                   
 
                  } 
+                    $sameDate = $lngDate;
+                   // $nextRecordCnt = $key;
+                 // }
+                    
+                  
              }
+
         }
-          
+        
         $addedBy  = Auth::user()->id;
         $result['buyerData']['buyer_id']  = $buyerId;
         $result['buyerData']['seller_id']  = $addedBy;
