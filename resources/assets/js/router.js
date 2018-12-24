@@ -68,7 +68,7 @@ import generateInvoiceLng from './views/admin/hydro/generate_invoice_lng.vue'
 import invoiceListBuyer from './views/admin/hydro/invoiceListBuyer.vue'
 
 import generateBuyerInvoice from './views/admin/hydro/generate_buyer_invoice.vue'
-//import generateBuyerInvoiceLng from './views/admin/hydro/generate_buyer_invoice_lng.vue'
+import generateBuyerInvoiceLng from './views/admin/hydro/generate_buyer_invoice_lng.vue'
 
 //Truck dashboard
 import dashboardTruckBuyer from './views/admin/hydro/dashboard_truck_buyer.vue'
