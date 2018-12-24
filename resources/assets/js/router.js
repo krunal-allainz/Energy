@@ -162,13 +162,13 @@ const routes = [
                 meta: { requiresAuth: true },
                 name: 'generate_buyer_invoice'
             },
-            // {
-            //     path: '/generate_buyer_invoice_lng',
-            //     component: generateBuyerInvoiceLng,
-            //     meta: { requiresAuth: true },
-            //     name: 'generate_buyer_invoice_lng'
-            // },
-            
+            {
+                path: '/generate_buyer_invoice_lng',
+                component: generateBuyerInvoiceLng,
+                meta: { requiresAuth: true },
+                name: 'generate_buyer_invoice_lng'
+            },
+             
             {
                 path: '/invoice/:id',
                 component: Invoice,
