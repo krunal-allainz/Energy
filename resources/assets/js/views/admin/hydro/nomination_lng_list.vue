@@ -75,7 +75,7 @@
                               {{nominationLngData.lngTime}}
                             </td>
                             <td data-v-744e717e="" class="text-uppercase">
-                               {{nominationLngData.quantity}}
+                               {{nominationLngData.quantity}} Kg
                             </td>
                             <td data-v-744e717e="" class="text-uppercase">
                                {{nominationLngData.lng_status}}

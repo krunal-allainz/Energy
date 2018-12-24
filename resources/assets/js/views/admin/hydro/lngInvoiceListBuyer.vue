@@ -59,7 +59,7 @@
                        {{invoice.invoice_no }}
                       </td> 
                       <td data-v-744e717e="" class="">
-                        {{ invoice.totalInvoice }}
+                      <i class="fa fa-rupee"></i>  {{ invoice.totalInvoice }} 
                       </td>
                      <!--  <td data-v-744e717e="" class="text-uppercase">
                        <span v-if="invoice.status == 1"> Paid</span>

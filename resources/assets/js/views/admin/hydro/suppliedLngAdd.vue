@@ -31,7 +31,12 @@
                                         <label class="control-label float-right" >Tare Weight: </label>
                                     </div>
                                     <div class="col-md-6">
+                                        <div class=" input-group">
                                         <input type="text" id = "tare_weight" class="form-control " name="tare_weight" v-model="nominationLngData.tare_weight" v-validate="'required|decimal:2'"  :readonly="(updateType == 'gross_weight') ? true : false">
+                                            <div class="input-group-append">
+                                            <span class="input-group-text ">Kg</span>
+                                        </div>
+                                    </div>
                                         <i v-show="errors.has('tare_weight')" class="fa fa-warning"></i>
                                         <span class="help is-danger" v-show="errors.has('tare_weight')">
                                             Please enter proper tare weight quantity.
